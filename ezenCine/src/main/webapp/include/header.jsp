@@ -13,7 +13,7 @@
         <div class="subdp"></div>
         <div class="container d-flex justify-content-between">
             <div class="logoarea">
-                <a href="javascript:void(0)"><img src="images/logo/logo.png" alt="logo"></a>
+                <a href="index.jsp"><img src="images/logo/logo.png" alt="logo"></a>
             </div>
             <div class="header-nav mt-3">
                 <ul class="gnb d-flex">
@@ -25,7 +25,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">예매</a>
+                        <a href="index.jsp?fname=movie/booking">예매</a>
                         <ul class="lnb">
                             <li><a href="index.jsp?fname=movie/booking">예매하기</a></li>
                             <li><a href="javascript:void(0)">상영시간표</a></li>

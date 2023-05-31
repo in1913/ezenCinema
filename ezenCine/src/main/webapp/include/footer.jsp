@@ -5,7 +5,7 @@
         <div class="container">
             <div class="footer-top d-flex">
                 <div class="footer-logobox">
-                    <a href="main.html"><img src="images/logo/footerlogo.png" alt="footer-logo"></a>
+                    <a href="index.jsp"><img src="images/logo/footerlogo.png" alt="footer-logo"></a>
                 </div>
                 <ul class="f-text d-flex">
                     <li><a href="javascript:void(0)">회사소개</a></li>
