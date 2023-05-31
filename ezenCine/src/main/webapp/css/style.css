@@ -1,0 +1,412 @@
+/*** header 시작 ***/
+.gonggan{
+    height:2000px;
+    background-color: #ededed;
+}
+header{
+    position:fixed;
+    top:40px;
+    left:calc(50% - 550px);
+    z-index:999;
+    width:1100px;
+    margin:0 auto;
+    background-color: #fff;
+    border:1.8px solid #000;
+    height:90px;
+    border-radius: 70px;
+    transition: top 500ms ease, border-radius 500ms ease;
+}
+header.fixed{
+    top:0;
+    left:0;
+    border:none;
+    border-bottom: 1.8px solid #000;
+    background-color: rgba(255,255,255,0.8);
+    border-radius:0;
+    width:100%;
+    backdrop-filter: blur(10px);
+}
+#header .subdp{
+    content:"";
+    display: none;
+    width:100%;
+    height:40px;
+    position:absolute;
+    top:90px;
+    left:0;
+    right:0;
+    background-color: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+}
+
+header>.container{
+    padding:15px 40px;
+}
+header>.container>.logoarea{
+    width: 57px;
+}
+header>.container>.logoarea img{
+    width:100%;
+}
+header a{
+    font-size:16px;
+    font-weight: bold;
+}
+header>.container>.header-nav>.gnb>li{
+    padding: 0 10px;
+    margin-right: 20px;
+    position:relative;
+    height:70px;
+}
+header.fixed ul.lnb{
+    border:none;
+    border-radius: 0;
+    top:57px;
+    background-color: transparent;
+}
+ul.lnb{
+    position:absolute;
+    top:65px;
+    left:-25px;
+    display: none;
+    width:max-content;
+    padding:10px 20px;
+    border:1.8px solid #000;
+    border-radius: 50px;
+    background-color: rgba(255,255,255,1);
+    z-index: 1000;
+}
+ul.lnb>li{
+    display: inline-block;
+}
+ul.lnb>li:not(:last-child){
+    margin-right: 30px;
+}
+ul.lnb>li>a{
+    font-size: 14px;
+}
+.header-util{
+    position:relative;
+}
+.header-util>span:not(:first-child){
+    margin-left:34px;
+}
+.header-util span.r-bar{
+    position:relative;
+}
+.header-util span.r-bar::after{
+    content:"";
+    position:absolute;
+    top:4px;
+    right:-17px;
+    width:1.5px;
+    height:15px;
+    background-color: #000;
+}
+.header-util img{
+    width: 23px;
+}
+.header-util .header-search-box{
+    position:absolute;
+    top:70px;
+    right:-38px;
+    border:1.8px solid #000;
+    padding:10px 15px 10px;
+    border-radius: 40px;
+    display: none;
+    background-color: #fff;
+    z-index: 1001;
+}
+header.fixed .header-util .header-search-box{
+    top:60px;
+    border:none;
+    border-radius: 0;
+    padding:8px 15px 8px;
+    background-color: rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px);
+}
+.header-util .header-search-box #header-search{
+    border:none;
+    background-color: transparent;
+}
+.header-util .header-search-box #header-search:focus{
+    outline:none;
+}
+header.fixed #header-search:focus{
+    border-bottom:1px solid #000;
+}
+#header-submit{
+    border:none;
+    background-color:transparent;
+    background: url('../images/ico/ico-search.png') no-repeat;
+    width:22px;
+    height:22px;
+    cursor:pointer;
+}
+.gong{
+    width:220px;
+}
+
+/*** header 끝 ***/
+
+/*** footer 시작 ***/
+footer{
+    background-color: #333333;
+    padding-top:50px;
+    padding-bottom:50px;
+    color:#9a9a9a;
+}
+.footer-top{
+    font-size:12px;
+}
+.footer-logobox{
+    width:75px;
+}
+.footer-logobox img{
+    width:100%;
+}
+.f-text{
+    margin-left:60px;
+    margin-top:50px;
+}
+.f-text li{
+    margin-right:28px;
+    position:relative;
+}
+.f-text li:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    right:-14px;
+    top:6px;
+    width:1px;
+    height:9px;
+    background-color: #929292;
+}
+.f-text li a{
+    display: block;
+    padding-bottom:1px;
+    color:#ccc;
+    font-size:14px;
+    font-weight: 400;
+}
+.f-text li a:hover{
+    padding-bottom:0px;
+    border-bottom:1px solid #929292;
+}
+.footer-bottom{
+    padding-top:20px;
+    font-size:14px;
+}
+.footer-bottom address{
+    display: inline-block;
+    font-style: normal;
+    margin-right: 10px;
+}
+.footer-bottom span{
+    margin-right: 10px;
+}
+.footer-bottom span.bar{
+    padding-left:10px;
+    position: relative;
+}
+.footer-bottom span.bar::before{
+    content:"";
+    position:absolute;
+    left:0; 
+    top:2px;
+    height:12px;
+    border-left: 1px solid #929292;
+}
+/*** footer 끝 ***/
+
+/*** booking ***/
+section.booking{
+    background-image: url(../images/back/booking_background.png);
+    background-repeat: no-repeat;
+}
+section.booking>.container{
+    padding-top:230px;
+    padding-bottom:60px;
+}
+section.booking h3{
+    text-align: center;
+    background-color: #444;
+    color:#fff;
+    height:45px;
+}
+.movie_select{
+    position:relative;
+}
+.h-booking_box{
+    border: 2px solid #000;
+    height: 700px;
+    background-color: #fff;
+}
+.h-movie_choose{
+    width:380px;
+}
+.h-b-movie-booking{
+    height: 650px;
+    overflow:auto;
+}
+.cumtom_scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.cumtom_scrollbar::-webkit-scrollbar-thumb {
+    background-color: #444;
+}
+.cumtom_scrollbar::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+.h-b-movietitle{
+    vertical-align: top;
+    font-weight: 600;
+    margin-left:10px;
+    font-size:18px;
+    line-height: 29px;
+}
+.h-movie-age{
+    display: inline-block;
+    width:30px;
+    height:30px;
+}
+.loca_left{
+    width:50%;
+    background-color: #FEF0E3;
+}
+.loca_right{
+    width:50%;
+}
+.h-location,
+.h-date,
+.h-time{
+    position: relative;
+}
+div.h-date{
+    width: 80px;
+}
+.h-location-blurbox,
+.h-date-blurbox,
+.h-time-blurbox{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+}
+div.h-location{
+    width: 290px;
+}
+input[type=radio]{
+    display: none;
+}
+.h-b-movie,
+.h-b-location,
+.h-b-date,
+.h-b-time{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: start;
+}
+.select_btn{
+    display: block;
+    height:46px;
+    padding: 8px 13px;
+    font-size:18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.b-on{
+    background-color: #FFA406;
+}
+span.count{
+    font-size:14px;
+}
+.h-b-time{
+    width: 100%;
+}
+.h-time{
+    float: left;
+}
+div.h-time{
+    width:410px;
+}
+.h-sit{
+    float: right;
+}
+.h-booking-btn-box{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    display: none;
+}
+.h-booking-btn{
+    padding: 5px;
+    border: 1px solid #333;
+}
+.h-booking-btn:hover{
+    color: #fff;
+    background: #333;
+}
+.date-select{
+    width:100%;
+    overflow-x:hidden;
+    height:120px;
+    position:relative;
+}
+.date-slide{
+    position:absolute;
+    left:5px;
+    transition: left 200ms ease-in-out;
+}
+.year_month{
+    margin:0;
+    padding:0;
+}
+.date{
+    height:63px;
+    text-align:center;
+    padding:0 10px;
+    cursor: pointer;
+    display: block;
+    width:55px;
+}
+.datenum{
+    font-size:26px;
+    line-height: 32px;
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    text-align: center;
+}
+.day{
+    font-size:15px;
+    font-weight:400;
+}
+.date-select button{
+    width:12px;
+    height:46px;
+    position:absolute;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    z-index: 5;
+    border:none;
+    cursor: pointer;
+    top:46px;
+    background-color: #fff;
+}
+.btn_prev{
+    background-image: url('../images/ico/ico_left_btn.png');
+    left:0;
+}
+.btn_next{
+    background-image: url('../images/ico/ico_right_btn.png');
+    right:0;
+}
+/*** booking 끝 ***/
