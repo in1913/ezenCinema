@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+ <Resource  name="jdbc/ezenCinema" 
+ 			auth="Container"
+            type="javax.sql.DataSource"
+            username="root" 
+            password="ezenproject!7599"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://mysql.ioracle.cloud:6603/cinema?useUnicode=true&amp;characterEncoding=UTF-8"             
+            maxActive="80" 
+            removeAbandoned="true"
+            maxWait="1000"/>
+</Context>
