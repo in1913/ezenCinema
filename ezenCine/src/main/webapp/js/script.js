@@ -63,7 +63,7 @@ function showLoginPopup(){
 }
 $(function(){
     $(".c-login-userid").mouseleave(function(){
-        const userid = document.getElementById("userid").value;
+        const userid = document.getElementById("userId").value;
         // 값이 없으면
         if(userid == ""){
             $(".c-login-userid .move").css({
@@ -83,7 +83,7 @@ $(function(){
     })
 
     $(".c-login-userpass").mouseleave(function(){
-        const userpass = document.getElementById("userpass").value;
+        const userpass = document.getElementById("userPass").value;
         // 값이 없으면
         if(userpass == ""){
             $(".c-login-userpass .move").css({
@@ -186,6 +186,18 @@ $(function(){
     
 
 })
+function isDirect(){
+    const directEmail = document.getElementById("email3");
+    const email2 = document.getElementById("email2");
+    if(email2.value == "direct"){
+        directEmail.style.display = "inline-block";
+        email2.style.display = "none";
+    }else{
+        directEmail.style.display = "none";
+        email2.style.display = "inline-block";
+    }
+}
+
 function idFunc(){
     $(".c-login-userid .move").css({
         fontSize: "1px",
@@ -219,8 +231,8 @@ function passFunc(){
 
 // 로그인 제출
 function loginSubmit(){
-    const userid = $("#userid").val();
-    const userpass = $("#userpass").val();
+    const userid = $("#userId").val();
+    const userpass = $("#userPass").val();
     const alert = document.getElementById("c-login-alert");
     if(userid == "" || userid == null){
         alert.style.color = "red";
@@ -433,7 +445,51 @@ function cAgreeAll(){
     }
 }
 /* *********** 회원가입 *********** */
+function regexIdCheck(){    
+    let idRegex = /^[a-zA-Z0-9]{6,12}$/;
+    const userid = document.getElementById("userid").value;
 
+    const alert = document.getElementsByClassName("c-warning");
+
+    if(!idRegex.test(userid)){
+        alert[0].style.color = "red";
+        alert[0].innerHTML = "형식에 맞춰 입력해주세요.";
+        return false;
+    }else{
+        alert[0].innerHTML = "";
+    }    
+}
+
+function regexPwCheck(){    
+    let passwdRegex = /^[a-z0-9]{10,}$/;
+    const userpass = document.getElementById("userpass").value;
+
+    const alert = document.getElementsByClassName("c-warning");
+
+    if(!passwdRegex.test(userpass)){
+        alert[1].style.color = "red";
+        alert[1].innerHTML = "형식에 맞춰 입력해주세요.";
+        return false;
+    }else{
+        alert[1].innerHTML = "";
+    }
+
+}
+
+function regexTelCheck(){
+    const telRegex = /^01([0|1|6|7|8|9/])([0-9]{7,8})$/;
+    const tel = document.getElementById("tel").value;
+
+    const alert = document.getElementsByClassName("c-warning");
+
+    if(!telRegex.test(tel)){
+        alert[6].style.color = "red";
+        alert[6].innerHTML = "형식에 맞춰 입력해주세요.";
+        return false;
+    }else{
+        alert[6].innerHTML = "";
+    }
+}
 
 function cgetDate(){
     const cyear = $("#year").val();
@@ -444,14 +500,48 @@ function cgetDate(){
     strDay += `<select name="day" id="day">`;
     strDay += `<option value="">선택</option>`;
     
-    for(i = 1; i <= cday; i++){
+    for(i = 1; i < 10; i++){
+        strDay +=  `<option value="0${i}">${i}</option>`;
+    }
+    for(i = 10; i <= cday; i++){
         strDay +=  `<option value="${i}">${i}</option>`;
     }
     strDay += `</select>`;
     document.getElementsByClassName("c-day")[0].innerHTML = strDay;
 
 }
+function rePwCheck(){
+    const userpass = document.getElementById("userpass").value;
+    const reuserpass = document.getElementById("reuserpass").value;
 
+    if(reuserpass != userpass){
+        alert[2].style.color = "red";
+        alert[2].innerHTML = "비밀번호가 같지 않습니다.";
+    }else{
+        alert[2].innerHTML = "";
+    }
+}
+function idDupli(){
+    const userid = document.getElementById("userid").value;
+    const alert = document.getElementsByClassName("c-warning");
+
+    fetch("/ezenCine/CheckId", {
+        headers : {"Content-Type" : "application/json"},
+        method : "post",
+        body : JSON.stringify({
+            userid : userid
+        }).then((res) => res.json())
+        .then((result) => {
+            if(result == 0){
+                alert[0].style.color = "red";
+                alert[0].innerHTML = "중복된 아이디입니다.";
+            }else{
+                alert[0].style.color = "green";
+                alert[0].innerHTML = "[ " + result.result + " ]은 사용가능한 아이디입니다.";
+            }
+        })
+    })
+}
 function cSignUp(){
     const userid = document.getElementById("userid").value;
     const userpass = document.getElementById("userpass").value;
@@ -467,6 +557,7 @@ function cSignUp(){
     const detailaddr = document.getElementById("detailaddr").value;
     const email1 = document.getElementById("email1").value;
     const email2 = document.getElementById("email2").value;
+    const email3 = document.getElementById("email3").value;
 
     const alert = document.getElementsByClassName("c-warning");
 
@@ -518,46 +609,71 @@ function cSignUp(){
     }else{
         alert[7].innerHTML = "";
     }
-    if(email1 == "" || email2 == ""){
+    if((email1 == "" && email2 == "") || (email1 == "" && email3 == "")){
         alert[8].style.color = "red";
         alert[8].innerHTML = "이메일을 입력해주세요.";
     }else{
         alert[8].innerHTML = "";
     }
 
-    let list = [userid, userpass, reuserpass, username, nickname, year, month, day, tel, addr, detailaddr, email1, email2];
+    let email = "";
+    if(email2 == "direct"){
+        email = email1 + "@" + email3;
+    }else{
+        email = email1 + "@" + email2;
+    }
+
+    let list = [userid, userpass, reuserpass, username, nickname, year, month, day, tel, addr, detailaddr, email];
     let cnt = 0;
     for(i = 0; i < list.length; i++){
         if(list[i] == ""){
             cnt += 1;
         }
-        
     }
+
+    let birthdate = year + "-" + month + "-" + day;
+
+    
+    
+
     if(cnt == 0){
-        $(".c-part2").css({
-            display : "none"
-        });
-        $(".c-part3").css({
-            display : "block"
-        });
-        $(".c-sign-show:eq(1)").css({
-            display: "none"
-        });
-        $(".c-sign-hide:eq(1)").css({
-            display: "block"
-        });
-        $(".c-sign-show:eq(2)").css({
-            display: "block"
-        });
-        $(".c-sign-hide:eq(2)").css({
-            display: "none"
-        });
-        $(".c-sign-show:eq(1)>div>span:eq(1)").css({
-            display: "none"
+    	fetch("/ezenCine/Signup", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                userid : userid, userpass : userpass, username : username, 
+                nickname : nickname, birthdate : birthdate, postcode : postcode, 
+                addr : addr, detailaddr : detailaddr, email : email, tel : tel
+            })
+        }).then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+            $(".c-part2").css({
+                display : "none"
+            });
+            $(".c-part3").css({
+                display : "block"
+            });
+            $(".c-sign-show:eq(1)").css({
+                display: "none"
+            });
+            $(".c-sign-hide:eq(1)").css({
+                display: "block"
+            });
+            $(".c-sign-show:eq(2)").css({
+                display: "block"
+            });
+            $(".c-sign-hide:eq(2)").css({
+                display: "none"
+            });
+            $(".c-sign-show:eq(1)>div>span:eq(1)").css({
+                display: "none"
+            })
+            $(".c-sign-show:eq(2)>div>span:eq(1)").css({
+                display: "block"
+            })
         })
-        $(".c-sign-show:eq(2)>div>span:eq(1)").css({
-            display: "block"
-        })
+        
     }
     
 }
@@ -712,4 +828,5 @@ const dateSlidePrev = () => {
     //     dateSlide.style.left
     // }
 }
+
 

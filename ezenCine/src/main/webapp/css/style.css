@@ -875,6 +875,16 @@ div.c-getMemInfo .third>a{
     padding: 10px;
     font-size: 17px;
 }
+#email3{
+    height: 60px;
+    border: 2px solid;
+    border-radius: 4px;
+    margin-left: 5px;
+    width: 250px;
+    padding: 10px;
+    font-size: 17px;
+    display: none;
+}
 
 hr.c-signup{
     margin-top: 50px;

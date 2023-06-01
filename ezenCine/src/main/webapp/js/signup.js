@@ -11,7 +11,10 @@ $(document).ready(function(){
         let strMonth = "";
         strMonth += `<select name="month" id="month" class="month" onchange="cgetDate();">`;
         strMonth += `<option value="">월</option>`;
-        for(i = 1; i < 13; i++){
+        for(i = 1; i < 10; i++){
+            strMonth +=  `<option value="0${i}">${i}</option>`;
+        }
+        for(i = 10; i < 13; i++){
             strMonth +=  `<option value="${i}">${i}</option>`;
         }
         strMonth += `</select>`;

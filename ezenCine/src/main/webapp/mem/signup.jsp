@@ -93,7 +93,7 @@
                             * 아이디 
                         </div>
                         <div class="second">
-                            <input type="text" name="userid" id="userid">
+                            <input spellcheck="false" type="text" name="userid" id="userid" onfocusout="regexIdCheck();">
                             <span>영문 소문자 또는 영문 대문자, 숫자 조합 6~12자리</span>
                             <span class="c-warning"></span>
                         </div>
@@ -107,7 +107,8 @@
                             * 비밀번호
                         </div>
                         <div class="second">
-                            <input type="password" name="userpass" id="userpass">
+                            <input spellcheck="false" type="password" name="userpass" id="userpass" onfocusout="regexPwCheck();">
+                            <span>영문 소문자, 숫자 조합 10자 이상</span>
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
@@ -119,8 +120,8 @@
                             * 비밀번호 확인
                         </div>
                         <div class="second">
-                            <input type="password" name="reuserpass" id="reuserpass">
-                            <span>영문 소문자, 숫자 조합 10자 이상</span>
+                            <input spellcheck="false" type="password" name="reuserpass" id="reuserpass" onfocusout="rePwCheck();">
+                            
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
@@ -132,7 +133,7 @@
                             * 이름
                         </div>
                         <div class="second">
-                            <input type="text" name="username" id="username" placeholder="이름을 입력해주세요.">
+                            <input spellcheck="false" type="text" name="username" id="username" placeholder="이름을 입력해주세요.">
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
@@ -144,7 +145,7 @@
                             * 닉네임
                         </div>
                         <div class="second">
-                            <input type="text" name="nickname" id="nickname" placeholder="닉네임을 입력해주세요.">
+                            <input spellcheck="false" type="text" name="nickname" id="nickname" placeholder="닉네임을 입력해주세요.">
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
@@ -184,7 +185,7 @@
                             * 전화번호
                         </div>
                         <div class="second">
-                            <input type="number" name="tel" id="tel" placeholder="숫자만 입력해주세요.">
+                            <input spellcheck="false" type="number" name="tel" id="tel" placeholder="숫자만 입력해주세요." onfocusout="regexTelCheck();">
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
@@ -196,9 +197,9 @@
                             * 주소
                         </div>
                         <div class="second">
-                            <input type="text" readonly name="postcode" id="postcode">
-                            <input type="text" readonly name="addr" id="addr">
-                            <input type="text" name="detailaddr" id="detailaddr" placeholder="상세 주소를 입력해주세요." style="margin-bottom: 0;">
+                            <input spellcheck="false" type="text" readonly name="postcode" id="postcode">
+                            <input spellcheck="false" type="text" readonly name="addr" id="addr">
+                            <input spellcheck="false" type="text" name="detailaddr" id="detailaddr" placeholder="상세 주소를 입력해주세요." style="margin-bottom: 0;">
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
@@ -211,14 +212,17 @@
                             * 이메일
                         </div>
                         <div class="second">
-                            <input type="text" name="email1" id="email1" placeholder="이메일">
+                            <input spellcheck="false" type="text" name="email1" id="email1" placeholder="이메일">
                             @
-                            <select name="email2" id="email2">
+                            <select name="email2" id="email2" onchange="isDirect();">
+                            	<option value="">선택</option>
+                                <option value="direct">직접입력</option>
                                 <option value="naver.com">naver.com</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="naver.com">naver.com</option>
-                            </select><br>
+                                <option value="daum.net">daum.net</option>
+                                <option value="gmail.com">gmail.com</option>
+                            </select>
+                            <input type="text" id="email3" name="email3" placeholder="example.com">
+                            <br>
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
@@ -311,4 +315,5 @@
             <p>살 충분히 우리 하였으며, 인생을 얼음 그들은 모래뿐일 실현에 부패뿐이다. 이것이야말로 일월과 넣는 품었기 얼음이 곳이 이것이다. 있을 어디 미인을 내려온 봄바람이다. 생명을 전인 위하여서 새가 아름답고 뛰노는 있는가? 공자는 우는 갑 청춘의 그리하였는가? 풀이 튼튼하며, 동산에는 있는가? 실현에 가지에 피고, 위하여, 그들은 되는 얼마나 황금시대의 꾸며 힘있다. 예가 불어 바이며, 방황하여도, 과실이 곳이 꽃이 힘있다. 뜨거운지라, 청춘에서만 곧 그와 이상의 얼마나 가치를 약동하다. 행복스럽고 보배를 예가 무엇이 것이다. 방황하여도, 얼음과 쓸쓸한 동력은 얼음 부패뿐이다.</p>
         </div>
     </div>
-<script src="../js/signup.js"></script>
+<script src="js/jquery-1.12.4.min.js"></script>    
+<script src="js/signup.js"></script>
