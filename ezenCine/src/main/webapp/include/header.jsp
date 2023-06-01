@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <header id="header">
         <div class="subdp"></div>
         <div class="container d-flex justify-content-between">
@@ -67,8 +68,8 @@
             </div>
             <div class="gong"></div>
             <div class="header-util d-flex mt-3">
-                <span class="r-bar"><a href="javascript:void(0)">Login</a></span>
-                <span><a href="javascript:void(0)"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
+                <span class="r-bar"><a href="javascript:showLoginPopup();">Login</a></span>
+                <span><a href="index.jsp?fname=mem/signup"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
                 <span><a href="javascript:void(0)"><img src="images/ico/ico-search.png" alt="search" id="search-on"></a></span>
                 <div class="header-search-box">
                     <form action="" name="header-search-form" class="d-flex">
