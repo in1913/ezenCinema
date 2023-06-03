@@ -71,8 +71,10 @@
                         <a href="javascript:cCheckSnsAll();" class="c-law-show">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/icon/describe/Property 1=no.png" alt="no"> &nbsp;&nbsp;이메일</a>
                         <a href="javascript:cNotCheckSnsAll();" class="c-law-hide">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/icon/describe/Property 1=yes.png" alt="yes"> &nbsp;&nbsp;이메일</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="hidden" id="emailAgree" value="0"/>
                         <a href="javascript:cCheckSnsAll();" class="c-law-show"><img src="images/icon/describe/Property 1=no.png" alt="no"> &nbsp;&nbsp;SMS</a>
                         <a href="javascript:cNotCheckSnsAll();" class="c-law-hide"><img style="width: 13px;" src="images/icon/describe/Property 1=yes.png" alt="yes"> &nbsp;&nbsp;SMS</a>
+                        <input type="hidden" id="SMSAgree" value="0"/>
                     </p>    
                     <p class="c-agree-alert"></p>
                     <!--!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EZEN CINEMA 가입을 위해서 [필수] 약관을 선택해주세요.-->
@@ -98,7 +100,8 @@
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
-                            <a href="javascript:idDupli();" class="idCheck" id="idCheck">중복확인</a>
+                            <a class="idCheck" id="idCheck">중복확인</a>
+                            <input type="hidden" name="idDupliCheck" id="idDupliCheck" value="">
                         </div>
                     </div>
 
@@ -108,6 +111,8 @@
                         </div>
                         <div class="second">
                             <input spellcheck="false" type="password" name="userpass" id="userpass" onfocusout="regexPwCheck();">
+                            <img src="images/icon/inyoung/eye-off-fill.png" alt="hide" class="passwordhide c-active" id="passwdhide" onclick="showPasswd();"/>
+                            <img src="images/icon/inyoung/eye-fill.png" alt="show" class="passwordshow" id="passwdshow" onclick="showPasswd();"/>
                             <span>영문 소문자, 숫자 조합 10자 이상</span>
                             <span class="c-warning"></span>
                         </div>
@@ -121,7 +126,8 @@
                         </div>
                         <div class="second">
                             <input spellcheck="false" type="password" name="reuserpass" id="reuserpass" onfocusout="rePwCheck();">
-                            
+                            <img src="images/icon/inyoung/eye-off-fill.png" alt="hide" class="passwordhide c-active" id="repasswdhide" onclick="showRePasswd();"/>
+                            <img src="images/icon/inyoung/eye-fill.png" alt="show" class="passwordshow" id="repasswdshow" onclick="showRePasswd();"/>
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
@@ -214,14 +220,17 @@
                         <div class="second">
                             <input spellcheck="false" type="text" name="email1" id="email1" placeholder="이메일">
                             @
-                            <select name="email2" id="email2" onchange="isDirect();">
-                            	<option value="">선택</option>
+                            <input readonly type="text" id="email2" name="email2" placeholder="example.com">
+                            <select name="selectEmail" id="selectEmail" onchange="getEmail();">
+                            	<option value="" selected disabled hidden>선택</option>
                                 <option value="direct">직접입력</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="daum.net">daum.net</option>
+                                <option value="hotmail.com">hotmail.com</option>
+                                <option value="nate.com">nate.com</option>
+                                <option value="yahoo.co.kr">yahoo.co.kr</option>
                                 <option value="gmail.com">gmail.com</option>
                             </select>
-                            <input type="text" id="email3" name="email3" placeholder="example.com">
                             <br>
                             <span class="c-warning"></span>
                         </div>
@@ -243,8 +252,8 @@
                 </div>
                 <div class="c-cele-content c-text-center">
                         <p>로그인 후 다양한 영화와 혜택을 만나보세요.</p>
-                        <a href="javascript:void(0)" class="c-go-main">메인으로 이동</a>
-                        <a href="javascript:void(0)" class="c-go-login" style="color: #fff">로그인하기</a>
+                        <a href="/ezenCine" class="c-go-main">메인으로 이동</a>
+                        <a href="javascript:showLoginPopup();" class="c-go-login" style="color: #fff">로그인하기</a>
                 </div>
             </div>
         

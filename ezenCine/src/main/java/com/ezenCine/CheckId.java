@@ -2,6 +2,7 @@ package com.ezenCine;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import ezenCine.MemberDDL;
 
 
 @WebServlet("/CheckId")
@@ -37,6 +40,22 @@ public class CheckId extends HttpServlet {
 			JsonObject jsonObj = (JsonObject) JsonParser.parseString(jb.toString());
 			
 			String userid = jsonObj.get("userid").getAsString();
+			
+			boolean isSuccess = MemberDDL.checkId(userid);
+			
+			PrintWriter out = res.getWriter();
+			
+			if(isSuccess) {
+				System.out.println("중복된 아이디가 있습니다.");
+				out.println("0");
+			}else {
+				System.out.println("사용할 수 있는 아이디입니다.");
+				out.println("{\"result\" : " + "\"" + userid + "\"}");
+			}
+			
+			out.flush();
+			out.close();
+			
 		}catch(Exception e) {}
 	}
 

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.net.URLEncoder, java.security.SecureRandom, java.math.BigInteger"%>
    <div class="c-shadow"></div>
     <div class="c-login">
         <h2>로그인</h2>
@@ -20,19 +20,31 @@
             <div>
                 <a href="">아이디 찾기</a>
                 <a href="">비밀번호 찾기</a>
-                <a href="">회원가입</a>
+                <a href="index.jsp?fname=mem/signup">회원가입</a>
             </div>
         </div>
         <fieldset class="c-login-fieldset">
             <legend align="center">&nbsp;&nbsp; 다른 서비스 계정으로 로그인 &nbsp;&nbsp;</legend>
             <div class="c-login-sns">
                 <a href="javascript:loginWithKakao();"><img src="images/sns/login_kakao.png" alt="login_kakao"></a>
-                <a href="javascript:loginWithNaver();"><img src="images/sns/login_naver.png" alt="login_naver"></a>
-                <div
-                id="g_id_onload" 
-                data-client_id="664366376528-akqm43rhadquji4s4uip3h3353ior23r.apps.googleusercontent.com"
-                data-login_uri="http://localhost:8080/board/GoogleOauth"
-                ><img src="images/sns/login_google.png" alt="login_google"></div>
+<%
+    String clientId = "ybgt8eoPV5ELLhZ2LTbP";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:8080/ezenCine/NaverOauth", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+    apiURL += "&client_id=" + clientId;
+    apiURL += "&redirect_uri=" + redirectURI;
+    apiURL += "&state=" + state;
+    String Query = "";
+    if(request.getQueryString() != null){
+		Query = request.getQueryString();
+    }
+    session.setAttribute("Query", Query);
+ %>                
+                <a href="<%=apiURL%>"><img src="images/sns/login_naver.png" alt="login_naver"></a>
+                
+                <div id="googleBtn"></div>
             </div>
         </fieldset>
     </div>    
@@ -71,6 +83,7 @@
             <span>COPYRIGHT&copy; EZEN CINEMA ALL RIGHT RESERVED.</span>
         </div>
     </div>
+    <input type="hidden" name="url" id="url" />
 </footer>
 
 

@@ -27,4 +27,47 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
+  <!-- 
+  <servlet>
+    <description></description>
+    <display-name>Signup</display-name>
+    <servlet-name>Signup</servlet-name>
+    <servlet-class>com.ezenCine.Signup</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Signup</servlet-name>
+    <url-pattern>/Signup</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CheckId</display-name>
+    <servlet-name>CheckId</servlet-name>
+    <servlet-class>com.ezenCine.CheckId</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckId</servlet-name>
+    <url-pattern>/CheckId</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>KakaoOauth</display-name>
+    <servlet-name>KakaoOauth</servlet-name>
+    <servlet-class>com.ezenCine.KakaoOauth</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KakaoOauth</servlet-name>
+    <url-pattern>/KakaoOauth</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>KakaoOauth</display-name>
+    <servlet-name>KakaoOauth</servlet-name>
+    <servlet-class>com.ezenCine.KakaoOauth</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KakaoOauth</servlet-name>
+    <url-pattern>/KakaoOauth</url-pattern>
+  </servlet-mapping>
+   -->
+  
 </web-app>

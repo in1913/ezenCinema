@@ -12,6 +12,9 @@ public class MemberDTO {
 	private int postcode;
 	private String address;
 	private String detail_address;
+	private int email_agree;
+	private int sms_agree;
+	private String photo;
 	
 	public String getId() {
 		return id;
@@ -78,6 +81,24 @@ public class MemberDTO {
 	}
 	public void setDetail_address(String detail_address) {
 		this.detail_address = detail_address;
+	}
+	public int getEmail_agree() {
+		return email_agree;
+	}
+	public void setEmail_agree(int email_agree) {
+		this.email_agree = email_agree;
+	}
+	public int getSms_agree() {
+		return sms_agree;
+	}
+	public void setSms_agree(int sms_agree) {
+		this.sms_agree = sms_agree;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	
 	

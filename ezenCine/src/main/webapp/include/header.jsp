@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>    
+<%
+	String userid = "";
+	if(session.getAttribute("userid") == null){	
+	}else{
+		userid = (String) session.getAttribute("userid");	
+	}
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +21,7 @@
         <div class="subdp"></div>
         <div class="container d-flex justify-content-between">
             <div class="logoarea">
-                <a href="javascript:void(0)"><img src="images/logo/logo.png" alt="logo"></a>
+                <a href="/ezenCine"><img src="images/logo/logo.png" alt="logo"></a>
             </div>
             <div class="header-nav mt-3">
                 <ul class="gnb d-flex">
@@ -68,7 +75,17 @@
             </div>
             <div class="gong"></div>
             <div class="header-util d-flex mt-3">
+<%
+	if(userid == ""){
+%>            
                 <span class="r-bar"><a href="javascript:showLoginPopup();">Login</a></span>
+<%
+	}else{
+%>  
+              	<span class="r-bar"><a href="javascript:cLogout();">Logout</a></span>
+<%
+	}
+%>              		              
                 <span><a href="index.jsp?fname=mem/signup"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
                 <span><a href="javascript:void(0)"><img src="images/ico/ico-search.png" alt="search" id="search-on"></a></span>
                 <div class="header-search-box">

@@ -60,7 +60,23 @@ function showLoginPopup(){
     const shadow = document.getElementsByClassName("c-shadow")[0];
     loginPopup.style.display = "block";
     shadow.style.display = "block";
+    google.accounts.id.initialize({
+        client_id: "523081570143-oanpb57bceggc2v5jnqgf13dc5u86laj.apps.googleusercontent.com",
+        ux_mode: "redirect",
+        login_uri : "http://localhost:8080/ezenCine/GoogleOauth"
+    });
+    google.accounts.id.renderButton(document.getElementById("googleBtn"),
+    { 
+        type : "icon", 
+        theme: "outline",
+        size : "medium",
+        shape: "circle"
+    }  // customization attributes
+    );
+    google.accounts.id.prompt(); // also display the One Tap dialog
 }
+
+
 $(function(){
     $(".c-login-userid").mouseleave(function(){
         const userid = document.getElementById("userId").value;
@@ -164,6 +180,7 @@ $(function(){
         clickAgree.style.display = "inline-block";
         clickNotAgree.style.display = "none";
     })
+    
     $(".c-law-hide:eq(6)").click(function(){
         const clickAgree = document.getElementsByClassName("c-law-show")[6];
         const clickNotAgree = document.getElementsByClassName("c-law-hide")[6];
@@ -184,17 +201,39 @@ $(function(){
         clickNotAgree.style.display = "inline-block";
     })
     
-
+    
+    $(".c-law-show:eq(4)").click(function(){
+    	document.getElementById("emailAgree").value = "1";
+    	document.getElementById("SMSAgree").value = "1";
+    })
+    $(".c-law-show:eq(5)").click(function(){
+    	document.getElementById("emailAgree").value = "1";
+    })
+    $(".c-law-show:eq(6)").click(function(){
+    	document.getElementById("SMSAgree").value = "1";
+    })
+    $(".c-law-hide:eq(4)").click(function(){
+    	document.getElementById("emailAgree").value = "0";
+    	document.getElementById("SMSAgree").value = "0";
+    })
+    $(".c-law-hide:eq(5)").click(function(){
+    	document.getElementById("emailAgree").value = "0";
+    })
+    $(".c-law-hide:eq(6)").click(function(){
+    	document.getElementById("SMSAgree").value = "0";
+    })
+	
 })
-function isDirect(){
-    const directEmail = document.getElementById("email3");
-    const email2 = document.getElementById("email2");
-    if(email2.value == "direct"){
-        directEmail.style.display = "inline-block";
-        email2.style.display = "none";
-    }else{
-        directEmail.style.display = "none";
-        email2.style.display = "inline-block";
+
+function getEmail(){
+    let email2 = document.getElementById("email2");
+    const selectEmail = document.getElementById("selectEmail");
+    if(selectEmail.value == "direct"){
+        email2.value = "";
+        email2.readOnly = false;
+    }else if(selectEmail.value != ""){
+        email2.value = selectEmail.value;
+        email2.readOnly = true;
     }
 }
 
@@ -231,8 +270,9 @@ function passFunc(){
 
 // 로그인 제출
 function loginSubmit(){
-    const userid = $("#userId").val();
-    const userpass = $("#userPass").val();
+    const userid = document.getElementById("userId").value;
+    const userpass = document.getElementById("userPass").value;
+    
     const alert = document.getElementById("c-login-alert");
     if(userid == "" || userid == null){
         alert.style.color = "red";
@@ -243,27 +283,42 @@ function loginSubmit(){
     }else{
         alert.innerHTML = "";
     }
-
-    /*
-    fetch("로그인 확인 경로 서블릿", {
+    fetch("/ezenCine/Login", {
         headers : {"Content-Type" : "Application/json"},
         method : "post",
         body : JSON.stringify({
             userid : userid, userpass : userpass
+        })
         }).then((res) => res.json())
         .then((result) =>{
-
+            if(result == 1){      
+                location.reload();
+            }else{
+                alert.style.color = "red";
+                alert.innerHTML = "아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.";
+            }
         })
-    })
-    */
 }
 
+function cLogout(){
+    fetch("/ezenCine/Logout", {
+        headers: {"Content-Type" : "application/json"},
+        method : "get"
+    }).then((res) => res.json())
+    .then((result) => {
+        if(result == 1){
+            location.reload();
+        }
+        
+    })
+}
+/************************************* sns 로그인 ************************************** */
 // 카카오 로그인
 function loginWithKakao() {
-	Kakao.init('502aa2d5333877f0e0a0673017e24bf2'); // 사용하려는 앱의 JavaScript 키 입력
+	Kakao.init('a3c2f415c4d6b740c5c1a27c6b37158f'); // 사용하려는 앱의 JavaScript 키 입력
     Kakao.Auth.authorize({
-        redirectUri: 'http://localhost:8080/board/KakaoOauth',
-        scope: 'account_email, profile_nickname'
+        redirectUri: 'http://localhost:8080/ezenCine/KakaoOauth',
+        scope: 'account_email'
     });
     Kakao.Auth.setAccessToken(token);
 }
@@ -271,19 +326,28 @@ function loginWithKakao() {
 // 네이버 로그인
 
 
-
 // 구글 로그인
 /*
 window.onload = function () {
     google.accounts.id.initialize({
-        client_id: "664366376528-akqm43rhadquji4s4uip3h3353ior23r.apps.googleusercontent.com",
+        client_id: "523081570143-oanpb57bceggc2v5jnqgf13dc5u86laj.apps.googleusercontent.com",
         ux_mode: "redirect",
-        login_uri : "http://localhost:8080/board/GoogleOauth"
+        login_uri : "http://localhost:8080/ezenCine/GoogleOauth"
     });
-    google.accounts.id.prompt(); // also display the One Tap dialog
+    google.accounts.id.renderButton(document.getElementById("googleBtn"),
+    { 
+        type : "icon", 
+        theme: "outline",
+        size : "medium",
+        shape: "circle"
+    }  // customization attributes
+    );
+  google.accounts.id.prompt(); // also display the One Tap dialog
 }
 */
-
+window.onload = function(){
+    document.getElementById("url").value = window.location.href;
+}
 
 
 
@@ -446,22 +510,27 @@ function cAgreeAll(){
 }
 /* *********** 회원가입 *********** */
 function regexIdCheck(){    
-    let idRegex = /^[a-zA-Z0-9]{6,12}$/;
+    let idRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
     const userid = document.getElementById("userid").value;
-
+    const idDupliBox = document.getElementById("idCheck");
     const alert = document.getElementsByClassName("c-warning");
 
     if(!idRegex.test(userid)){
         alert[0].style.color = "red";
+        alert[0].style.fontWeight = "normal";
         alert[0].innerHTML = "형식에 맞춰 입력해주세요.";
+        idDupliBox.style.backgroundColor = "#ccc";
+        $("#idCheck").removeAttr("href");
         return false;
     }else{
         alert[0].innerHTML = "";
+        idDupliBox.style.backgroundColor = "#5c7ef7";
+        $("#idCheck").attr("href", "javascript:idDupli();");
     }    
 }
 
 function regexPwCheck(){    
-    let passwdRegex = /^[a-z0-9]{10,}$/;
+    let passwdRegex = /^(?=.*[a-z])(?=.*\d).{10,}$/;
     const userpass = document.getElementById("userpass").value;
 
     const alert = document.getElementsByClassName("c-warning");
@@ -490,6 +559,20 @@ function regexTelCheck(){
         alert[6].innerHTML = "";
     }
 }
+function regexTelCheckSns(){
+    const telRegex = /^01([0|1|6|7|8|9/])([0-9]{7,8})$/;
+    const tel = document.getElementById("tel").value;
+
+    const alert = document.getElementsByClassName("c-warning");
+
+    if(!telRegex.test(tel)){
+        alert[4].style.color = "red";
+        alert[4].innerHTML = "형식에 맞춰 입력해주세요.";
+        return false;
+    }else{
+        alert[4].innerHTML = "";
+    }
+}
 
 function cgetDate(){
     const cyear = $("#year").val();
@@ -498,7 +581,7 @@ function cgetDate(){
 
     let strDay = "";
     strDay += `<select name="day" id="day">`;
-    strDay += `<option value="">선택</option>`;
+    strDay += `<option value="" selected disabled hidden>일</option>`;
     
     for(i = 1; i < 10; i++){
         strDay +=  `<option value="0${i}">${i}</option>`;
@@ -513,6 +596,8 @@ function cgetDate(){
 function rePwCheck(){
     const userpass = document.getElementById("userpass").value;
     const reuserpass = document.getElementById("reuserpass").value;
+    
+    const alert = document.getElementsByClassName("c-warning");
 
     if(reuserpass != userpass){
         alert[2].style.color = "red";
@@ -524,26 +609,58 @@ function rePwCheck(){
 function idDupli(){
     const userid = document.getElementById("userid").value;
     const alert = document.getElementsByClassName("c-warning");
+    let idDupli = document.getElementById("idDupliCheck");
 
     fetch("/ezenCine/CheckId", {
         headers : {"Content-Type" : "application/json"},
         method : "post",
         body : JSON.stringify({
             userid : userid
+            })
         }).then((res) => res.json())
         .then((result) => {
             if(result == 0){
                 alert[0].style.color = "red";
+                alert[0].style.fontWeight = "normal";
                 alert[0].innerHTML = "중복된 아이디입니다.";
             }else{
-                alert[0].style.color = "green";
-                alert[0].innerHTML = "[ " + result.result + " ]은 사용가능한 아이디입니다.";
+                alert[0].style.color = "#5c7ef7";
+                alert[0].style.fontWeight = "700";
+                alert[0].innerHTML = "&nbsp; [ " + result.result + " ]은 사용가능한 아이디입니다.";
+                idDupli.value = 1;
             }
         })
-    })
 }
+
+function showPasswd(){
+	const pwHide = document.getElementById("passwdhide");
+	const pwShow = document.getElementById("passwdshow");
+	pwHide.classList.toggle("c-active");
+	pwShow.classList.toggle("c-active");
+	if($("#passwdhide").hasClass("c-active")){
+		$("#userpass").attr("type", "password");
+	}
+	if($("#passwdshow").hasClass("c-active")){
+		$("#userpass").attr("type", "text");
+	}
+}
+
+function showRePasswd(){
+	const pwHide = document.getElementById("repasswdhide");
+	const pwShow = document.getElementById("repasswdshow");
+	pwHide.classList.toggle("c-active");
+	pwShow.classList.toggle("c-active");
+	if($("#repasswdhide").hasClass("c-active")){
+		$("#reuserpass").attr("type", "password");
+	}
+	if($("#repasswdshow").hasClass("c-active")){
+		$("#reuserpass").attr("type", "text");
+	}
+}
+
 function cSignUp(){
     const userid = document.getElementById("userid").value;
+    const idDupli = document.getElementById("idDupliCheck").value;
     const userpass = document.getElementById("userpass").value;
     const reuserpass = document.getElementById("reuserpass").value;
     const username = document.getElementById("username").value;
@@ -557,13 +674,23 @@ function cSignUp(){
     const detailaddr = document.getElementById("detailaddr").value;
     const email1 = document.getElementById("email1").value;
     const email2 = document.getElementById("email2").value;
-    const email3 = document.getElementById("email3").value;
+    
+    const emailAgree = document.getElementById("emailAgree").value;
+    const SMSAgree = document.getElementById("SMSAgree").value;
 
     const alert = document.getElementsByClassName("c-warning");
 
     if(userid == ""){
         alert[0].style.color = "red";
+        alert[0].style.fontWeight = "normal";
         alert[0].innerHTML = "아이디를 입력해주세요.";
+    }else{
+        alert[0].innerHTML = "";
+    }
+    if(idDupli == ""){
+        alert[0].style.color = "red";
+        alert[0].style.fontWeight = "normal";
+        alert[0].innerHTML = "아이디 중복확인을 해주세요.";
     }else{
         alert[0].innerHTML = "";
     }
@@ -616,14 +743,10 @@ function cSignUp(){
         alert[8].innerHTML = "";
     }
 
-    let email = "";
-    if(email2 == "direct"){
-        email = email1 + "@" + email3;
-    }else{
-        email = email1 + "@" + email2;
-    }
-
-    let list = [userid, userpass, reuserpass, username, nickname, year, month, day, tel, addr, detailaddr, email];
+	let birthdate = year + "-" + month + "-" + day;
+    let email = email1 + "@" + email2;
+    
+    let list = [userid, idDupli, userpass, reuserpass, username, nickname, birthdate, tel, addr, detailaddr, email];
     let cnt = 0;
     for(i = 0; i < list.length; i++){
         if(list[i] == ""){
@@ -631,10 +754,7 @@ function cSignUp(){
         }
     }
 
-    let birthdate = year + "-" + month + "-" + day;
-
-    
-    
+	
 
     if(cnt == 0){
     	fetch("/ezenCine/Signup", {
@@ -643,35 +763,42 @@ function cSignUp(){
             body : JSON.stringify({
                 userid : userid, userpass : userpass, username : username, 
                 nickname : nickname, birthdate : birthdate, postcode : postcode, 
-                addr : addr, detailaddr : detailaddr, email : email, tel : tel
+                addr : addr, detailaddr : detailaddr, email : email, tel : tel, emailAgree : emailAgree, SMSAgree : SMSAgree
             })
         }).then((res) => res.json())
         .then((res) => {
-            console.log(res);
-            $(".c-part2").css({
+        	console.log(res);
+        	
+        	if(res == 1){
+        		$(".c-part2").css({
                 display : "none"
-            });
-            $(".c-part3").css({
-                display : "block"
-            });
-            $(".c-sign-show:eq(1)").css({
-                display: "none"
-            });
-            $(".c-sign-hide:eq(1)").css({
-                display: "block"
-            });
-            $(".c-sign-show:eq(2)").css({
-                display: "block"
-            });
-            $(".c-sign-hide:eq(2)").css({
-                display: "none"
-            });
-            $(".c-sign-show:eq(1)>div>span:eq(1)").css({
-                display: "none"
-            })
-            $(".c-sign-show:eq(2)>div>span:eq(1)").css({
-                display: "block"
-            })
+	            });
+	            $(".c-part3").css({
+	                display : "block"
+	            });
+	            $(".c-sign-show:eq(1)").css({
+	                display: "none"
+	            });
+	            $(".c-sign-hide:eq(1)").css({
+	                display: "block"
+	            });
+	            $(".c-sign-show:eq(2)").css({
+	                display: "block"
+	            });
+	            $(".c-sign-hide:eq(2)").css({
+	                display: "none"
+	            });
+	            $(".c-sign-show:eq(1)>div>span:eq(1)").css({
+	                display: "none"
+	            })
+	            $(".c-sign-show:eq(2)>div>span:eq(1)").css({
+	                display: "block"
+	            })
+        		
+        	}else{
+        	
+        	}
+            
         })
         
     }
@@ -680,6 +807,8 @@ function cSignUp(){
 
 function cSignUpSns(){
     const userid = document.getElementById("userid").value;
+    const snsid = document.getElementById("snsid").value;
+    const idDupli = document.getElementById("idDupliCheck").value;
     const username = document.getElementById("username").value;
     const nickname = document.getElementById("nickname").value;
     const year = document.getElementById("year").value;
@@ -696,7 +825,15 @@ function cSignUpSns(){
 
     if(userid == ""){
         alert[0].style.color = "red";
+        alert[0].style.fontWeight = "normal";
         alert[0].innerHTML = "아이디를 입력해주세요.";
+    }else{
+        alert[0].innerHTML = "";
+    }
+    if(idDupli == ""){
+        alert[0].style.color = "red";
+        alert[0].style.fontWeight = "normal";
+        alert[0].innerHTML = "아이디 중복확인을 해주세요.";
     }else{
         alert[0].innerHTML = "";
     }
@@ -737,7 +874,10 @@ function cSignUpSns(){
         alert[6].innerHTML = "";
     }
 
-    let list = [userid, username, nickname, year, month, day, tel, addr, detailaddr, email1, email2];
+    let birthdate = year + "-" + month + "-" + day;
+    let email = email1 + "@" + email2;
+
+    let list = [userid, idDupli, username, nickname, birthdate, tel, addr, detailaddr, email];
     let cnt = 0;
     for(i = 0; i < list.length; i++){
         if(list[i] == ""){
@@ -746,29 +886,47 @@ function cSignUpSns(){
         
     }
     if(cnt == 0){
-        $(".c-part2-sns").css({
-            display : "none"
-        });
-        $(".c-part3").css({
-            display : "block"
-        });
-        $(".c-sign-show:eq(0)").css({
-            display: "none"
-        });
-        $(".c-sign-hide:eq(0)").css({
-            display: "block"
-        });
-        $(".c-sign-show:eq(1)").css({
-            display: "block"
-        });
-        $(".c-sign-hide:eq(1)").css({
-            display: "none"
-        });
-        $(".c-sign-show:eq(0)>div>span:eq(1)").css({
-            display: "none"
-        })
-        $(".c-sign-show:eq(1)>div>span:eq(1)").css({
-            display: "block"
+        fetch("/ezenCine/SignupSns", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                userid : userid, snsid : snsid, username : username, 
+                nickname : nickname, birthdate : birthdate, postcode : postcode, 
+                addr : addr, detailaddr : detailaddr, email : email, tel : tel
+            })
+        }).then((res) => res.json())
+        .then((res) => {
+        	console.log(res);
+
+            if(res == 1){
+                $(".c-part2-sns").css({
+                    display : "none"
+                });
+                $(".c-part3").css({
+                    display : "block"
+                });
+                $(".c-sign-show:eq(0)").css({
+                    display: "none"
+                });
+                $(".c-sign-hide:eq(0)").css({
+                    display: "block"
+                });
+                $(".c-sign-show:eq(1)").css({
+                    display: "block"
+                });
+                $(".c-sign-hide:eq(1)").css({
+                    display: "none"
+                });
+                $(".c-sign-show:eq(0)>div>span:eq(1)").css({
+                    display: "none"
+                })
+                $(".c-sign-show:eq(1)>div>span:eq(1)").css({
+                    display: "block"
+                })
+            }else{
+
+            }
+            
         })
     }
     
