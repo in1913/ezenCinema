@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>EZEN Cinema</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -18,7 +20,7 @@
             <div class="header-nav mt-3">
                 <ul class="gnb d-flex">
                     <li>
-                        <a href="javascript:void(0)">영화</a>
+                        <a href="index.jsp?fname=movie/movieList">영화</a>
                         <ul class="lnb">
                             <li><a href="javascript:void(0)">현재상영작</a></li>
                             <li><a href="javascript:void(0)">상영예정작</a></li>

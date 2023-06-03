@@ -118,11 +118,11 @@ ul.lnb>li>a{
     z-index: 1001;
 }
 header.fixed .header-util .header-search-box{
-    top:60px;
+    top:25px;
     border:none;
     border-radius: 0;
     padding:8px 15px 8px;
-    background-color: rgba(255,255,255,0.4);
+    background-color: transparent;
     backdrop-filter: blur(10px);
 }
 .header-util .header-search-box #header-search{
@@ -410,3 +410,1047 @@ div.h-time{
     right:0;
 }
 /*** booking 끝 ***/
+/*** movieList 시작 ***/
+section.movieList{
+	padding-top: 180px;
+	padding-bottom:70px;
+}
+.h-movie-list li .h-active{
+    background: #D3DCFD;
+    color: #3D56AE;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.h-movie-search-box{
+    text-align: center;
+    margin: 20px;
+}
+#h-movie-search{
+    width: 300px;
+    height: 30px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1.5px solid #5C7EF7;
+    display: inline;
+}
+#h-movie-search:focus{
+    outline: none;
+    border-color: #5C7EF7;
+}
+.h-movie-search-btn{
+    display: inline-block;
+    border: none;
+    width: 40px;
+    height: 30px;
+    vertical-align: middle;
+    background: url(../images/h-button/버튼.png) no-repeat;
+    background-size: cover;
+    transition: 0.5s;
+}
+.h-movie-search-btn:hover{
+    background-image: url(../images/h-button/버튼hover.png);
+    transition: 0.5s;
+}
+.h-movie-list{
+    display: flex;
+    height: 40px;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.1),
+                0 1px rgba(0, 0, 0, 0.7);
+}
+.h-movie-list.drop{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    z-index: 100;
+    top: 90px;
+    left: 0;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.1),
+                0 1px rgba(0, 0, 0, 0.7);
+    z-index:1100;
+}
+.h-movie-list li:hover{
+    background: #D3DCFD;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.h-movie-list li:hover a{
+    color: #3D56AE;
+}
+.h-movie-list li a{
+    display: block;
+    line-height: 30px;
+    padding: 5px 50px;
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
+    color: #333;
+}
+.h-movie{
+    padding-top: 10px;
+}
+.h-movie h5{
+    margin: 0 0 10px 35px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #333;
+    font-size: 20px;
+}
+.h-movie .h-plus{
+    display: inline;
+    float: right;
+    width: 40px;
+    height: 15px;
+    background: url(../images/h-button/Frame\ 152.png) no-repeat;
+    background-size: cover;
+    margin-top: 15px;
+}
+.h-movie ul{
+    padding-bottom: 20px;
+    display: flex;
+}
+.h-movie ul li{
+    text-align: center;
+    padding: 0 37px;
+    margin-top: 10px;
+}
+.h-imgbox{
+    width: 200px;
+    height: 300px;
+    position: relative;
+    margin: auto;
+    border-radius: 16px;
+    overflow: hidden;
+}
+.h-imgbox img{
+    width: 200px;
+    height: 300px;
+    background: #ddd;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.h-movie-content{
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    color: #fff;
+    top: 0;
+    padding: 10px 20px;
+}
+.h-movie-content-bg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.8;
+}
+.h-movie-content .h-movie-info{
+    display: block;
+    width: 120px;
+    height: 25px;
+    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=off.png) no-repeat;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s;
+}
+.h-movie-content .h-movie-info:hover{
+    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=om.png) no-repeat;
+    background-size: cover;
+    transition: 0.5s;
+}
+.h-movie-content .h-movie-booking{
+    display: block;
+    width: 120px;
+    height: 25px;
+    background: url(../images/h-button/상세보기_예매.png) no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s;
+}
+.h-movie-content .h-movie-booking:hover{
+    background: url(../images/h-button/상세보기_예매hover.png) no-repeat;
+    background-size: cover;
+    transition: 0.5s;
+}
+.h-movie-title{
+    font-size: 12px;
+    padding: 10px 0 0;
+}
+.h-rate-star{
+    font-size: 10px;
+}
+.h-rate::after{
+    content: "|";
+    display: inline-block;
+    padding: 3px;
+    color: #D9D9D9;
+}
+.h-star:before{
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: -5px;
+    background: url(../images/h-button/Property\ 1=별점\,\ Property\ 2=s\,\ Property\ 3=on.png) no-repeat;
+    background-size: cover;
+}
+/*** movieList 끝 ***/
+/*** movieDetail 시작 ***/
+.k-bg{
+    position: relative;
+    width: 100%;
+    height: 720px;
+    
+}
+.backbox{
+    position: absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background-size: 120%;
+    background-repeat: no-repeat;
+    background-position: 30% 45%;
+}
+.k-bg>img{
+    width: 120%;
+    height: 700px;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.k-bg>.grabox{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(10px);
+    
+}
+.k-bg>.grabox>.relbox{
+    position:relative;
+    width:100%;
+    height:100%;
+}
+.k-bg>.grabox>.relbox>.absbox{
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:40px;
+    background: linear-gradient(to bottom, transparent, #686868);
+}
+.k-mvdetail{
+    margin-top:200px;
+    margin-bottom:50px;
+}
+.k-mvdetail_top{
+    width: 1100px;
+    height: 630px;
+    margin: 0;
+}
+.k-mv_left{
+    width: 40%;
+    position: relative;
+    padding: 0;
+    height: 0px;
+}
+.k-img{
+    position: relative;
+    width: 365px;
+    height: 525px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #888888;
+    margin-left: 50px;
+    margin-top: 10px;
+}
+.k-poster img{
+    position: absolute;
+    max-width: 100%;
+    height: 505px;
+    top: 10px;
+    left: 5px;
+}
+.k-age{
+    position: absolute;
+    z-index: 50;
+    top: -18px;
+    left: -18px;
+    width:48px;
+    height:48px;
+}
+.k-age>img{
+	width:100%;
+}
+.k-mv_rigth{
+    width: 60%;
+    height:590px;
+    padding: 0;
+    padding-top: 110px;
+}
+.k-mv_title1,
+.k-mv_title2,
+.k-mv_title3{
+    color: #fff;
+}
+.k-mv_data{
+    height: 70px;
+    display: flex;
+    padding: 20px 0 20px 0;
+}
+.k-mv_data>div>img{
+    cursor: pointer;
+}
+#likeimage{
+	position:relative;
+    border: 2.5px solid #5C7EF7;
+    border-radius:30px;
+    margin-right:30px;
+    height:28px;
+    vertical-align: top;
+    padding:0 12px;
+    color:#fff;
+    cursor:pointer;
+}
+#likeimage::after{
+	position:absolute;
+	top:6px;
+	left:11px;
+	display:block;
+	width:13px;
+	height:11px;
+	z-index:9999;
+	content:"";
+	background-image: url("../images/ico/ico-heart-line.png");
+	background-repeat: no-repeat;
+	background-size:100%;
+}
+#likeimage.on{
+	background-color:#5C7EF7;
+}
+#likeimage.on::after{
+	background-image: url("../images/ico/ico-heart-fill.png");
+}
+#likeimage>span{
+	margin-left:15px;
+}
+#linkshare>span{
+    width: 89px;
+    height: 27px;
+    margin-right: 20px;
+    display: inline-block;
+    background-position: 0px 4px;
+    background-repeat: no-repeat;
+    background: url('../images/moviedetail/shareoff.png');
+    cursor: pointer;
+}
+/* #linkshare>span:active{
+    background: url('../images/moviedetail/shareon.png');
+} */
+#linkshare>span:hover{
+    transition: all 300ms;
+    background: url('../images/moviedetail/shareon.png');
+}
+#linkshares{
+    position: absolute;
+    top: 251px;
+    left: 80px;
+    width: 277px;
+    height: 40px;
+    display: none;
+    transition: all 500ms ease-in-out;
+    background-image: url('../images/moviedetail/linkshare.png');
+}
+.fa-solid, .fas {
+    font-weight: 900;
+    font-size: 14px;
+    color: #ffa406;
+    margin-left: 3px;
+}
+.k-mv_datan{
+    height: 200px;
+    padding: 20px 0 20px 0;
+}
+.k-mv_datan>li{
+    padding-bottom: 15px;
+}
+.k-mv_datan>li>div{
+    margin-right: 5px;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 400;
+    display: inline-block;
+}
+.k-mv_datan>li>div>span{
+    font-size: 16px;
+    font-weight: 600;
+}
+.k-mv_datan>li>span{
+    margin-right: 5px;
+    /* padding-left: 10px; */
+    font-size: 12px;
+    color: #fff;
+    font-weight: 300;
+    display:inline ;
+}
+.k-mv_butset{
+    margin-top: 15px;
+    width: 650px;
+}
+.k-ticketing{
+    width: 630px;
+    height: 50px;
+    font-size: 20px;
+    border: none;
+    background: #90a2df;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 35px;
+}
+.k-ticketing:hover{
+    background: #D3DCFD;
+    transition: 0.5s;
+}
+/* .k-mv_butset img{
+    height: 50px;
+}
+.k-mv_butset img:hover{
+    height: 50px;
+    background: url('images/MOVIEDETAIL/hover.png');
+} */
+/****************top end*****************/
+/****************영화 정보 시작*****************/
+.container{
+    width: 1100px;
+}
+/* .k-mvdetail_bottom{
+    height: 980px;
+} */
+.k-tab{
+    display: flex;
+    width: 1100px;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+    margin-top: 70px;
+    border-bottom: 2px solid #999;
+}
+.k-tab li{
+    width: 50%;
+}
+.k-tab li a{
+    display: block;
+    width: 550px;
+    height: 70px;
+    text-align: center;
+    font-size: 25px;
+}
+.k-tab a.active{
+    border-bottom: 3px solid #333;
+}
+.k-information{
+    height: 1000px;
+}
+.k-summary{
+    display: block;
+    height: 200px;
+    padding: 40px 0 30px 0;
+    overflow-y:hidden;
+}
+.k-summary.wide{
+	height:fit-content;
+}
+.k-summary_btn{
+    display: block;
+    width: 1100px;
+    height: 45px;
+    margin-top: 20px;
+    border: 1px solid #b9b6b1;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.k-summary>p{
+    margin-top: 10px;
+    width: 1100px;
+}
+.k-stillcut{
+    position: relative;
+    width: 100%;
+    height: 500px;
+  }
+  .stillcut{
+    position: absolute;
+    width: 100%;
+    height: 230px;
+    background: #333;
+    bottom: 0;
+  }
+  .title{
+    padding-top: 50px;
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .title>h2{
+    font-size:2em;
+    font-weight: 400;
+    margin:0;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .stimg{
+    position: absolute;
+    width: 245px;
+    height: 330px;
+    background: #fff;
+    box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.8);
+    top: 65px;
+    left: 10px;
+    border-radius: 10px;
+    z-index: 10;
+  }
+  .stimg img{
+    width: 235px;
+    height: 325px;
+    margin-top: 3px;
+    margin-left: 5px;
+    border-radius: 10px;
+  }
+  .stillcut-slider{
+    height:450px;
+    overflow: hidden;
+    position:relative;
+  }
+  .rv-pt{
+    width: 1100px;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+    top: 0px;
+    left: 0px;
+  }
+  .pt-in{ 
+    width: 100%;
+    display:flex;
+    position:absolute;
+    top:120px;
+    left:75px;
+  }
+  .pt-in img{
+    width: 300px;
+    margin: 0 5px;
+  }
+  .slider-control{
+    position: absolute;
+    left: 255px;
+    bottom: 55px;
+    z-index: 2;
+  }
+  .page{
+    float: left;
+    width:400px;
+    height:2px;
+    margin-top:7px;
+    margin-left: 55px;
+    background-color: #ebebeb;
+  }
+  .page span{
+    display: block;
+    float:left;
+    height:100%;
+    width:16.666666666%;
+  }
+  .page span.onn{
+    background-color: #136bde;
+  }
+  .slider-control .util{
+    float: left;
+    padding:0 10px 0 15px;
+  }
+  
+  #btn-left{
+    float:left;
+    background-color: transparent;
+    border:none;
+    margin:0;
+    padding:0;
+    margin-right:20px;
+    cursor: pointer;
+  }
+  #btn-left>i{
+    color:#136bde;
+    font-size: 18px;
+  }
+  #btn-right{
+    float:left;
+    background-color: transparent;
+    border:none;
+    margin:0;
+    padding:0;
+    margin-left:20px;
+    cursor: pointer;
+  }
+  #btn-right>i{
+    color:#136bde;
+    font-size: 18px;
+  }
+  .page-count{
+    float:left;
+    line-height: 18px;
+    color: #fff;
+  }
+#cnum{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+  }
+.k-trailer{
+    position: relative;
+    width: 1100px;
+    height: 570px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.k-slider{
+    position: relative;
+    width: 1000px;
+    height: 530px;
+    margin: 0 auto;
+    padding: 50px;
+}
+.k-slider>.slideprev{
+    position: absolute;
+    width: 25px;
+    height: 60px;
+    top: 40%;
+    left: 30px;
+    cursor: pointer;
+}
+.k-slider>.slidenext{
+    position: absolute;
+    width: 25px;
+    height: 60px;
+    top: 40%;
+    right: 30px;
+    cursor: pointer;
+}
+.k-slider div{
+    position: relative;
+    width: 800px;
+    height: 400px;
+    margin: 0 auto;
+}
+.k-slider div>img{
+    position: relative;
+    width: 800px;
+    height: 100%;
+}
+
+div>.trailerbg{
+    position: absolute;
+    width: 800px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index:1;
+}
+.k-trailer_btn{
+    position: absolute;
+    background: none;
+    border: none;
+    top: 37%;
+    left: 43%;
+    cursor: pointer;
+    z-index:2;
+}
+.k-fade{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1500;
+    display: none;
+}
+.k-close{
+    position: absolute;
+    top: 60px;
+    right: 110px;
+    cursor: pointer;
+}
+.k-close>img{
+    width: 25px;
+}
+.slide_dots{
+    display: none;
+}
+ul.slide_dots{
+    padding-left: 375px;
+}
+.slide_dots>li{
+     display: inline;
+}
+.slide_dots>li>button{
+    width: 3px;
+    border: none;
+    margin-right: 10px;
+    border-radius: 50%;
+    color:transparent;
+    font-size: 0.1px;
+    cursor: pointer;
+    background: #ddd;
+}
+.slide_dots>li>button:hover{
+    background: #3D56AE;
+}
+.slide_dots>li.slick-active button{
+    background: #3D56AE;
+}
+.k-popup{
+    position: fixed;
+    width: 1000px;
+    height: 562px;
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    display: none;
+}
+.k-pdcasting{
+    width: 100%;
+    height: 390px;
+    background: #ddd;
+}
+.k-pdcasting>.container{
+    width: 1100px;
+    height: 380px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.k-post-slider{
+    width:90%;
+    height: 250px;
+    margin:0px auto;
+    margin-top: 40px;
+    position:relative;
+}
+.k-post-slider .k-silder-title{
+text-align:center;
+margin:30px auto;
+}
+.k-post-slider .next{
+position:absolute;
+top:45%;
+right:-45px;
+font-size:2em;
+color:#bbb;
+cursor: pointer;
+}
+.k-post-slider .prev{
+position:absolute;
+top:45%;
+left:-45px;
+font-size:2em;
+color:#bbb;
+    cursor: pointer;
+}
+.k-post-wrapper{
+    width:100%;
+    height: 250px;
+    margin:0px auto;
+    overflow: hidden;
+    padding-top: 10px;
+    /* padding:50px 0px 10px 0px; */
+  }
+.slick-list{
+    height: 250px;
+}
+.k-post{
+    position: relative;
+    width:167px;
+    height:235px;
+    margin:0px 10px;
+    /* display:inline-block; */
+    background:white;
+    border-radius: 20px;
+    border: 1px solid #b9b6b1;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.k-post-info{
+    position: absolute;
+    text-align: center;
+    top: 145px;
+    left: 57px;
+    font-size:15px;
+    height:30%;
+}
+.k-slider-image{
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    width: 70px;
+    height: 70px;
+    background: #333;
+    border-radius: 50%;
+}
+
+
+/****************review*****************/
+.k-content{
+    display: none;
+}
+.k-content.active{
+    display: block;
+}
+.k-reviewform{
+    height: 300px;
+    background: #eee;
+}
+.k-reviewform h3{
+    font-weight: 500;
+    padding-top: 30px;
+}
+.k-mvrate{
+    width: 800px;
+    height: 90px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+.rate {
+    display: inline-block;
+    border: 0;
+    margin-right: 15px;
+    margin-left: 220px;
+    }
+.rating-number{
+    font-size: 50px;
+    position: absolute;
+    top: 5px;
+}
+.rate > input {
+    display: none;
+}
+.rate > label {
+    float: right;
+    color: #D3DCFD
+}
+.rate > label:before {
+    display: inline-block;
+    font-size: 3.2em;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f005 ";
+}
+.rate .half:before {
+    content: "\f089 "; 
+    position: absolute;
+    padding-right: 0;
+}
+.rate input:checked ~ label, 
+.rate label:hover,.rate label:hover ~ label {
+     color: #3D56AE !important;  
+    } 
+.rate input:checked + .rate label:hover,
+.rate input input:checked ~ label:hover,
+.rate input:checked ~ .rate label:hover ~ label,  
+.rate label:hover ~ input:checked ~ label { 
+    color: #3D56AE !important;  
+} 
+.k-text_box {
+    position:relative; 
+    display:inline-block; 
+    width:100%;
+}
+.k-text_box textarea {
+    width:100%; 
+    height:152px; 
+    color:#666; 
+    font-family:"ht_r"; 
+    font-size:18px; 
+    line-height:28px; 
+    padding:20px; 
+    border:1px solid #e4dcd3; 
+    /* utline:0; 
+    esize:none; */
+}
+.k-text_box .count {
+    position:absolute; 
+    right:55px; 
+    bottom:10px; 
+    color:#ddd; 
+    font-family:"ht_r"; 
+    font-size:15px;
+}
+.k-reviewbox{
+    display: flex;
+    width: 900px;
+    height: 130px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#k-textbox{
+    width: 700px;
+    height: 130px;
+    resize: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    outline: none;
+}
+#k-textbtn{
+    width: 200px;
+    height: 130px;
+    background: #93AAFF;
+    border-radius: 20px;
+    border: none;
+    font-size: 20px;
+    color: #fff;
+}
+
+.k-reviewtitle{
+    margin-top: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    position: relative;
+}
+.k-reviewtitle>h3{
+    width: 60%;
+}
+.k-reviewtitle>h3>.fa-star{
+    font-size: 16px;
+    color: #d3dcfd;
+    margin-right: 3px;
+    margin-left: 10px;
+}
+.k-reviewtitle_ul{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.k-reviewtitle_ul>span{
+    text-align: center;
+}
+.k-reviewtitle_ul>span{
+    border-right: 1px solid #b9b6b1;
+}
+.k-reviewtitle_ul>span:last-child{
+    border: none;
+}
+.k-reviewtitle_ul>span>a{
+    margin-left: 2px;
+    margin-right: 6px;
+    font-size: 14px;
+    color: #b9b6b1;
+}
+.k-reviewtitle_ul>span>a.active{
+    color: #90a2df;
+}
+.k-reviewlist{
+    width: 1100px;
+    margin-top: 10px;
+    display: flex;
+}
+.k-listleft{
+    padding: 0;
+}
+.k-listleft img{
+    padding-left: 5px;
+    padding-top: 10px;
+}
+.k-listright{
+    padding: 0;
+}
+#k-listtext{
+    padding-top: 20px;
+    position: relative;
+}
+.k-listtext_box{
+    padding: 0 20px 0 10px;
+}
+.k-review-name{
+    display: inline-block;
+}
+.k-review-stars{
+    display: inline-block;
+}
+.k-review-date{
+    float: right;
+}
+.k-review-info{
+    display: block;
+    width: 100%;
+    /* height: 60px; */
+    background: #faf8f8;
+    border-radius: 30px;
+    border: none;
+    resize: none;
+    outline: none;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+.k-utilbox{
+    position: absolute;
+    display: flex;
+    width: 100px;
+    top: 55px;
+    right: -25px;
+}
+.k-like2{
+    width: 19px;
+    height: 19px;
+    background-image: url('../images/moviedetail/suggestionoff.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.k-like2.on{
+    background-image: url('../images/moviedetail/suggestionon.png');
+}
+.k-declaration{
+    width: 17px;
+    height: 17px;
+    margin-top: 3px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-image: url('../images/moviedetail/declaration.png');
+}
+.k-listright_btn{
+    width: 1100px;
+    height: 50px;
+}
+.k-list_btn{
+    display: block;
+    width: 1100px;
+    height: 45px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    border: 1px solid #b9b6b1;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.mdvt{
+	position:absolute;
+	top:250px;
+}
+/*** movieDetail 끝 ***/

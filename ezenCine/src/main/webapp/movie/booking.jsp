@@ -64,3 +64,5 @@
         </div>
     
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
+    <script src="js/booking.js"></script>
