@@ -5,6 +5,7 @@
 	Vector<MovieDTO> dto = MovieDDL.viewMovieDetail(movieId);
 	Vector<TrailerDTO> to = TrailerDDL.showTrailer(movieId);
 	int count = TrailerDDL.showTrailerCount(movieId);
+	Vector<CastingDTO> cto = CastingDDL.showCasing(movieId);
 %>
 
 	<div class="k-fade">
@@ -210,78 +211,21 @@
                                     <i class="fa-solid fa-circle-arrow-left prev"></i>
                                     <i class="fa-solid fa-circle-arrow-right next"></i>
                                   <div class="k-post-wrapper">
+                                  <%
+                                  for(CastingDTO ct : cto){
+                                  %>
                                     <div class="k-post">
                                         <div class="k-slider-image">
-                                            <img src="">
+                                            <img src="images/casting/<%=ct.getMovie_id()%>/<%=ct.getName()%>.jpg" alt="<%=ct.getName()%>">
                                         </div>
                                         <div class="k-post-info">
-                                            <h4><a href="#" class="post-subject">제임스 건</a></h4>
-                                            <span>감독</span>
+                                            <h4><a href="#" class="post-subject"><%=ct.getName() %></a></h4>
+                                            <span><%=ct.getRole() %></span>
                                         </div>
                                     </div>
-                                    <div class="k-post">
-                                        <div class="k-slider-image">
-                                            <img src="">
-                                        </div>
-                                        <div class="k-post-info">
-                                            <h4><a href="#" class="post-subject">제임스 건</a></h4>
-                                            <span>감독</span>
-                                        </div>
-                                    </div>
-                                    <div class="k-post">
-                                        <div class="k-slider-image">
-                                            <img src="">
-                                        </div>
-                                        <div class="k-post-info">
-                                            <h4><a href="#" class="post-subject">제임스 건</a></h4>
-                                            <span>감독</span>
-                                        </div>
-                                    </div>
-                                    <div class="k-post">
-                                        <div class="k-slider-image">
-                                            <img src="">
-                                        </div>
-                                        <div class="k-post-info">
-                                            <h4><a href="#" class="post-subject">제임스 건</a></h4>
-                                            <span>감독</span>
-                                        </div>
-                                    </div>
-                                    <div class="k-post">
-                                        <div class="k-slider-image">
-                                            <img src="">
-                                        </div>
-                                        <div class="k-post-info">
-                                            <h4><a href="#" class="post-subject">제임스 건</a></h4>
-                                            <span>감독</span>
-                                        </div>
-                                    </div>
-                                    <div class="k-post">
-                                        <div class="k-slider-image">
-                                            <img src="">
-                                        </div>
-                                        <div class="k-post-info">
-                                            <h4><a href="#" class="post-subject">제임스 건</a></h4>
-                                            <span>감독</span>
-                                        </div>
-                                    </div>
-                                    <div class="k-post">
-                                        <div class="k-slider-image">
-                                            <img src="">
-                                        </div>
-                                        <div class="k-post-info">
-                                            <h4><a href="#" class="post-subject">제임스 건</a></h4>
-                                            <span>감독</span>
-                                        </div>
-                                    </div>
-                                    <div class="k-post">
-                                        <div class="k-slider-image">
-                                            <img src="">
-                                        </div>
-                                        <div class="k-post-info">
-                                            <h4><a href="#" class="post-subject">제임스 건</a></h4>
-                                            <span>감독</span>
-                                        </div>
-                                    </div>
+                                  <%
+                                  }  
+                                  %>
                                   </div>
                                 </div>
                                 <!--post slider-->

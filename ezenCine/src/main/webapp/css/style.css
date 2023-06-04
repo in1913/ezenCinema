@@ -1183,7 +1183,6 @@ color:#bbb;
 }
 .k-post{
     position: relative;
-    width:167px;
     height:235px;
     margin:0px 10px;
     /* display:inline-block; */
@@ -1193,23 +1192,25 @@ color:#bbb;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 .k-post-info{
-    position: absolute;
     text-align: center;
-    top: 145px;
-    left: 57px;
     font-size:15px;
-    height:30%;
+    margin-top:150px;
 }
 .k-slider-image{
     position: absolute;
-    top: 40px;
-    left: 50px;
-    width: 70px;
-    height: 70px;
+    top: 30px;
+    left: 50%;
+    transform:translateX(-50%);
+    width: 104px;
+    height: 104px;
     background: #333;
     border-radius: 50%;
+    overflow:hidden;
+    border-radius:50%;
 }
-
+.k-slider-image>img{
+	width:100%;
+}
 
 /****************review*****************/
 .k-content{
