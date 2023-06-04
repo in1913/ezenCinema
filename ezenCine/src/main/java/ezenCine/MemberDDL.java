@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 public class MemberDDL {
 	public static boolean insert(MemberDTO dto) {
@@ -133,5 +134,32 @@ public class MemberDDL {
 		}
 		return result;
 	}
-
+	
+	public static String selectPhotoById(String id) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String result = "";
+		
+		String sql = "select photo from Member where id = ?";
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1,  id);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				result = rs.getString("photo");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {}
+		}
+		return result;
+	}
 }

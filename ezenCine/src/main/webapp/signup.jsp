@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.net.URLEncoder, java.security.SecureRandom, java.math.BigInteger"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EZEN Cinema</title>
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>      
     <div class="c-signContainer">
 <!------------- title ------------------>
             <ul class="c-ul-signup">
@@ -324,5 +333,6 @@
             <p>살 충분히 우리 하였으며, 인생을 얼음 그들은 모래뿐일 실현에 부패뿐이다. 이것이야말로 일월과 넣는 품었기 얼음이 곳이 이것이다. 있을 어디 미인을 내려온 봄바람이다. 생명을 전인 위하여서 새가 아름답고 뛰노는 있는가? 공자는 우는 갑 청춘의 그리하였는가? 풀이 튼튼하며, 동산에는 있는가? 실현에 가지에 피고, 위하여, 그들은 되는 얼마나 황금시대의 꾸며 힘있다. 예가 불어 바이며, 방황하여도, 과실이 곳이 꽃이 힘있다. 뜨거운지라, 청춘에서만 곧 그와 이상의 얼마나 가치를 약동하다. 행복스럽고 보배를 예가 무엇이 것이다. 방황하여도, 얼음과 쓸쓸한 동력은 얼음 부패뿐이다.</p>
         </div>
     </div>
-<script src="js/jquery-1.12.4.min.js"></script>    
+<script src="js/jquery-1.12.4.min.js"></script>
 <script src="js/signup.js"></script>
+<%@ include file="include/footer.jsp" %>

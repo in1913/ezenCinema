@@ -969,7 +969,7 @@ img.c-active{
 }
 .c-cele-content{
     margin-top: 150px;
-    margin-bottom: 150px;
+    margin-bottom: 300px;
 }
 .c-cele-content p{
     font-size: 22px;
@@ -991,4 +991,685 @@ img.c-active{
     border: 2px solid #5c7ef7;
     color: #fff;
     background-color: #5c7ef7;
+}
+
+
+
+/******************* mypage **************************/
+/*
+영문 폰트
+font-family: 'Open Sans', sans-serif;
+
+한글 폰트
+font-family: 'SUITE Variable';
+font-weight: 300 900;
+
+layout.css에 저장되어있으니 그냥 선언해서 사용하면 됨
+*/
+
+span.eg{
+    font-family: 'SUITE Variable';
+}
+.h-movie-list li .h-active{
+    background: #D3DCFD;
+    color: #3D56AE;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.h-movie-search-box{
+    text-align: center;
+    margin: 20px;
+}
+#h-movie-search{
+    width: 300px;
+    height: 30px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1.5px solid #5C7EF7;
+    display: inline;
+}
+#h-movie-search:focus{
+    outline: none;
+    border-color: #5C7EF7;
+}
+.h-movie-search-btn{
+    display: inline-block;
+    border: none;
+    width: 40px;
+    height: 30px;
+    vertical-align: middle;
+    background: url(../images/h-button/버튼.png) no-repeat;
+    background-size: cover;
+    transition: 0.5s;
+}
+.h-movie-search-btn:hover{
+    background-image: url(../images/h-button/버튼hover.png);
+    transition: 0.5s;
+}
+.h-movie-list{
+    display: flex;
+    height: 40px;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.1),
+                0 1px rgba(0, 0, 0, 0.7);
+}
+.h-movie-list.drop{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    padding: 0;
+    background: #fff;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.1),
+                0 1px rgba(0, 0, 0, 0.7);
+}
+.h-movie-list li:hover{
+    background: #D3DCFD;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.h-movie-list li:hover a{
+    color: #3D56AE;
+}
+.h-movie-list li a{
+    display: block;
+    line-height: 30px;
+    padding: 5px 50px;
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
+    color: #333;
+}
+.h-movie{
+    padding-top: 10px;
+}
+.h-movie h5{
+    margin: 0 0 10px 35px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #333;
+    font-size: 20px;
+}
+.h-movie .h-plus{
+    display: inline;
+    float: right;
+    width: 40px;
+    height: 15px;
+    background: url(../images/h-button/Frame\ 152.png) no-repeat;
+    background-size: cover;
+    margin-top: 15px;
+}
+.h-movie ul{
+    padding-bottom: 20px;
+    display: flex;
+}
+.h-movie ul li{
+    text-align: center;
+    padding: 0 37px;
+    margin-top: 10px;
+}
+.h-imgbox{
+    width: 200px;
+    height: 300px;
+    position: relative;
+    margin: auto;
+    border-radius: 16px;
+    overflow: hidden;
+}
+.h-imgbox img{
+    width: 200px;
+    height: 300px;
+    background: #ddd;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.h-movie-content{
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    color: #fff;
+    top: 0;
+    padding: 10px 20px;
+}
+.h-movie-content-bg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.8;
+}
+.h-movie-content .h-movie-info{
+    display: block;
+    width: 120px;
+    height: 25px;
+    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=off.png) no-repeat;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s;
+}
+.h-movie-content .h-movie-info:hover{
+    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=om.png) no-repeat;
+    background-size: cover;
+    transition: 0.5s;
+}
+.h-movie-content .h-movie-booking{
+    display: block;
+    width: 120px;
+    height: 25px;
+    background: url(../images/h-button/상세보기_예매.png) no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s;
+}
+.h-movie-content .h-movie-booking:hover{
+    background: url(../images/h-button/상세보기_예매hover.png) no-repeat;
+    background-size: cover;
+    transition: 0.5s;
+}
+.h-movie-title{
+    font-size: 12px;
+    padding: 10px 0 0;
+}
+.h-rate-star{
+    font-size: 10px;
+}
+.h-rate::after{
+    content: "|";
+    display: inline-block;
+    padding: 3px;
+    color: #D9D9D9;
+}
+.h-star:before{
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: -5px;
+    background: url(../images/h-button/Property\ 1=별점\,\ Property\ 2=s\,\ Property\ 3=on.png) no-repeat;
+    background-size: cover;
+}
+
+/********** my page *************/
+
+.h-right-nav{
+    position: absolute;
+    width: 120px;
+    height: 400px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    background-color: #fff;
+    top: 0;
+    right: -140px;
+}
+.h-nav-booking{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+.h-nav-buy{
+    position: absolute;
+    top: 119px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+.h-nav-timetable{
+    position: absolute;
+    top: 218px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+.h-nav-mypoint{
+    position: absolute;
+    top: 317px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+.h-nav-booking a,
+.h-nav-buy a,
+.h-nav-timetable a,
+.h-nav-mypoint a{
+    display: block;
+    cursor: default;
+}
+.h-nav-booking a .h-img{
+    width: 40px;
+    height: 40px;
+    background: url(../images/h-button/예매하기.png) no-repeat;
+    background-size: cover;
+    margin: auto;
+}
+.h-nav-buy a .h-img{
+    width: 40px;
+    height: 40px;
+    background: url(../images/h-button/구매하기.png) no-repeat;
+    background-size: cover;
+    margin: auto;
+}
+.h-nav-timetable a .h-img{
+    width: 40px;
+    height: 40px;
+    background: url(../images/h-button/상영시간표.png) no-repeat;
+    background-size: cover;
+    margin: auto;
+}
+.h-nav-mypoint a .h-img{
+    width: 40px;
+    height: 40px;
+    background: url(../images/h-button/멤버십포인트.png) no-repeat;
+    background-size: cover;
+    margin: auto;
+}
+.h-nav-booking a p,
+.h-nav-buy a p,
+.h-nav-timetable a p,
+.h-nav-mypoint a p{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+.h-nav-booking a:hover,
+.h-nav-buy a:hover,
+.h-nav-timetable a:hover,
+.h-nav-mypoint a:hover{
+    color: #3D56AE;
+}
+.h-member_info{
+    width: 100%;
+    height: 344px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    margin: 100px auto 55px;
+    padding: 0;
+    position: relative;
+    background: #fff;
+    border-radius: 10px;
+}
+.h-welcom{
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    position: absolute;
+    top: 72px;
+    left: 72px;
+    overflow: hidden;
+}
+.h-welcom>img{
+	max-width: 200px;
+	max-width: 200px;
+	background: #ccc;
+}
+.h-member_name{
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 80px;
+    left: 310px;
+}
+.h-member_name span{
+    font-size: 24px;
+}
+.h-member_edit{
+    position: absolute;
+    top: 100px;
+    left: 460px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.h-member_edit a{
+    margin: 0 10px;
+}
+.h-member_edit p:first-child::after{
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    top: 7px;
+    left: 47%;
+    position: absolute;
+    background-color: #5C7EF7;
+
+}
+.h-mypage-home{
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
+.h-mypage-home .h-home{
+    width: 18.4px;
+    height: 16.66px;
+    display: inline-block;
+    background: url(../images/h-button/Vector.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+}
+.h-mypage-home .h-home-right{
+    width: 6.66px;
+    height: 13.32px;
+    display: inline-block;
+    background: url(../images/h-button/Vector2.png) no-repeat;
+    background-size: cover;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+.h-mypage-home p{
+    display: inline;
+    font-size: 14px;
+}
+.h-member_rate{
+    position: absolute;
+    font-size: 20px;
+    top: 140px;
+    left: 310px;
+}
+.h-member_rate p{
+    font-size: 14px;
+    margin-top: 3px;
+}
+.h-member_rate span{
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 12px;
+    color: #ccc;
+}
+.h-member_rate span.h-select{
+    color: #3D56AE;
+}
+.h-myoption{
+    position: absolute;
+    left: 305px;
+    bottom: 50px;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.h-myoption p{
+    font-size: 18px;
+    font-weight: bold;
+    color: #3D56AE;
+    margin-bottom: 10px;
+}
+.h-myoption .row .h-mypoint,
+.h-myoption .row .h-my-favorit{
+    margin: 0 20px;
+}
+.h-myoption ul li{
+    margin-left: 5px;
+}
+.h-myoption ul li::before{
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    margin-top: 12px;
+    background-color: #333;
+    border-radius: 50%;
+}
+.h-myoption ul li a{
+    font-size: 14px;
+    padding: 0 10px;
+    color: #333;
+}
+.h-my_review{
+    position: relative;
+    height: 365px;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 60px;
+}
+.h-review-gnb{
+    display: flex;
+    justify-content: start;
+}
+.h-lnb{
+    display: flex;
+    left: 0px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.h-review-gnb li{
+    margin-right: 5px;
+}
+.h-review-gnb li.active>a{
+    color: #3D56AE;
+    background: #D3DCFD;
+}
+.h-review-gnb li>a{
+    width: 212px;
+    height: 47px;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    background: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 10px;
+    text-align: center;
+    line-height: 27.46px;
+    padding: 10px;
+}
+.h-myreview{
+    position: absolute;
+    width: 100%;
+    top: 47px;
+    background: #fff;
+    display: none;
+    height: 260px;
+}
+.h-myreview-poster img{
+    width: 144px;
+    height: 202px;
+    margin: 20px 0 20px 30px;
+}
+.h-myreview-content{
+    margin-left: 10px;
+    width: 50%;
+}
+.h-myreview-content h3{
+    font-size: 18px;
+    margin: 30px 0 10px;
+}
+.h-review-rate{
+    font-size: 18px;
+    font-weight: 700;
+}
+.h-review-rate span{
+    color: #3D56AE;
+    font-weight: 500;
+}
+.h-review-comment{
+    font-size: 14px;
+    font-weight: 500;
+    margin: 10px 0 20px;
+}
+.h-like{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url(../images/h-button/like.png) no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+}
+.h-like-date{
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.h-review-edit{
+    position: absolute;
+    right: 120px;
+    bottom: 80px;
+}
+.h-review-edit a.h-review-update,
+.h-review-edit a.h-review-delete{
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px;
+}
+.h-review-edit a.h-review-update::after{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 1px;
+    height: 18px;
+    background-color: #93AAFF;
+    top: 2px;
+    left: 46px;
+}
+.h-mybooking{
+    position: absolute;
+    width: 100%;
+    top: 47px;
+    background: #fff;
+    height: 260px;
+}
+.h-mybooking-post img{
+    width: 144px;
+    height: 202px;
+    margin: 20px 0 20px 30px;
+}
+.h-mybooking-info{
+    margin-left: 10px;
+}
+.h-mybooking-info h3{
+    font-size: 18px;
+    margin: 30px 0 10px;
+}
+.h-mybooking-info p{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 1px 0;
+}
+.h-mybooking-info p span{
+    font-size: 16px;
+    font-weight: normal;
+    padding-left: 10px;
+}
+.h-movie-hope{
+    position: absolute;
+    width: 100%;
+    top: 47px;
+    display: none;
+    background: #fff;
+    padding-top: 20px;
+}
+.h-hope-poster{
+    width: 21%;
+    margin: 0 2%;
+}
+.h-hope-poster img{
+    width: 144px;
+    height: 202px;
+    display: block;
+    margin: 0px auto;
+}
+.h-hope-poster h3,
+.h-hope-poster p{
+    text-align: center;
+    margin: 2px 0;
+}
+.h-hope-poster h3{
+    font-size: 18px;
+    margin-top: 20px;
+}
+.h-hope-poster p{
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.h-morebtn{
+    position: absolute;
+    bottom: -40px;
+    width: 100%;
+}
+.h-more{
+    display: block;
+    width: 76px;
+    height: 28px;
+    background: url(../images/h-button/more.png) no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+}
+/******** booking ********/
+.h-booking{
+    margin: 15px;
+}
+.h-booking_box{
+    border: 1px solid #333;
+    height: 400px;
+}
+.h-b-movie-booking{
+    padding: 10px;
+    height: 85%;
+    overflow-y: scroll;
+}
+.h-location,
+.h-date,
+.h-time{
+    position: relative;
+}
+.h-location-blurbox,
+.h-date-blurbox,
+.h-time-blurbox{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+}
+input[type=radio]{
+    display: none;
+}
+.h-b-movie,
+.h-b-location,
+.h-b-date,
+.h-b-time{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: start;
+}
+.b-on{
+    background-color: #ddd;
+}
+.h-b-time{
+    width: 100%;
+}
+.h-time{
+    float: left;
+}
+.h-sit{
+    float: right;
+}
+.h-booking-btn-box{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    display: none;
+}
+.h-booking-btn{
+    padding: 5px;
+    border: 1px solid #333;
+}
+.h-booking-btn:hover{
+    color: #fff;
+    background: #333;
 }

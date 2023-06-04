@@ -91,7 +91,7 @@ public class NaverOauth extends HttpServlet {
 				req.setAttribute("nickname", nickname);
 				req.setAttribute("tel", tel);
 				req.setAttribute("name", name);
-				req.getRequestDispatcher("index.jsp?fname=mem/signupSns").forward(req, res);
+				req.getRequestDispatcher("signupSns.jsp").forward(req, res);
 			}
 			
 			br.close();

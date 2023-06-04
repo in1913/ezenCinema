@@ -15,6 +15,7 @@ public class MemberDTO {
 	private int email_agree;
 	private int sms_agree;
 	private String photo;
+	private int level;
 	
 	public String getId() {
 		return id;
@@ -99,6 +100,12 @@ public class MemberDTO {
 	}
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	
 	

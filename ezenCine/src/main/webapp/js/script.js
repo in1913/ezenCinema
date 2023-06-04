@@ -55,6 +55,25 @@ $(function(){
     })
 })
 /****************************** login & signup *****************************************/
+$(document).ready(function(){
+    if(getCookies("user")){
+        let userid = document.getElementById("userId");
+        let idSave = document.getElementById("c-id-save-val");
+        document.getElementsByClassName("c-id-not-save")[0].style.display = "none";
+        document.getElementsByClassName("c-id-save")[0].style.display = "inline-block";
+        $(".c-login-userid .move").css({
+            fontSize: "1px",
+            transition : "0.3s",
+            top: "3px",
+        });
+        $(".c-login-userid input").css({
+            border: "2px solid #5c7ef7",
+            transition : "0.3s",
+        })
+        userid.value = getCookies("user");
+        idSave.value = 1;
+    }
+})
 function showLoginPopup(){
     const loginPopup = document.getElementsByClassName("c-login")[0];
     const shadow = document.getElementsByClassName("c-shadow")[0];
@@ -121,10 +140,14 @@ $(function(){
     $(".c-id-not-save").click(function(){
         document.getElementsByClassName("c-id-not-save")[0].style.display = "none";
         document.getElementsByClassName("c-id-save")[0].style.display = "inline-block";
+        let idSave = document.getElementById("c-id-save-val");
+        idSave.value = 1;
     })
     $(".c-id-save").click(function(){
         document.getElementsByClassName("c-id-not-save")[0].style.display = "inline-block";
         document.getElementsByClassName("c-id-save")[0].style.display = "none";
+        let idSave = document.getElementById("c-id-save-val");
+        idSave.value = 0;
     })
 
     // 배경 선택시 팝업 종료
@@ -264,41 +287,80 @@ function passFunc(){
     })
 }
 
+/********* Cookie!!! *********** */
+function setCookie(cname, value, days){
+	let exdate = new Date();
+	exdate.setDate(exdate.getDate() + days); // 쿠키만료까지의 기간
+	let cookie_value = escape(value) + ((days == null)? "" : "; expires=" + exdate.toUTCString());
+	document.cookie = cname + "=" + cookie_value;
+}
+// 쿠키등록 setCookie("user", 아이디, "3")
+
+function getCookies(cname){
+    let x, y;
+    let val = document.cookie.split(";");
+    for(let i = 0; i < val.length ; i++){
+        x = val[i].substr(0, val[i].indexOf("="));
+        y = val[i].substr(val[i].indexOf("=") + 1);
+        // 앞뒤 공백 제거 정규식
+        x = x.replace(/^\s+|\s+$/g, '')   // x.replace(" ", "");
+        if(x == cname){
+            return unescape(y);  // unescape로 디코딩 한 후 리턴
+        }
+    }
+}
+
+function delCookie(cname){
+	document.cookie = cname + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 
 
 
 
 // 로그인 제출
 function loginSubmit(){
-    const userid = document.getElementById("userId").value;
-    const userpass = document.getElementById("userPass").value;
-    
+    const userid = document.getElementById("userId");
+    const userpass = document.getElementById("userPass");
+    let idSave = document.getElementById("c-id-save-val");
     const alert = document.getElementById("c-login-alert");
-    if(userid == "" || userid == null){
+    if(userid.value == "" || userid.value == null){
         alert.style.color = "red";
         alert.innerHTML = "아이디를 입력해주세요.";
-    }else if(userpass == "" || userpass == null){
+    }else if(userpass.value == "" || userpass.value == null){
         alert.style.color = "red";
         alert.innerHTML = "비밀번호를 입력해주세요.";
     }else{
         alert.innerHTML = "";
     }
+    if(idSave.value == 1){
+		setCookie('user', userid.value, '3');
+	}else{
+		delCookie('user');
+	}
     fetch("/ezenCine/Login", {
         headers : {"Content-Type" : "Application/json"},
         method : "post",
         body : JSON.stringify({
-            userid : userid, userpass : userpass
+            userid : userid.value, userpass : userpass.value
         })
         }).then((res) => res.json())
         .then((result) =>{
             if(result == 1){      
-                location.reload();
+                if(window.location.href.includes("signup")){
+                    location.href = "http://localhost:8080/ezenCine";
+                }else{
+                    location.reload();
+                }
+                
             }else{
                 alert.style.color = "red";
                 alert.innerHTML = "아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.";
             }
         })
 }
+
+
 
 function cLogout(){
     fetch("/ezenCine/Logout", {
@@ -965,6 +1027,157 @@ function sDaumPostcode() {
             }
         }).open();
 }
+
+/********************* mypage ***************************/
+$(function(){
+  //영화 이미지에 hover하면 상세보기와 예매하기가 보이게 한다
+  $(".h-movie-all").hover(function(){
+      $(this).find(".h-imgbox").find(".h-movie-content").stop().fadeToggle(300);
+  });
+  
+  $("#nav-movie").click(function(){
+      let offset = $('#movie').offset();
+      const scroll = $(document).scrollTop();
+      
+      if(scroll == 0){
+        $('html').animate({scrollTop : offset.top-80}, 400);
+      }else{
+        $('html').animate({scrollTop : offset.top-40}, 400);
+      }
+  });
+
+
+  $("#nav-upcoming").click(function(){
+    let offset = $('#upcoming').offset();
+    const scroll = $(document).scrollTop();
+
+    if(scroll == 0){
+      $('html').animate({scrollTop : offset.top-80}, 400);
+    }else{
+      $('html').animate({scrollTop : offset.top-40}, 400);
+    }
+  });
+
+  $("#nav-top").click(function(){
+    let offset = $('#top').offset();
+    const scroll = $(document).scrollTop();
+    
+    if(scroll == 0){
+      $('html').animate({scrollTop : offset.top-80}, 400);
+    }else{
+      $('html').animate({scrollTop : offset.top-40}, 400);
+    }
+  });
+
+  $("#nav-animation").click(function(){
+    let offset = $('#animation').offset(); 
+    const scroll = $(document).scrollTop();
+    
+    if(scroll == 0){
+      $('html').animate({scrollTop : offset.top-60}, 400);
+    }else{
+      $('html').animate({scrollTop : offset.top-40}, 400);
+    }
+  });
+
+  //mypage
+  $(".h-review-gnb li").click(function(){
+    $(".h-review-gnb li").removeClass("active");
+    $(this).toggleClass("active");
+    $(".h-lnb").css({"display" : "none"});
+    $(this).find(".h-lnb").css({"display" : "flex"});
+  });
+
+  
+  //booking
+  
+  $(".h-b-movie-btn").click(function(){
+    $(".h-b-movie-btn").removeClass("b-on");
+    $(this).addClass("b-on");
+    $(".h-location-blurbox").css({"display" : "none"});
+  });
+
+  $(".h-b-location-btn button").click(function(){
+    $(".h-b-location-btn button").removeClass("b-on");
+    $(this).addClass("b-on");
+    $(".h-date-blurbox").css({"display" : "none"});
+  });
+  
+  $(".h-b-date-btn button").click(function(){
+    $(".h-b-date-btn button").removeClass("b-on");
+    $(this).addClass("b-on");
+    $(".h-time-blurbox").css({"display" : "none"});
+  });
+
+  $(".h-b-time-btn button").click(function(){
+    $(".h-b-time-btn button").removeClass("b-on");
+    $(this).addClass("b-on");
+    $(".h-booking-btn-box").css({"display" : "block"});
+  });
+
+})//jquery
+const SearchBox = document.querySelector(".h-movie-search-box");
+const movieList = document.querySelector(".h-movie-list");
+const SearchBoxHeight = SearchBox.offsetTop;
+const movieListHight = movieList.offsetTop;
+console.log(movieListHight);
+
+const movie = document.querySelector('#nav-movie');
+const movieHeight = window.pageYOffset + document.querySelector("#movie").getBoundingClientRect().top-81;
+const upcoming = document.querySelector("#nav-upcoming");
+const upcomingHeight = window.pageYOffset + document.querySelector("#upcoming").getBoundingClientRect().top-81;
+const navTop = document.querySelector("#nav-top");
+const navTopHeight = window.pageYOffset + document.querySelector("#top").getBoundingClientRect().top-81;
+const animation = document.querySelector("#nav-animation");
+const animationHeight = window.pageYOffset + document.querySelector("#animation").getBoundingClientRect().top-81;
+
+window.onscroll = function () {
+  const windowTop = window.scrollY;
+  	// 스크롤 세로값이 h-movie-list높이보다 크거나 같으면 
+	// h-movie-list에 클래스 'drop'을 추가한다
+  if (windowTop >= SearchBoxHeight) {
+    movieList.classList.add("drop");
+  } 
+  // 아니면 클래스 'drop'을 제거
+  else {
+    movieList.classList.remove("drop");
+  }
+};
+
+$(window).scroll(function () { 
+	const scroll = $(document).scrollTop(); 
+  console.log(scroll);
+  console.log(movieHeight);
+  console.log(upcomingHeight);
+  console.log(navTopHeight);
+  console.log(animationHeight);
+
+  if(scroll < movieHeight){
+    movie.classList.remove("h-active");
+  }else if(scroll >= movieHeight && scroll < upcomingHeight){
+    movie.classList.add("h-active");
+    upcoming.classList.remove("h-active");
+  }else if(scroll >= upcomingHeight && scroll < navTopHeight){
+    movie.classList.remove("h-active");
+    upcoming.classList.add("h-active");
+    navTop.classList.remove("h-active");
+  }else if(scroll >= navTopHeight && scroll < animationHeight){
+    upcoming.classList.remove("h-active");
+    navTop.classList.add("h-active");
+    animation.classList.remove("h-active");
+  }else if(scroll >= animationHeight){
+    navTop.classList.remove("h-active");
+    animation.classList.add("h-active");
+  }
+    
+});
+
+
+
+
+/******************************************************/
+
+
 
 let day = dayjs();
 let ddd = "";

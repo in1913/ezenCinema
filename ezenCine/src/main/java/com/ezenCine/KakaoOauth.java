@@ -82,7 +82,7 @@ public class KakaoOauth extends HttpServlet {
 					req.setAttribute("nickname", "");
 					req.setAttribute("tel", "");
 					req.setAttribute("name", "");
-					req.getRequestDispatcher("index.jsp?fname=mem/signupSns").forward(req, res);
+					req.getRequestDispatcher("signupSns.jsp").forward(req, res);
 				}
 				
 			}else {

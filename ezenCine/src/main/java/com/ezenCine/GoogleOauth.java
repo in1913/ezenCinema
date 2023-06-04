@@ -88,7 +88,7 @@ public class GoogleOauth extends HttpServlet {
 				req.setAttribute("nickname", "");
 				req.setAttribute("tel", "");
 				req.setAttribute("name", familyName + givenName);
-				req.getRequestDispatcher("index.jsp?fname=mem/signupSns").forward(req, res);
+				req.getRequestDispatcher("signupSns.jsp").forward(req, res);
 			}
 			
 		}else {

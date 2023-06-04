@@ -79,14 +79,16 @@
 	if(userid == ""){
 %>            
                 <span class="r-bar"><a href="javascript:showLoginPopup();">Login</a></span>
+                <span><a href="/ezenCine/signup.jsp"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
 <%
 	}else{
 %>  
               	<span class="r-bar"><a href="javascript:cLogout();">Logout</a></span>
+              	<span><a href="index.jsp?fname=mem/mypage"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
 <%
 	}
 %>              		              
-                <span><a href="index.jsp?fname=mem/signup"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
+                
                 <span><a href="javascript:void(0)"><img src="images/ico/ico-search.png" alt="search" id="search-on"></a></span>
                 <div class="header-search-box">
                     <form action="" name="header-search-form" class="d-flex">

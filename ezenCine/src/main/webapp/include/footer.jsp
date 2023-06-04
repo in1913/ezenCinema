@@ -14,13 +14,14 @@
         </div>  
         <a href="#" class="c-id-not-save" style="color: #fff"><img class="c-check c-check-no" id="c-check-no" src="images/icon/describe/check.png" alt="idNo"> &nbsp;아이디 저장</a>
         <a href="#" class="c-id-save" style="color: #5c7ef7; font-weight: 500;"><img class="c-check c-check-yes" id="c-check-yes" src="images/icon/describe/Property 1=yes.png" alt="idYes"> &nbsp;아이디 저장</a>
+        <input type="hidden" name="c-id-save-val" id="c-id-save-val" value="0">
         <p id="c-login-alert"></p>
         <a href="javascript:loginSubmit();" class="c-login-btn"><h3>로그인</h3></a>
         <div class="c-meminfo">
             <div>
                 <a href="">아이디 찾기</a>
                 <a href="">비밀번호 찾기</a>
-                <a href="index.jsp?fname=mem/signup">회원가입</a>
+                <a href="/ezenCine/signup.jsp">회원가입</a>
             </div>
         </div>
         <fieldset class="c-login-fieldset">
