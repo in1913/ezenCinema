@@ -79,21 +79,6 @@ function showLoginPopup(){
     const shadow = document.getElementsByClassName("c-shadow")[0];
     loginPopup.style.display = "block";
     shadow.style.display = "block";
-    /*
-    google.accounts.id.initialize({
-        client_id: "523081570143-oanpb57bceggc2v5jnqgf13dc5u86laj.apps.googleusercontent.com",
-        ux_mode: "redirect",
-        login_uri : "https://localhost:8443/ezenCine/GoogleOauth"
-    });
-    google.accounts.id.renderButton(document.getElementById("googleBtn"),
-    { 
-        type : "icon", 
-        theme: "outline",
-        size : "medium",
-        shape: "circle"
-    }  // customization attributes
-    );
-    */
 }
 
 
@@ -315,10 +300,6 @@ function delCookie(cname){
 	document.cookie = cname + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-
-
-
-
 // 로그인 제출
 function loginSubmit(){
     const userid = document.getElementById("userId");
@@ -348,8 +329,8 @@ function loginSubmit(){
         }).then((res) => res.json())
         .then((result) =>{
             if(result == 1){      
-                if(window.location.href.includes("signup")){
-                    location.href = "https://localhost:8443/ezenCine";
+                if(window.location.href.includes("fname=mem")){
+                    location.href = "index.jsp";
                 }else{
                     location.reload();
                 }
@@ -371,7 +352,7 @@ function cLogout(){
     .then((result) => {
         if(result == 1){
             if(window.location.href.includes("fname=mem")){
-                location.href = "https://localhost:8443/ezenCine";
+                location.href = "index.jsp";
             }else{
                 location.reload();
             }
@@ -1155,33 +1136,197 @@ $(window).scroll(function () {
   }
     
 });
+/************ findid & findpw ************ */
+function cFindIdCheck(){
+    const username = document.getElementById("username");
+    const useremail = document.getElementById("useremail");
+    const findIdBtn = document.getElementsByClassName("c-find-second-btn")[0];
+    if(username.value != "" && useremail.value != ""){
+        findIdBtn.style.backgroundColor = "#5c7ef7";
+        $(".c-find-second-btn").attr("href", "javascript:cFindId();");
+    }else{
+        findIdBtn.style.backgroundColor = "#aeaeae";
+        $(".c-find-second-btn").removeAttr("href");
+    }
+}
+function cFindPwCheck(){
+    const userid = document.getElementById("userid");
+    const useremail = document.getElementById("useremail");
+    const findIdBtn = document.getElementsByClassName("c-find-second-btn")[0];
+    if(userid.value != "" && useremail.value != ""){
+        findIdBtn.style.backgroundColor = "#5c7ef7";
+        $(".c-find-second-btn").attr("href", "javascript:cFindPw();");
+    }else{
+        findIdBtn.style.backgroundColor = "#aeaeae";
+        $(".c-find-second-btn").removeAttr("href");
+    }
+}
+function cFindId(){
+    const username = document.getElementById("username").value;
+    const useremail = document.getElementById("useremail").value;
+    const popup_alert = document.getElementById("idpw-popup-alert");
+    const popup = document.getElementById("c-find-idpw-popup");
+    fetch("/ezenCine/FindId", {
+        headers: {"Content-Type" : "application/json"},
+        method: "post",
+        body: JSON.stringify({
+            username : username, useremail: useremail
+        })
+    }).then((res) => res.json())
+    .then((result) => {
+        if(result.result == 0){
+            popup.style.display = "block";
+            popup_alert.innerHTML = "입력된 정보와 일치하는 아이디가 없습니다.";
+        }else{
+            popup.style.display = "block";
+            popup_alert.innerHTML = username + "님의 아이디는 " + result.result + "입니다.";
+        }
+    })
+}
+function cThreeMinTimer(){
+    const Timer = document.getElementById("c-find-time");
+    const warning = document.getElementsByClassName("c-warning")[0];
+    let time = 180000;
+    let min = 3;
+    let sec = 60;
 
+    Timer.value = min + ":" + "00";
 
-
-
-/******************************************************/
-
-
-
-let day = dayjs();
-let ddd = "";
-const dateSlide = document.getElementById('dateSlide');
-for(let i = -3 ; i < 30 ; i++){
-    ddd = (day.add(i,"day").$d).toString();
-    let dt = parseInt(ddd.slice(8,10))
-    
-    dateSlide.innerHTML 
-        += `<div class="date">
-                <p class="datenum">${dt}</p>
-                <span class="day">${ddd.slice(0,3)}</span>
-            </div>`;
+    playTime = setInterval(function() {
+        time = time - 1000;
+        min = time / (60 * 1000);
+        if(sec > 0){
+            sec = sec - 1;
+            Timer.innerHTML = Math.floor(min) + ":" +sec;
+        }
+        if(sec === 0){
+            sec = 60;
+            Timer.innerHTML = Math.floor(min) + ":" + "00";
+        }
+    }, 1000);
 }
 
-const dateSlidePrev = () => {
-    console.log(dateSlide.style.left -= 10);
-    // if(dateSlide.style.left > 0){
-    //     dateSlide.style.left
-    // }
+var oauthCode = "";
+
+function cFindPw(){
+    const userid = document.getElementById("userid").value;
+    const sendemail = document.getElementById("useremail").value;
+    const popup_alert = document.getElementById("idpw-popup-alert");
+    const popup = document.getElementById("c-find-idpw-popup");
+    const warning = document.getElementsByClassName("c-warning")[0];
+    warning.innerHTML = "";
+    fetch("/ezenCine/FindPw", {
+        headers: {"Content-Type" : "application/json"},
+        method: "post",
+        body: JSON.stringify({
+            userid : userid, sendemail : sendemail
+        })
+    }).then((res) => res.json())
+    .then((result) => {
+        if(result.result == 0){
+            popup.style.display = "block";
+            popup_alert.innerHTML = "입력된 정보와 일치하는 회원정보가 없습니다.";
+        }else{
+            oauthCode = result.result;
+            popup.style.display = "block";
+            popup_alert.innerHTML = "입력하신 이메일로 인증번호가 전송되었습니다. 시간 내에 인증확인을 해주세요.";
+            $(".c-oauth-d-none").slideDown();
+            cThreeMinTimer();
+            setTimeout(function(){
+                clearInterval(playTime);
+                warning.innerHTML = "시간이 초과되었습니다.";
+            }, 180000);
+        }
+    })
+}
+function regexFindPwCheck(){    
+    let passwdRegex = /^(?=.*[a-z])(?=.*\d).{10,}$/;
+    const userpass = document.getElementById("userpass").value;
+    const reuserpass = document.getElementById("reuserpass").value;
+    const alert = document.getElementsByClassName("c-warning");
+    const findBtn = document.getElementsByClassName("c-find-second-btn")[0];
+    if(!passwdRegex.test(userpass)){
+        alert[1].style.color = "red";
+        alert[1].innerHTML = "형식에 맞춰 입력해주세요.";
+        return false;
+    }else{
+        alert[1].innerHTML = "";
+    }
+    if(passwdRegex.test(userpass) && reuserpass == userpass){
+        findBtn.style.backgroundColor = "#5c7ef7";
+        $(".c-find-second-btn").attr("href", "javascript:cUpdatePw();");
+    }
+
+}
+function reFindPwCheck(){
+    let passwdRegex = /^(?=.*[a-z])(?=.*\d).{10,}$/;
+    const userpass = document.getElementById("userpass").value;
+    const reuserpass = document.getElementById("reuserpass").value;
+    const alert = document.getElementsByClassName("c-warning");
+    const findBtn = document.getElementsByClassName("c-find-second-btn")[0];
+    if(reuserpass != userpass){
+        alert[2].style.color = "red";
+        alert[2].innerHTML = "비밀번호가 같지 않습니다.";
+    }else{
+        alert[2].innerHTML = "";
+    }
+    if(passwdRegex.test(userpass) && reuserpass == userpass){
+        findBtn.style.backgroundColor = "#5c7ef7";
+        $(".c-find-second-btn").attr("href", "javascript:cUpdatePw();");
+    }
+}
+function cOauthCheck(){
+    const oauthnum = document.getElementById("oauthnum");
+    const oauthBtn = document.getElementsByClassName("c-find-pw-oauth-btn")[0];
+    if(oauthnum.value != ""){
+        oauthBtn.style.backgroundColor = "#5c7ef7";
+        $(".c-find-pw-oauth-btn").attr("href", "javascript:cOauthNum();");
+    }else{
+        oauthBtn.style.backgroundColor = "#aeaeae";
+        $(".c-find-pw-oauth-btn").removeAttr("href");
+    }
+}
+function cOauthNum(){
+    const oauthnum = document.getElementById("oauthnum").value;
+    const warning = document.getElementsByClassName("c-warning")[0];
+    const findSecondbtn = document.getElementsByClassName("c-find-second-btn")[0];
+
+    if(oauthnum == oauthCode){
+            clearInterval(playTime);
+            warning.innerHTML = "";
+            $(".c-userpass-d-none").slideDown("slow", "swing", function(){
+                findSecondbtn.style.backgroundColor = "#aeaeae";
+                findSecondbtn.innerHTML = "비밀번호 변경";
+                $(".c-find-second-btn").removeAttr("href");
+            });
+    }else{
+        warning.innerHTML = "전송코드가 일치하지 않습니다.";
+    }
+}
+function cUpdatePw(){
+    const userid = document.getElementById("userid").value;
+    const userpass = document.getElementById("userpass").value;
+    const popup_alert = document.getElementById("idpw-popup-alert");
+    const popup = document.getElementById("c-find-idpw-popup");
+    fetch("/ezenCine/UpdatePw", {
+        headers : {"Content-Type" : "application/json"},
+        method : "post",
+        body : JSON.stringify({
+            userid : userid, userpass : userpass
+        })
+    }).then((res) => res.json())
+    .then((result) => {
+        if(result.result == 0){
+            popup.style.display = "block";
+            popup_alert.innerHTML = "오류가 발생했습니다. 다시 한번 시도해주세요.";
+        }else{
+            popup.style.display = "block";
+            popup_alert.innerHTML = "입력하신 비밀번호로 비밀번호가 변경되었습니다.";
+        }
+    })
 }
 
-
+function cFindIdPwClose(){
+    const popup = document.getElementById("c-find-idpw-popup");
+    popup.style.display = "none";
+}

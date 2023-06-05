@@ -162,4 +162,90 @@ public class MemberDDL {
 		}
 		return result;
 	}
+	
+	public static String findID(String username, String useremail) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String result = "";
+		
+		String sql = "select id from Member where username = ? and email = ?";
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1,  username);
+			ps.setString(2,  useremail);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				result = rs.getString("id");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {}
+		}
+		return result;
+	}
+	
+	public static boolean isMem(String userid) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		boolean result = false;
+		
+		String sql = "select id from Member where id = ?";
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1,  userid);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				result = true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {}
+		}
+		return result;
+	}
+	
+	public static boolean updatePW(String userid, String userpass) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		int flag = 0;
+		
+		String sql = "update Member set password = ? where id = ?";
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1,  userpass);
+			ps.setString(2,  userid);
+			flag = ps.executeUpdate();
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+			}catch(SQLException e) {}
+		}
+		if(flag > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

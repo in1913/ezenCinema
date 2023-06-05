@@ -33,7 +33,6 @@ header.fixed{
     background-color: rgba(255,255,255,0.8);
     backdrop-filter: blur(10px);
 }
-
 header>.container{
     padding:15px 40px;
 }
@@ -992,8 +991,140 @@ img.c-active{
     color: #fff;
     background-color: #5c7ef7;
 }
-
-
+/***************** findid, findpw **********************/
+.c-find-container{
+    width: 540px;
+    margin-top: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+}
+.c-findidInfo, .c-findpwInfo{
+    margin-top: 60px;
+}
+.c-findidInfo>div,.c-findpwInfo>div{
+    display: flex;
+    margin-bottom: 20px;
+}
+.c-findidInfo input,.c-findpwInfo input{
+    height: 50px;
+    border: 2px solid;
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px;
+    font-size: 17px;
+}
+.c-findidInfo .first,.c-findpwInfo .first{
+    width: 140px;
+    line-height: 50px;
+}
+.c-findidInfo .second, .c-findpwInfo .second{
+    width: 400px;
+}
+.c-input-oauth{
+    width: 650px;
+}
+.c-input-oauth .second{
+    position: relative;
+}
+.c-input-oauth .second>span.c-find-time {
+    position: absolute;
+    top: 14px;
+    right: 15px;
+    color: red;
+}
+span.c-find-info{
+    font-size: 11px;
+    color: #777;
+}
+span.c-warning {
+    color: red;
+    font-size: 11px;
+}
+a.c-find-pw-oauth-btn{
+    width: 90px;
+    height: 36px;
+    line-height: 36px;
+    background-color: #aeaeae;
+    display: block;
+    text-align: center;
+    margin-top: 7px;
+    margin-left: 20px;
+    border-radius: 100px;
+    color: #fff;
+}
+div.c-userpass-d-none, div.c-oauth-d-none{
+    display: none;
+}
+div.c-input-oauth{
+    display: flex;
+    margin-bottom: 20px;
+}
+div.c-input-userpass{
+    display: flex;
+    margin-bottom: 20px;
+}
+div.c-input-reuserpass{
+    display: flex;
+}
+.c-findidpw-btnbox{
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+a.c-find-first-btn{
+    font-weight: 500;
+    width: 167px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 100px;
+    border: 1px solid #ccc;
+}
+a.c-find-second-btn{
+    font-size: 18px;
+    width: 353px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 100px;
+    background: #aeaeae;
+    color: #fff;
+}
+.c-find-idpw-popup{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 680px;
+    height: 223px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 16px;
+    border: 1px solid #ccc;
+    display: none;
+}
+.c-find-idpw-popup p{
+    margin: 0;
+    margin-top: 60px;
+    text-align: center;
+    padding: 0;
+    font-size: 20px;
+}
+.c-find-idpw-popup-close-btn{
+    margin-top: 55px;
+    height: 40px;
+    line-height: 40px;
+    width: 130px;
+    text-align: center;
+    border: 1px solid #ccc;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 100px;
+    background: #fff;
+}
 
 /******************* mypage **************************/
 /*

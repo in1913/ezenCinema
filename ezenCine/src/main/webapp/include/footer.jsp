@@ -19,8 +19,8 @@
         <a href="javascript:loginSubmit();" class="c-login-btn"><h3>로그인</h3></a>
         <div class="c-meminfo">
             <div>
-                <a href="">아이디 찾기</a>
-                <a href="">비밀번호 찾기</a>
+                <a href="index.jsp?fname=mem/findId">아이디 찾기</a>
+                <a href="index.jsp?fname=mem/findPw">비밀번호 찾기</a>
                 <a href="/ezenCine/signup.jsp">회원가입</a>
             </div>
         </div>
