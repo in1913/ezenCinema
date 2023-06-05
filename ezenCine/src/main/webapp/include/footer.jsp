@@ -30,7 +30,7 @@
                 <a href="javascript:loginWithKakao();"><img src="images/sns/login_kakao.png" alt="login_kakao"></a>
 <%
     String clientId = "ybgt8eoPV5ELLhZ2LTbP";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("http://localhost:8080/ezenCine/NaverOauth", "UTF-8");
+    String redirectURI = URLEncoder.encode("https://localhost:8443/ezenCine/NaverOauth", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
     String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -45,7 +45,20 @@
  %>                
                 <a href="<%=apiURL%>"><img src="images/sns/login_naver.png" alt="login_naver"></a>
                 
-                <div id="googleBtn"></div>
+                <div id="g_id_onload"
+			         data-client_id="523081570143-oanpb57bceggc2v5jnqgf13dc5u86laj.apps.googleusercontent.com"
+			         data-login_uri="https://localhost:8443/ezenCine/GoogleOauth"
+			         data-ux_mode="redirect"
+			         data-auto_prompt="false">
+			      </div>
+			      <div class="g_id_signin"
+			         data-type="icon"
+			         data-theme="outline"
+			         data-size="medium"
+			         data-shape="circle"
+			         data-width=16
+			         >
+			      </div>
             </div>
         </fieldset>
     </div>    

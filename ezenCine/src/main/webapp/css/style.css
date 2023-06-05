@@ -541,8 +541,8 @@ div.h-time{
     margin-left: 10px;
     border-radius: 50%;
 }
-.c-login-sns div{
-	margin-left: 6px;
+.c-login-sns div.g_id_signin{
+	margin-left: 10px;
 }
 .c-shadow{
     background: rgba(88,88,88,.5);

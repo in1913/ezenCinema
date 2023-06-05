@@ -79,10 +79,11 @@ function showLoginPopup(){
     const shadow = document.getElementsByClassName("c-shadow")[0];
     loginPopup.style.display = "block";
     shadow.style.display = "block";
+    /*
     google.accounts.id.initialize({
         client_id: "523081570143-oanpb57bceggc2v5jnqgf13dc5u86laj.apps.googleusercontent.com",
         ux_mode: "redirect",
-        login_uri : "http://localhost:8080/ezenCine/GoogleOauth"
+        login_uri : "https://localhost:8443/ezenCine/GoogleOauth"
     });
     google.accounts.id.renderButton(document.getElementById("googleBtn"),
     { 
@@ -92,7 +93,7 @@ function showLoginPopup(){
         shape: "circle"
     }  // customization attributes
     );
-    google.accounts.id.prompt(); // also display the One Tap dialog
+    */
 }
 
 
@@ -348,7 +349,7 @@ function loginSubmit(){
         .then((result) =>{
             if(result == 1){      
                 if(window.location.href.includes("signup")){
-                    location.href = "http://localhost:8080/ezenCine";
+                    location.href = "https://localhost:8443/ezenCine";
                 }else{
                     location.reload();
                 }
@@ -369,7 +370,12 @@ function cLogout(){
     }).then((res) => res.json())
     .then((result) => {
         if(result == 1){
-            location.reload();
+            if(window.location.href.includes("fname=mem")){
+                location.href = "https://localhost:8443/ezenCine";
+            }else{
+                location.reload();
+            }
+            
         }
         
     })
@@ -379,34 +385,12 @@ function cLogout(){
 function loginWithKakao() {
 	Kakao.init('a3c2f415c4d6b740c5c1a27c6b37158f'); // 사용하려는 앱의 JavaScript 키 입력
     Kakao.Auth.authorize({
-        redirectUri: 'http://localhost:8080/ezenCine/KakaoOauth',
+        redirectUri: 'https://localhost:8443/ezenCine/KakaoOauth',
         scope: 'account_email'
     });
     Kakao.Auth.setAccessToken(token);
 }
 
-// 네이버 로그인
-
-
-// 구글 로그인
-/*
-window.onload = function () {
-    google.accounts.id.initialize({
-        client_id: "523081570143-oanpb57bceggc2v5jnqgf13dc5u86laj.apps.googleusercontent.com",
-        ux_mode: "redirect",
-        login_uri : "http://localhost:8080/ezenCine/GoogleOauth"
-    });
-    google.accounts.id.renderButton(document.getElementById("googleBtn"),
-    { 
-        type : "icon", 
-        theme: "outline",
-        size : "medium",
-        shape: "circle"
-    }  // customization attributes
-    );
-  google.accounts.id.prompt(); // also display the One Tap dialog
-}
-*/
 window.onload = function(){
     document.getElementById("url").value = window.location.href;
 }

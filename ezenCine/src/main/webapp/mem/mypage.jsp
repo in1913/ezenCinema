@@ -134,6 +134,7 @@
 				// ticket_date은 결제 일시인가.... 관람일시인가....
 				// tickerting 테이블에 영화 관람 일시든 결제일시든 둘다 들어가야 할듯.
 				// seat_num에 g관 6열도 들어가는가? 
+				// 						
 				// 관람인원은?
 %>                            
 <!-- row 랑 col은 왜 같이 있는 걸까?  -->
@@ -146,7 +147,6 @@
                                         <div class="h-mybooking-dinfo">
                                             <p>예매번호 <span><%=gmi.getTicketing_num() %></span></p>
                                             <p>상영관/관람과석 <span><%=gmi.getRoom_num() %>관/G열 <%=gmi.getSeat_num() %></span></p>
-                                            <p>관람인원 <span>성인 1명</span></p>                             
                                             <p>결제일시 <span>2023.05.02(화) 18:38</span></p>
                                             <p>관람일시 <span>2023.05.03(수) 12:00(3회차)</span></p>
                                         </div>
