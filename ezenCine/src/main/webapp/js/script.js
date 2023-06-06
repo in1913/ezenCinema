@@ -85,30 +85,7 @@ $(function(){
 	    }
 	  });
     
-    // booking
-    $(".h-b-movie-btn").click(function(){
-        $(".h-b-movie-btn").removeClass("b-on");
-        $(this).addClass("b-on");
-        $(".h-location-blurbox").css({"display" : "none"});
-    });
-
-    $(".h-location-box label").click(function(){
-        $(".h-location-box label").removeClass("b-on");
-        $(this).addClass("b-on");
-        $(".h-time-blurbox").css({"display" : "none"});
-    });
-
-    $(".h-b-time-btn button").click(function(){
-        $(".h-b-time-btn button").removeClass("b-on");
-        $(this).addClass("b-on");
-        $(".h-booking-btn-box").css({"display" : "block"});
-    });
-
-    // 날짜클릭 액티브
-    $(".date-slide>.date").click(function(){
-        $(".date").removeClass("b-on");
-        $(this).addClass("b-on");
-    })
+    
     
     /*** 영화상세 ***/
     //좋아요 버튼

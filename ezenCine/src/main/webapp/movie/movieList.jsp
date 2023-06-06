@@ -55,8 +55,7 @@
 	                            <img src="<%=dt.getPoster_url() %>" alt="포스터">
 	                            <div class="h-movie-content">
 	                                <div class="h-movie-content-bg"></div>
-	                                <a href="index.jsp?fname=movie/movieDetail&mov_id=<%=dt.getId() %>" class="h-movie-info"></a>
-	                                <a href="javascript:void(0)" class="h-movie-booking"></a>
+	                                <a href="index.jsp?fname=movie/movieDetail&mov_id=<%=dt.getId() %>" class="h-movie-info expected"></a>
 	                            </div>
 	                        </div>
 	                        <p class="h-movie-title"><%=dt.getTitle() %></p>

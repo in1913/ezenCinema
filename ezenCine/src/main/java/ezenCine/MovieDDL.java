@@ -206,4 +206,40 @@ public class MovieDDL {
 		}
 		return data;
 	}
+	
+	// 예매페이지 상영중인 영화목록 출력
+	public static Vector<MovieDTO> selectMovie(){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "SELECT * FROM Movie WHERE CURDATE() BETWEEN open_date AND close_date" ;
+		Vector<MovieDTO> data = new Vector<>();
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(query);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				MovieDTO dto = new MovieDTO();
+				dto.setId(rs.getString("id"));
+				dto.setTitle(rs.getString("title"));
+				dto.setLimit_age(rs.getInt("age_limit"));
+				
+				data.add(dto);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return data;
+	}
 }
