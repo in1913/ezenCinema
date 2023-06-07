@@ -10,7 +10,7 @@
 	SimpleDateFormat output1 = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat output2 = new SimpleDateFormat("yyyy-M-d-E");
 	Vector<MovieDTO> dto = MovieDDL.selectMovie();
-	Vector<CinemaDTO> cto = CinemaDDL.selectCinema();
+	
 %>
     <section class="booking">
         <div class="container">
@@ -38,21 +38,12 @@
                 <div class="h-location h-booking_box mr-2">
                     <h3 class="p-2">극장</h3>
                     <div class="h-location-box cumtom_scrollbar">
-                    <%
-                    	for(CinemaDTO ct : cto){
-                    %>
-                        <label class="select_btn">
-                            <input type="radio" name="cinema-location" value="<%=ct.getName()%>">
-                            <%=ct.getName() %>
-                        </label>
-                    <%
-                    	}
-                    %>
+                    <!-- 스크립트가 해결해줌 -->
                     </div>
                     <div class="h-location-blurbox"></div>
                 </div>
                 
-                <div class="h-time h-booking_box">
+                <div class="h-booking_box">
                     <h3 class="p-2">날짜</h3>
                     <div class="date-select">
                     
@@ -105,9 +96,8 @@
                     </div>
                     <h3 class="p-2">상영시간</h3>
                     <div class="h-time-box cumtom_scrollbar">
-                        <ul class="h-time-list">
-                            <li class="h-b-time-btn"><button type="button" class="h-b-time"><span class="h-time">09:00 ~ 10:30</span><span class="h-sit">좌석 0/30</span></button></li>
-                            <li class="h-b-time-btn"><button type="button" class="h-b-time"><span class="h-time">11:00 ~ 12:30</span><span class="h-sit">좌석 0/30</span></button></li>
+                        <ul class="h-time-list p-3">
+                            <!-- 여기도 스크립트가 뿌려줌 -->                            
                         </ul>
                     </div>
                     <div class="h-time-blurbox"></div>
@@ -166,7 +156,31 @@
 		           	</div>
 		           	<div class="s_selectbox">
 		           		<h6 class="screen">SCREEN</h6>
-		           		
+		           		<ul class="seat_container">
+		           		<%
+		           			String[] row = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+		           			for(int i = 0 ; i < 10 ; i++){
+		           		%>
+		           			<li class="seat_box">
+		           				<span class="seat_row"><%=row[i] %></span>
+		           			<%
+		           				for(int j = 1 ; j <= 12 ; j++){
+		           			%>
+		           				<span class="seat">
+		           					<%=j %>
+		           					<input class="seat_hidden" type="hidden" value="<%=row[i] %><%=j %>" />
+		           				</span>
+		           			<%
+		           				}
+		           			%>
+		           			</li>
+		           		<%
+		           			}
+		           		%>
+		           		</ul>
+		           		<div class="seat_container mt-3">
+		           			<img src="images/ico/ico-seatsInfo.png" alt="좌석정보" />
+		           		</div>
 		           	</div>
 	           	</div>
 	           	

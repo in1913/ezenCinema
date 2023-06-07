@@ -1,29 +1,102 @@
 $(function(){
 	// booking
-    $(".h-b-movie-btn").click(function(){
+	// 영화선택
+    $(".h-b-movie-btn").change(function(){
         $(".h-b-movie-btn").removeClass("b-on");
+        $(".h-location-box .select_btn").removeClass("b-on");
+        $(".date").removeClass("b-on");
+        $(".h-time-list").html(" ");
         $(this).addClass("b-on");
         $(".h-location-blurbox").css({"display" : "none"});
+        let mvVal = $(this).find("input[type='radio']:checked").val();
+        
+        $.ajax({
+			url : "/ezenCine/MovieCheck",
+			type : "post",
+			data : {movie_id : mvVal},
+			dataType: "json",
+			success: function(result){
+				if(result == 0){
+					alert("상영중인 영화관이 없습니다.");
+					$(".h-location-box").html("");
+					$(".h-location-blurbox").css({"display" : "block"});
+					$(".h-time-blurbox").css({"display" : "block"});
+				}else{
+					$.ajax({
+	                    url: "movie/movieCheckOk.jsp",
+	                    type: "get",
+	                    data: {movie_id: mvVal},
+	                    success: function(html) {
+	                        $(".h-location-box").html(html);
+	                    }
+	                });
+				}
+			}
+		})
     });
-
-    $(".h-location-box label").click(function(){
-        $(".h-location-box label").removeClass("b-on");
+	
+	// 극장 선택
+	$(document).on("click", ".h-location-box .select_btn", function(){
+		$(".h-location-box .select_btn").removeClass("b-on");
         $(this).addClass("b-on");
         $(".h-time-blurbox").css({"display" : "none"});
-    });
+	})
+    
 
-    $(".h-b-time-btn button").click(function(){
-        $(".h-b-time-btn button").removeClass("b-on");
-        $(this).addClass("b-on");
-        $(".h-booking-btn-box").css({"display" : "block"});
-    });
+    
 
-    // 날짜클릭 액티브
-    $(".date-slide>.date").click(function(){
-        $(".date").removeClass("b-on");
+    // 날짜클릭
+    $(document).on("click", ".date-slide>.date", function(){
+        let cineVal = $(".h-location-box").find("input[type='radio']:checked").val();
+        let mvVal = $(".h-b-movie").find("input[type='radio']:checked").val();
+        let dateVal;
+        console.log(cineVal);
+        if(cineVal != null){
+	        $(".date").removeClass("b-on");
+	        $(this).addClass("b-on");
+	        $(this).find("input").prop("checked", true);
+	        dateVal = $(".date-slide").find("input[type='radio']:checked").val();
+	        $.ajax({
+				url : "/ezenCine/TimeCheck",
+				type : "post",
+				data : {
+					movie_id : mvVal,
+					cinema_name : cineVal,
+					date : dateVal
+				},
+				dataType: "json",
+				success: function(result){
+					if(result == 0){
+						alert("상영중인 영화관이 없습니다.");
+						$(".h-time-list").html("");
+					}else{
+						$.ajax({
+		                    url: "movie/timeCheckOk.jsp",
+		                    type: "get",
+		                    data : {
+								movie_id : mvVal,
+								cinema_name : cineVal,
+								date : dateVal
+							},
+		                    success: function(html) {
+		                        $(".h-time-list").html(html);
+		                    }
+		                });
+					}
+				}
+			})
+        }else{
+        	alert("영화관을 선택하세요.");
+        }
+    })
+    
+    // 시간 클릭
+    $(document).on("click", ".h-b-time-btn", function(){
+        $(".h-b-time-btn").removeClass("b-on");
         $(this).addClass("b-on");
         $(this).find("input").prop("checked", true);
-    })
+        $(".h-booking-btn-box").css({"display" : "block"});
+    });
     
     // 좌석선택 나와라
     $(".h-booking-btn").click(function(){

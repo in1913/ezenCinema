@@ -242,4 +242,36 @@ public class MovieDDL {
 		}
 		return data;
 	}
+	
+	// 런타임 보내기
+	public static int selectRuntime(String movie_id){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "select runtime from Movie where id = ?" ;
+		int runtime = 0;
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, movie_id);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				runtime = rs.getInt("runtime");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return runtime;
+	}
 }

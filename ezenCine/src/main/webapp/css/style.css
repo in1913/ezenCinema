@@ -239,6 +239,8 @@ section.booking h3{
     position:relative;
 }
 .h-booking_box{
+	position:relative;
+	width:410px;
     border: 2px solid #000;
     height: 700px;
     background-color: #fff;
@@ -304,11 +306,10 @@ div.h-location{
 }
 input[type=radio]{
     display: none;
-}
+} 
 .h-b-movie,
 .h-b-location,
-.h-b-date,
-.h-b-time{
+.h-b-date{
     cursor: pointer;
     border: none;
     background-color: transparent;
@@ -317,6 +318,9 @@ input[type=radio]{
 }
 .h-b-movie{
 	overflow:hidden;
+}
+.h-b-movie-btn{
+	cursor:pointer;
 }
 .select_btn{
     display: block;
@@ -333,18 +337,29 @@ input[type=radio]{
 span.count{
     font-size:14px;
 }
-.h-b-time{
-    width: 100%;
+.h-b-time-btn{
+	display:inline-block;
+	width:106px;
+	height:66px;
+	padding: 10px;
+	border: 2px solid #E1E1E1;
+	border-radius:10px;
+	margin-right:10px;
+	margin-bottom: 10px;
+	cursor:pointer;
 }
-.h-time{
-    float: left;
+.h-b-time-btn.b-on{
+	border-color:#000;
 }
-div.h-time{
-    width:410px;
+.h-b-time-btn.b-on>*{
+ 	color:#000;
 }
-.h-sit{
-    float: right;
+.h-b-time-btn>*{
+	font-size:14px;
+	color:#333;
+	font-weight:500;
 }
+
 .h-booking-btn-box{
     position: absolute;
     right: 20px;
@@ -439,7 +454,7 @@ div.h-time{
 	left:0;
 	z-index:102;
 	padding-top:230px;
-	display:none;
+	/* display:none; */
 }
 .p_selectbox{
 	width:260px;
@@ -545,6 +560,65 @@ input[type="number"]::-webkit-inner-spin-button {
 	border:2px solid #000;
 	background:#ccc;
 }
+.seat_container{
+	width:540px;
+	margin:0 auto;
+}
+ul.seat_container{
+	margin-top:35px;
+}
+
+.seat_row{
+	display:inline-block;
+	font-size:14px;
+	font-weight:500;
+	color:#333;
+	margin-right:40px;
+	width:13px;
+	text-align:center;
+}
+.seat{
+	display:inline-block;
+	color:#333;
+	font-weight:500;
+	padding-top:1px;
+	font-size:12px;
+	text-align:center;
+	width:28px;
+	height:20px;
+	background-image:url(../images/ico/ico-seat.png);
+	background-repeat:no-repeat;
+	background-size:100%;
+	cursor:pointer;
+	margin-right:2px;
+}
+.seat_box{
+	margin-bottom:6px;
+}
+.seat_box .seat:nth-child(3){
+	margin-right:40px;
+}
+.seat_box .seat:nth-child(11){
+	margin-right:40px;
+}
+.seat.selected{
+	background-image: url(../images/ico/ico-selected.png);
+	color:#fff;
+}
+.seat.break{
+	background-image: url(../images/ico/ico-break.png);
+	content:"";
+}
+.seat.completed{
+	background-image: url(../images/ico/ico-completed.png);
+	color:#fff;
+}
+.seat.advantaged{
+	background-image: url(../images/ico/ico-advantaged.png);
+	color:#fff;
+}
+
+
 /*** booking 끝 ***/
 /*** movieList 시작 ***/
 section.movieList{
