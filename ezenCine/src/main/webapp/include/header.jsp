@@ -65,7 +65,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">혜택</a>
+                        <a class="c-blue" href="javascript:void(0)">혜택</a>
                         <ul class="lnb">
                             <li><a href="javascript:void(0)">멤버십</a></li>
                             <li><a href="javascript:void(0)">제휴/할인</a></li>
@@ -78,13 +78,13 @@
 <%
 	if(userid == ""){
 %>            
-                <span class="r-bar"><a href="javascript:showLoginPopup();">Login</a></span>
-                <span><a href="/ezenCine/signup.jsp"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
+                <span class="r-bar"><a href="javascript:showLoginPopup();">로그인</a></span>
+                <span><a href="/ezenCine/signup.jsp">회원가입</a></span>
 <%
 	}else{
 %>  
-              	<span class="r-bar"><a href="javascript:cLogout();">Logout</a></span>
-              	<span><a href="index.jsp?fname=mem/mypage"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
+              	<span class="r-bar"><a href="javascript:cLogout();">로그아웃</a></span>
+              	<span><a href="index.jsp?fname=mem/mypage">MY</a></span>
 <%
 	}
 %>              		              

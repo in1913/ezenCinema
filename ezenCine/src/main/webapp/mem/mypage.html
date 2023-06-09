@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="c-mypage-background">
+    <div class="container position-relative">
+        <div class="h-mypage-info" id="h-mypage-info">
+            <div class="h-member_info d-flex">
+                <div class="h-welcom">
+
+                	<img src="../images/icon/user/user.png" alt="user" />
+
+                </div>
+                <div class="c-member">
+                	<div class="c-member-top">
+		                <div class="h-member_name"><p><%=m.getId() %><span>님</span></p></div>
+		                <div class="h-member_edit">
+		                    <p>
+		                        <a href="index.jsp?fname=mem/profile">내정보수정</a>
+		                        <a href="javascript:void(0)">지난등급조회</a>
+		                    </p>
+		                </div>
+	                </div>
+	                <div class="h-mypage-home">
+	                    <div class="h-home"></div>
+	                    <div class="h-home-right"></div>
+	                    <p>예매내역</p>
+	                    <div class="h-home-right"></div>
+	                    <p>마이페이지</p>
+	                </div>
+	                <div class="h-member_rate">
+	                    <p>현재 고객님의 등급은</p>
+	                    <p>
+	                        <span class="h-select">Welcome</span>
+	                        <span>Silver</span>
+	                        <span>Gold</span>
+	                        <span>VIP</span>
+	                    </p>
+	                </div>
+	                <div class="h-myoption">
+	                    <div class="row">
+	                        <div class="h-mypoint">
+	                            <p>포인트 이용내역</p>
+	                            <ul>
+	                                <li><a href="javascript:void(0)">적립예정</a></li>
+	                                <li><a href="javascript:void(0)">당월소멸예정</a></li>
+	                            </ul>
+	                        </div>
+	                        <div class="h-my-favorit">
+	                            <p>선호하는 극장</p>
+	                            <ul>
+	                                <li><a href="javascript:void(0)">김포이젠시네마</a></li>
+	                            </ul>
+	                        </div>
+	                        <div class="h-my-special">
+	                            <p>스페셜 멤버십</p>
+	                            <ul>
+	                                <li><a href="javascript:void(0)">가입된 스페셜 멤버십이 없습니다.</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+            </div>
+            <div class="c-mypage-bottom">
+                <ul class="gnb">
+                    <li><a href="javascript:cMyPageBottom(0);" class="c-mypage-tab c-mypage-li-active">예매내역</a></li>
+                    <li><a href="javascript:cMyPageBottom(1);" class="c-mypage-tab">내가 쓴 리뷰</a></li>
+                    <li><a href="javascript:cMyPageBottom(2)" class="c-mypage-tab">보고싶어요</a></li>
+                </ul>
+                <!-- booking -->
+                <div class="c-mypage-booking c-mypage-content c-mypage-content-active">
+                    <div class="row" id="c-mypage-booking-insert">
+                        
+                        <div class="col-6">
+                            <img src="../images/poster/Guardians of the Galaxy Volume 3.jpg" alt="">
+                            <div class="c-content">
+                                <p class="c-title">극장판 짱구는 못말려: 동물소환 닌자 배꼽수비대</p>
+                                <p>예매번호 <span>OOO-OOO-OOOOO</span></p>
+                                <p>상영관/관람과석 <span>3관/G열 5</span></p>
+                                
+                                <p>결제일시 <span>2023.05.02(화) 18:38</span></p>
+                                <p>관람일시 <span>2023.05.03(수) 12:00(3회차)</span></p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <img src="../images/poster/Guardians of the Galaxy Volume 3.jpg" alt="">
+                            <div class="c-content">
+                                <p class="c-title">드림</p>                                </p>
+                                <p>예매번호 <span>OOO-OOO-OOOOO</span></p>
+                                <p>상영관/관람과석 <span>3관/G열 5</span></p>
+                                
+                                <p>결제일시 <span>2023.05.02(화) 18:38</span></p>
+                                <p>관람일시 <span>2023.05.03(수) 12:00(3회차)</span></p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <img src="../images/poster/Guardians of the Galaxy Volume 3.jpg" alt="">
+                            <div class="c-content">
+                                <p class="c-title">가디언즈 오브 갤럭시: Volume 3</p>
+                                <p>예매번호 <span>OOO-OOO-OOOOO</span></p>
+                                <p>상영관/관람과석 <span>3관/G열 5</span></p>
+                                
+                                <p>결제일시 <span>2023.05.02(화) 18:38</span></p>
+                                <p>관람일시 <span>2023.05.03(수) 12:00(3회차)</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="c-mypage-plus" href="javascript:cMyPageMore(0);">더보기 +</a>
+                </div>
+                <!-- review -->
+                <div class="c-mypage-review c-mypage-content">
+                    <div class="row">
+                        <div class="col-6">
+                            <img src="../images/poster/Guardians of the Galaxy Volume 3.jpg" alt="">
+                            <div class="c-content">
+                                <p class="c-title">분노의 질주: 라이드 오어 다이</p>
+                                <p>평점<span class="c-score">10</span></p>
+                                <p class="c-comment">재밌어용 그루트 귀여웡^O^</p>
+                                <p class="c-bottom">
+                                    <span class="first">
+                                        <img class="c-like-img" class="" src="../images/h-button/like.png" alt="like">
+                                        <span>2일 전</span>
+                                    </span>
+                                    <span class="second">
+                                        <a href="javascript:void(0);">수정</a>
+                                        <a href="javascript:void(0);">삭제</a>
+                                    </span></p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <img src="../images/poster/Guardians of the Galaxy Volume 3.jpg" alt="">
+                            <div class="c-content">
+                                <p class="c-title">극장판 짱구는 못말려: 동물소환 닌자 배꼽수비대</p>
+                                <p>평점<span class="c-score">10</span></p>
+                                <p class="c-comment">재밌어용 그루트 귀여웡^O^</p>
+                                <p class="c-bottom">
+                                    <span class="first">
+                                        <img class="c-like-img" class="" src="../images/h-button/like.png" alt="like">
+                                        <span>2일 전</span>
+                                    </span>
+                                    <span class="second">
+                                        <a href="javascript:void(0);">수정</a>
+                                        <a href="javascript:void(0);">삭제</a>
+                                    </span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="c-mypage-plus" href="javascript:cMyPageMore(1);">더보기 +</a>
+                </div>
+                <!-- like -->
+                <div class="c-mypage-see c-mypage-content">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="../images/poster/Fast X.jpg" alt="분노의 질주"><span class="c-title">분노의 질주: 라이드 오어 다이</span><span class="c-engtitle">Fast X</span>
+                        </div>
+                        <div class="col-2">
+                            <img src="../images/poster/The Super Mario Bros.jpg" alt="분노의 질주"><span class="c-title">슈퍼 마리오 브라더스</span><span class="c-engtitle">The Super Mario Bros.Movie</span>
+                        </div>
+                        <div class="col-2">
+                            <img src="../images/poster/Fast X.jpg" alt="분노의 질주">
+                            <span class="c-title">분노의 질주: 라이드 오어 다이</span>
+                            <span class="c-engtitle">Fast X</span>
+                        </div>
+                        <div class="col-2">
+                            <img src="../images/poster/Fast X.jpg" alt="분노의 질주">
+                            <span class="c-title">분노의 질주: 라이드 오어 다이</span>
+                            <span class="c-engtitle">Fast X</span>
+                        </div>
+                        <div class="col-2">
+                            <img src="../images/poster/Fast X.jpg" alt="분노의 질주">
+                            <span class="c-title">분노의 질주: 라이드 오어 다이</span>
+                            <span class="c-engtitle">Fast X</span>
+                        </div>
+                        <div class="col-2">
+                            <img src="../images/poster/Fast X.jpg" alt="분노의 질주">
+                            <span class="c-title">분노의 질주: 라이드 오어 다이</span>
+                            <span class="c-engtitle">Fast X</span>
+                        </div>
+                    </div>
+                    <a class="c-mypage-plus" id="c-mypage-plus-booking-btn" href="javascript:cMyPageMore(2);">더보기 +</a>
+                </div>
+            </div>
+        </div>
+        <div class="h-right-nav">
+            <div class="h-nav">
+                <div class="h-nav-booking">
+                    <a href="javascript:void(0)">
+                        <div class="h-img"></div>
+                        <p>예매하기</p>
+                    </a>
+                </div>
+                <div class="h-nav-buy">
+                    <a href="javascript:void(0)">
+                        <div class="h-img"></div>
+                        <p>구매내역</p>
+                    </a>
+                </div>
+                <div class="h-nav-timetable">
+                    <a href="javascript:void(0)">
+                        <div class="h-img"></div>
+                        <p>상영시간표</p>
+                    </a>
+                </div>
+                <div class="h-nav-mypoint">
+                    <a href="javascript:void(0)">
+                        <div class="h-img"></div>
+                        <p>멤버십 포인트</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="../js/jquery-1.12.4.min.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>

@@ -248,4 +248,212 @@ public class MemberDDL {
 			return false;
 		}
 	}
+	
+	public static boolean MatchPw(String userid, String userpass) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String password = "";
+		
+		String sql = "select password from Member where id = ?";
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1,  userid);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				password = rs.getString("password");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+			}catch(SQLException e) {}
+		}
+		
+		if(password.equals(userpass)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public static Vector <MemberDTO> select(String userid){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = "select * from Member where id = ?";
+		
+		Vector <MemberDTO> data = new Vector <MemberDTO> ();
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, userid);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				dto.setId(rs.getString("id"));
+				dto.setSnsid(rs.getString("snsid"));
+				dto.setPassword(rs.getString("password"));
+				dto.setUsername(rs.getString("username"));
+				dto.setEmail(rs.getString("email"));
+				dto.setNickname(rs.getString("nickname"));
+				dto.setBirthdate(rs.getString("birthdate"));
+				dto.setTel(rs.getString("tel"));
+				dto.setPostcode(rs.getInt("postcode"));
+				dto.setAddress(rs.getString("address"));
+				dto.setDetail_address(rs.getString("detail_address"));
+				dto.setEmail_agree(rs.getInt("email_agree"));
+				dto.setSms_agree(rs.getInt("sms_agree"));
+				dto.setPhoto(rs.getString("photo"));
+				dto.setLevel(rs.getInt("level"));
+				data.add(dto);
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {}
+		}
+		
+		return data;
+	}
+	
+	public static boolean updateProfilePhotoNot(MemberDTO dto, String userid) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		int flag = 0;
+		
+		String sql = "";
+		
+		try {
+			conn = new DBConnect().getConn();
+			if(dto.getPassword() == null || dto.getPassword().isEmpty()) {
+				sql = "update Member set "
+						+ "username = ?, nickname = ?, email = ?, tel = ?, postcode = ?, address = ?, detail_address = ?, email_agree = ?, sms_agree = ? "
+						+ "where id = ?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, dto.getUsername());
+				ps.setString(2, dto.getNickname());
+				ps.setString(3, dto.getEmail());
+				ps.setString(4, dto.getTel());
+				ps.setInt(5,  dto.getPostcode());
+				ps.setString(6, dto.getAddress());
+				ps.setString(7,  dto.getDetail_address());
+				ps.setInt(8, dto.getEmail_agree());
+				ps.setInt(9, dto.getSms_agree());
+				ps.setString(10, userid);
+			}else {
+				sql = "update Member set "
+						+ "password = ?, username = ?, nickname = ?, email = ?, tel = ?, postcode = ?, address = ?, detail_address = ?, email_agree = ?, sms_agree = ? "
+						+ "where id = ?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, dto.getPassword());
+				ps.setString(2, dto.getUsername());
+				ps.setString(3, dto.getNickname());
+				ps.setString(4, dto.getEmail());
+				ps.setString(5, dto.getTel());
+				ps.setInt(6,  dto.getPostcode());
+				ps.setString(7, dto.getAddress());
+				ps.setString(8,  dto.getDetail_address());
+				ps.setInt(9, dto.getEmail_agree());
+				ps.setInt(10, dto.getSms_agree());
+				ps.setString(11, userid);
+			}
+			
+			flag = ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+			}catch(SQLException e) {}
+		}
+		
+		if(flag > 0) {
+			return true;
+		}else {
+			return false;
+		}
+				
+	}
+	
+	public static boolean updateProfilePhoto(MemberDTO dto, String userid) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		int flag = 0;
+		
+		String sql = "";
+		
+		try {
+			conn = new DBConnect().getConn();                              
+			if(dto.getPassword() == null || dto.getPassword().isEmpty()) {
+				
+				sql = "update Member set "
+						+ "username = ?, nickname = ?, email = ?, tel = ?, postcode = ?, address = ?, detail_address = ?, photo = ?, email_agree = ?, sms_agree = ? "
+						+ "where id = ?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, dto.getUsername());
+				ps.setString(2, dto.getNickname());
+				ps.setString(3, dto.getEmail());
+				ps.setString(4, dto.getTel());
+				ps.setInt(5,  dto.getPostcode());
+				ps.setString(6, dto.getAddress());
+				ps.setString(7,  dto.getDetail_address());
+				ps.setString(8, dto.getPhoto());
+				ps.setInt(9, dto.getEmail_agree());
+				ps.setInt(10, dto.getSms_agree());
+				ps.setString(11, userid);
+				
+				
+			}else {
+				sql = "update Member set "
+						+ "password = ?, username = ?, nickname = ?, email = ?, tel = ?, postcode = ?, address = ?, detail_address = ?, photo = ?, email_agree = ?, sms_agree = ? "
+						+ "where id = ?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, dto.getPassword());
+				ps.setString(2, dto.getUsername());
+				ps.setString(3, dto.getNickname());
+				ps.setString(4, dto.getEmail());
+				ps.setString(5, dto.getTel());
+				ps.setInt(6,  dto.getPostcode());
+				ps.setString(7, dto.getAddress());
+				ps.setString(8,  dto.getDetail_address());
+				ps.setString(9, dto.getPhoto());
+				ps.setInt(10, dto.getEmail_agree());
+				ps.setInt(11, dto.getSms_agree());
+				ps.setString(12, userid);
+				
+			}
+			
+			flag = ps.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+			}catch(SQLException e) {}
+		}
+		
+		if(flag > 0) {
+			return true;
+		}else {
+			return false;
+		}
+				
+	}
 }

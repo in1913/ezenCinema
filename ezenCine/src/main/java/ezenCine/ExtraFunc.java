@@ -48,4 +48,22 @@ public class ExtraFunc {
 		return Long.toString(difference);
 		
 	}
+	
+	public static String dayToKor(int num) {
+		if(num == 1) {
+			return "일";
+		}else if(num == 2) {
+			return "월";
+		}else if(num == 3) {
+			return "화";
+		}else if(num == 4) {
+			return "수";
+		}else if(num == 5) {
+			return "목";
+		}else if(num == 6) {
+			return "금";
+		}else{
+			return "토";
+		}
+	}
 }

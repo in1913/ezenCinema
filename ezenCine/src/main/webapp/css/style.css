@@ -44,7 +44,7 @@ header>.container>.logoarea img{
 }
 header a{
     font-size:16px;
-    font-weight: bold;
+    font-weight: 400;
 }
 header>.container>.header-nav>.gnb>li{
     padding: 0 10px;
@@ -140,7 +140,9 @@ header.fixed #header-search:focus{
 .gong{
     width:220px;
 }
-
+a.c-blue{
+	color: #5c7ef7;
+}
 /*** header 끝 ***/
 
 /*** footer 시작 ***/
@@ -704,15 +706,6 @@ a.c-signup-agree-btn{
     color: white;
     font-size: 22px;
 }
-.c-shadow{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(88,88,88,0.5);
-    display: none;
-}
 .c-showLaw{
     position: absolute;
     top: 50%;
@@ -723,8 +716,16 @@ a.c-signup-agree-btn{
     background: #ededed;
     padding: 30px;
     border-radius: 8px;
-    display: none;
     z-index: 1000;
+}
+.c-showlaw-shadow{
+    background: rgba(88,88,88,.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
 }
 .c-showLaw h2{
     margin: 0;
@@ -933,6 +934,9 @@ input[type="number"]::-webkit-inner-spin-button {
 input:read-only{
     background-color: rgba(92, 126, 247, 0.2);
 }
+input{
+	font-family: 'SUITE', sans-serif;
+}
 img.c-active{
 	display: block;
 }
@@ -1125,7 +1129,552 @@ a.c-find-second-btn{
     border-radius: 100px;
     background: #fff;
 }
-
+/***************** modiprofile **********************/
+.c-profile-container{
+    width: 1100px;
+    margin-top: 190px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 60px 93px;
+    background-color: #fff;
+    border-radius: 24px;
+    margin-bottom: 100px;
+}
+.c-profile-container h1{
+    border-bottom: 3px solid #ccc;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 15px;
+    margin-bottom: 50px;
+    font-weight: 600;
+    font-size: 33px;
+}
+.c-profile-container>div{
+    display: flex;
+    padding: 20px 0;
+    font-size: 20px;
+    border-bottom: 1px solid #DDDDDD;
+}
+.c-profile-container .first{
+    width: 187px;
+    display: flex;
+    align-items: center;
+}
+.c-profile-container .second{
+    width: 590px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+.c-profile-container .third{
+    display: flex;
+    align-items: center;
+    width: 137px;
+}
+a.c-profile-btn{
+    display: inline-block;
+    border: 2px solid #cccccc;
+    border-radius: 100px;
+    width: 137px;
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+div.c-profile-photo{
+    padding-top: 0;
+}
+div.c-profile-user-img{
+    width: 120px;
+    height: 120px;
+    border-radius: 10000px;
+    overflow: hidden;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.c-profile-user-img img{
+    max-width: 120px;
+    max-height: 120px;
+}
+div.c-profile-postcode,
+div.c-profile-addr,
+div.c-profile-receive{
+    border-bottom: none;
+}
+div.c-profile-postcode{
+    padding-bottom: 5px;
+}
+div.c-profile-addr{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+div.c-profile-detailaddr{
+    padding-top: 5px;
+}
+.c-profile-postcode .second,
+.c-profile-addr .second,
+.c-profile-detailaddr .second{
+    flex-direction: column;
+    align-items: flex-start;
+}
+#postcode, #addr, #detailaddr{
+    width: 540px;
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding-left: 10px;
+    font-size: 18px;
+}
+#postcode::placeholder, #addr::placeholder, #detailaddr::placeholder{
+    color: #878787;
+    font-weight: 300;
+    font-family: 'SUITE', sans-serif;
+}
+a.c-profile-law-show{
+    display: none;
+}
+a.c-profile-law-hide{
+    display: none;
+    color: #5C7EF7;
+}
+a.c-profile-active{
+    display: block;
+}
+div.c-profile-receive a.c-profile-law-show-btn{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    color: #878787;
+    font-size: 18px;
+    font-weight: 500;
+}
+div.c-profile-submit-box{
+    border-bottom: none;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+div.c-profile-submit-box .second{
+    padding-right: 50px;
+    justify-content: space-between;
+}
+a.c-profile-reset-btn{
+    border: none;
+    background-color: #dbdbdb;
+    border-radius: 100px;
+    width: 165px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+a.c-profile-submit-btn{
+    border: none;
+    background-color: #5c7ef7;
+    border-radius: 100px;
+    width: 353px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+}
+input{
+    font-family: 'SUITE', sans-serif;
+}
+/************** profile-popup ****************/
+.c-profile-shadow-photo{
+    background: rgba(0,0,0,.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.c-profile-shadow-userpass{
+    background: rgba(0,0,0,.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.c-profile-shadow-username{
+    background: rgba(0,0,0,.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.c-profile-shadow-nickname{
+    background: rgba(0,0,0,.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.c-profile-shadow-useremail{
+    background: rgba(0,0,0,.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.c-profile-shadow-tel{
+    background: rgba(0,0,0,.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.c-profile-shadow-complete{
+    background: rgba(0,0,0,.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.c-profile-shadow-law{
+    background: rgba(0,0,0,.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+   display: none;
+}
+.c-profile-popup{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 680px;
+    background-color: rgba(255,255,255,0.8);
+    backdrop-filter: blur(8px);
+    padding: 30px 40px;
+    border-radius: 16px;
+}
+.c-profile-popup input{
+    font-size: 18px;
+    outline: none;
+}
+.c-profile-popup h2{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    font-weight: 600;
+    font-size: 24px;
+}
+.c-profile-popup-content{
+    padding-left: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    display: flex;
+    align-items: center;
+}
+.c-profile-popup-img{
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 10000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc;
+}
+#c-profile-get-photo{
+    display: none;
+}
+.c-profile-popup-img img{
+    max-width: 180px;
+    max-height: 180px;
+}
+.c-profile-popup-text{
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+}
+.c-profile-popup-text p{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.c-profile-origin-photo-btn{
+    display: inline-block;
+    width: 172px;
+    height: 40px;
+    line-height: 35px;
+    text-align: center;
+    border: 2px solid#ccc;
+    border-radius: 100px;
+    font-size: 17px;
+    background-color: #fff;
+}
+.c-profile-modi-photo-btn{
+    display: inline-block;
+    width: 106px;
+    height: 40px;
+    line-height: 35px;
+    text-align: center;
+    border: 2px solid#ccc;
+    border-radius: 100px;
+    font-size: 17px;
+    margin-left: 10px;
+    background-color: #fff;
+}
+.c-profile-popup-photo-btnbox{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+}
+.c-profile-popup-photo-reset-btn{
+    display: inline-block;
+    width: 170px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+.c-profile-shadow-userpass .c-profile-popup-photo-submit-btn,
+.c-profile-shadow-tel .c-profile-popup-photo-submit-btn{
+    background-color: #ccc;
+}
+a.c-profile-popup-photo-submit-btn{
+    display: inline-block;
+    width: 340px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: #5c7ef7;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+/* ********** userpass popup  ************ */
+.c-profile-shadow-userpass .c-profile-popup-content{
+    padding-right: 40px;
+    display: block;
+}
+.c-profile-shadow-userpass .c-profile-popup-content>div {
+    display: flex;
+    margin-bottom: 20px;
+}
+div.c-profile-shadow-userpass div.first{
+    width: 126px;
+    line-height: 50px;
+}
+div.c-profile-shadow-userpass div.second{
+    position: relative;
+}
+div.c-profile-shadow-userpass div.second input{
+    width: 394px;
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+div.c-profile-shadow-userpass div.second input::placeholder{
+    font-size: 16px;
+    color: #767676;
+}
+.c-profile-shadow-userpass span{
+    display: inline-block;
+    font-size: 13px;    
+    color: #777;
+}
+.c-profile-shadow-userpass .c-warning {
+    color: red;
+    font-size: 13px;
+}
+.c-profile-shadow-userpass img.c-active{
+    display: block;
+}
+.c-profile-shadow-userpass .passwordhide{
+	top: 12px;
+    display: none;
+}
+.c-profile-shadow-userpass .passwordshow{
+	top: 12px;
+    display: none;
+}
+/* ********** username, nickname, tel popup  ************ */
+.c-profile-shadow-username .first,
+.c-profile-shadow-nickname .first,
+.c-profile-shadow-tel .first{
+    width: 126px;
+}
+.c-profile-shadow-username input,
+.c-profile-shadow-nickname input,
+.c-profile-shadow-tel input{
+    width: 394px;
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+div.c-profile-shadow-username div.second input::placeholder,
+div.c-profile-shadow-nickname div.second input::placeholder{
+    font-size: 16px;
+    color: #767676;
+}
+/* ********** email popup  ************ */
+.c-profile-shadow-useremail .c-profile-popup-content{
+    padding-left: 0;
+    padding-right: 0;
+}
+.c-profile-shadow-useremail .first{
+    width: 87px;
+}
+.c-profile-shadow-useremail #email1,
+.c-profile-shadow-useremail #email2,
+.c-profile-shadow-useremail #selectEmail{
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+.c-profile-shadow-useremail #email1{
+    width: 160px;
+}
+.c-profile-shadow-useremail #email2{
+    width: 160px;
+}
+.c-profile-shadow-useremail #selectEmail{
+    width: 152px;
+    font-family: 'SUITE', sans-serif;    
+}
+/* *********** profile complete popup ************** */
+h1.c-profile-submit-alert{
+    padding-top: 30px;
+}
+a.c-profile-complete-btn{
+    width: 394px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 100px;
+    font-size: 20px;
+    margin-top: 60px;
+    background-color: #5c7ef7;
+    color: #fff;
+}
+/* *********** profile law popup ************** */
+.c-profile-shadow-law .c-profile-popup{
+}
+.c-profile-shadow-law h3{
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.c-profile-shadow-law h5{
+	margin-bottom: 20px;
+}
+.c-profile-shadow-law .c-profile-popup-content{
+	display: block;
+	padding: 0;
+	height: 300px;
+	overflow-y: auto;
+}
+/******************** mail *********************/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+.c-mail-view{
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+.c-mail-container{
+    width: 659px;
+    padding-top: 60px;
+    padding-bottom: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 46px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333333;
+    font-family: 'SUITE', sans-serif;
+}
+.mail-logo{
+    width: 82.19px;
+    height: 80px;
+}
+.c-mail-container h2{
+    margin-top: 30px;
+    font-size: 35px;
+    font-weight: 600;
+}
+.c-mail-container p.top{
+    margin-top: 15px;
+    font-size: 24px;
+}
+.c-mail-container div.code{
+    margin-top: 60px;
+    font-size: 50px;
+    font-weight: 500;
+    letter-spacing: 30px;
+    margin-bottom: 60px;
+}
+.c-mail-container hr{
+    margin: 0;
+    padding: 0;
+    color: #ccc;
+    border: 1px solid;
+    width: 100%;
+}
+.c-mail-container p.middle{
+    margin-top: 20px;
+    font-size: 18px;
+    color: #878787;
+    text-align: center;
+    line-height: 30px;
+    font-weight: 300;
+    margin-bottom: 60px;
+}
+.c-mail-container ul.mail-list{
+    list-style:disc;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    color: #878787;
+    padding-left: 30px;
+}
+.c-mail-container p.copy{
+    width: 100%;
+    padding-left: 7px;
+    margin-top: 20px;
+    color: #ccc;
+}
 /******************* mypage **************************/
 /*
 영문 폰트
@@ -1423,55 +1972,59 @@ span.eg{
 }
 .h-member_info{
     width: 100%;
-    height: 344px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     margin: 100px auto 55px;
-    padding: 0;
     position: relative;
     background: #fff;
-    border-radius: 10px;
+    padding: 52px 40px;
+    border-radius: 16px;
 }
 .h-welcom{
-    width: 200px;
-    height: 200px;
-    border-radius: 20px;
-    position: absolute;
-    top: 72px;
-    left: 72px;
+    width: 240px;
+    height: 240px;
+    border-radius: 10000px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .h-welcom>img{
-	max-width: 200px;
-	max-width: 200px;
+	max-width: 240px;
+	max-width: 240px;
 	background: #ccc;
 }
+.c-member{
+    padding-left: 50px;
+    color: #333;
+}
+.c-member-top{
+    display: flex;
+}
 .h-member_name{
+    margin-top: 5px;
     font-size: 32px;
     font-weight: bold;
-    position: absolute;
-    top: 80px;
-    left: 310px;
 }
 .h-member_name span{
     font-size: 24px;
 }
 .h-member_edit{
-    position: absolute;
-    top: 100px;
-    left: 460px;
+    padding-left: 30px;
+    padding-top: 20px;
     font-size: 16px;
     font-weight: bold;
 }
 .h-member_edit a{
     margin: 0 10px;
+    position: relative;
 }
-.h-member_edit p:first-child::after{
+.h-member_edit a:first-child::after{
     content: "";
     display: inline-block;
     width: 1px;
     height: 12px;
-    top: 7px;
-    left: 47%;
+    top: 4px;
+    right: -12px;
     position: absolute;
     background-color: #5C7EF7;
 
@@ -1503,10 +2056,8 @@ span.eg{
     font-size: 14px;
 }
 .h-member_rate{
-    position: absolute;
+    margin-top: 30px;
     font-size: 20px;
-    top: 140px;
-    left: 310px;
 }
 .h-member_rate p{
     font-size: 14px;
@@ -1522,9 +2073,7 @@ span.eg{
     color: #3D56AE;
 }
 .h-myoption{
-    position: absolute;
-    left: 305px;
-    bottom: 50px;
+    margin-top: 30px;
     justify-content: space-between;
     font-weight: bold;
 }
@@ -1560,7 +2109,6 @@ span.eg{
     height: 365px;
     width: 100%;
     margin: 0 auto;
-    margin-bottom: 60px;
 }
 .h-review-gnb{
     display: flex;
@@ -1599,24 +2147,33 @@ span.eg{
     top: 47px;
     background: #fff;
     display: none;
-    height: 260px;
+   	min-height: 260px;
+}
+div.h-myreview div.row{
+    width: 100%;
+    margin: 0;
+}
+.h-myreview .col-6{
+    display: flex;
+    padding: 20px 30px;
 }
 .h-myreview-poster img{
     width: 144px;
     height: 202px;
-    margin: 20px 0 20px 30px;
 }
 .h-myreview-content{
-    margin-left: 10px;
+    margin-left: 20px;
     width: 50%;
+    color: #333;
 }
 .h-myreview-content h3{
     font-size: 18px;
-    margin: 30px 0 10px;
+    margin: 10px 0;
 }
 .h-review-rate{
     font-size: 18px;
     font-weight: 700;
+    margin-top: 30px;
 }
 .h-review-rate span{
     color: #3D56AE;
@@ -1643,12 +2200,12 @@ span.eg{
 .h-review-edit{
     position: absolute;
     right: 120px;
-    bottom: 80px;
+    bottom: 70px;
 }
 .h-review-edit a.h-review-update,
 .h-review-edit a.h-review-delete{
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     color: #333;
     margin: 10px;
 }
@@ -1667,24 +2224,34 @@ span.eg{
     width: 100%;
     top: 47px;
     background: #fff;
-    height: 260px;
+    min-height: 260px;
+}
+.h-mybookingbox{
+    width: 100%;
+    margin: 0;
+}
+.h-mybookingbox .col-6{
+    display: flex;
+    padding: 20px 30px;  
 }
 .h-mybooking-post img{
     width: 144px;
     height: 202px;
-    margin: 20px 0 20px 30px;
 }
 .h-mybooking-info{
     margin-left: 10px;
+	color: #333;
 }
 .h-mybooking-info h3{
     font-size: 18px;
-    margin: 30px 0 10px;
+    margin: 10px 0;
+    font-weight: 600;
 }
 .h-mybooking-info p{
-    font-size: 18px;
+	font-weight: 600;
+    font-size: 16px;
     font-weight: bold;
-    padding: 1px 0;
+    padding: 5px 0;
 }
 .h-mybooking-info p span{
     font-size: 16px;
@@ -1699,9 +2266,12 @@ span.eg{
     background: #fff;
     padding-top: 20px;
 }
-.h-hope-poster{
-    width: 21%;
-    margin: 0 2%;
+div.h-movie-hope div.row{
+    margin: 0;
+    width: 100%;
+}
+div.h-movie-hope div.col-3{
+    padding: 20px 30px;
 }
 .h-hope-poster img{
     width: 144px;
@@ -1709,14 +2279,16 @@ span.eg{
     display: block;
     margin: 0px auto;
 }
-.h-hope-poster h3,
-.h-hope-poster p{
+div.h-hope-poster h3,
+div.h-hope-poster p{
+    word-wrap: break-word;
     text-align: center;
     margin: 2px 0;
 }
 .h-hope-poster h3{
     font-size: 18px;
-    margin-top: 20px;
+    font-weight: 600;
+    padding-top: 15px;
 }
 .h-hope-poster p{
     font-size: 14px;
@@ -1803,4 +2375,179 @@ input[type=radio]{
 .h-booking-btn:hover{
     color: #fff;
     background: #333;
+}
+/* ********** c-mypage *************  */
+.c-mypage-background{
+    background-color: #DCDEE7;
+    margin: 0;
+    padding-top: 80px;
+    padding-bottom: 110px;
+}
+.c-mypage-bottom{
+    color: #333;
+}
+.c-mypage-bottom .gnb{
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.c-mypage-bottom .gnb>li{
+    width: 212px;
+    background-color: #D3DCFD;
+    margin-right: 8px;
+    height: 47px;
+    line-height: 47px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    overflow: hidden;
+}
+.c-mypage-bottom .gnb>li a{
+    color: #333;
+    display: inline-block;
+    background-color: #E8E8E8;
+    width: 100%;
+}
+.c-mypage-bottom .gnb>li a.c-mypage-li-active{
+    background: #fff;
+    color: #3D56AE;
+}
+.c-mypage-bottom img{
+    width: 144px;
+    height: 202px;
+}
+.c-mypage-bottom .c-mypage-booking,
+.c-mypage-bottom .c-mypage-review,
+.c-mypage-bottom .c-mypage-see{
+    background: #fff;
+    border-radius: 20px;
+    border-top-left-radius: 0;
+    min-height: 260px;
+}
+.c-mypage-bottom .row{
+    margin: 0;
+    width: 100%;
+}
+.c-mypage-bottom .col-6{
+    display: flex;
+    padding: 30px 40px;
+}
+.c-mypage-bottom .c-content{
+    padding-left: 17px;
+    padding-top: 10px;
+    width: 293px;
+}
+div.c-mypage-booking p.c-title{
+    margin-top: 0;
+    font-size: 18px;
+    padding-bottom: 10px;
+    height: 60px;
+    word-break: break-all;
+}
+div.c-mypage-review p.c-title{
+    margin-top: 0;
+    font-size: 18px;
+    padding-bottom: 10px;
+    height: 45px;
+}
+.c-mypage-bottom p{
+    font-weight: 600;
+    padding-bottom: 7px;
+    font-size: 16px;
+}
+.c-mypage-bottom span{
+    font-weight: 400;
+    padding-left: 10px;
+    font-size: 14.5px;
+}
+.c-mypage-review .c-content>p:nth-child(2){
+    margin-top: 10px;
+}
+.c-mypage-review .c-comment{
+    font-weight: 400;
+    font-size: 13.5px;
+}
+.c-mypage-review span.c-score{
+    color: #3D56AE;
+    font-size: 22px;
+}
+.c-mypage-review .c-bottom{
+    margin-top: 10px;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.c-mypage-review .c-like-img{
+    width: 24px;
+    height: 24px;
+    padding-left: 0;
+    margin-left: -10px;
+}
+.c-mypage-review .first>span{
+    vertical-align: 7px;
+    font-size: 13.5px;
+}
+.c-mypage-review .c-bottom>span.second{
+    padding-top: 3px;
+}
+.c-mypage-review .second>a{
+    font-size: 14px;
+}
+.c-mypage-review .second>a:first-child::after{
+    content: "|";
+    color: #5C7EF7;
+    margin-left: 8px;
+    margin-right: 4px;
+}
+.c-mypage-see .row{
+    padding: 30px 25px;
+}
+.c-mypage-see .col-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.c-mypage-see span{
+    margin-left: -11px;
+}
+.c-mypage-see span.c-title{
+    font-size: 17px;
+    font-weight: 500;
+    margin-top: 20px;
+    text-align: center;
+}
+.c-mypage-see span.c-engtitle{
+    font-weight: 300;
+    font-size: 15px;
+    /* margin-top: -3px; */
+    width: 100%;
+    overflow-x: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* 나중에 액티브 걸꺼임 */
+.c-mypage-booking,.c-mypage-see,.c-mypage-review{
+    display: none;
+    position: relative;
+}
+div.c-mypage-content-active{
+    display: block;
+}
+a.c-mypage-plus{
+    background: #5C7EF7;
+    color: #fff;
+    font-size: 14px;
+    display: block;
+    width: 76px;
+    text-align: center;
+    border-radius: 14px;
+    height: 28px;
+    line-height: 28px;
+    position: absolute;
+    bottom: -58px;
+    left: 50%;
+    transform: translateX(-50%);
 }

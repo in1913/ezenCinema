@@ -2,31 +2,30 @@
     pageEncoding="UTF-8" import="ezenCine.*, java.util.*, java.time.format.DateTimeFormatter, java.time.LocalDateTime, java.text.SimpleDateFormat"%>
 <%
 	String userid = (String) session.getAttribute("userid");
-	Vector <MyPageDTO> getMemInfo = JoinDDL.selectByIdOnMyPage(userid);
+	
+	Vector <MemberDTO> mbd = MemberDDL.select(userid);
+	Vector <BookingDTO> bkd = BookingDDL.selectInit(userid);
+	Vector <ReviewsDTO> rvd = ReviewsDDL.selectInit(userid);
+	int bookingAllNum = BookingDDL.BookingCnt(userid);
+	int reviewAllNum = ReviewsDDL.ReviewsCnt(userid);
 	
 	SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 	Date currentTime = new Date();
 	String today = format.format(currentTime);
 	Long todayLong = Long.parseLong(today);
 	Date toDate = format.parse(today);
-%>    
-<style>
-    body{
-        background: url("images/h-button/background-black.png") no-repeat;
-        background-size: cover;
-    }
-</style>
-<%
-	for(MyPageDTO gmi: getMemInfo){
+
+	for(MemberDTO m: mbd){
 %>
-    <div class="container position-relative" style="margin-top: 180px;">
+<div class="c-mypage-background">
+    <div class="container position-relative">
         <div class="h-mypage-info" id="h-mypage-info">
-            <div class="h-member_info">
+            <div class="h-member_info d-flex">
                 <div class="h-welcom">
 <%
-		if(gmi.getPhoto() == null){
+		if(m.getPhoto() == null || m.getPhoto() == ""|| m.getPhoto().isEmpty()){
 %>                
-                	<img src="images/icon/user/user-fill.png" alt="user" />
+                	<img src="images/icon/user/user.png" alt="user" />
 <%
 		}else{
 %>            
@@ -35,196 +34,222 @@
 		}
 %>    	
                 </div>
-                <div class="h-member_name"><p><%=gmi.getId() %><span>님</span></p></div>
-                <div class="h-member_edit">
-                    <p>
-                        <a href="javascript:void(0)">내정보수정</a>
-                        <a href="javascript:void(0)">지난등급조회</a>
-                    </p>
-                </div>
-                <div class="h-mypage-home">
-                    <div class="h-home"></div>
-                    <div class="h-home-right"></div>
-                    <p>예매내역</p>
-                    <div class="h-home-right"></div>
-                    <p>마이페이지</p>
-                </div>
-                <div class="h-member_rate">
-                    <p>현재 고객님의 등급은</p>
-                    <p>
+                <div class="c-member">
+                	<div class="c-member-top">
+		                <div class="h-member_name"><p><%=m.getId() %><span>님</span></p></div>
+		                <div class="h-member_edit">
+		                    <p>
+		                        <a href="index.jsp?fname=mem/profile">내정보수정</a>
+		                        <a href="javascript:void(0)">지난등급조회</a>
+		                    </p>
+		                </div>
+	                </div>
+	                <div class="h-mypage-home">
+	                    <div class="h-home"></div>
+	                    <div class="h-home-right"></div>
+	                    <p>예매내역</p>
+	                    <div class="h-home-right"></div>
+	                    <p>마이페이지</p>
+	                </div>
+	                <div class="h-member_rate">
+	                    <p>현재 고객님의 등급은</p>
+	                    <p>
 <%
-		if(gmi.getLevel() == 1){
+		if(m.getLevel() == 1){
 %>
-                        <span class="h-select">Welcome</span>
-                        <span>Silver</span>
-                        <span>Gold</span>
-                        <span>VIP</span>
+	                        <span class="h-select">Welcome</span>
+	                        <span>Silver</span>
+	                        <span>Gold</span>
+	                        <span>VIP</span>
 						
 
 <%			
-		}else if(gmi.getLevel() == 2){
+		}else if(m.getLevel() == 2){
 %>
-                        <span>Welcome</span>
-                        <span class="h-select">Silver</span>
-                        <span>Gold</span>
-                        <span>VIP</span>
+	                        <span>Welcome</span>
+	                        <span class="h-select">Silver</span>
+	                        <span>Gold</span>
+	                        <span>VIP</span>
 
 <%			
-		}else if(gmi.getLevel() == 3){
+		}else if(m.getLevel() == 3){
 %>
-                        <span>Welcome</span>
-                        <span>Silver</span>
-                        <span class="h-select">Gold</span>
-                        <span>VIP</span>
+	                        <span>Welcome</span>
+	                        <span>Silver</span>
+	                        <span class="h-select">Gold</span>
+	                        <span>VIP</span>
 
 <%		
-		}else if(gmi.getLevel() == 4){			
+		}else if(m.getLevel() == 4){			
 %>
-                        <span>Welcome</span>
-                        <span>Silver</span>
-                        <span>Gold</span>
-                        <span class="h-select">VIP</span>
+	                        <span>Welcome</span>
+	                        <span>Silver</span>
+	                        <span>Gold</span>
+	                        <span class="h-select">VIP</span>
 
 <%
 		}
 %>                                                            
-                    </p>
-                </div>
-                <div class="h-myoption">
-                    <div class="row">
-                        <div class="h-mypoint">
-                            <p>포인트 이용내역</p>
-                            <ul>
-                                <li><a href="javascript:void(0)">적립예정</a></li>
-                                <li><a href="javascript:void(0)">당월소멸예정</a></li>
-                            </ul>
-                        </div>
-                        <div class="h-my-favorit">
-                            <p>선호하는 극장</p>
-                            <ul>
-                                <li><a href="javascript:void(0)">김포이젠시네마</a></li>
-                            </ul>
-                        </div>
-                        <div class="h-my-special">
-                            <p>스페셜 멤버십</p>
-                            <ul>
-                                <li><a href="javascript:void(0)">가입된 스페셜 멤버십이 없습니다.</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+	                    </p>
+	                </div>
+	                <div class="h-myoption">
+	                    <div class="row">
+	                        <div class="h-mypoint">
+	                            <p>포인트 이용내역</p>
+	                            <ul>
+	                                <li><a href="javascript:void(0)">적립예정</a></li>
+	                                <li><a href="javascript:void(0)">당월소멸예정</a></li>
+	                            </ul>
+	                        </div>
+	                        <div class="h-my-favorit">
+	                            <p>선호하는 극장</p>
+	                            <ul>
+	                                <li><a href="javascript:void(0)">김포이젠시네마</a></li>
+	                            </ul>
+	                        </div>
+	                        <div class="h-my-special">
+	                            <p>스페셜 멤버십</p>
+	                            <ul>
+	                                <li><a href="javascript:void(0)">가입된 스페셜 멤버십이 없습니다.</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
             </div>
             
-            <div class="h-my_review">
-                <div class="h-reviewbox">
-                    <ul class="h-review-gnb">
-                        <li class="active">
-                            <a href="javascript:void(0)">예매내역</a>
-                            <div class="h-mybooking h-lnb">
-                            
-                    예매내역이 없습니다.
-                
+            <div class="c-mypage-bottom">
+                <ul class="gnb">
+                    <li><a href="javascript:cMyPageBottom(0);" class="c-mypage-tab c-mypage-li-active">예매내역</a></li>
+                    <li><a href="javascript:cMyPageBottom(1);" class="c-mypage-tab">내가 쓴 리뷰</a></li>
+                    <li><a href="javascript:cMyPageBottom(2)" class="c-mypage-tab">보고싶어요</a></li>
+                </ul>
+                <!-- booking -->
+                <div class="c-mypage-booking c-mypage-content c-mypage-content-active">
+                    <div class="row" id="c-mypage-booking-insert">
 <%
-		
-		if(gmi.getTicket_date() == null){
-		}else{
-			String ticket_dt = ExtraFunc.getDateWithoutDash(gmi.getTicket_date());
-			Date ticket_date = format.parse(ticket_dt);
-			if(toDate.compareTo(ticket_date) <= 0){
+		for(BookingDTO bd : bkd){	
+			
 				// ticket_date은 결제 일시인가.... 관람일시인가....
 				// tickerting 테이블에 영화 관람 일시든 결제일시든 둘다 들어가야 할듯.
 				// seat_num에 g관 6열도 들어가는가? 
 				// 						
 				// 관람인원은?
-%>                            
-<!-- row 랑 col은 왜 같이 있는 걸까?  -->
-                            	<div class="h-mybookingbox row col-6">
-                                    <div class="h-mybooking-post">
-                                        <img src="images/poster/Guardians of the Galaxy Volume 3.jpg" alt="취소내역">
-                                    </div>
-                                    <div class="h-mybooking-info">
-                                        <h3><%=gmi.getMovie_title() %></h3>
-                                        <div class="h-mybooking-dinfo">
-                                            <p>예매번호 <span><%=gmi.getTicketing_num() %></span></p>
-                                            <p>상영관/관람과석 <span><%=gmi.getRoom_num() %>관/G열 <%=gmi.getSeat_num() %></span></p>
-                                            <p>결제일시 <span>2023.05.02(화) 18:38</span></p>
-                                            <p>관람일시 <span>2023.05.03(수) 12:00(3회차)</span></p>
-                                        </div>
-                                    </div>
-	                            </div>
+			String seats = bd.getSeat_num();
+			char seat_alpha = seats.charAt(0);
+			char seat_num = seats.charAt(1);
+			
+			String[] ticket_dateArr = bd.getTicket_date().split("-");
+			String ticket_year = ticket_dateArr[0];
+			String ticket_month = ticket_dateArr[1];
+			String[] ticket_dateBack = ticket_dateArr[2].split(" ");
+			String ticket_day = ticket_dateBack[0];
+			String[] ticket_hourArr = ticket_dateBack[1].split(":");
+			String ticket_hour = ticket_hourArr[0];
+			String ticket_min = ticket_hourArr[1];
+			
+			String[] screen_dateArr = bd.getScreen_date().split("-");
+			String screen_year = screen_dateArr[0];
+			String screen_month = screen_dateArr[1];
+			String screen_day = screen_dateArr[2];
+			
+			
+%>
+                        <div class="col-6 c-mypage-booking-num">
+                            <img src="<%=bd.getPoster_url() %>" alt="<%=bd.getTitle()%>">
+                            <div class="c-content">
+                                <p class="c-title"><%=bd.getTitle() %></p>
+                                <p>예매번호 <span><%=bd.getTicket_num() %></span></p>
+                                <p>상영관/관람좌석 <span><%=bd.getRoom_num() %>/<%=seat_alpha%>열 <%=seat_num %></span></p>
+                                <!--  <p>관람인원 <span>성인 1명</span></p>-->
+                                <p>결제일시 <span><%=ticket_year %>.<%=ticket_month %>.<%=ticket_day %>(<%=ExtraFunc.dayToKor(bd.getTicket_day()) %>) <%=ticket_hour %>:<%=ticket_min %></span></p>
+                                <p>관람일시 <span><%=screen_year %>.<%=screen_month %>.<%=screen_day %>(<%=ExtraFunc.dayToKor(bd.getScreen_day()) %>) <%=bd.getScreen_time() %></span></p>
+                            </div>
+                        </div>
 <%
 	
-			}
+			
 		}
 	
-%>                            	                            
-                                <div class="h-morebtn">
-                                    <a class="h-more" href="javascript:void(0)"></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">내가 쓴 리뷰</a>
-                            <div class="h-myreview h-lnb">
-                            
-<!-- col안에 왜 row 가 있는 걸까? -->
-								<div class="row">
+%>  
+                    </div>
 <%
-		if(gmi.getComments() == null){
+		if(bookingAllNum <= 2){
+		}else{
+%>                    
+                    <a class="c-mypage-plus" id="c-mypage-plus-booking-btn" href="javascript:cMyPageMore(0);">더보기 +</a>
+<%
+		}
+%>                    
+                </div>
+                <!-- review -->
+                <div class="c-mypage-review c-mypage-content">
+                    <div class="row" id="c-mypage-review-insert">
+<%
+		
+		for(ReviewsDTO rd: rvd){
+			
+		if(rvd.size() == 0){
 %>
 		
                     내가 쓴 리뷰가 없습니다.
         
 <%			
-		}else{
-			String dayDiffer = ExtraFunc.getdayDiffer(gmi.getDate());			
+		}else{			
 %>
-								                            
-                                	<div class="col-6">
-                                    
-                                        <div class="h-myreview-poster">
-                                            <img src="images/poster/Guardians of the Galaxy Volume 3.jpg" alt="리뷰포스터">
-                                        </div>
-                                        <div class="h-myreview-content">
-                                            <h3><%=gmi.getMovie_id()%></h3>
-                                            <p class="h-review-rate">평점 <span><%=gmi.getRating() %></span></p>
-                                            <p class="h-review-comment"><%=gmi.getComments() %></p>
-                                            <p><span class="h-like"></span><span class="h-like-date"><%=dayDiffer %>일 전</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="h-review-edit">
-                                        <a href="javascript:void(0)" class="h-review-update">수정</a>
-                                        <a href="javascript:void(0)" class="h-review-delete">삭제</a>
-                                    </div>
-                                </div>
+                        <div class="col-6 c-mypage-review-num">
+                            <img src="<%=rd.getPoster_url() %>" alt="<%=rd.getTitle()%>">
+                            <div class="c-content">
+                                <p class="c-title"><%=rd.getTitle()%></p>
+                                <p>평점<span class="c-score"><%=rd.getRating() %></span></p>
+                                <p class="c-comment"><%=rd.getComments() %></p>
+                                <p class="c-bottom">
+                                    <span class="first">
+                                        <img class="c-like-img" class="" src="images/h-button/like.png" alt="like">
+                                        <span><%=ReviewsDDL.getDateDiff(userid, rd.getMovie_id()) %>일 전</span>
+                                    </span>
+                                    <span class="second">
+                                        <a href="javascript:void(0);">수정</a>
+                                        <a href="javascript:void(0);">삭제</a>
+                                    </span></p>
+                            </div>
+                        </div>
 <%
 		}
-%>                                
-                                <div class="h-morebtn">
-                                    <a class="h-more" href="javascript:void(0)"></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">보고싶어요</a>
-                            <div class="h-movie-hope h-lnb">
-                                <div class="h-hope-poster">
-                                    <img src="images/poster/Fast X.jpg" alt="분노의 질주">
-                                    <h3>분노의 질주: 라이드 오어 다이</h3>
-                                    <p>Fast X</p>
-                                </div>
-                                <div class="h-morebtn">
-                                    <a class="h-more" href="javascript:void(0)"></a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+%>	                                    
+                                
+<%
+		}
+%>  
+                    </div>
+<%
+		if(reviewAllNum <= 2){
+		}else{
+%>                    
+                    <a class="c-mypage-plus" id="c-mypage-plus-review-btn" href="javascript:cMyPageMore(1);">더보기 +</a>
+<%
+		}
+%>                    
                 </div>
-                <!-- <div class="h-my_reviewbox-none">
-                    내가 쓴 리뷰가 없습니다.
-                </div> -->
-            </div>
+                <!-- like -->
+                <div class="c-mypage-see c-mypage-content">
+                    <div class="row" id="c-mypage-like-insert">
+                        <div class="col-2 c-mypage-like-num">
+                            <img src="images/poster/Fast X.jpg" alt="분노의 질주">
+                            <span class="c-title">분노의 질주: 라이드 오어 다이</span>
+                            <span class="c-engtitle">Fast X</span>
+                        </div>
+                        <div class="col-2">
+                            <img src="images/poster/The Super Mario Bros.jpg" alt="분노의 질주">
+                            <span class="c-title">슈퍼 마리오 브라더스</span>
+                            <span class="c-engtitle">The Super Mario Bros.Movie</span>
+                        </div>
+                    </div>                    
+                    <a class="c-mypage-plus" id="c-mypage-plus-like-btn" href="javascript:cMyPageMore(2);">더보기 +</a>                    
+                </div>              
+            </div>            
         </div>
+        
         <div class="h-right-nav">
             <div class="h-nav">
                 <div class="h-nav-booking">
@@ -254,6 +279,10 @@
             </div>
         </div>
     </div>
+</div>
 <%
 	}
-%>    
+%>  
+<input type="hidden" name="booking-all-num" id="booking-all-num" value="<%=bookingAllNum %>" />
+<input type="hidden" name="review-all-num" id="review-all-num" value="<%=reviewAllNum %>" />
+  

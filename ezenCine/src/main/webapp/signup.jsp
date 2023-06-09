@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.net.URLEncoder, java.security.SecureRandom, java.math.BigInteger"%>
+    pageEncoding="UTF-8"%>    
+<%
+	String userid = "";
+	if(session.getAttribute("userid") == null){	
+	}else{
+		userid = (String) session.getAttribute("userid");	
+	}
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +15,91 @@
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>      
+<body>
+
+    <header id="header">
+        <div class="subdp"></div>
+        <div class="container d-flex justify-content-between">
+            <div class="logoarea">
+                <a href="/ezenCine"><img src="images/logo/logo.png" alt="logo"></a>
+            </div>
+            <div class="header-nav mt-3">
+                <ul class="gnb d-flex">
+                    <li>
+                        <a href="javascript:void(0)">영화</a>
+                        <ul class="lnb">
+                            <li><a href="javascript:void(0)">현재상영작</a></li>
+                            <li><a href="javascript:void(0)">상영예정작</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">예매</a>
+                        <ul class="lnb">
+                            <li><a href="javascript:void(0)">예매하기</a></li>
+                            <li><a href="javascript:void(0)">상영시간표</a></li>
+                            <li><a href="javascript:void(0)">할인안내</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">극장</a>
+                        <ul class="lnb">
+                            <li><a href="javascript:void(0)">전체극장</a></li>
+                            <li><a href="javascript:void(0)">특별관</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">이벤트</a>
+                        <ul class="lnb">
+                            <li><a href="javascript:void(0)">지난 이벤트</a></li>
+                            <li><a href="javascript:void(0)">진행중인 이벤트</a></li>
+                            <li><a href="javascript:void(0)">당첨자 발표</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">스토어</a>
+                        <ul class="lnb">
+                            <li><a href="javascript:void(0)">베스트</a></li>
+                            <li><a href="javascript:void(0)">스낵/음료</a></li>
+                            <li><a href="javascript:void(0)">관람권</a></li>
+                            <li><a href="javascript:void(0)">굿즈</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">혜택</a>
+                        <ul class="lnb">
+                            <li><a href="javascript:void(0)">멤버십</a></li>
+                            <li><a href="javascript:void(0)">제휴/할인</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="gong"></div>
+            <div class="header-util d-flex mt-3">
+<%
+	if(userid == ""){
+%>            
+                <span class="r-bar"><a href="javascript:showLoginPopup();">Login</a></span>
+                <span><a href="/ezenCine/signup.jsp"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
+<%
+	}else{
+%>  
+              	<span class="r-bar"><a href="javascript:cLogout();">Logout</a></span>
+              	<span><a href="index.jsp?fname=mem/mypage"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
+<%
+	}
+%>              		              
+                
+                <span><a href="javascript:void(0)"><img src="images/ico/ico-search.png" alt="search" id="search-on"></a></span>
+                <div class="header-search-box">
+                    <form action="" name="header-search-form" class="d-flex">
+                        <input type="text" placeholder="검색어를 입력해주세요." name="header-search" id="header-search">
+                        <button type="submit" id="header-submit"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="c-signContainer">
 <!------------- title ------------------>
             <ul class="c-ul-signup">
@@ -104,7 +195,7 @@
                             * 아이디 
                         </div>
                         <div class="second">
-                            <input spellcheck="false" type="text" name="userid" id="userid" onfocusout="regexIdCheck();">
+                            <input spellcheck="false" type="text" name="userid" id="userid" oninput="regexIdCheck();">
                             <span>영문 소문자 또는 영문 대문자, 숫자 조합 6~12자리</span>
                             <span class="c-warning"></span>
                         </div>
@@ -119,7 +210,7 @@
                             * 비밀번호
                         </div>
                         <div class="second">
-                            <input spellcheck="false" type="password" name="userpass" id="userpass" onfocusout="regexPwCheck();">
+                            <input spellcheck="false" type="password" name="userpass" id="userpass" oninput="regexPwCheck();">
                             <img src="images/icon/inyoung/eye-off-fill.png" alt="hide" class="passwordhide c-active" id="passwdhide" onclick="showPasswd();"/>
                             <img src="images/icon/inyoung/eye-fill.png" alt="show" class="passwordshow" id="passwdshow" onclick="showPasswd();"/>
                             <span>영문 소문자, 숫자 조합 10자 이상</span>
@@ -134,7 +225,7 @@
                             * 비밀번호 확인
                         </div>
                         <div class="second">
-                            <input spellcheck="false" type="password" name="reuserpass" id="reuserpass" onfocusout="rePwCheck();">
+                            <input spellcheck="false" type="password" name="reuserpass" id="reuserpass" oninput="rePwCheck();">
                             <img src="images/icon/inyoung/eye-off-fill.png" alt="hide" class="passwordhide c-active" id="repasswdhide" onclick="showRePasswd();"/>
                             <img src="images/icon/inyoung/eye-fill.png" alt="show" class="passwordshow" id="repasswdshow" onclick="showRePasswd();"/>
                             <span class="c-warning"></span>
@@ -200,7 +291,7 @@
                             * 전화번호
                         </div>
                         <div class="second">
-                            <input spellcheck="false" type="number" name="tel" id="tel" placeholder="숫자만 입력해주세요." onfocusout="regexTelCheck();">
+                            <input spellcheck="false" type="number" name="tel" id="tel" placeholder="숫자만 입력해주세요." oninput="regexTelCheck();">
                             <span class="c-warning"></span>
                         </div>
                         <div class="third">
@@ -268,8 +359,7 @@
         
     </div>
 
-
-    <div class="c-shadow" id="c-shadow"></div>
+<div class="c-showlaw-shadow">
     <div class="c-showLaw">
         <div class="c-law-head">
             <h2>EZEN CINEMA 서비스 이용약관</h2>
@@ -285,7 +375,8 @@
             <p>살 충분히 우리 하였으며, 인생을 얼음 그들은 모래뿐일 실현에 부패뿐이다. 이것이야말로 일월과 넣는 품었기 얼음이 곳이 이것이다. 있을 어디 미인을 내려온 봄바람이다. 생명을 전인 위하여서 새가 아름답고 뛰노는 있는가? 공자는 우는 갑 청춘의 그리하였는가? 풀이 튼튼하며, 동산에는 있는가? 실현에 가지에 피고, 위하여, 그들은 되는 얼마나 황금시대의 꾸며 힘있다. 예가 불어 바이며, 방황하여도, 과실이 곳이 꽃이 힘있다. 뜨거운지라, 청춘에서만 곧 그와 이상의 얼마나 가치를 약동하다. 행복스럽고 보배를 예가 무엇이 것이다. 방황하여도, 얼음과 쓸쓸한 동력은 얼음 부패뿐이다.</p>
         </div>
     </div>
-
+</div>
+<div class="c-showlaw-shadow">
     <div class="c-showLaw">
         <div class="c-law-head">
             <h2>개인정보 수집 및 이용에 대한 이용약관</h2>
@@ -301,7 +392,8 @@
             <p>살 충분히 우리 하였으며, 인생을 얼음 그들은 모래뿐일 실현에 부패뿐이다. 이것이야말로 일월과 넣는 품었기 얼음이 곳이 이것이다. 있을 어디 미인을 내려온 봄바람이다. 생명을 전인 위하여서 새가 아름답고 뛰노는 있는가? 공자는 우는 갑 청춘의 그리하였는가? 풀이 튼튼하며, 동산에는 있는가? 실현에 가지에 피고, 위하여, 그들은 되는 얼마나 황금시대의 꾸며 힘있다. 예가 불어 바이며, 방황하여도, 과실이 곳이 꽃이 힘있다. 뜨거운지라, 청춘에서만 곧 그와 이상의 얼마나 가치를 약동하다. 행복스럽고 보배를 예가 무엇이 것이다. 방황하여도, 얼음과 쓸쓸한 동력은 얼음 부패뿐이다.</p>
         </div>
     </div>
-
+</div>
+<div class="c-showlaw-shadow">
     <div class="c-showLaw">
         <div class="c-law-head">
             <h2>통신사 이용약관</h2>
@@ -317,7 +409,8 @@
             <p>살 충분히 우리 하였으며, 인생을 얼음 그들은 모래뿐일 실현에 부패뿐이다. 이것이야말로 일월과 넣는 품었기 얼음이 곳이 이것이다. 있을 어디 미인을 내려온 봄바람이다. 생명을 전인 위하여서 새가 아름답고 뛰노는 있는가? 공자는 우는 갑 청춘의 그리하였는가? 풀이 튼튼하며, 동산에는 있는가? 실현에 가지에 피고, 위하여, 그들은 되는 얼마나 황금시대의 꾸며 힘있다. 예가 불어 바이며, 방황하여도, 과실이 곳이 꽃이 힘있다. 뜨거운지라, 청춘에서만 곧 그와 이상의 얼마나 가치를 약동하다. 행복스럽고 보배를 예가 무엇이 것이다. 방황하여도, 얼음과 쓸쓸한 동력은 얼음 부패뿐이다.</p>
         </div>
     </div>
-
+</div>
+<div class="c-showlaw-shadow">
     <div class="c-showLaw">
         <div class="c-law-head">
             <h2>마케팅 정보수신에 대한 이용약관</h2>
@@ -333,6 +426,8 @@
             <p>살 충분히 우리 하였으며, 인생을 얼음 그들은 모래뿐일 실현에 부패뿐이다. 이것이야말로 일월과 넣는 품었기 얼음이 곳이 이것이다. 있을 어디 미인을 내려온 봄바람이다. 생명을 전인 위하여서 새가 아름답고 뛰노는 있는가? 공자는 우는 갑 청춘의 그리하였는가? 풀이 튼튼하며, 동산에는 있는가? 실현에 가지에 피고, 위하여, 그들은 되는 얼마나 황금시대의 꾸며 힘있다. 예가 불어 바이며, 방황하여도, 과실이 곳이 꽃이 힘있다. 뜨거운지라, 청춘에서만 곧 그와 이상의 얼마나 가치를 약동하다. 행복스럽고 보배를 예가 무엇이 것이다. 방황하여도, 얼음과 쓸쓸한 동력은 얼음 부패뿐이다.</p>
         </div>
     </div>
+</div>
+    
 <script src="js/jquery-1.12.4.min.js"></script>
 <script src="js/signup.js"></script>
 <%@ include file="include/footer.jsp" %>

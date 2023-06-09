@@ -231,7 +231,6 @@ $(function(){
     $(".c-law-hide:eq(6)").click(function(){
     	document.getElementById("SMSAgree").value = "0";
     })
-	
 })
 
 function getEmail(){
@@ -257,9 +256,6 @@ function idFunc(){
         transition : "0.3s",
     })
 }
-
-
-
 
 function passFunc(){
     $(".c-login-userpass .move").css({
@@ -329,7 +325,7 @@ function loginSubmit(){
         }).then((res) => res.json())
         .then((result) =>{
             if(result == 1){      
-                if(window.location.href.includes("fname=mem")){
+                if(window.location.href.includes("signup") || window.location.href.includes("fname=mem")){
                     location.href = "index.jsp";
                 }else{
                     location.reload();
@@ -351,7 +347,7 @@ function cLogout(){
     }).then((res) => res.json())
     .then((result) => {
         if(result == 1){
-            if(window.location.href.includes("fname=mem")){
+            if(window.location.href.includes("signup") || window.location.href.includes("fname=mem")){
                 location.href = "index.jsp";
             }else{
                 location.reload();
@@ -381,16 +377,12 @@ window.onload = function(){
 
 /* *********** 약관동의 *********** */
 function cShowLaw(n){
-    const shadow = document.getElementById("c-shadow");
-    const lawPopup = document.getElementsByClassName("c-showLaw")[n];
+    const shadow = document.getElementsByClassName("c-showlaw-shadow")[n];
     shadow.style.display = "block";
-    lawPopup.style.display = "block";
 }
 function cLawClose(n){
-    const shadow = document.getElementById("c-shadow");
-    const lawPopup = document.getElementsByClassName("c-showLaw")[n];
+    const shadow = document.getElementsByClassName("c-showlaw-shadow")[n];
     shadow.style.display = "none";
-    lawPopup.style.display = "none";
 }
 function cCheckAll(){
     const clickNotAgree = document.getElementsByClassName("c-law-hide");
@@ -474,7 +466,7 @@ function cChoiceNotAgree(){
 function cCheckSnsAll(){
     const clickNotAgree = document.getElementsByClassName("c-law-hide");
     if(clickNotAgree[5].style.display == "inline-block" 
-    && clickNotAgree[6].style.display == "inline-block" ){
+    || clickNotAgree[6].style.display == "inline-block" ){
         $(".c-law-hide:eq(4)").css({
             display : "flex"
         });
@@ -486,15 +478,15 @@ function cCheckSnsAll(){
 function cNotCheckSnsAll(){
     const clickAgree = document.getElementsByClassName("c-law-show");
     if(clickAgree[5].style.display == "inline-block" 
-    && clickAgree[6].style.display == "inline-block" ){
-        
-    }else{
+    || clickAgree[6].style.display == "inline-block" ){
         $(".c-law-hide:eq(4)").css({
             display : "none"
         });
         $(".c-law-show:eq(4)").css({
             display : "flex"
         });
+    }else{
+        
     }
 }
 
@@ -707,6 +699,10 @@ function cSignUp(){
 
     const alert = document.getElementsByClassName("c-warning");
 
+    const idRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
+    const passwdRegex = /^(?=.*[a-z])(?=.*\d).{10,}$/;
+    const telRegex = /^01([0|1|6|7|8|9/])([0-9]{7,8})$/;
+
     if(userid == ""){
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
@@ -714,6 +710,13 @@ function cSignUp(){
     }else{
         alert[0].innerHTML = "";
     }
+    if(!idRegex.test(userid)){
+        alert[0].style.color = "red";
+        alert[0].style.fontWeight = "normal";
+        alert[0].innerHTML = "형식에 맞춰 입력해주세요.";
+    }else{
+        alert[0].innerHTML = "";
+    }    
     if(idDupli == ""){
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
@@ -724,6 +727,12 @@ function cSignUp(){
     if(userpass == ""){
         alert[1].style.color = "red";
         alert[1].innerHTML = "비밀번호를 입력해주세요.";
+    }else{
+        alert[1].innerHTML = "";
+    }
+    if(!passwdRegex.test(userpass)){
+        alert[1].style.color = "red";
+        alert[1].innerHTML = "형식에 맞춰 입력해주세요.";
     }else{
         alert[1].innerHTML = "";
     }
@@ -757,6 +766,13 @@ function cSignUp(){
     }else{
         alert[6].innerHTML = "";
     }
+    if(!telRegex.test(tel)){
+        alert[6].style.color = "red";
+        alert[6].innerHTML = "형식에 맞춰 입력해주세요.";
+        return false;
+    }else{
+        alert[6].innerHTML = "";
+    }
     if(postcode == "" || addr == "" || detailaddr == ""){
         alert[7].style.color = "red";
         alert[7].innerHTML = "주소를 입력해주세요.";
@@ -780,8 +796,6 @@ function cSignUp(){
             cnt += 1;
         }
     }
-
-	
 
     if(cnt == 0){
     	fetch("/ezenCine/Signup", {
@@ -850,6 +864,9 @@ function cSignUpSns(){
 
     const alert = document.getElementsByClassName("c-warning");
 
+    const idRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
+    const telRegex = /^01([0|1|6|7|8|9/])([0-9]{7,8})$/;
+
     if(userid == ""){
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
@@ -857,6 +874,13 @@ function cSignUpSns(){
     }else{
         alert[0].innerHTML = "";
     }
+    if(!idRegex.test(userid)){
+        alert[0].style.color = "red";
+        alert[0].style.fontWeight = "normal";
+        alert[0].innerHTML = "형식에 맞춰 입력해주세요.";
+    }else{
+        alert[0].innerHTML = "";
+    }    
     if(idDupli == ""){
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
@@ -885,6 +909,13 @@ function cSignUpSns(){
     if(tel == ""){
         alert[4].style.color = "red";
         alert[4].innerHTML = "전화번호를 입력해주세요.";
+    }else{
+        alert[4].innerHTML = "";
+    }
+    if(!telRegex.test(tel)){
+        alert[4].style.color = "red";
+        alert[4].innerHTML = "형식에 맞춰 입력해주세요.";
+        return false;
     }else{
         alert[4].innerHTML = "";
     }
@@ -1081,6 +1112,7 @@ $(function(){
   });
 
 })//jquery
+/*
 const SearchBox = document.querySelector(".h-movie-search-box");
 const movieList = document.querySelector(".h-movie-list");
 const SearchBoxHeight = SearchBox.offsetTop;
@@ -1136,6 +1168,149 @@ $(window).scroll(function () {
   }
     
 });
+*/
+
+function cMyPageBottom(n){
+    const content = document.getElementsByClassName("c-mypage-content");
+    const tab = document.getElementsByClassName("c-mypage-tab");
+    for(i = 0; i < content.length; i++){
+        content[i].classList.remove("c-mypage-content-active");
+        tab[i].classList.remove("c-mypage-li-active");
+    }
+    content[n].classList.add("c-mypage-content-active");
+    tab[n].classList.add("c-mypage-li-active");
+}
+function dayToKor(n){
+    if(n == 1){
+        return "일";
+    }else if(n == 2){
+        return "월";
+    }else if(n == 3){
+        return "화";
+    }else if(n == 4){
+        return "수";
+    }else if(n == 5){
+        return "목";
+    }else if(n == 6){
+        return "금";
+    }else if(n == 7){
+        return "토";
+    }
+}
+function cMyPageMore(n){
+    if(n == 0){
+        const plusbtn = document.getElementById("c-mypage-plus-booking-btn");
+        const bookingAllnum = document.getElementById("booking-all-num").value;
+        const num = document.getElementsByClassName("c-mypage-booking-num").length;
+        const insert = document.getElementById("c-mypage-booking-insert");
+        fetch("/ezenCine/MyPageMore", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                myPageNum: n, num : num
+            })
+        }).then((res) => res.json())
+        .then((result) => {
+            for(i = 0; i < result.length; i++){
+                const alpha = result[i].seat_num[0];
+                const seats = result[i].seat_num[1];
+                const ticket_year = result[i].ticket_date.substring(0, 4);
+                const ticket_month = result[i].ticket_date.substring(5, 7);
+                const ticket_day = result[i].ticket_date.substring(8, 10);
+                const ticket_hour = result[i].ticket_date.substring(11, 13);
+                const ticket_min = result[i].ticket_date.substring(14, 16);
+                const screen_year = result[i].screen_date.substring(0, 4);
+                const screen_month = result[i].screen_date.substring(5, 7);
+                const screen_day = result[i].screen_date.substring(8, 10);
+                insert.insertAdjacentHTML("beforeend",`
+                    <div class="col-6 c-mypage-booking-num">
+                        <img src="${result[i].poster_url}" alt="${result[i].title}">
+                        <div class="c-content">
+                            <p class="c-title">${result[i].title}</p>
+                            <p>예매번호 <span>${result[i].ticket_num}</span></p>
+                            <p>상영관/관람좌석 <span>${result[i].room_num}/${alpha}열 ${seats}</span></p>
+                            <!--  <p>관람인원 <span>성인 1명</span></p>-->
+                            <p>결제일시 <span>${ticket_year}.${ticket_month}.${ticket_day}(${dayToKor(result[i].ticket_day)}) ${ticket_hour}:${ticket_min}</span></p>
+                            <p>관람일시 <span>${screen_year}.${screen_month}.${screen_day}(${dayToKor(result[i].screen_day)}) ${result[i].screen_time}</span></p>
+                        </div>
+                    </div>
+                `);
+            }
+            if(num == bookingAllnum - 1 || num == bookingAllnum - 2){
+                plusbtn.style.display = "none";
+            }
+        })
+    }else if(n == 1){
+        const plusbtn = document.getElementById("c-mypage-plus-review-btn");
+        const reviewAllnum = document.getElementById("review-all-num").value;
+        const num = document.getElementsByClassName("c-mypage-review-num").length;
+        const insert = document.getElementById("c-mypage-review-insert");
+        fetch("/ezenCine/MyPageMore", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                myPageNum: n, num : num
+            })
+        }).then((res) => res.json())
+        .then((result) => {
+            for(i = 0; i < result.length; i++){
+                const review_date = new Date(result[i].date);
+                const today_date = new Date() ;
+                const diffSec = today_date - review_date;
+                const diff = Math.ceil(diffSec / (1000 * 3600 * 24));
+                
+                insert.insertAdjacentHTML("beforeend",`
+                    <div class="col-6 c-mypage-review-num">
+                        <img src="${result[i].poster_url}" alt="${result[i].title}">
+                        <div class="c-content">
+                            <p class="c-title">${result[i].title}</p>
+                            <p>평점<span class="c-score">${result[i].rating}.0</span></p>
+                            <p class="c-comment">${result[i].comments}</p>
+                            <p class="c-bottom">
+                                <span class="first">
+                                    <img class="c-like-img" class="" src="images/h-button/like.png" alt="like">
+                                    <span>${diff}일 전</span>
+                                </span>
+                                <span class="second">
+                                    <a href="javascript:void(0);">수정</a>
+                                    <a href="javascript:void(0);">삭제</a>
+                                </span></p>
+                        </div>
+                    </div>
+                `);
+            }
+            if(num == reviewAllnum - 1 || num == reviewAllnum - 2){
+                plusbtn.style.display = "none";
+            }
+        })
+    }else if(n == 2){
+        const plusbtn = document.getElementById("c-mypage-plus-like-btn");
+        const likeAllnum = document.getElementById("like-all-num").value;
+        const num = document.getElementsByClassName("c-mypage-like-num").length;
+        const insert = document.getElementById("c-mypage-like-insert");
+        fetch("/ezenCine/MyPageMore", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                myPageNum: n, num : num
+            })
+        }).then((res) => res.json())
+        .then((result) => {
+            for(i = 0; i < result.length; i++){
+                insert.insertAdjacentHTML = ("breforeend", `
+            <div class="col-3  c-mypage-like-num">
+                <img src="${result.img}" alt="${result.title}">
+                <span class="c-title">${result.title}</span>
+                <span class="c-engtitle">${result.engtitle}</span>
+            </div>
+            `);
+            }
+            if(num == likeAllnum - 1 || num == likeAllnum - 2){
+                plusbtn.style.display = "none";
+            }
+        })
+    }
+}
 /************ findid & findpw ************ */
 function cFindIdCheck(){
     const username = document.getElementById("username");
@@ -1183,9 +1358,9 @@ function cFindId(){
         }
     })
 }
+
 function cThreeMinTimer(){
     const Timer = document.getElementById("c-find-time");
-    const warning = document.getElementsByClassName("c-warning")[0];
     let time = 180000;
     let min = 3;
     let sec = 60;
@@ -1206,14 +1381,17 @@ function cThreeMinTimer(){
     }, 1000);
 }
 
-var oauthCode = "";
 
+var oauthCode = "";
+var compTime;
 function cFindPw(){
     const userid = document.getElementById("userid").value;
     const sendemail = document.getElementById("useremail").value;
     const popup_alert = document.getElementById("idpw-popup-alert");
     const popup = document.getElementById("c-find-idpw-popup");
+    let oauthnum = document.getElementById("oauthnum");
     const warning = document.getElementsByClassName("c-warning")[0];
+    oauthnum.readOnly = false;
     warning.innerHTML = "";
     fetch("/ezenCine/FindPw", {
         headers: {"Content-Type" : "application/json"},
@@ -1232,8 +1410,9 @@ function cFindPw(){
             popup_alert.innerHTML = "입력하신 이메일로 인증번호가 전송되었습니다. 시간 내에 인증확인을 해주세요.";
             $(".c-oauth-d-none").slideDown();
             cThreeMinTimer();
-            setTimeout(function(){
+            compTime = setTimeout(function(){
                 clearInterval(playTime);
+                oauthnum.readOnly = true;
                 warning.innerHTML = "시간이 초과되었습니다.";
             }, 180000);
         }
@@ -1293,6 +1472,7 @@ function cOauthNum(){
 
     if(oauthnum == oauthCode){
             clearInterval(playTime);
+            clearTimeout(compTime);
             warning.innerHTML = "";
             $(".c-userpass-d-none").slideDown("slow", "swing", function(){
                 findSecondbtn.style.backgroundColor = "#aeaeae";
@@ -1329,4 +1509,331 @@ function cUpdatePw(){
 function cFindIdPwClose(){
     const popup = document.getElementById("c-find-idpw-popup");
     popup.style.display = "none";
+}
+/********************* profile *********************** */
+function regexCurPwCheck(){    
+    let passwdRegex = /^(?=.*[a-z])(?=.*\d).{10,}$/;
+    const curuserpass = document.getElementById("curuserpass").value;
+    const userpass = document.getElementById("userpass").value;
+    const reuserpass = document.getElementById("reuserpass").value;
+    const profileBtn = document.getElementsByClassName("c-profile-popup-photo-submit-btn")[1];
+    if(passwdRegex.test(userpass) && reuserpass == userpass && curuserpass != ""){
+        profileBtn.style.backgroundColor = "#5c7ef7";
+        $(".c-profile-popup-photo-submit-btn:eq(1)").attr("href", "javascript:cProfilePopupModi(1);");
+    }else{
+        profileBtn.style.backgroundColor = "#ccc";
+        $(".c-profile-popup-photo-submit-btn:eq(1)").removeAttr("href");
+    }
+
+}
+function regexProPwCheck(){    
+    let passwdRegex = /^(?=.*[a-z])(?=.*\d).{10,}$/;
+    const curuserpass = document.getElementById("curuserpass").value;
+    const userpass = document.getElementById("userpass").value;
+    const reuserpass = document.getElementById("reuserpass").value;
+    const alert = document.getElementsByClassName("c-warning");
+    const profileBtn = document.getElementsByClassName("c-profile-popup-photo-submit-btn")[1];
+    if(!passwdRegex.test(userpass)){
+        alert[1].style.color = "red";
+        alert[1].innerHTML = "형식에 맞춰 입력해주세요.";
+        return false;
+    }else{
+        alert[1].innerHTML = "";
+    }
+    if(passwdRegex.test(userpass) && reuserpass == userpass && curuserpass != ""){
+        profileBtn.style.backgroundColor = "#5c7ef7";
+        $(".c-profile-popup-photo-submit-btn:eq(1)").attr("href", "javascript:cProfilePopupModi(1);");
+    }else{
+        profileBtn.style.backgroundColor = "#ccc";
+        $(".c-profile-popup-photo-submit-btn:eq(1)").removeAttr("href");
+    }
+
+}
+function regexRePwCheck(){
+    let passwdRegex = /^(?=.*[a-z])(?=.*\d).{10,}$/;
+    const curuserpass = document.getElementById("curuserpass").value;
+    const userpass = document.getElementById("userpass").value;
+    const reuserpass = document.getElementById("reuserpass").value;
+    const alert = document.getElementsByClassName("c-warning");
+    const profileBtn = document.getElementsByClassName("c-profile-popup-photo-submit-btn")[1];
+    if(reuserpass != userpass){
+        alert[2].style.color = "red";
+        alert[2].innerHTML = "비밀번호가 같지 않습니다.";
+    }else{
+        alert[2].innerHTML = "";
+    }
+    if(passwdRegex.test(userpass) && reuserpass == userpass && curuserpass != ""){
+        profileBtn.style.backgroundColor = "#5c7ef7";
+        $(".c-profile-popup-photo-submit-btn:eq(1)").attr("href", "javascript:cProfilePopupModi(1);");
+    }else{
+        profileBtn.style.backgroundColor = "#ccc";
+        $(".c-profile-popup-photo-submit-btn:eq(1)").removeAttr("href");
+    }
+}
+function regexProfileTelCheck(){
+    const telRegex = /^01([0|1|6|7|8|9/])([0-9]{7,8})$/;
+    const tel = document.getElementById("tel").value;
+    const profileBtn = document.getElementsByClassName("c-profile-popup-photo-submit-btn")[5];
+    const alert = document.getElementsByClassName("c-warning");
+
+    if(!telRegex.test(tel)){
+        alert[3].style.color = "red";
+        alert[3].innerHTML = "형식에 맞춰 입력해주세요.";
+        profileBtn.style.backgroundColor = "#ccc";
+        $(".c-profile-popup-photo-submit-btn:eq(5)").removeAttr("href");
+    }else{
+        alert[3].innerHTML = "";
+        profileBtn.style.backgroundColor = "#5c7ef7";
+        $(".c-profile-popup-photo-submit-btn:eq(5)").attr("href", "javascript:cProfilePopupModi(5);");
+    }
+}
+function showCurPasswd(){
+	const pwHide = document.getElementById("curpasswdhide");
+	const pwShow = document.getElementById("curpasswdshow");
+	pwHide.classList.toggle("c-active");
+	pwShow.classList.toggle("c-active");
+	if($("#curpasswdhide").hasClass("c-active")){
+		$("#curuserpass").attr("type", "password");
+	}
+	if($("#curpasswdshow").hasClass("c-active")){
+		$("#curuserpass").attr("type", "text");
+	}
+}
+
+/****** 이메일 활성화 및 0 1 값 입력 ***** */
+function cProfileEmailCheck(){
+    const clickNotAgree = document.getElementsByClassName("c-profile-law-show")[0];
+    const clickAgree = document.getElementsByClassName("c-profile-law-hide")[0];
+    let emailAgree = document.getElementById("emailAgree");
+    clickNotAgree.classList.remove("c-profile-active");
+    clickAgree.classList.add("c-profile-active");
+    emailAgree.value = 1;
+}
+function cProfileEmailNotCheck(){
+    const clickNotAgree = document.getElementsByClassName("c-profile-law-show")[0];
+    const clickAgree = document.getElementsByClassName("c-profile-law-hide")[0];
+    let emailAgree = document.getElementById("emailAgree");
+    clickNotAgree.classList.add("c-profile-active");
+    clickAgree.classList.remove("c-profile-active");
+    emailAgree.value = 0;
+}
+function cProfileSMSCheck(){
+    const clickNotAgree = document.getElementsByClassName("c-profile-law-show")[1];
+    const clickAgree = document.getElementsByClassName("c-profile-law-hide")[1];
+    let smsAgree = document.getElementById("SMSAgree");
+    clickNotAgree.classList.remove("c-profile-active");
+    clickAgree.classList.add("c-profile-active");
+    smsAgree.value = 1;
+}
+function cProfileSMSNotCheck(){
+    const clickNotAgree = document.getElementsByClassName("c-profile-law-show")[1];
+    const clickAgree = document.getElementsByClassName("c-profile-law-hide")[1];
+    let smsAgree = document.getElementById("SMSAgree");
+    clickNotAgree.classList.add("c-profile-active");
+    clickAgree.classList.remove("c-profile-active");
+    smsAgree.value = 0;
+}
+
+function cProfileShow(n){
+    const profilePopup = document.getElementsByClassName("c-profile-shadow")[n];
+    profilePopup.style.display = "block";
+}
+function cProfilePopupCancel(n){
+    if(n == 0){
+        // 이미지 파일 업로드 삭제 및 input file 태그 다시 만들기
+        const photobtnBox = document.getElementsByClassName("c-profile-photo-btn")[0];
+        const inputImg = document.getElementById("c-profile-get-photo");
+        inputImg.remove();
+        photobtnBox.insertAdjacentHTML("beforeend", `
+            <input type="file" name="c-profile-get-photo" id="c-profile-get-photo" onchange="cProfileShowUserPhoto();" accept="images/*">
+        `);
+        // 이미지 파일 사용자에게 보이기 및 팝업 이미지 바꾸기
+        let userPopupImgShow = document.getElementById("c-profile-popup-user-img");
+        const imgUrl = "/ezenCine/ShowMemPhoto";
+	    userPopupImgShow.src = imgUrl;
+    }else if(n == 1){
+        const curuserpass = document.getElementById("curuserpass");
+        const userpass = document.getElementById("userpass");
+        const reuserpass = document.getElementById("reuserpass");
+        const warning = document.getElementsByClassName("c-warning");
+
+        curuserpass.value = "";
+        userpass.value = "";
+        reuserpass.value = "";
+        for(i = 0; i < 3; i++){
+            warning[i].innerHTML = "";
+        }
+    }else if(n == 2){
+        let username = document.getElementById("username");
+        let originUsername = document.getElementById("originUsername");
+        username.value = originUsername.value;
+    }else if(n == 3){
+        let nickname = document.getElementById("nickname");
+        let originNickname = document.getElementById("originNickname");
+        nickname.value = originNickname.value;
+    }else if(n == 4){
+        let email1 = document.getElementById("email1");
+        let email2 = document.getElementById("email2");
+        let originEmail1 = document.getElementById("originEmail1");
+        let originEmail2 = document.getElementById("originEmail2");
+
+        email1.value = originEmail1.value;
+        email2.value = originEmail2.value;
+    }else if(n == 5){
+        let tel = document.getElementById("tel");
+        let originTel = document.getElementById("originTel");
+        const warning = document.getElementsByClassName("c-warning");
+        tel.value = originTel.value;
+        warning[3].innerHTML = "";
+    }else if(n == 6){
+    }
+    const profilePopup = document.getElementsByClassName("c-profile-shadow")[n];
+    profilePopup.style.display = "none";
+}
+
+function cProfilePopupModi(n){
+    const profilePopup = document.getElementsByClassName("c-profile-shadow")[n];
+    if(n == 0){
+        const userImg = document.getElementById("c-profile-user-img");
+        const userProfileImg = document.getElementById("c-profile-popup-user-img");
+        userImg.src = userProfileImg.src;
+        profilePopup.style.display = "none";
+
+        // 기본이미지로 변경한 것인지 나타내는 input hidden
+        let isBasicPhoto = document.getElementById("isBasicPhoto");
+        if(userProfileImg.src.includes("images/icon/user/user.png")){
+            isBasicPhoto.value = 1;
+        }else{
+            isBasicPhoto.value = 0;
+        }
+        
+    }else if(n == 1){
+        const curuserpass = document.getElementById("curuserpass").value;
+        const userpass = document.getElementById("userpass").value;
+        const warning = document.getElementsByClassName("c-warning");
+        let cShowPassLen = document.getElementsByClassName("userpass-length")[0];
+        fetch("/ezenCine/MatchPw", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                curuserpass : curuserpass
+            })
+        }).then((res) => res.json())
+        .then((result) => {
+            if(result == 0){
+                warning[0].innerHTML = "비밀번호가 틀렸습니다.";
+            }else if(result == 1){
+                let starLen = "";
+                for(i = 0; i < userpass.length; i++){
+                    starLen += "*";
+                }
+                cShowPassLen.innerHTML = starLen;
+                profilePopup.style.display = "none";
+            }
+        })
+    }else if(n == 2){
+        const username = document.getElementById("username");
+        const showUsername = document.getElementById("c-profile-show-username");
+        showUsername.innerHTML = username.value;
+        profilePopup.style.display = "none";
+    }else if(n == 3){
+        const nickname = document.getElementById("nickname");
+        const showNickname = document.getElementById("c-profile-show-nickname");
+        showNickname.innerHTML = nickname.value;
+        profilePopup.style.display = "none";
+    }else if(n == 4){
+        const email1 = document.getElementById("email1");
+        const email2 = document.getElementById("email2");
+        const email = email1.value + "@" + email2.value;
+        const showUseremail = document.getElementById("c-profile-show-useremail");
+        showUseremail.innerHTML = email;
+        profilePopup.style.display = "none";
+    }else if(n == 5){
+        const tel = document.getElementById("tel");
+        let comTel = "";
+        if(tel.value.length == 10){
+            comTel = tel.value.substring(0,3) + "-***-" + tel.value.substring(6);
+        }else if(tel.value.length == 11){
+            comTel = tel.value.substring(0,3) + "-****-" + tel.value.substring(7);
+        }
+        const showtel = document.getElementById("c-profile-show-tel");
+        showtel.innerHTML = comTel;
+        profilePopup.style.display = "none";
+    }
+    
+}
+
+function cProfileModiPhoto(){
+    const getPhotobtn = document.getElementById("c-profile-get-photo");
+    getPhotobtn.click();
+}
+
+function cProfileBasicPhoto(){
+    // 이미지 파일 업로드 삭제 및 input file 태그 다시 만들기
+    const photobtnBox = document.getElementsByClassName("c-profile-photo-btn")[0];
+    const inputImg = document.getElementById("c-profile-get-photo");
+    inputImg.remove();
+    photobtnBox.insertAdjacentHTML("beforeend", `
+        <input type="file" name="c-profile-get-photo" id="c-profile-get-photo" onchange="cProfileShowUserPhoto();" accept="images/*">
+    `);
+    // 이미지 파일 사용자에게 보이기 및 팝업 이미지 바꾸기
+    let userPopupImgShow = document.getElementById("c-profile-popup-user-img");
+    const imgUrl = "images/icon/user/user.png";
+    userPopupImgShow.src = imgUrl;
+}
+
+function cProfileShowUserPhoto(){
+	const img = document.querySelector("#c-profile-get-photo");
+	let userImg = document.getElementById("c-profile-popup-user-img");
+	const imgName = img.files[0];
+	const imgUrl = URL.createObjectURL(imgName);
+	userImg.src = imgUrl;
+}
+function cProfileSubmit(){
+    const userImg = document.getElementById("c-profile-get-photo").files[0];
+    const userpass = document.getElementById("userpass").value;
+    const username = document.getElementById("username").value;
+    const nickname = document.getElementById("nickname").value;
+    const email1 = document.getElementById("email1").value;
+    const email2 = document.getElementById("email2").value;
+    const email = email1 + "@" + email2;
+    const tel = document.getElementById("tel").value;
+    const postcode = document.getElementById("postcode").value;
+    const addr = document.getElementById("addr").value;
+    const detailaddr = document.getElementById("detailaddr").value;
+    const emailAgree = document.getElementById("emailAgree").value;
+    const smsAgree = document.getElementById("SMSAgree").value;
+    const isBasicPhoto = document.getElementById("isBasicPhoto").value;
+
+    const completePopup = document.getElementsByClassName("c-profile-shadow-complete")[0];
+    const completeAlert = document.getElementsByClassName("c-profile-submit-alert")[0];
+
+    const formData = new FormData();
+    formData.append("userImg", userImg);
+    formData.append("password", userpass);
+    formData.append("username", username);
+    formData.append("nickname", nickname);
+    formData.append("email", email);
+    formData.append("tel", tel);
+    formData.append("postcode", postcode);
+    formData.append("addr", addr);
+    formData.append("detailaddr", detailaddr);
+    formData.append("emailAgree", emailAgree);
+    formData.append("smsAgree", smsAgree);
+    formData.append("isBasicPhoto", isBasicPhoto);
+    fetch("/ezenCine/ModiProfile", {
+        method : "post",
+        body : formData
+    }).then((res) => res.json())
+    .then((result) => {
+        if(result == 0){
+            completePopup.style.display = "block";
+            completeAlert.innerHTML = "오류가 발생했습니다. 다시 한번 시도해주세요.";
+
+        }else if(result == 1){
+            completePopup.style.display = "block";
+            completeAlert.innerHTML = "변경이 성공적으로 완료되었습니다.";
+            $(".c-profile-complete-btn").attr("href", "index.jsp?fname=mem/mypage");
+        }
+    })
 }
