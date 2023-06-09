@@ -1507,8 +1507,7 @@ function cUpdatePw(){
 }
 
 function cFindIdPwClose(){
-    const popup = document.getElementById("c-find-idpw-popup");
-    popup.style.display = "none";
+    location.href = "index.jsp";
 }
 /********************* profile *********************** */
 function regexCurPwCheck(){    

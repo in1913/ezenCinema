@@ -58,7 +58,7 @@ public class ModiProfile extends HttpServlet {
 			}else if(tel.length() == 11){
 				tel = tel.substring(0, 3) + "-" + tel.substring(3, 7) + "-" + tel.substring(7);
 			}
-			
+			/*
 			System.out.println("password : " + password);
 			System.out.println("username : " + username);
 			System.out.println("nickanme : " + nickname);
@@ -70,7 +70,7 @@ public class ModiProfile extends HttpServlet {
 			System.out.println("photo : " + photo);
 			System.out.println("email_agree : " + email_agree);
 			System.out.println("sms_agree : " + sms_agree);
-			
+			*/
 			
 			// photo 가 null로 들어오면 업데이트를 하지않음
 			// 기본이미지로 변경하면 photo는 null로 들어오는데?
