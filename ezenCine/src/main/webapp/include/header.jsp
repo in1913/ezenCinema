@@ -26,14 +26,14 @@
             <div class="header-nav mt-3">
                 <ul class="gnb d-flex">
                     <li>
-                        <a href="javascript:void(0)">영화</a>
+                        <a href="index.jsp?fname=movie/movieList">영화</a>
                         <ul class="lnb">
                             <li><a href="javascript:void(0)">현재상영작</a></li>
                             <li><a href="javascript:void(0)">상영예정작</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">예매</a>
+                        <a href="index.jsp?fname=movie/booking">예매</a>
                         <ul class="lnb">
                             <li><a href="javascript:void(0)">예매하기</a></li>
                             <li><a href="javascript:void(0)">상영시간표</a></li>
