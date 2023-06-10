@@ -35,6 +35,24 @@ $(function(){
         }
     })
     
+    // 헤더 검색창 자동완성
+	$('#header-search').autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				url: '/ezenCine/AvailableTags', // 서버의 API 엔드포인트
+				dataType: 'json',
+				success: function(data) {
+					const titles = data.titles; // 응답에서 제목 목록 추출
+					response(titles); // 자동완성 기능에 제목 목록 전달
+				},
+				error: function() {
+				         
+				}
+			});
+		},
+		minLength:1
+	});
+    
     // movieList 시작
       $(".h-movie-all").hover(function(){
 	      $(this).find(".h-imgbox").find(".h-movie-content").stop().fadeToggle(300);
@@ -213,65 +231,6 @@ $(function(){
 
 
 
-
-const SearchBox = document.querySelector(".h-movie-search-box");
-const movieList = document.querySelector(".h-movie-list");
-const SearchBoxHeight = SearchBox.offsetTop;
-const movieListHight = movieList.offsetTop;
-console.log(movieListHight);
-
-const movie = document.querySelector('#nav-movie');
-const movieHeight = window.pageYOffset + document.querySelector("#movie").getBoundingClientRect().top-81;
-const upcoming = document.querySelector("#nav-upcoming");
-const upcomingHeight = window.pageYOffset + document.querySelector("#upcoming").getBoundingClientRect().top-81;
-const navTop = document.querySelector("#nav-top");
-const navTopHeight = window.pageYOffset + document.querySelector("#top").getBoundingClientRect().top-81;
-const animation = document.querySelector("#nav-animation");
-const animationHeight = window.pageYOffset + document.querySelector("#animation").getBoundingClientRect().top-81;
-
-window.onscroll = function () {
-  const windowTop = window.scrollY;
-  	// 스크롤 세로값이 h-movie-list높이보다 크거나 같으면 
-	// h-movie-list에 클래스 'drop'을 추가한다
-	console.log(windowTop);
-	console.log(SearchBoxHeight);
-  if (windowTop >= SearchBoxHeight) {
-    movieList.classList.add("drop");
-  } 
-  // 아니면 클래스 'drop'을 제거
-  else {
-    movieList.classList.remove("drop");
-  }
-};
-
-$(window).scroll(function () { 
-	const scroll = $(document).scrollTop(); 
-	console.log(scroll);
-	console.log(movieHeight);
-	console.log(upcomingHeight);
-	console.log(navTopHeight);
-	console.log(animationHeight);
-	
-	if(scroll < movieHeight){
-	    movie.classList.remove("h-active");
-	}else if(scroll >= movieHeight && scroll < upcomingHeight){
-	    movie.classList.add("h-active");
-	    upcoming.classList.remove("h-active");
-	}else if(scroll >= upcomingHeight && scroll < navTopHeight){
-	    movie.classList.remove("h-active");
-	    upcoming.classList.add("h-active");
-	    navTop.classList.remove("h-active");
-	}else if(scroll >= navTopHeight && scroll < animationHeight){
-	    upcoming.classList.remove("h-active");
-	    navTop.classList.add("h-active");
-	    animation.classList.remove("h-active");
-	}else if(scroll >= animationHeight){
-	    navTop.classList.remove("h-active");
-	    animation.classList.add("h-active");
-	}
-    
-});
-
 // 영화 상세
 // 공유버튼 클릭
 function linkshare(){
@@ -282,11 +241,22 @@ function linkshare(){
     }, 2000)
 }  
 
-
+// 스크롤 올라가라
 function scrollToTop() {
   window.scrollTo({
     top: 0,
-    behavior: 'smooth' // 부드러운 스크롤 효과를 위해 'smooth' 사용
+    behavior: 'smooth' 
   });
 }
+// 스크롤버튼 나와라
+$(function() {
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+        if (scroll >= 300) {
+            $('#pageup').fadeIn();
+        } else {
+            $('#pageup').fadeOut();
+        }
+    });
 
+});

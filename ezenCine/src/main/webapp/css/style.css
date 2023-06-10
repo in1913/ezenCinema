@@ -155,6 +155,7 @@ header.fixed #header-search:focus{
 	bottom:7%;
 	right:12%;
 	z-index:9999;
+	display:none;
 }
 .pageup img{
 	cursor:pointer;
@@ -230,7 +231,7 @@ footer{
 
 /*** booking ***/
 section.booking{
-    background-image: url(../images/back/booking_background.png);
+    background-image: url(../images/back/backimg.png);
     background-repeat: no-repeat;
     background-size:100%;
     position:relative;
@@ -299,17 +300,14 @@ section.booking h3{
 div.h-date{
     width: 80px;
 }
-.h-location-blurbox,
-.h-date-blurbox,
-.h-time-blurbox{
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 100;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.5;
+.h-location-box{
+	position:relative;
+}
+.h-location-box>img{
+	position:absolute;
+	top:250px;
+	left:50%;
+	transform:translate(-50%);
 }
 div.h-location{
     width: 290px;
@@ -347,9 +345,17 @@ input[type=radio]{
 span.count{
     font-size:14px;
 }
+.h-time-list{
+	position:relative;
+}
+.h-time-list>img{
+	position:absolute;
+	top:150px;
+	left:50%;
+	transform:translate(-50%);
+}
 .h-b-time-btn{
 	display:inline-block;
-	width:106px;
 	height:66px;
 	padding: 10px;
 	border: 2px solid #E1E1E1;
@@ -542,13 +548,18 @@ input[type="number"]::-webkit-inner-spin-button {
 	color:#000;
 	font-weight:500;
 }
+.p_selectbox .total_people span{
+	font-size:16px;
+	color:#000;
+	font-weight:500;
+}
 .p_selectbox .prev_btn{
 	display:inline-block;
 	width: 70px;
 	height:30px;
 	background-image:url(../images/ico/ico-prev-btn.png);
 	background-repeat:no-repeat;
-	margin-top:55px;
+	margin-top:20px;
 	cursor:pointer;
 }
 .s_selectbox{
@@ -569,6 +580,90 @@ input[type="number"]::-webkit-inner-spin-button {
 	height:284px;
 	border:2px solid #000;
 	background:#ccc;
+	padding:20px;
+	display:flex;
+	justify-content: space-between;
+}
+.result_left{
+	width:550px;
+	height:244px;
+	display:flex;
+}
+
+.select_resultbox .book_poster_area{
+	width:167px;
+}
+.select_resultbox .book_poster_area img{
+	width:100%;
+}
+.select_resultbox .book_screen_info{
+	font-size:24px;
+}
+.select_resultbox .book_screen_info .book_movie_title{
+	color:#333;
+	font-weight: 500;
+}
+.select_resultbox .book_screen_info img{
+	width:30px;
+	margin-right:7px;
+	margin-top:5px;
+	vertical-align: text-bottom;
+}
+.book_date_info{
+	margin-top:50px;
+	font-size: 18px;
+	font-weight: 500;
+}
+.book_cinema_info{
+	margin-top :5px;
+	font-size: 18px;
+	font-weight: 500;
+}
+.result_right{
+	width:482px;
+	position:relative;
+	height:244px;
+}
+.book_result_info{
+	font-size: 18px;
+	font-weight: 500;
+}
+.book_result_info li span{
+	display:inline-block;
+}
+.book_result_info>li>span:first-child{
+	width:80px;
+}
+#selected_seat_info span:not(:last-child):after{
+	content:", "
+}
+.result_cost_text{
+	font-size:20px;
+}
+.result_cost{
+	font-size:30px;
+}
+.pay_btn_box{
+	position:absolute;
+	bottom:0;
+	left:0;
+}
+#payment_btn{
+	display:block;
+	width:260px;
+	height:45px;
+	text-align: center;
+	color:#fff;
+	background-color:#5C7EF7;
+	font-size:18px;
+	font-weight: 500;
+	padding-top:9px;
+	border-radius:30px;
+	transition:all 300ms;
+	cursor:pointer;
+}
+#payment_btn.on{
+	background-color:#7190FF;
 }
 .seat_container{
 	width:540px;
@@ -596,7 +691,7 @@ ul.seat_container{
 	text-align:center;
 	width:28px;
 	height:20px;
-	background-image:url(../images/ico/ico-seat.png);
+	
 	background-repeat:no-repeat;
 	background-size:100%;
 	cursor:pointer;
@@ -610,6 +705,9 @@ ul.seat_container{
 }
 .seat_box .seat:nth-child(11){
 	margin-right:40px;
+}
+.seat.unselected{
+	background-image:url(../images/ico/ico-seat.png);
 }
 .seat.selected{
 	background-image: url(../images/ico/ico-selected.png);
@@ -730,6 +828,7 @@ section.movieList{
 .h-movie ul{
     padding-bottom: 20px;
     display: flex;
+    flex-wrap:wrap;
 }
 .h-movie ul li{
     text-align: center;

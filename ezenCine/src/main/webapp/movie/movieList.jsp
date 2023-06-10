@@ -14,7 +14,7 @@
 	            <li><a href="javascript:void(0)" id="nav-animation">애니메이션</a></li>
 	        </ul>
 	        <div class="h-movie" id="movie">
-	            <h5><span>현재 상영작</span><a href="javascript:void(0)" class="h-plus"></a></h5>
+	            <h5><span>현재 상영작</span><a href="index.jsp?fname=movie/movieListNow" class="h-plus"></a></h5>
 	            <ul class="h-movie-movie">
 	            <%
 	            	Vector<MovieDTO> dto = MovieDDL.viewMovieNow();
@@ -43,7 +43,7 @@
 	            </ul>
 	        </div>
 	        <div class="h-movie" id="upcoming">
-	            <h5><span>상영 예정작</span><a href="javascript:void(0)" class="h-plus"></a></h5>
+	            <h5><span>상영 예정작</span><a href="index.jsp?fname=movie/movieListExpected" class="h-plus"></a></h5>
 	            <ul class="h-movie-movie">
 	            <%
 	            	dto = MovieDDL.viewMovieExpected();
@@ -71,7 +71,7 @@
 	            </ul>
 	        </div>
 	        <div class="h-movie" id="top">
-	            <h5><span>인기 영화</span><a href="javascript:void(0)" class="h-plus"></a></h5>
+	            <h5><span>인기 영화</span><a href="index.jsp?fname=movie/movieListPopular" class="h-plus"></a></h5>
 	            <ul class="h-movie-movie">
 	            <%
 	            	dto = MovieDDL.viewMoviePopular();
@@ -100,7 +100,7 @@
 	            </ul>
 	        </div>
 	        <div class="h-movie" id="animation">
-	            <h5><span>애니메이션</span><a href="javascript:void(0)" class="h-plus"></a></h5>
+	            <h5><span>애니메이션</span><a href="index.jsp?fname=movie/movieListAnimation" class="h-plus"></a></h5>
 	            <ul class="h-movie-movie">
 	            <%
 	            	dto = MovieDDL.viewMovieAnimation();
