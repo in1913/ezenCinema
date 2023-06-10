@@ -110,6 +110,8 @@ $(function(){
     // 줄거리버튼
     $('.k-summary_btn').click(function(){
     	$('.k-summary').toggleClass("wide");
+    	$(this).find("i").toggleClass("fa-angle-down");
+    	$(this).find("i").toggleClass("fa-angle-up");
     });
 
     //스틸컷 슬라이드
@@ -165,7 +167,7 @@ $(function(){
 
     //감독 출연진 슬라이드
     $('.k-post-wrapper').slick({
-        slidesToShow: 5,
+        slidesToShow: 6,
         slidesToScroll: 2,
         // autoplay: true,
         // autoplaySpeed: 2000,
@@ -279,4 +281,12 @@ function linkshare(){
         linkshares.style.display = "none";
     }, 2000)
 }  
+
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // 부드러운 스크롤 효과를 위해 'smooth' 사용
+  });
+}
 

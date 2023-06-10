@@ -7,7 +7,7 @@
 	int count = TrailerDDL.showTrailerCount(movieId);
 	Vector<CastingDTO> cto = CastingDDL.showCasing(movieId);
 %>
-
+	<img src="./images/moviedetail/cloud3.png" alt="필터" class="cloud">
 	<div class="k-fade">
 	    <div class="k-close"><img src="images/moviedetail/popupclose.png" alt="popupclose"/></div>
 	</div>
@@ -35,7 +35,7 @@
 	</div>
 	<div class="container">
 		<div class="k-mvdetail_top row mdvt" >
-	        <div class="k-mv_left col-5">
+	        <div class="k-mv_left col-4">
 	            <div class="k-img">
 	                <div class="k-age">
 	                    <img src="images/ico/ico-age-<%=dt.getLimit_age() %>.png" alt="<%=dt.getLimit_age() %>세"/>
@@ -45,7 +45,7 @@
 	                </div>
 	            </div> 
 	        </div>
-	        <div class="k-mv_rigth col-7">
+	        <div class="k-mv_right col-7">
 	            <h4 class="k-mv_title1">#돌비시네마</h4>
 	            <h1 class="k-mv_title2"><%=dt.getTitle() %></h1>
 	            <h4 class="k-mv_title3"><%=dt.getTitle_eng() %></h4>
@@ -112,8 +112,8 @@
         <div class="k-mvdetail_bottom">
             <div class="container">
                 <ul class="k-tab">
-                    <li><a href="javascript:void(0)" class="active" id="information">정보</a></li>
-                    <li><a href="javascript:void(0)" id="review">평점/리뷰(0)</a></li>
+                    <li><a href="javascript:void(0)" class="active" id="information">영화 정보</a></li>
+                    <li><a href="javascript:void(0)" id="review">영화 리뷰(0)</a></li>
                 </ul>
             </div>
             <!-- 정보시작 -->
@@ -127,7 +127,7 @@
                                 <p><%=dt.getSummary() %></p>
                             </div>
                             <div>
-                                 <button type="button" class="k-summary_btn">더보기</button>
+                                 <button type="button" class="k-summary_btn">더 보기 <i class="fa-solid fa-angle-down"></i></button>
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                               %>
                                   <div>
                                       <img src="<%=ro.getThumbnail() %>" data-vodsrc="<%=ro.getVodsrc() %>" alt="Thumbnail" />
-                                      <button class="k-trailer_btn"><img src="images/moviedetail/start.png" alt="start"></button>
+                                      <button class="k-trailer_btn"><img src="images/moviedetail/youtube.png" alt="start"></button>
                                       <div class="trailerbg"></div>
                                   </div >
                               <%
@@ -208,8 +208,8 @@
                             <div class="k-page-wrapper" style="position:relative;">
                                 <!--page slider -->
                                 <div class="k-post-slider">
-                                    <i class="fa-solid fa-circle-arrow-left prev"></i>
-                                    <i class="fa-solid fa-circle-arrow-right next"></i>
+                                    <img src="images/moviedetail/prev.png" class="prev"/>
+                                    <img src="images/moviedetail/next.png" class="next"/>
                                   <div class="k-post-wrapper">
                                   <%
                                   for(CastingDTO ct : cto){

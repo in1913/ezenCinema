@@ -5,6 +5,7 @@ $(function(){
         $(".h-b-movie-btn").removeClass("b-on");
         $(".h-location-box .select_btn").removeClass("b-on");
         $(".date").removeClass("b-on");
+        $(".h-booking-btn-box").css({"display" : "none"});
         $(".h-time-list").html(" ");
         $(this).addClass("b-on");
         $(".h-location-blurbox").css({"display" : "none"});
@@ -67,7 +68,7 @@ $(function(){
 				dataType: "json",
 				success: function(result){
 					if(result == 0){
-						alert("상영중인 영화관이 없습니다.");
+						alert("해당 날짜에 상영일정이 없습니다.");
 						$(".h-time-list").html("");
 					}else{
 						$.ajax({

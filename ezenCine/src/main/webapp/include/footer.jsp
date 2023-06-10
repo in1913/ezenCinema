@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    <div class="pageup">
+    	<img src="images/ico/ico-quickbooking.png" alt="바로예매 버튼" />
+    	<img id="scrollTop" onclick="scrollToTop()" src="images/ico/ico-top.png" alt="맨위로 가기" />	
+    </div>
     <footer>
         <div class="container">
             <div class="footer-top d-flex">
