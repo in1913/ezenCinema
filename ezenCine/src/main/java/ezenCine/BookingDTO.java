@@ -11,7 +11,15 @@ public class BookingDTO {
 	private int screen_day;
 	private String poster_url;
 	private String screen_time;
+	private String movie_id;
 	
+	
+	public String getMovie_id() {
+		return movie_id;
+	}
+	public void setMovie_id(String movie_id) {
+		this.movie_id = movie_id;
+	}
 	public String getPoster_url() {
 		return poster_url;
 	}

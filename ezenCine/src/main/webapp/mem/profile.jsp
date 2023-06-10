@@ -3,17 +3,10 @@
 <%
 	String userid = (String) session.getAttribute("userid");
 	Vector <MemberDTO> mld = MemberDDL.select(userid);
-%>
-<style>
-    body{
-        background: url("images/h-button/background-black.png") no-repeat;
-        background-size: cover;
-    }
-</style>
-<%
+	
 	for(MemberDTO ml : mld){
 %>
-
+<div class="c-profile-background">
 <div class="c-profile-container">
     <h1>내 정보  수정</h1>
     <div class="c-profile-photo">
@@ -214,6 +207,7 @@
             <a href="javascript:cProfileSubmit();" class="c-profile-submit-btn">수정 완료</a>
         </div>
     </div>
+</div>
 </div>
 
 <!-- 사진 팝업 -->

@@ -1,8 +1,14 @@
 $(function(){
     // header 내비게이션 작동
-    $(".gnb>li").hover(function(){
-        $(this).find(".lnb").stop().fadeToggle(300);
-        $("header.fixed>.subdp").stop().fadeToggle(300);
+    $(".gnb>li").mouseover(function(){
+        $(this).find(".lnb").stop().fadeIn(300);
+        $("header.fixed>.subdp").stop().fadeIn(300);
+        $("header.fixed").css({"border":"none"});
+    });
+    $(".gnb>li").mouseleave(function(){
+        $(this).find(".lnb").stop().fadeOut(300);
+        $("header.fixed>.subdp").stop().fadeOut(300);
+        $("header.fixed").css({"border-bottom":"1.8px solid #000"});
     });
 
     $(document).ready(function(){
@@ -53,7 +59,286 @@ $(function(){
         $(".date").removeClass("b-on");
         $(this).addClass("b-on");
     })
+
+    // movieList 시작
+    $(".h-movie-all").hover(function(){
+        $(this).find(".h-imgbox").find(".h-movie-content").stop().fadeToggle(300);
+    });
+    
+    $("#nav-movie").click(function(){
+        let offset = $('#movie').offset();
+        const scroll = $(document).scrollTop();
+        
+        if(scroll == 0){
+          $('html').animate({scrollTop : offset.top-80}, 400);
+        }else{
+          $('html').animate({scrollTop : offset.top-40}, 400);
+        }
+    });
+  
+  
+    $("#nav-upcoming").click(function(){
+      let offset = $('#upcoming').offset();
+      const scroll = $(document).scrollTop();
+  
+      if(scroll == 0){
+        $('html').animate({scrollTop : offset.top-80}, 400);
+      }else{
+        $('html').animate({scrollTop : offset.top-40}, 400);
+      }
+    });
+  
+    $("#nav-top").click(function(){
+      let offset = $('#top').offset();
+      const scroll = $(document).scrollTop();
+      
+      if(scroll == 0){
+        $('html').animate({scrollTop : offset.top-80}, 400);
+      }else{
+        $('html').animate({scrollTop : offset.top-40}, 400);
+      }
+    });
+  
+    $("#nav-animation").click(function(){
+      let offset = $('#animation').offset(); 
+      const scroll = $(document).scrollTop();
+      
+      if(scroll == 0){
+        $('html').animate({scrollTop : offset.top-60}, 400);
+      }else{
+        $('html').animate({scrollTop : offset.top-40}, 400);
+      }
+    });
+  
+  
+  
+/*** 영화상세 ***/
+//좋아요 버튼
+$('#likeimage').click(function(){
+    const userid = document.getElementById("userid").value;
+    const movieid = document.getElementById("movie-id").value;
+    const movieLike = document.getElementById("c-movieLike");
+    if(userid == null || userid == "null" || userid == ""){
+        alert("로그인이 필요한 서비스입니다.");
+    }else{
+        if($(this).hasClass("on")){
+            fetch("/ezenCine/DeleteLike", {
+            headers: {"Content-Type" : "application/json"},
+            method: "post",
+            body : JSON.stringify({
+                movieid : movieid, reviews_num : -1
+                })
+            }).then((res) => res.json())
+            .then((result) => {
+                console.log(result.result);
+                if(result.result == -1){
+
+                }else{
+                    movieLike.innerHTML = result.result;
+                    $("#likeimage").toggleClass("on");
+                }
+                
+            })
+        }else{
+            fetch("/ezenCine/UpdateLike", {
+                headers: {"Content-Type" : "application/json"},
+                method: "post",
+                body : JSON.stringify({
+                    movieid : movieid, reviews_num : -1
+                })
+            }).then((res) => res.json())
+            .then((result) => {
+                if(result.result == -1){
+
+                }else{
+                    movieLike.innerHTML = result.result;
+                    $("#likeimage").toggleClass("on");
+                }
+            })
+        }
+    }    
+});
+$('#notlikeimage').click(function(){
+    const userid = document.getElementById("userid").value;
+    const movieid = document.getElementById("movie-id").value;
+    const movieLike = document.getElementById("c-movieLike");
+    if(userid == null || userid == "null" || userid == ""){
+        alert("로그인이 필요한 서비스입니다.");
+    }else{
+        if($(this).hasClass("on")){
+            fetch("/ezenCine/DeleteLike", {
+            headers: {"Content-Type" : "application/json"},
+            method: "post",
+            body : JSON.stringify({
+                movieid : movieid, reviews_num : -1
+                })
+            }).then((res) => res.json())
+            .then((result) => {
+                console.log(result.result);
+                if(result.result == -1){
+
+                }else{
+                    movieLike.innerHTML = result.result;
+                    $("#notlikeimage").toggleClass("on");
+                }
+            })
+        }else{
+            fetch("/ezenCine/UpdateLike", {
+                headers: {"Content-Type" : "application/json"},
+                method: "post",
+                body : JSON.stringify({
+                    movieid : movieid, reviews_num : -1
+                })
+            }).then((res) => res.json())
+            .then((result) => {
+                if(result.result == -1){
+
+                }else{
+                    movieLike.innerHTML = result.result;
+                    $("#notlikeimage").toggleClass("on");
+                }
+            })
+        }
+    }    
+});
+
+  //정보 리뷰 active
+  $('.k-tab>li').click(function(){
+      $('.k-tab>li>a').toggleClass('active');
+      if($('#information').hasClass("active")){
+          $('#k-information').addClass("active");
+      }else{
+          $('#k-information').removeClass("active");
+      }
+      if($('#review').hasClass("active")){
+          $('#k-review').addClass("active");
+      }else{
+          $('#k-review').removeClass("active");
+      }
+  });
+  
+  // 줄거리버튼
+  $('.k-summary_btn').click(function(){
+      $('.k-summary').toggleClass("wide");
+      $(this).find("i").toggleClass("fa-angle-down");
+      $(this).find("i").toggleClass("fa-angle-up");
+  });
+
+  //스틸컷 슬라이드
+  $('.pt-in').slick({
+      infinite: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      centerMode:true,
+      centerPadding: '60px',
+      nextArrow: $('#btn-right'),
+      prevArrow: $('#btn-left'),
+  });
+  $('.pt-in').on('afterChange', function(event, slick, currentSlide) {
+      $('#cnum').text(currentSlide + 1);
+  });
+  $('.pt-in').on('afterChange', function(event, slick, currentSlide) {
+      $('.page .bar').removeClass('active onn');
+      $('.page .bar').eq(currentSlide).addClass('active onn');
+  });
+  
+  //예고편 슬라이드
+  $('.k-slide').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow:$('.slidenext'),
+      prevArrow:$('.slideprev'),
+      dots:true,
+      dotsClass:'slide_dots',
+    });
+
+
+  //영상 켜기
+    $(".k-trailer_btn").click(function(){
+      const Popup = document.getElementsByClassName("k-popup")[0];
+      const fade = document.getElementsByClassName("k-fade")[0];
+      Popup.style.display = "block";
+      fade.style.display = "block";
+  });
+
+  //영상 끄기
+  $(".k-fade").click(function(){
+      const PopupSlide = document.getElementsByClassName("k-popup")[0];
+      const fadeOut = document.getElementsByClassName("k-fade")[0];
+      PopupSlide.style.display = "none";
+      fadeOut.style.display = "none";
+  });
+
+  //슬라이드 링크 변경
+  $(".k-trailer_btn").click(function() {
+      const vodsrcs = $(this).prev("img").data("vodsrc");
+      $(".k-popup iframe").attr("src", vodsrcs);
+    });
+
+  //감독 출연진 슬라이드
+  $('.k-post-wrapper').slick({
+      slidesToShow: 6,
+      slidesToScroll: 2,
+      // autoplay: true,
+      // autoplaySpeed: 2000,
+      nextArrow:$('.next'),
+      prevArrow:$('.prev'),
+    });
+
+  
+    // 리뷰상세
+
+
+  //textarea 글자입력 설정
+  $('fieldset.rate input').on('click', function() {
+      var ratingValue = $(this).val();
+      $('.rating-number').text(ratingValue);
+  });
+
+
+  //textarea 글자입력 설정
+  $('.k-text_box textarea').keyup(function(){
+      var content = $(this).val();
+      $('.k-text_box .count span').html(content.length);
+      if (content.length > 220){
+        alert("최대 220자까지 입력 가능합니다.");
+        $(this).val(content.substring(0, 220));
+        $('.k-text_box .count span').html(220);
+      }
+  });
+
+  //리뷰 좋아요버튼
+  $('.k-like2').click(function(){
+      $('.k-like2').toggleClass("on")
+  });
+
+  //리뷰 순위 active
+  $('.k-reviewtitle_ul>span>a').click(function(){
+      $('.k-reviewtitle_ul>span>a').removeClass("active");
+      $(this).addClass("active");
+  });
+
+  /*** 영화상세 끝 ***/
 })
+// 영화 상세
+// 공유버튼 클릭
+function linkshare(){
+    const linkshares = document.getElementById("linkshares");
+    linkshares.style.display = "block";
+    setTimeout(function(){
+        linkshares.style.display = "none";
+    }, 2000)
+}  
+
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // 부드러운 스크롤 효과를 위해 'smooth' 사용
+  });
+}
+
+
 /****************************** login & signup *****************************************/
 $(document).ready(function(){
     if(getCookies("user")){
@@ -1224,15 +1509,17 @@ function cMyPageMore(n){
                 const screen_day = result[i].screen_date.substring(8, 10);
                 insert.insertAdjacentHTML("beforeend",`
                     <div class="col-6 c-mypage-booking-num">
-                        <img src="${result[i].poster_url}" alt="${result[i].title}">
-                        <div class="c-content">
-                            <p class="c-title">${result[i].title}</p>
-                            <p>예매번호 <span>${result[i].ticket_num}</span></p>
-                            <p>상영관/관람좌석 <span>${result[i].room_num}/${alpha}열 ${seats}</span></p>
-                            <!--  <p>관람인원 <span>성인 1명</span></p>-->
-                            <p>결제일시 <span>${ticket_year}.${ticket_month}.${ticket_day}(${dayToKor(result[i].ticket_day)}) ${ticket_hour}:${ticket_min}</span></p>
-                            <p>관람일시 <span>${screen_year}.${screen_month}.${screen_day}(${dayToKor(result[i].screen_day)}) ${result[i].screen_time}</span></p>
-                        </div>
+                        <a href="index.jsp?fname=movie/movieDetail&mov_id=${result[i].movie_id}">
+                            <img src="${result[i].poster_url}" alt="${result[i].title}">
+                            <div class="c-content">
+                                <p class="c-title">${result[i].title}</p>
+                                <p>예매번호 <span>${result[i].ticket_num}</span></p>
+                                <p>상영관/관람좌석 <span>${result[i].room_num}/${alpha}열 ${seats}</span></p>
+                                <!--  <p>관람인원 <span>성인 1명</span></p>-->
+                                <p>결제일시 <span>${ticket_year}.${ticket_month}.${ticket_day}(${dayToKor(result[i].ticket_day)}) ${ticket_hour}:${ticket_min}</span></p>
+                                <p>관람일시 <span>${screen_year}.${screen_month}.${screen_day}(${dayToKor(result[i].screen_day)}) ${result[i].screen_time}</span></p>
+                            </div>
+                        </a>
                     </div>
                 `);
             }
@@ -1297,15 +1584,17 @@ function cMyPageMore(n){
         }).then((res) => res.json())
         .then((result) => {
             for(i = 0; i < result.length; i++){
-                insert.insertAdjacentHTML = ("breforeend", `
-            <div class="col-3  c-mypage-like-num">
-                <img src="${result.img}" alt="${result.title}">
-                <span class="c-title">${result.title}</span>
-                <span class="c-engtitle">${result.engtitle}</span>
-            </div>
-            `);
+                insert.insertAdjacentHTML("beforeend",`
+                <div class="col-2 c-mypage-like-num">
+                    <a href="index.jsp?fname=movie/movieDetail&mov_id=${result[i].movie_id}">
+                        <img src="${result[i].poster_url}" alt="${result[i].title}">
+                        <span class="c-title">${result[i].title}</span>
+                        <span class="c-engtitle">${result[i].title_eng}</span>
+                    </a>
+                </div>
+                `);
             }
-            if(num == likeAllnum - 1 || num == likeAllnum - 2){
+            if(num == likeAllnum - 1 || num == likeAllnum - 2 || num == likeAllnum - 3 || num == likeAllnum - 4 || num == likeAllnum - 5 || num == likeAllnum - 6){
                 plusbtn.style.display = "none";
             }
         })
@@ -1466,21 +1755,24 @@ function cOauthCheck(){
     }
 }
 function cOauthNum(){
-    const oauthnum = document.getElementById("oauthnum").value;
+    const oauthnum = document.getElementById("oauthnum");
     const warning = document.getElementsByClassName("c-warning")[0];
     const findSecondbtn = document.getElementsByClassName("c-find-second-btn")[0];
 
-    if(oauthnum == oauthCode){
+    if(oauthnum.value == oauthCode){
             clearInterval(playTime);
             clearTimeout(compTime);
             warning.innerHTML = "";
+            oauthnum.readOnly = true;
+            oauthnum.value = "";
+            oauthnum.placeholder = "인증이 완료되었습니다.";
             $(".c-userpass-d-none").slideDown("slow", "swing", function(){
                 findSecondbtn.style.backgroundColor = "#aeaeae";
                 findSecondbtn.innerHTML = "비밀번호 변경";
                 $(".c-find-second-btn").removeAttr("href");
             });
     }else{
-        warning.innerHTML = "전송코드가 일치하지 않습니다.";
+        warning.innerHTML = "인증번호를 다시 입력해주세요.";
     }
 }
 function cUpdatePw(){
@@ -1507,7 +1799,8 @@ function cUpdatePw(){
 }
 
 function cFindIdPwClose(){
-    location.href = "index.jsp";
+    const popup = document.getElementById("c-find-idpw-popup");
+    popup.style.display = "none";
 }
 /********************* profile *********************** */
 function regexCurPwCheck(){    

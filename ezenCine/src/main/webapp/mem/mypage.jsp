@@ -6,8 +6,10 @@
 	Vector <MemberDTO> mbd = MemberDDL.select(userid);
 	Vector <BookingDTO> bkd = BookingDDL.selectInit(userid);
 	Vector <ReviewsDTO> rvd = ReviewsDDL.selectInit(userid);
+	Vector <MyPageLikeDTO> mpld = MyPageLikeDDL.selectLikeInit(userid);
 	int bookingAllNum = BookingDDL.BookingCnt(userid);
 	int reviewAllNum = ReviewsDDL.ReviewsCnt(userid);
+	int likeAllNum = MyPageLikeDDL.LikeCnt(userid);
 	
 	SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 	Date currentTime = new Date();
@@ -128,6 +130,13 @@
                 <div class="c-mypage-booking c-mypage-content c-mypage-content-active">
                     <div class="row" id="c-mypage-booking-insert">
 <%
+	if(bkd.size() == 0){
+%>
+					<div class="c-mypage-noInfo">
+						예매 내역이 없습니다.						
+					</div>                    
+<%		
+	}else{
 		for(BookingDTO bd : bkd){	
 			
 				// ticket_date은 결제 일시인가.... 관람일시인가....
@@ -152,24 +161,24 @@
 			String screen_year = screen_dateArr[0];
 			String screen_month = screen_dateArr[1];
 			String screen_day = screen_dateArr[2];
-			
-			
 %>
                         <div class="col-6 c-mypage-booking-num">
-                            <img src="<%=bd.getPoster_url() %>" alt="<%=bd.getTitle()%>">
-                            <div class="c-content">
-                                <p class="c-title"><%=bd.getTitle() %></p>
-                                <p>예매번호 <span><%=bd.getTicket_num() %></span></p>
-                                <p>상영관/관람좌석 <span><%=bd.getRoom_num() %>/<%=seat_alpha%>열 <%=seat_num %></span></p>
-                                <!--  <p>관람인원 <span>성인 1명</span></p>-->
-                                <p>결제일시 <span><%=ticket_year %>.<%=ticket_month %>.<%=ticket_day %>(<%=ExtraFunc.dayToKor(bd.getTicket_day()) %>) <%=ticket_hour %>:<%=ticket_min %></span></p>
-                                <p>관람일시 <span><%=screen_year %>.<%=screen_month %>.<%=screen_day %>(<%=ExtraFunc.dayToKor(bd.getScreen_day()) %>) <%=bd.getScreen_time() %></span></p>
-                            </div>
+                        	<a href="index.jsp?fname=movie/movieDetail&mov_id=<%=bd.getMovie_id()%>">
+	                            <img src="<%=bd.getPoster_url() %>" alt="<%=bd.getTitle()%>">
+	                            <div class="c-content">
+	                                <p class="c-title"><%=bd.getTitle() %></p>
+	                                <p>예매번호 <span><%=bd.getTicket_num() %></span></p>
+	                                <p>상영관/관람좌석 <span><%=bd.getRoom_num() %>/<%=seat_alpha%>열 <%=seat_num %></span></p>
+	                                <!--  <p>관람인원 <span>성인 1명</span></p>-->
+	                                <p>결제일시 <span><%=ticket_year %>.<%=ticket_month %>.<%=ticket_day %>(<%=ExtraFunc.dayToKor(bd.getTicket_day()) %>) <%=ticket_hour %>:<%=ticket_min %></span></p>
+	                                <p>관람일시 <span><%=screen_year %>.<%=screen_month %>.<%=screen_day %>(<%=ExtraFunc.dayToKor(bd.getScreen_day()) %>) <%=bd.getScreen_time() %></span></p>
+	                            </div>
+                            </a>
                         </div>
 <%
-	
 			
 		}
+	}
 	
 %>  
                     </div>
@@ -186,16 +195,15 @@
                 <div class="c-mypage-review c-mypage-content">
                     <div class="row" id="c-mypage-review-insert">
 <%
-		
-		for(ReviewsDTO rd: rvd){
-			
-		if(rvd.size() == 0){
+	if(rvd.size() == 0){
 %>
+						<div class="c-mypage-noInfo">
+							작성한 리뷰가 없습니다.
+						</div>
+<%		
 		
-                    내가 쓴 리뷰가 없습니다.
-        
-<%			
-		}else{			
+	}else{
+		for(ReviewsDTO rd: rvd){			
 %>
                         <div class="col-6 c-mypage-review-num">
                             <img src="<%=rd.getPoster_url() %>" alt="<%=rd.getTitle()%>">
@@ -206,7 +214,18 @@
                                 <p class="c-bottom">
                                     <span class="first">
                                         <img class="c-like-img" class="" src="images/h-button/like.png" alt="like">
-                                        <span><%=ReviewsDDL.getDateDiff(userid, rd.getMovie_id()) %>일 전</span>
+<%
+	int diff = ReviewsDDL.getDateDiff(userid, rd.getMovie_id());
+	if(diff == 0){
+%>
+                                    <span>오늘</span>
+<%		
+	}else{
+%>
+                                    <span><%=diff%>일 전</span>
+<%	
+	}
+%>                                       
                                     </span>
                                     <span class="second">
                                         <a href="javascript:void(0);">수정</a>
@@ -216,10 +235,7 @@
                         </div>
 <%
 		}
-%>	                                    
-                                
-<%
-		}
+	}
 %>  
                     </div>
 <%
@@ -234,18 +250,38 @@
                 <!-- like -->
                 <div class="c-mypage-see c-mypage-content">
                     <div class="row" id="c-mypage-like-insert">
+<%
+	if(mpld.size() == 0){
+%>
+						<div class="c-mypage-noInfo">
+							보고싶은 영화가 없습니다.
+						</div>
+<%		
+	}else{
+		for(MyPageLikeDTO md : mpld){
+%>                    
                         <div class="col-2 c-mypage-like-num">
-                            <img src="images/poster/Fast X.jpg" alt="분노의 질주">
-                            <span class="c-title">분노의 질주: 라이드 오어 다이</span>
-                            <span class="c-engtitle">Fast X</span>
+                        	<a href="index.jsp?fname=movie/movieDetail&mov_id=<%=md.getMovie_id()%>">
+	                            <img src="<%=md.getPoster_url() %>" alt="<%=md.getTitle()%>">
+	                            <span class="c-title"><%=md.getTitle() %></span>
+	                            <span class="c-engtitle"><%=md.getTitle_eng() %></span>
+                            </a>
                         </div>
-                        <div class="col-2">
-                            <img src="images/poster/The Super Mario Bros.jpg" alt="분노의 질주">
-                            <span class="c-title">슈퍼 마리오 브라더스</span>
-                            <span class="c-engtitle">The Super Mario Bros.Movie</span>
-                        </div>
-                    </div>                    
-                    <a class="c-mypage-plus" id="c-mypage-plus-like-btn" href="javascript:cMyPageMore(2);">더보기 +</a>                    
+<%
+		}
+	}
+%>                        
+                    </div>
+<%
+		if(likeAllNum <= 6){
+		}else{
+%>                    
+					<a class="c-mypage-plus" id="c-mypage-plus-like-btn" href="javascript:cMyPageMore(2);">더보기 +</a>
+<%
+		}
+%>                    
+                                        
+                                        
                 </div>              
             </div>            
         </div>
@@ -285,4 +321,5 @@
 %>  
 <input type="hidden" name="booking-all-num" id="booking-all-num" value="<%=bookingAllNum %>" />
 <input type="hidden" name="review-all-num" id="review-all-num" value="<%=reviewAllNum %>" />
+<input type="hidden" name="like-all-num" id="like-all-num" value="<%=likeAllNum %>" />
   

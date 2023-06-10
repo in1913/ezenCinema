@@ -69,7 +69,7 @@
     <div class="container">
         <div class="footer-top d-flex">
             <div class="footer-logobox">
-                <a href="main.html"><img src="images/logo/footerlogo.png" alt="footer-logo"></a>
+                <a href="/ezenCine"><img src="images/logo/footerlogo.png" alt="footer-logo"></a>
             </div>
             <ul class="f-text d-flex">
                 <li><a href="javascript:void(0)">회사소개</a></li>
@@ -109,6 +109,7 @@
 
 
 <script src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
 <script src="js/script.js"></script>
 

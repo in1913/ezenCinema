@@ -14,7 +14,7 @@ public class ReviewsDDL {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = "select Reviews.*, title, poster_url from Reviews left join Movie on Reviews.movie_id = Movie.id where Reviews.member_id = ? limit 0, 2";
+		String sql = "select Reviews.*, title, poster_url from Reviews left join Movie on Reviews.movie_id = Movie.id where Reviews.member_id = ? order by num desc limit 0, 2";
 		
 		Vector <ReviewsDTO> data = new Vector <ReviewsDTO> ();
 		try {
@@ -52,7 +52,7 @@ public class ReviewsDDL {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = "select Reviews.*, title, poster_url from Reviews left join Movie on Reviews.movie_id = Movie.id where Reviews.member_id = ? limit ?, 2";
+		String sql = "select Reviews.*, title, poster_url from Reviews left join Movie on Reviews.movie_id = Movie.id where Reviews.member_id = ? order by num desc limit ?, 2";
 		
 		Vector <ReviewsDTO> data = new Vector <ReviewsDTO> ();
 		try {

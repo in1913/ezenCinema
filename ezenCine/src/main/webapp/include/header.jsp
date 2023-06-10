@@ -12,6 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>EZEN Cinema</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -35,7 +37,7 @@
                     <li>
                         <a href="index.jsp?fname=movie/booking">예매</a>
                         <ul class="lnb">
-                            <li><a href="javascript:void(0)">예매하기</a></li>
+                            <li><a href="index.jsp?fname=movie/booking">예매하기</a></li>
                             <li><a href="javascript:void(0)">상영시간표</a></li>
                             <li><a href="javascript:void(0)">할인안내</a></li>
                         </ul>

@@ -12,9 +12,9 @@ public class BookingDDL {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = "select title, poster_url, num as ticket_num, room_num, seat_num, ticket_date, DAYOFWEEK(ticket_date) as ticket_day, screen_date,DAYOFWEEK(screen_date) as screen_day, screen_time "
+		String sql = "select movie_id, title, poster_url, num as ticket_num, room_num, seat_num, ticket_date, DAYOFWEEK(ticket_date) as ticket_day, screen_date,DAYOFWEEK(screen_date) as screen_day, screen_time "
 				+ "from Ticketing join Movie on Ticketing.movie_id = Movie.id where Ticketing.userid = ? "
-				+ "and Ticketing.screen_date > curdate() limit 0, 2";
+				+ "and Ticketing.screen_date > curdate() order by num desc limit 0, 2";
 		
 		Vector <BookingDTO> data = new Vector <BookingDTO> ();
 		try {
@@ -24,6 +24,7 @@ public class BookingDDL {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				BookingDTO dto =new BookingDTO();
+				dto.setMovie_id(rs.getString("movie_id"));
 				dto.setTitle(rs.getString("title"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setTicket_num(rs.getInt("ticket_num"));
@@ -53,9 +54,9 @@ public class BookingDDL {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = "select title, poster_url, num as ticket_num, room_num, seat_num, ticket_date, DAYOFWEEK(ticket_date) as ticket_day, screen_date,DAYOFWEEK(screen_date) as screen_day, screen_time "
+		String sql = "select movie_id, title, poster_url, num as ticket_num, room_num, seat_num, ticket_date, DAYOFWEEK(ticket_date) as ticket_day, screen_date,DAYOFWEEK(screen_date) as screen_day, screen_time "
 				+ "from Ticketing join Movie on Ticketing.movie_id = Movie.id where Ticketing.userid = ? "
-				+ "and Ticketing.screen_date > curdate() limit ?, 2";
+				+ "and Ticketing.screen_date > curdate() order by num desc limit ?, 2";
 		
 		Vector <BookingDTO> data = new Vector <BookingDTO> ();
 		try {
@@ -67,6 +68,7 @@ public class BookingDDL {
 			while(rs.next()) {
 				BookingDTO dto =new BookingDTO();
 				dto.setTitle(rs.getString("title"));
+				dto.setMovie_id(rs.getString("movie_id"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setTicket_num(rs.getInt("ticket_num"));
 				dto.setRoom_num(rs.getString("room_num"));

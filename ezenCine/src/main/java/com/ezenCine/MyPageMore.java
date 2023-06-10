@@ -18,6 +18,8 @@ import com.google.gson.JsonParser;
 
 import ezenCine.BookingDDL;
 import ezenCine.BookingDTO;
+import ezenCine.MyPageLikeDDL;
+import ezenCine.MyPageLikeDTO;
 import ezenCine.ReviewsDDL;
 import ezenCine.ReviewsDTO;
 
@@ -52,12 +54,16 @@ public class MyPageMore extends HttpServlet {
 			Vector <BookingDTO> bkd = BookingDDL.select(userid, num);
 			String gson = new Gson().toJson(bkd);
 			out.println(gson);
+			
 		}else if(moreNum == 1) {
 			Vector <ReviewsDTO> bkd = ReviewsDDL.select(userid, num);
 			String gson = new Gson().toJson(bkd);
-			
 			out.println(gson);
+			
 		}else if(moreNum == 2) {
+			Vector <MyPageLikeDTO> bkd = MyPageLikeDDL.selectLike(userid, num);
+			String gson = new Gson().toJson(bkd);
+			out.println(gson);
 			
 		}
 		
