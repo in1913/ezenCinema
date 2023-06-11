@@ -230,55 +230,64 @@ public class ScreenDDL {
 	
 	// 좌석 예약 여부 확인
 	private boolean isSeatBooked(String bookedSeat, String targetSeat) {
-	    // 예약된 좌석을 쉼표(,)를 기준으로 분리하여 배열로 만듭니다.
 	    String[] bookedSeats = bookedSeat.split(",");
 	    
-	    // targetSeat과 배열에 있는 각 좌석을 비교하여 예약 여부를 확인합니다.
 	    for (String seat : bookedSeats) {
 	        if (seat.equals(targetSeat)) {
-	            return true; // 예약된 좌석이면 true 반환
+	            return true; 
 	        }
 	    }
 	    
-	    return false; // 예약되지 않은 좌석이면 false 반환
+	    return false; 
 	}
 	
 	
 	
 	// 남은좌석수 불러오기
-	public int checkRemainingSeat(String movie_id, String date, String cinema_name, String time){
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String query = "select count(*) from Ticketing where movie_id = ? and screen_date = ? and cinema_name = ? and screen_time = ?" ;
-		int result = 0;
-		
-		try {
-			conn = new DBConnect().getConn();
-			ps = conn.prepareStatement(query);
-			ps.setString(1, movie_id);
-			ps.setString(2, date);
-			ps.setString(3, cinema_name);
-			ps.setString(4, time);
-			System.out.println(ps);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				result = rs.getInt("count(*)");
-			}
-			
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(conn != null) conn.close();
-				if(ps != null) ps.close();
-				if(rs != null) rs.close();
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return result;
+	public int checkRemainingSeat(String movie_id, String date, String cinema_name, String time) {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    String query = "SELECT seat_num FROM Ticketing WHERE movie_id = ? AND screen_date = ? AND cinema_name = ? AND screen_time = ?";
+	    int result = 0;
+
+	    try {
+	        conn = new DBConnect().getConn();
+	        ps = conn.prepareStatement(query);
+	        ps.setString(1, movie_id);
+	        ps.setString(2, date);
+	        ps.setString(3, cinema_name);
+	        ps.setString(4, time);
+	        System.out.println(ps);
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            String seatNums = rs.getString("seat_num");
+	            int seatCount = countRemainingSeats(seatNums);
+	            result += seatCount;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (conn != null) conn.close();
+	            if (ps != null) ps.close();
+	            if (rs != null) rs.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return result;
+	}
+
+	// 좌석 정보로부터 남은 좌석 수 계산
+	public int countRemainingSeats(String seatNums) {
+	    int count = 0;
+	    String[] seatArray = seatNums.split(",");
+	    for (String seat : seatArray) {
+	        count += seat.trim().split(" ").length;
+	    }
+	    return count;
 	}
 }

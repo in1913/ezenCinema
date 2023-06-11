@@ -148,7 +148,7 @@
 		           		</div>
 		           		<div class="total_people mt-3 d-flex justify-content-between">
 		           			<span class="d-block">총 인원</span>
-		           			<span class="d-block" id="totalbook"></span>
+		           			<span class="d-block"><span id="totalbook">0</span>명</span>
 		           		</div>
 		           		<div class="rest_seats mt-3 d-flex justify-content-between">
 		           			<span class="d-block">남은 좌석</span>

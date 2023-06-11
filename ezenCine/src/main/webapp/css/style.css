@@ -26,7 +26,8 @@ header.fixed{
     width:100%;
     backdrop-filter: blur(10px);
 }
-#header .subdp{
+#header .subdp,
+#header .subdp2{
     content:"";
     display: none;
     width:100%;
@@ -36,11 +37,12 @@ header.fixed{
     left:0;
     right:0;
     background-color: rgba(255,255,255,0.8);
+    border-bottom:1.8px solid #000;
     backdrop-filter: blur(10px);
 }
 
 header>.container{
-    padding:15px 40px;
+    padding: 15px 40px 0 40px;
 }
 header>.container>.logoarea{
     width: 57px;
@@ -56,7 +58,7 @@ header>.container>.header-nav>.gnb>li{
     padding: 0 10px;
     margin-right: 20px;
     position:relative;
-    height:70px;
+    height:60px;
 }
 header.fixed ul.lnb{
     border:none;
@@ -118,7 +120,7 @@ ul.lnb>li>a{
     z-index: 1001;
 }
 header.fixed .header-util .header-search-box{
-    top:25px;
+    top:60px;
     border:none;
     border-radius: 0;
     padding:8px 15px 8px;
@@ -233,7 +235,7 @@ footer{
 section.booking{
     background-image: url(../images/back/backimg.png);
     background-repeat: no-repeat;
-    background-size:100%;
+    background-size:max(100%, 1920px);;
     position:relative;
 }
 section.booking>.container{
@@ -433,16 +435,16 @@ span.count{
 }
 .date-select button{
     width:12px;
-    height:46px;
+    height:69px;
     position:absolute;
     background-repeat: no-repeat;
     background-size: 100%;
+    background-position:0px 10px;
     z-index: 5;
     border:none;
     cursor: pointer;
-    top:46px;
+    top:37px;
     background-color: #fff;
-    z-index:
 }
 .btn_prev{
     background-image: url('../images/ico/ico_left_btn.png');
@@ -634,9 +636,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .book_result_info>li>span:first-child{
 	width:80px;
 }
-#selected_seat_info span:not(:last-child):after{
-	content:", "
-}
+
 .result_cost_text{
 	font-size:20px;
 }

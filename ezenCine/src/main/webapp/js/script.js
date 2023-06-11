@@ -3,7 +3,7 @@ $(function(){
     $(".gnb>li").mouseover(function(){
         $(this).find(".lnb").stop().fadeIn(300);
         $("header.fixed>.subdp").stop().fadeIn(300);
-        $("header.fixed").css({"border":"none"});
+        $("header.fixed").css({"border-bottom":"1.8px solid #ddd"});
     });
     $(".gnb>li").mouseleave(function(){
         $(this).find(".lnb").stop().fadeOut(300);
@@ -16,11 +16,13 @@ $(function(){
         $("#search-on").click(function(event){
             event.stopPropagation();
             $(".header-search-box").fadeToggle(200);
+            $("header.fixed>.subdp2").stop().fadeToggle(300);
         });
         // header-search 다른데 눌러도 없어져라
         $(document).click(function(event){
             if ($(".header-search-box").is(":visible") && !$(event.target).closest(".header-search-box").length) { // 서치폼이 보이는 상태인 경우에만 처리
                 $(".header-search-box").fadeOut(200);
+                $("header.fixed>.subdp2").stop().fadeOut(300);
             }
         })
     })

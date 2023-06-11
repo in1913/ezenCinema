@@ -14,6 +14,7 @@
 <body>
     <header id="header">
         <div class="subdp"></div>
+        <div class="subdp2"></div>
         <div class="container d-flex justify-content-between">
             <div class="logoarea">
                 <a href="index.jsp"><img src="images/logo/logo.png" alt="logo"></a>
@@ -23,8 +24,8 @@
                     <li>
                         <a href="index.jsp?fname=movie/movieList">영화</a>
                         <ul class="lnb">
-                            <li><a href="javascript:void(0)">현재상영작</a></li>
-                            <li><a href="javascript:void(0)">상영예정작</a></li>
+                            <li><a href="index.jsp?fname=movie/movieListNow">현재상영작</a></li>
+                            <li><a href="index.jsp?fname=movie/movieListExpected">상영예정작</a></li>
                         </ul>
                     </li>
                     <li>

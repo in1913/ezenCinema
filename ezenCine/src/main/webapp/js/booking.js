@@ -197,7 +197,7 @@ $(function(){
 	        totalbook = 8;
 	    }
 	
-	    $("#totalbook").text(totalbook + "명");
+	    $("#totalbook").text(totalbook);
 	    $("#selected_people_num").text(totalbook + "명");
 	    let total_cost = 9000 * totalbook;
 	    let format_cost = total_cost.toLocaleString();
@@ -231,9 +231,17 @@ $(function(){
 	
 	// 좌석선택하기
 	$(document).on("click", ".seat.unselected", function(){
-		$(this).removeClass('unselected');
-		$(this).addClass('selected');
-		selectSeats();
+		let selected_seat = $(".seat.selected");
+		let totalbook = $("#totalbook").html();
+		if(totalbook == 0){
+			alert("인원수를 선택해주세요.");
+		}else if(selected_seat.length < totalbook){
+			$(this).removeClass('unselected');
+			$(this).addClass('selected');
+			selectSeats();
+		}else if(selected_seat.length >= totalbook){
+			alert("선택 인원수를 초과했습니다.");
+		}
 	});
 	$(document).on("click", '.seat.selected', function(){
 		$(this).addClass('unselected');
@@ -245,7 +253,11 @@ $(function(){
 		let selected_seats = $(".seat.selected");
 		let seat_info = "";
 		for (let i = 0; i < selected_seats.length; i++) {
-		    seat_info += `<span>${$(selected_seats[i]).find(".seat_hidden").val()}</span>`;
+			if(i < selected_seats.length - 1){
+				seat_info += `${$(selected_seats[i]).find(".seat_hidden").val()},`;
+			}else{
+				seat_info += `${$(selected_seats[i]).find(".seat_hidden").val()}`;
+			}
 		}
 		$("#selected_seat_info").html(seat_info);
 	}
