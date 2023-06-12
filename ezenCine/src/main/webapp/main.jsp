@@ -127,7 +127,7 @@
           </div>
           <div class="dotsbox">
             <img src="images/advanceorder/nt-dotsprev.png" class="nt-slideprev" alt="1"/>
-            <img src="images/advanceorder/nt-dotsnext.png" class="nt-slidenext" alt="2"/>
+            <img src="images/advanceorder/nt-dotsnext.png" class="nt-slidenext ml-2" alt="2"/>
           </div>
         </div>
         <!--post slider-->

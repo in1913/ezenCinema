@@ -2,17 +2,19 @@
     pageEncoding="UTF-8" import="ezenCine.*, java.sql.*, java.util.*"%>
     
     <section class="movieList">
-	    <div class="container">
-	        <div class="h-movie-search-box">
+    	<div class="movieList_top">
+	    	<div class="h-movie-search-box">
 	            <input type="text" name="h-movie-search" id="h-movie-search" placeholder="영화 검색하기">
 	            <a href="javascript:void(0)" class="h-movie-search-btn"></a>
 	        </div>
-	        <ul class="h-movie-list justify-content-center font-weight-bold">
+	        <ul class="h-movie-list justify-content-center font-weight-bold container">
 	            <li><a href="javascript:void(0)" id="nav-movie">현재 상영작</a></li>
 	            <li><a href="javascript:void(0)" id="nav-upcoming">상영 예정작</a></li>
 	            <li><a href="javascript:void(0)" id="nav-top">인기 영화</a></li>
 	            <li><a href="javascript:void(0)" id="nav-animation">애니메이션</a></li>
 	        </ul>
+    	</div>
+	    <div class="container">
 	        <div class="h-movie" id="movie">
 	            <h5><span>현재 상영작</span><a href="index.jsp?fname=movie/movieListNow" class="h-plus"></a></h5>
 	            <ul class="h-movie-movie">
