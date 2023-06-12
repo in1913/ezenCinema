@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -14,7 +15,7 @@ public class MovieDDL {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "select * from Movie where id = ?";
+		String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id where id = ?";
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -42,7 +43,7 @@ public class MovieDDL {
 				dto.setLike(rs.getInt("likes"));
 				dto.setLimit_age(rs.getInt("age_limit"));
 				dto.setReviews_num(rs.getInt("reviews_num"));
-				
+				dto.setAvg_rating(rs.getFloat("avg_rating"));
 				data.add(dto);
 			}
 			
@@ -208,12 +209,12 @@ public class MovieDDL {
 		return data;
 	}
 		
-	// 인기영화 4개만 출력
+	// 메인페이지 & 인기영화 4개만 출력
 	public static Vector<MovieDTO> viewMoviePopular(){
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM Movie order by likes desc limit 0, 4;" ;
+		String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id order by Likes desc limit 0, 4" ;
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -227,7 +228,9 @@ public class MovieDDL {
 				dto.setTitle(rs.getString("title"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setLike(rs.getInt("likes"));
-				
+				dto.setOpen_date(rs.getString("open_date"));
+				dto.setRuntime(rs.getInt("runtime"));
+				dto.setAvg_rating(rs.getFloat("avg_rating"));
 				data.add(dto);
 			}
 			
@@ -244,12 +247,12 @@ public class MovieDDL {
 		}
 		return data;
 	}
-	// 인기영화 4개만 출력
+	// 영화 인기순 20개만 출력
 	public static Vector<MovieDTO> viewMoviePopularAll(){
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM Movie order by likes desc" ;
+		String query = "SELECT * FROM Movie order by likes desc limit 0, 20" ;
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -280,6 +283,43 @@ public class MovieDDL {
 		}
 		return data;
 	}
+	
+	// 지난 상영작 전체 출력
+		public static Vector<MovieDTO> viewMoviePastAll(){
+			Connection conn = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			String query = "SELECT * FROM Movie WHERE close_date < CURDATE() order by likes desc" ;
+			Vector<MovieDTO> data = new Vector<>();
+			
+			try {
+				conn = new DBConnect().getConn();
+				ps = conn.prepareStatement(query);
+				System.out.println(ps);
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					MovieDTO dto = new MovieDTO();
+					dto.setId(rs.getString("id"));
+					dto.setTitle(rs.getString("title"));
+					dto.setPoster_url(rs.getString("poster_url"));
+					dto.setLike(rs.getInt("likes"));
+					
+					data.add(dto);
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(conn != null) conn.close();
+					if(ps != null) ps.close();
+					if(rs != null) rs.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return data;
+		}
 
 	// 애니메이션 4개만 출력
 	public static Vector<MovieDTO> viewMovieAnimation(){
@@ -451,5 +491,89 @@ public class MovieDDL {
 			}
 		}
 		return movieTitles;
+	}
+	
+	// slide 있는 영화정보만 출력
+	public static Vector<MovieDTO> showSlide(){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "select * from Movie where slide_url is not null";
+		Vector<MovieDTO> data = new Vector<>();
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				MovieDTO dto = new MovieDTO();
+				dto.setId(rs.getString("id"));
+				dto.setTitle(rs.getString("title"));
+				dto.setTitle_eng(rs.getString("title_eng"));
+				dto.setPoster_url(rs.getString("poster_url"));
+				dto.setSlide_url(rs.getString("slide_url"));
+				dto.setSummary(rs.getString("summary"));
+				dto.setRuntime(rs.getInt("runtime"));
+				dto.setOpen_year(rs.getInt("open_year"));
+				dto.setOpen_date(rs.getString("open_date"));
+				dto.setClose_date(rs.getString("close_date"));
+				dto.setAudience(rs.getInt("audience"));
+				dto.setNation(rs.getString("nation"));
+				dto.setGenre(rs.getString("genre"));
+				dto.setCasting(rs.getString("casting"));
+				dto.setDirector(rs.getString("director"));
+				dto.setLike(rs.getInt("likes"));
+				dto.setLimit_age(rs.getInt("age_limit"));
+				dto.setReviews_num(rs.getInt("reviews_num"));
+				
+				data.add(dto);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return data;
+		
+	}
+	
+	// 예매율 구하기
+	public static float getBookingRate(String movie_id) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "select Round((select count(*) from Ticketing where movie_id = ? ) / (select count(*) from Ticketing), 3) as ra;";
+		float bookingRate = 0;
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, movie_id);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				bookingRate = rs.getFloat("ra");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		DecimalFormat df = new DecimalFormat("#.##");
+		float rBookingRate = Float.parseFloat(df.format(bookingRate * 100.0));
+		return rBookingRate;
 	}
 }

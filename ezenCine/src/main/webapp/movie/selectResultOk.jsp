@@ -49,6 +49,9 @@
 		</li>
 		<li class="text4 mt-4 result_cost_text">최종 결제 금액</li>
 		<li class="sub1 result_cost"></li>
-		<li class="pay_btn_box"><span class="payment_btn" id="payment_btn">결제하기</span></li>
+		<li class="pay_btn_box">
+			<span class="select_reset_btn" id="select_reset_btn"></span>
+			<span class="payment_btn" id="payment_btn">결제하기</span>
+		</li>
 	</ul>
 </div>

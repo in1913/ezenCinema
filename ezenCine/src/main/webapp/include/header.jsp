@@ -26,6 +26,7 @@
                         <ul class="lnb">
                             <li><a href="index.jsp?fname=movie/movieListNow">현재상영작</a></li>
                             <li><a href="index.jsp?fname=movie/movieListExpected">상영예정작</a></li>
+                            <li><a href="index.jsp?fname=movie/movieListPast">지난상영작</a></li>
                         </ul>
                     </li>
                     <li>
@@ -52,13 +53,8 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">스토어</a>
-                        <ul class="lnb">
-                            <li><a href="javascript:void(0)">베스트</a></li>
-                            <li><a href="javascript:void(0)">스낵/음료</a></li>
-                            <li><a href="javascript:void(0)">관람권</a></li>
-                            <li><a href="javascript:void(0)">굿즈</a></li>
-                        </ul>
+                        <a href="index.jsp?fname=store/store">스토어</a>
+                        
                     </li>
                     <li>
                         <a href="javascript:void(0)">혜택</a>

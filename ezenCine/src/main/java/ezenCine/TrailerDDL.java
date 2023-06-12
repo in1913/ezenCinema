@@ -26,6 +26,7 @@ public class TrailerDDL {
 				dto.setMovie_id(rs.getString("movie_id"));
 				dto.setThumbnail(rs.getString("thumbnail"));
 				dto.setVodsrc(rs.getString("vodsrc"));
+				dto.setVodtitle(rs.getString("vodtitle"));
 				data.add(dto);
 			}
 			
@@ -73,5 +74,40 @@ public class TrailerDDL {
 			}
 		}
 		return count;
+	}
+	// 전체 트레일러 출력
+	public static Vector<TrailerDTO> showTrailerAll(){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "select num, thumbnail, vodsrc, vodtitle, title from Trailer left Join Movie on Trailer.movie_id = Movie.id";
+		Vector<TrailerDTO> data = new Vector<>();
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				TrailerDTO dto = new TrailerDTO();
+				dto.setThumbnail(rs.getString("thumbnail"));
+				dto.setVodsrc(rs.getString("vodsrc"));
+				dto.setVodtitle(rs.getString("vodtitle"));
+				dto.setTitle(rs.getString("title"));
+				data.add(dto);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(rs != null) rs.close();
+				if(ps != null) ps.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return data;
 	}
 }

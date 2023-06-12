@@ -174,5 +174,6 @@
         </div>
    		
     </section>
+    <%@include file = "../include/advertise.jsp" %>
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/booking.js"></script>

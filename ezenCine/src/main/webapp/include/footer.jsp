@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
     <div class="pageup" id="pageup">
-    	<img src="images/ico/ico-quickbooking.png" alt="바로예매 버튼" />
+    	<a href="index.jsp?fname=movie/booking"><img src="images/ico/ico-quickbooking.png" alt="바로예매 버튼" /></a>
     	<img id="scrollTop" onclick="scrollToTop()" src="images/ico/ico-top.png" alt="맨위로 가기" />	
     </div>
     <footer>

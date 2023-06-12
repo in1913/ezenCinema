@@ -54,6 +54,86 @@ $(function(){
 		},
 		minLength:1
 	});
+	
+    // mainpage
+    // 주의사항 닫기
+    $('.warning_close').click(function(){
+    	$('.main_warning').fadeOut(300);
+    })
+    
+    $('.mainslide').slick({
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 2500,
+        slidesToShow: 1,
+        adaptiveHeight: true,
+        speed: 500,
+        nextArrow:$('.ma-slidenext'),
+        prevArrow:$('.ma-slideprev'),
+        dots:true,
+        dotsClass:'main_dots'
+      });
+      $('.play').hide(); // 일시 정지 버튼 숨김
+
+      $('.play').click(function() {
+          $('.mainslide').slick('slickPlay');
+          $(this).hide(); // 플레이 버튼 숨김
+          $('.pause').show(); // 일시 정지 버튼 표시
+      });
+      
+      $('.pause').click(function() {
+          $('.mainslide').slick('slickPause');
+          $(this).hide(); // 일시 정지 버튼 숨김
+          $('.play').show(); // 플레이 버튼 표시
+      });
+    //현재 예매 hover
+    $('.ao-list').each(function(){
+        var $this = $(this);
+        // var $contact = $this.find('.ao-contact');
+        var $contacthv = $this.find('.ao-contacthv');
+        
+        $this.hover(
+            function(){
+                // $contact.css("display", "none");
+                $contacthv.css("display", "block");
+            },
+            function(){
+                // $contact.css("display", "block");
+                $contacthv.css("display", "none");
+            }
+        );
+    });
+    //현재 상영중인 트레일러
+    $('.nt-slide').slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        nextArrow:$('.nt-slidenext'),
+        prevArrow:$('.nt-slideprev')
+    });
+    
+    //영상 켜기
+    $(".nt-post").click(function(){
+        const Popup = document.getElementsByClassName("k-popup")[0];
+        const fade = document.getElementsByClassName("k-fade")[0];
+        Popup.style.display = "block";
+        fade.style.display = "block";
+    });
+
+    //영상 끄기
+    $(".k-fade").click(function(){
+        const PopupSlide = document.getElementsByClassName("k-popup")[0];
+        const fadeOut = document.getElementsByClassName("k-fade")[0];
+        PopupSlide.style.display = "none";
+        fadeOut.style.display = "none";
+    });
+    //슬라이드 링크 변경
+    $(".nt-post").click(function() {
+        const vodsrcs = $(this).find('img').data("vodsrc");
+        $(".k-popup>iframe").attr("src", vodsrcs);
+    });
+    // mainpage 끝
     
     // movieList 시작
       $(".h-movie-all").hover(function(){
@@ -183,7 +263,7 @@ $(function(){
     $(".k-trailer_btn").click(function() {
         const vodsrcs = $(this).prev("img").data("vodsrc");
         $(".k-popup iframe").attr("src", vodsrcs);
-      });
+    });
 
     //감독 출연진 슬라이드
     $('.k-post-wrapper').slick({
@@ -229,6 +309,11 @@ $(function(){
     });
 
     /*** 영화상세 끝 ***/
+    
+    // 광고배너
+    $(".banner_close").click(function(){
+    	$(".banner_box").fadeOut();
+    })
 }) // jquery
 
 
@@ -260,5 +345,39 @@ $(function() {
             $('#pageup').fadeOut();
         }
     });
+
+});
+
+function noScreen(){
+	alert("상영중인 영화가 아닙니다.");
+}
+// 스토어
+$(function () {
+    $('.snack').hide();
+    $('.drink').hide();
+
+    $('.tab li').click(function () {
+        $('.tab li').removeClass('on')
+        $(this).addClass('on')
+
+        let num = $(this).index()
+        console.log(num)
+
+
+        if (num == 0) {
+            $('.snack').hide();
+            $('.drink').hide();
+            $('.combo').show();
+        } else if (num == 1) {
+            $('.combo').hide();
+            $('.drink').hide();
+            $('.snack').show();
+        } else if (num == 2) {
+            $('.combo').hide();
+            $('.snack').hide();
+            $('.drink').show();
+        }
+    });
+
 
 });

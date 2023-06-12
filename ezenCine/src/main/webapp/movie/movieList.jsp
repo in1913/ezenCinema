@@ -32,7 +32,7 @@
 	                        </div>
 	                        <p class="h-movie-title"><%=dt.getTitle() %></p>
 	                        <div class="h-rate-star">
-	                            <span class="h-rate">예매율 31.4%</span>
+	                            <span class="h-rate">예매율 <%= MovieDDL.getBookingRate(dt.getId())%>%</span>
 	                            <span class="h-star"><%=dt.getLike() %></span>
 	                        </div>
 	                    </div>
@@ -60,7 +60,7 @@
 	                        </div>
 	                        <p class="h-movie-title"><%=dt.getTitle() %></p>
 	                        <div class="h-rate-star">
-	                            <span class="h-rate">예매율 31.4%</span>
+	                            <span class="h-rate">예매율 <%= MovieDDL.getBookingRate(dt.getId())%>%</span>
 	                            <span class="h-star"><%=dt.getLike() %></span>
 	                        </div>
 	                    </div>
@@ -89,7 +89,7 @@
 	                        </div>
 	                        <p class="h-movie-title"><%=dt.getTitle() %></p>
 	                        <div class="h-rate-star">
-	                            <span class="h-rate">예매율 31.4%</span>
+	                            <span class="h-rate">예매율 <%= MovieDDL.getBookingRate(dt.getId())%>%</span>
 	                            <span class="h-star"><%=dt.getLike() %></span>
 	                        </div>
 	                    </div>
@@ -118,7 +118,7 @@
 	                        </div>
 	                        <p class="h-movie-title"><%=dt.getTitle() %></p>
 	                        <div class="h-rate-star">
-	                            <span class="h-rate">예매율 31.4%</span>
+	                            <span class="h-rate">예매율 <%= MovieDDL.getBookingRate(dt.getId())%>%</span>
 	                            <span class="h-star"><%=dt.getLike() %></span>
 	                        </div>
 	                    </div>
@@ -130,3 +130,4 @@
 	        </div>
 	    </div>
     </section>
+    <%@include file = "../include/advertise.jsp" %>

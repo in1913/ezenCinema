@@ -8,10 +8,10 @@
 	            <a href="javascript:void(0)" class="h-movie-search-btn"></a>
 	        </div>
 	        <ul class="h-movie-list justify-content-center font-weight-bold">
-	            <li><a href="index.jsp?fname=movie/movieList" >기존 목록</a></li>
-	            <li><a href="index.jsp?fname=movie/movieListNow" >현재 상영작</a></li>
-	            <li><a href="index.jsp?fname=movie/movieListExpected" >상영 예정작</a></li>
 	            <li><a href="index.jsp?fname=movie/movieListPopular" >인기 영화</a></li>
+	            <li><a href="index.jsp?fname=movie/movieListNow" >현재 상영작</a></li>
+	            <li><a class="h-active" href="index.jsp?fname=movie/movieListExpected" >상영 예정작</a></li>
+	            <li><a href="index.jsp?fname=movie/movieListPast" >지난 상영작</a></li>
 	        </ul>
 	        <div class="h-movie" id="upcoming">
 	            <h5><span>상영 예정작</span></h5>
@@ -31,7 +31,7 @@
 	                        </div>
 	                        <p class="h-movie-title"><%=dt.getTitle() %></p>
 	                        <div class="h-rate-star">
-	                            <span class="h-rate">예매율 31.4%</span>
+	                            <span class="h-rate">예매율 <%= MovieDDL.getBookingRate(dt.getId())%>%</span>
 	                            <span class="h-star"><%=dt.getLike() %></span>
 	                        </div>
 	                    </div>
@@ -44,3 +44,4 @@
 	        
 	    </div>
     </section>
+    <%@include file = "../include/advertise.jsp" %>

@@ -154,6 +154,7 @@ $(function(){
     $(".prev_btn").click(function(){
     	$(".shadow-box").fadeOut(300);
     	$(".seats").fadeOut(300);
+    	$("ul.seat_container").html('<img src="images/back/wait_seat_frame.png" alt="좌석정보 불러오는중..." />');
     })
     
 	// 인원수 증감
@@ -167,7 +168,10 @@ $(function(){
 	$(".minus").click(function() {
 	    let input = $(this).next();
 	    let value = parseInt(input.val());
-	    if (value > 0) {
+	    let selected_seats = $(".seat.selected");
+	    if(value <= selected_seats.length){
+	    	alert("선택 좌석을 해제해주세요.");
+	    }else if (value > 0) {
 	        input.val(value - 1);
 	        calculateTotal();
 	    }
@@ -261,7 +265,23 @@ $(function(){
 		}
 		$("#selected_seat_info").html(seat_info);
 	}
-
+	// 초기화버튼
+	$(document).on("click", "#select_reset_btn", function(){
+		$("#peoplenum").val(0);
+	    $("#youthnum").val(0);
+	    $("#seniornum").val(0);
+	    $("#vipnum").val(0);
+	    $("#totalbook").text(0);
+	    $(".result_cost").text("");
+	    $("#selected_seat_info").text("");
+	    $("#selected_people_num").text("");
+	    
+	    let selected_seat = $('.seat.selected');
+	    for(let i = 0 ; i < selected_seat.length ; i++){
+	    	$(selected_seat[i]).addClass("unselected");
+	    	$(selected_seat[i]).removeClass('selected');
+	    }
+	});
 	
 	// 결제버튼 hover
 	$(document).on("mouseover", "#payment_btn", function(){
@@ -299,7 +319,7 @@ $(function(){
 	               	if(result == 0){
 	               		alert("예매에 실패했습니다");
 	               	}else{
-	               		alert("예매 완료.");
+	               		alert("예매가 완료되었습니다.");
 	               		location.reload();
 	               	}
 	            }

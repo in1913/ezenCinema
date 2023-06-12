@@ -63,13 +63,12 @@
                         <div>
                             관람객 평점
                              <i class="fa-solid fa-star"></i>
-                            <span>여긴 나중에</span>
+                            <span><%=dt.getAvg_rating() %></span>
                         </div>
                         <div>
                             예매율
-                            <span>0</span>
-                            위
-                            <span>0.0%</span>
+                            
+                            <span><%= MovieDDL.getBookingRate(dt.getId())%>%</span>
                         </div>
                         <div>
                             누적 관객수
@@ -102,7 +101,21 @@
                 </ul>
                 <div class="k-mv_butset">
                     <!-- <img src="images/moviedetail/button.png" alt="예매버튼"  onclick=""> -->
-                    <button type="button" class="k-ticketing">예매하기</button>
+                <%
+                    String id = dt.getId();
+                    ScreenDDL ddl = new ScreenDDL();
+                    boolean result = ddl.checkMovie(id); 
+                    if(result){
+                %>
+                    <a href="index.jsp?fname=movie/booking" class="k-ticketing">예매하기</a>
+                <%
+                    }else{
+                %>
+                	<a href="javascript:void(0)" onclick="noScreen()" class="k-ticketing">예매하기</a>
+
+                <%
+                    }
+                %>
                 </div>
 	        </div>
 	    </div>
@@ -307,3 +320,4 @@
         </div>
     </div>
 	<!-- /영화상세 -->
+	<%@include file = "../include/advertise.jsp" %>
