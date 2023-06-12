@@ -463,7 +463,7 @@ header.fixed #header-search:focus{
     background-color:#fff;
     cursor:pointer;
     text-align: center;
-    padding-top:4px;
+    padding-top:5px;
 }
 #Viewdetailshv:hover{
     background-color: rgb(197, 196, 196);
@@ -484,7 +484,7 @@ header.fixed #header-search:focus{
     background: #5C7EF7;
     cursor:pointer;
     text-align: center;
-    padding-top:4px;
+    padding-top:5px;
 }
 #Ticketinghv:hover{
     background: #3e549f;
@@ -573,7 +573,7 @@ header.fixed #header-search:focus{
     padding-top: 15px;
     padding-left: 20px;
     padding-right:20px;
-    width:295px;
+    width:100%;
     overflow:hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -583,7 +583,7 @@ header.fixed #header-search:focus{
     color: #fff;
     padding-left: 20px;
     padding-right:20px;
-    width:295px;
+    width:100%;
     overflow:hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1873,16 +1873,27 @@ ul.h-movie-movie li.col-3{
     right: -100px;
     cursor: pointer;
 }
-.k-slider div{
-    position: relative;
+.k-trailer .slick-list{
+	height:670px !important;
+}
+.k-slider .k-slide{
+	position: relative;
     border-radius:20px;
     box-shadow:4px 4px 8px 0 rgba(0,0,0,.25);
     width: 100%;
     height: 627px;
     margin: 0 auto;
 }
+.trailer_box{
+	position: relative;
+    border-radius:20px;
+    width: 100%;
+    height: 627px;
+    margin: 0 auto;
+}
 .k-slider div>img{
     position: relative;
+    border-radius:20px;
     width: 100%;
     height: 100%;
 }
@@ -1891,11 +1902,20 @@ div>.trailerbg{
     position: absolute;
     width: 100%;
     height: 100%;
+    border-radius:20px;
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index:1;
 }
+p.trailer_title{
+	text-align: center;
+	color: #000;
+	margin-top:15px;
+	font-size:16px;
+	font-weight:bold;
+}
+
 .k-trailer_btn{
     position: absolute;
     background: none;

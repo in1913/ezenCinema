@@ -198,15 +198,17 @@
                         <div class="k-slider">
                               <img src="images/moviedetail/prev.png" class="slideprev" alt="1"></i>
                               <img src="images/moviedetail/next.png" class="slidenext" alt="2"></i>
+                              
                               <div class="k-slide">
                               <%
                               		for(TrailerDTO ro : to){
                               %>
-                                  <div>
+                                  <div class="trailer_box">
                                       <img src="<%=ro.getThumbnail() %>" data-vodsrc="<%=ro.getVodsrc() %>" alt="Thumbnail" />
                                       <button class="k-trailer_btn"><img src="images/moviedetail/youtube.png" alt="start"></button>
                                       <div class="trailerbg"></div>
-                                  </div >
+                                      <p class="trailer_title"><%=ro.getVodtitle() %></p>
+                                  </div>
                               <%
                               		}
                               %>
