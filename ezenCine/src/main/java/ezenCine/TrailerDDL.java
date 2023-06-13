@@ -80,7 +80,7 @@ public class TrailerDDL {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "select num, thumbnail, vodsrc, vodtitle, title from Trailer left Join Movie on Trailer.movie_id = Movie.id";
+		String query = "SELECT m.title, t.thumbnail, t.vodsrc, t.vodtitle FROM (SELECT movie_id, thumbnail, vodsrc, vodtitle, ROW_NUMBER() OVER (PARTITION BY movie_id ORDER BY movie_id) AS row_num FROM Trailer) AS t JOIN Movie m ON m.id = t.movie_id WHERE t.row_num = 1;";
 		Vector<TrailerDTO> data = new Vector<>();
 		
 		try {

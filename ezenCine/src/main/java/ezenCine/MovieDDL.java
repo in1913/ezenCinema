@@ -576,4 +576,67 @@ public class MovieDDL {
 		float rBookingRate = Float.parseFloat(df.format(bookingRate * 100.0));
 		return rBookingRate;
 	}
+	
+	// 자동완성용 메소드
+	public static Vector <MovieDTO> selectMovieList(){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = "select id, title, title_eng from Movie";
+		Vector <MovieDTO> data = new Vector <MovieDTO> ();
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				MovieDTO dto = new MovieDTO();
+				dto.setId(rs.getString("id"));
+				dto.setTitle(rs.getString("title"));
+				dto.setTitle_eng(rs.getString("title_eng"));
+				data.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {}
+		}
+		
+		return data;
+	}
+	
+	// 검색어 받아서 아이디 보내기
+	public String searchMovie(String title) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String id = null;
+		String query = "select id from Movie where title like ?";
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, title + "%");
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				id = rs.getString("id");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {}
+		}
+		
+		return id;
+	}
 }

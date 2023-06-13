@@ -346,4 +346,3 @@ const dateSlideNext = () => {
     }
 }
 
- 

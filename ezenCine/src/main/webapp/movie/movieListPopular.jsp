@@ -3,6 +3,7 @@
     
     <section class="movieList">
     	<div class="movieList_top">
+    	<%@include file = "../include/listbanner.jsp" %>
     		<div class="h-movie-search-box">
 	            <input type="text" name="h-movie-search" id="h-movie-search" placeholder="영화 검색하기">
 	            <a href="javascript:void(0)" class="h-movie-search-btn"></a>

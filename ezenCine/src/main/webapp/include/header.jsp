@@ -70,11 +70,12 @@
                 <span class="r-bar"><a href="javascript:void(0)">Login</a></span>
                 <span><a href="javascript:void(0)"><img src="images/ico/ico-user.png" alt="mypage"></a></span>
                 <span><a href="javascript:void(0)"><img src="images/ico/ico-search.png" alt="search" id="search-on"></a></span>
-                <div class="header-search-box">
-                    <form action="" name="header-search-form" class="d-flex">
-                        <input type="text" placeholder="검색어를 입력해주세요." name="header-search" id="header-search">
-                        <button type="submit" id="header-submit"></button>
-                    </form>
+                <div class="header-search-box" id="header-search-box">
+                    <div class="d-flex">
+                        <input type="text" placeholder="검색어를 입력해주세요." name="header-search" id="header-search" autocomplete="off">
+                        <button type="button" id="header-submit"></button>
+                        <div class="autocomplete"></div>
+                    </div>
                 </div>
             </div>
         </div>

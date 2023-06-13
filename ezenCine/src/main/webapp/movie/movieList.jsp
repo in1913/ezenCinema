@@ -3,10 +3,14 @@
     
     <section class="movieList">
     	<div class="movieList_top">
+    	<%@include file = "../include/listbanner.jsp" %>
 	    	<div class="h-movie-search-box">
-	            <input type="text" name="h-movie-search" id="h-movie-search" placeholder="영화 검색하기">
+	            <input spellcheck="false" type="text" name="h-movie-search" id="h-movie-search" placeholder="영화 검색하기" oninput="cSearchMovie();">
+				<ul class="c-search-complete">
+				</ul>
 	            <a href="javascript:void(0)" class="h-movie-search-btn"></a>
 	        </div>
+	        
 	        <ul class="h-movie-list justify-content-center font-weight-bold container">
 	            <li><a href="javascript:void(0)" id="nav-movie">현재 상영작</a></li>
 	            <li><a href="javascript:void(0)" id="nav-upcoming">상영 예정작</a></li>
@@ -133,3 +137,5 @@
 	    </div>
     </section>
     <%@include file = "../include/advertise.jsp" %>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/movielist.js"></script>
