@@ -119,7 +119,7 @@ $(function(){
 
     // movieList 시작
     $(".h-movie-all").hover(function(){
-        $(this).find(".h-imgbox").find(".h-movie-content").stop().fadeToggle(300);
+        $(this).find(".h-imgbox").find(".h-movie-content").fadeToggle(300);
     });
     
     $("#nav-movie").click(function(){
@@ -2474,11 +2474,7 @@ function sDaumPostcode() {
 
 /********************* mypage ***************************/
 $(function(){
-  //영화 이미지에 hover하면 상세보기와 예매하기가 보이게 한다
-  $(".h-movie-all").hover(function(){
-      $(this).find(".h-imgbox").find(".h-movie-content").stop().fadeToggle(300);
-  });
-  
+
   $("#nav-movie").click(function(){
       let offset = $('#movie').offset();
       const scroll = $(document).scrollTop();
