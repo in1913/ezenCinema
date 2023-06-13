@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import ezenCine.MovieListDDL;
-import ezenCine.MovieListDTO;
+import ezenCine.MovieDDL;
+import ezenCine.MovieDTO;
 
 @WebServlet("/GetMovieList")
 public class GetMovieList extends HttpServlet {
@@ -22,7 +22,7 @@ public class GetMovieList extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		res.setContentType("application/json");
 		
-		Vector <MovieListDTO> data = MovieListDDL.selectMovieList();
+		Vector <MovieDTO> data = MovieDDL.selectMovieList();
 		String gson = new Gson().toJson(data);
 		
 		PrintWriter out = res.getWriter();

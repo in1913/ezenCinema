@@ -2,14 +2,22 @@ package ezenCine;
 
 public class TicketingDTO {
 	private int num;
-	private String cinema_name;
+	private String Cinema_name;
 	private String room_num;
 	private String screen_date;
 	private String screen_time;
 	private String seat_num;
 	private String movie_id;
-	private String userid;
+	private String user_id;
 	private String ticket_date;
+	private String cost;
+	
+	public String getCost() {
+		return cost;
+	}
+	public void setCost(String cost) {
+		this.cost = cost;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -17,10 +25,10 @@ public class TicketingDTO {
 		this.num = num;
 	}
 	public String getCinema_name() {
-		return cinema_name;
+		return Cinema_name;
 	}
 	public void setCinema_name(String cinema_name) {
-		this.cinema_name = cinema_name;
+		Cinema_name = cinema_name;
 	}
 	public String getRoom_num() {
 		return room_num;
@@ -52,11 +60,11 @@ public class TicketingDTO {
 	public void setMovie_id(String movie_id) {
 		this.movie_id = movie_id;
 	}
-	public String getUserid() {
-		return userid;
+	public String getUser_id() {
+		return user_id;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 	public String getTicket_date() {
 		return ticket_date;

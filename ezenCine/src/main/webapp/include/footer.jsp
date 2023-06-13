@@ -65,53 +65,46 @@
     
     
     
-<footer>
-    <div class="container">
-        <div class="footer-top d-flex">
-            <div class="footer-logobox">
-                <a href="/ezenCine"><img src="images/logo/footerlogo.png" alt="footer-logo"></a>
-            </div>
-            <ul class="f-text d-flex">
-                <li><a href="javascript:void(0)">회사소개</a></li>
-                <li><a href="javascript:void(0)">인재채용</a></li>
-                <li><a href="javascript:void(0)">사회공헌</a></li>
-                <li><a href="javascript:void(0)">제휴/광고문의</a></li>
-                <li><a href="javascript:void(0)">이용약관</a></li>
-                <li><a href="javascript:void(0)">위치기반서비스 이용약관</a></li>
-                <li><a href="javascript:void(0)"><strong>개인정보처리방침</strong></a></li>
-                <li><a href="javascript:void(0)">윤리경영</a></li>
-                <li><a href="javascript:void(0)">지속가능경영</a></li>
-            </ul>
-        </div>
-        <div class="footer-bottom">
-            <address>
-                경기 김포시 김포한강4로 125 월드타워 8층, 10층
-            </address>
-            <span class="bar">고객센터 0000-0000</span>
-            <br>
-            <span>대표자 : 서택상</span>
-            <span class="bar">사업자 등록번호 000-00-00000</span>
-            <span class="bar">통신판매업신고번호 제0000호</span>
-            <span class="bar">개인정보보호 책임자 : 서택상</span>
-            <br>
-            <span>COPYRIGHT&copy; EZEN CINEMA ALL RIGHT RESERVED.</span>
-        </div>
+    <div class="pageup" id="pageup">
+    	<a href="index.jsp?fname=movie/booking"><img src="images/ico/ico-quickbooking.png" alt="바로예매 버튼" /></a>
+    	<img id="scrollTop" onclick="scrollToTop()" src="images/ico/ico-top.png" alt="맨위로 가기" />	
     </div>
-    <input type="hidden" name="url" id="url" />
-</footer>
-
-
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
-  integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
-
-<script src="js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
-<script src="js/script.js"></script>
+    <footer>
+        <div class="container">
+            <div class="footer-top d-flex">
+                <div class="footer-logobox">
+                    <a href="index.jsp"><img src="images/logo/footerlogo.png" alt="footer-logo"></a>
+                </div>
+                <ul class="f-text d-flex">
+                    <li><a href="javascript:void(0)">회사소개</a></li>
+                    <li><a href="javascript:void(0)">인재채용</a></li>
+                    <li><a href="javascript:void(0)">사회공헌</a></li>
+                    <li><a href="javascript:void(0)">제휴/광고문의</a></li>
+                    <li><a href="javascript:void(0)">이용약관</a></li>
+                    <li><a href="javascript:void(0)">위치기반서비스 이용약관</a></li>
+                    <li><a href="javascript:void(0)"><strong>개인정보처리방침</strong></a></li>
+                    <li><a href="javascript:void(0)">윤리경영</a></li>
+                    <li><a href="javascript:void(0)">지속가능경영</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <address>
+                    경기 김포시 김포한강4로 125 월드타워 8층, 10층
+                </address>
+                <span class="bar">고객센터 0000-0000</span>
+                <br>
+                <span>대표자 : 서택상</span>
+                <span class="bar">사업자 등록번호 000-00-00000</span>
+                <span class="bar">통신판매업신고번호 제0000호</span>
+                <span class="bar">개인정보보호 책임자 : 서택상</span>
+                <br>
+                <span>COPYRIGHT&copy; EZEN CINEMA ALL RIGHT RESERVED.</span>
+            </div>
+        </div>
+    </footer>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>

@@ -38,9 +38,8 @@
                 <div class="h-location h-booking_box mr-2">
                     <h3 class="p-2">극장</h3>
                     <div class="h-location-box cumtom_scrollbar">
-                    <!-- 스크립트가 해결해줌 -->
+                    	<img src="images/back/movie_select_frame.png" alt="영화선택하세요" />
                     </div>
-                    <div class="h-location-blurbox"></div>
                 </div>
                 
                 <div class="h-booking_box">
@@ -97,10 +96,9 @@
                     <h3 class="p-2">상영시간</h3>
                     <div class="h-time-box cumtom_scrollbar">
                         <ul class="h-time-list p-3">
-                            <!-- 여기도 스크립트가 뿌려줌 -->                            
+                            <img src="images/back/time_select_frame.png" alt="시간선택하세요" />                          
                         </ul>
                     </div>
-                    <div class="h-time-blurbox"></div>
                     <div class="h-booking-btn-box">
                         <a href="javascript:void(0)" class="h-booking-btn">
                             좌석선택
@@ -148,35 +146,20 @@
 		           				<button type="button" class="plus"></button>
 		           			</div>
 		           		</div>
+		           		<div class="total_people mt-3 d-flex justify-content-between">
+		           			<span class="d-block">총 인원</span>
+		           			<span class="d-block"><span id="totalbook">0</span>명</span>
+		           		</div>
 		           		<div class="rest_seats mt-3 d-flex justify-content-between">
 		           			<span class="d-block">남은 좌석</span>
-		           			<span class="d-block">115 / 120석</span>
+		           			<span class="d-block count_seat"></span>
 		           		</div>
 		           		<span class="prev_btn"></span>
 		           	</div>
 		           	<div class="s_selectbox">
 		           		<h6 class="screen">SCREEN</h6>
 		           		<ul class="seat_container">
-		           		<%
-		           			String[] row = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
-		           			for(int i = 0 ; i < 10 ; i++){
-		           		%>
-		           			<li class="seat_box">
-		           				<span class="seat_row"><%=row[i] %></span>
-		           			<%
-		           				for(int j = 1 ; j <= 12 ; j++){
-		           			%>
-		           				<span class="seat">
-		           					<%=j %>
-		           					<input class="seat_hidden" type="hidden" value="<%=row[i] %><%=j %>" />
-		           				</span>
-		           			<%
-		           				}
-		           			%>
-		           			</li>
-		           		<%
-		           			}
-		           		%>
+		           			<img src="images/back/wait_seat_frame.png" alt="좌석정보 불러오는중..." />
 		           		</ul>
 		           		<div class="seat_container mt-3">
 		           			<img src="images/ico/ico-seatsInfo.png" alt="좌석정보" />
@@ -185,11 +168,12 @@
 	           	</div>
 	           	
 	           	<div class="select_resultbox mt-3">
-	           	
+		           	<!-- 스크립트가 해결 -->
 	           	</div>
 	       	</div>
         </div>
    		
     </section>
+    <%@include file = "../include/advertise.jsp" %>
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/booking.js"></script>

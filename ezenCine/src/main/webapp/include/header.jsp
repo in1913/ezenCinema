@@ -21,17 +21,19 @@
 
     <header id="header">
         <div class="subdp"></div>
+        <div class="subdp2"></div>
         <div class="container d-flex justify-content-between">
             <div class="logoarea">
-                <a href="/ezenCine"><img src="images/logo/logo.png" alt="logo"></a>
+                <a href="index.jsp"><img src="images/logo/logo.png" alt="logo"></a>
             </div>
             <div class="header-nav mt-3">
                 <ul class="gnb d-flex">
                     <li>
                         <a href="index.jsp?fname=movie/movieList">영화</a>
                         <ul class="lnb">
-                            <li><a href="javascript:void(0)">현재상영작</a></li>
-                            <li><a href="javascript:void(0)">상영예정작</a></li>
+                            <li><a href="index.jsp?fname=movie/movieListNow">현재상영작</a></li>
+                            <li><a href="index.jsp?fname=movie/movieListExpected">상영예정작</a></li>
+                            <li><a href="index.jsp?fname=movie/movieListPast">지난상영작</a></li>
                         </ul>
                     </li>
                     <li>
@@ -58,13 +60,8 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">스토어</a>
-                        <ul class="lnb">
-                            <li><a href="javascript:void(0)">베스트</a></li>
-                            <li><a href="javascript:void(0)">스낵/음료</a></li>
-                            <li><a href="javascript:void(0)">관람권</a></li>
-                            <li><a href="javascript:void(0)">굿즈</a></li>
-                        </ul>
+                        <a href="index.jsp?fname=store/store">스토어</a>
+                        
                     </li>
                     <li>
                         <a class="c-blue" href="javascript:void(0)">혜택</a>
@@ -92,11 +89,12 @@
 %>              		              
                 
                 <span><a href="javascript:void(0)"><img src="images/ico/ico-search.png" alt="search" id="search-on"></a></span>
-                <div class="header-search-box">
-                    <form action="" name="header-search-form" class="d-flex">
-                        <input type="text" placeholder="검색어를 입력해주세요." name="header-search" id="header-search">
-                        <button type="submit" id="header-submit"></button>
-                    </form>
+                <div class="header-search-box" id="header-search-box">
+                    <div class="d-flex">
+                        <input type="text" placeholder="검색어를 입력해주세요." name="header-search" id="header-search" autocomplete="off">
+                        <button type="button" id="header-submit"></button>
+                        <div class="autocomplete"></div>
+                    </div>
                 </div>
             </div>
         </div>

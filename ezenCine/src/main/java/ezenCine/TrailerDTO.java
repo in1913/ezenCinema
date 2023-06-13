@@ -5,6 +5,21 @@ public class TrailerDTO {
 	private String movie_id;
 	private String thumbnail;
 	private String vodsrc;
+	private String vodtitle;
+	private String title;
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getVodtitle() {
+		return vodtitle;
+	}
+	public void setVodtitle(String vodtitle) {
+		this.vodtitle = vodtitle;
+	}
 	public int getNum() {
 		return num;
 	}

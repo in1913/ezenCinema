@@ -3,7 +3,7 @@ $(function(){
     $(".gnb>li").mouseover(function(){
         $(this).find(".lnb").stop().fadeIn(300);
         $("header.fixed>.subdp").stop().fadeIn(300);
-        $("header.fixed").css({"border":"none"});
+        $("header.fixed").css({"border-bottom":"1.8px solid #ddd"});
     });
     $(".gnb>li").mouseleave(function(){
         $(this).find(".lnb").stop().fadeOut(300);
@@ -35,29 +35,86 @@ $(function(){
         }
     })
     
-    // booking
-    $(".h-b-movie-btn").click(function(){
-        $(".h-b-movie-btn").removeClass("b-on");
-        $(this).addClass("b-on");
-        $(".h-location-blurbox").css({"display" : "none"});
+	
+    // mainpage
+    $('.mainslide').slick({
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 2500,
+        slidesToShow: 1,
+        adaptiveHeight: true,
+        speed: 500,
+        nextArrow:$('.ma-slidenext'),
+        prevArrow:$('.ma-slideprev'),
+        dots:true,
+        dotsClass:'main_dots'
+      });
+      $('.play').hide(); // 일시 정지 버튼 숨김
+
+      $('.play').click(function() {
+          $('.mainslide').slick('slickPlay');
+          $(this).hide(); // 플레이 버튼 숨김
+          $('.pause').show(); // 일시 정지 버튼 표시
+      });
+      
+      $('.pause').click(function() {
+          $('.mainslide').slick('slickPause');
+          $(this).hide(); // 일시 정지 버튼 숨김
+          $('.play').show(); // 플레이 버튼 표시
+      });
+    //현재 예매 hover
+    $('.ao-list').each(function(){
+        var $this = $(this);
+        // var $contact = $this.find('.ao-contact');
+        var $contacthv = $this.find('.ao-contacthv');
+        
+        $this.hover(
+            function(){
+                // $contact.css("display", "none");
+                $contacthv.css("display", "block");
+            },
+            function(){
+                // $contact.css("display", "block");
+                $contacthv.css("display", "none");
+            }
+        );
+    });
+    //현재 상영중인 트레일러
+    $('.nt-slide').slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        nextArrow:$('.nt-slidenext'),
+        prevArrow:$('.nt-slideprev')
+    });
+    
+    //영상 켜기
+    $(".nt-post").click(function(){
+        const Popup = document.getElementsByClassName("k-popup")[0];
+        const fade = document.getElementsByClassName("k-fade")[0];
+        Popup.style.display = "block";
+        fade.style.display = "block";
     });
 
-    $(".h-location-box label").click(function(){
-        $(".h-location-box label").removeClass("b-on");
-        $(this).addClass("b-on");
-        $(".h-time-blurbox").css({"display" : "none"});
+    //영상 끄기
+    $(".k-fade").click(function(){
+        const PopupSlide = document.getElementsByClassName("k-popup")[0];
+        const fadeOut = document.getElementsByClassName("k-fade")[0];
+        PopupSlide.style.display = "none";
+        fadeOut.style.display = "none";
     });
-
-    $(".h-b-time-btn button").click(function(){
-        $(".h-b-time-btn button").removeClass("b-on");
-        $(this).addClass("b-on");
-        $(".h-booking-btn-box").css({"display" : "block"});
+    //슬라이드 링크 변경
+    $(".nt-post").click(function() {
+        const vodsrcs = $(this).find('img').data("vodsrc");
+        $(".k-popup>iframe").attr("src", vodsrcs);
     });
+    // mainpage 끝
+    
 
-    // 날짜클릭 액티브
-    $(".date-slide>.date").click(function(){
-        $(".date").removeClass("b-on");
-        $(this).addClass("b-on");
+    // 주의사항 닫기
+    $('.warning_close').click(function(){
+    	$('.main_warning').fadeOut(300);
     })
 
     // movieList 시작
@@ -109,8 +166,13 @@ $(function(){
         $('html').animate({scrollTop : offset.top-40}, 400);
       }
     });
-  
-  
+
+    // 광고배너
+    $(".banner_close").click(function(){
+        $(".banner_box").fadeOut();
+    });
+
+    
   
 /*** 영화상세 ***/
 //좋아요 버튼
@@ -3249,3 +3311,169 @@ function cProfileSubmit(){
         }
     })
 }
+
+// 스크롤버튼 나와라
+$(function() {
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+        if (scroll >= 300) {
+            $('#pageup').fadeIn();
+        } else {
+            $('#pageup').fadeOut();
+        }
+    });
+
+});
+
+function noScreen(){
+	alert("상영중인 영화가 아닙니다.");
+}
+// 스토어
+$(function () {
+    $('.snack').hide();
+    $('.drink').hide();
+
+    $('.tab li').click(function () {
+        $('.tab li').removeClass('on')
+        $(this).addClass('on')
+
+        let num = $(this).index()
+        console.log(num)
+
+
+        if (num == 0) {
+            $('.snack').hide();
+            $('.drink').hide();
+            $('.combo').show();
+        } else if (num == 1) {
+            $('.combo').hide();
+            $('.drink').hide();
+            $('.snack').show();
+        } else if (num == 2) {
+            $('.combo').hide();
+            $('.snack').hide();
+            $('.drink').show();
+        }
+    });
+
+
+});
+
+
+
+var movielist = [];
+var movielistData = [];
+var movielistHref = [];
+var movietitle = []
+$(document).ready(function(){
+  fetch("/ezenCine/GetMovieList", {
+    headers : {"Content-Type" : "application/json"},
+    method : "get"
+  }).then((res) => res.json())
+  .then((result) => {
+    let titles = "";
+    let titlesData = "";
+    let title = "";
+    for(i = 0; i < result.length; i++){
+      title = result[i].title;
+      titles = result[i].title + " (" + result[i].title_eng + ")";
+      titlesData = result[i].title + " (" + result[i].title_eng.toLowerCase() + ")";
+      movielist.push(titles);
+      movielistData.push(titlesData);
+      movielistHref.push(result[i].id);
+      movietitle.push(title);
+    }
+  });
+});
+// 헤더 검색창 자동완성
+
+const $search = document.querySelector("#header-search");
+const $autoComplete = document.querySelector(".autocomplete");
+const $searchbox = document.getElementById("header-search-box");
+let nowIndex = 0;
+$search.addEventListener("focusout", function(){
+	$autoComplete.style.display="none";
+})
+$search.onkeyup = (event) => {
+  // 검색어
+  const value = $search.value.trim();
+	$autoComplete.style.display = "block";
+	if($search.value == null || $search.value == ""){$autoComplete.style.display = "none";}
+  // 자동완성 필터링
+  const matchDataList = value
+    ? movielist.filter((label) => label.includes(value))
+    : [];
+
+  switch (event.keyCode) {
+    // UP KEY
+    case 38:
+      nowIndex = Math.max(nowIndex - 1, 0);
+      break;
+
+    // DOWN KEY
+    case 40:
+      nowIndex = Math.min(nowIndex + 1, matchDataList.length - 1);
+      break;
+
+    // ENTER KEY
+    case 13:{
+      document.querySelector("#header-search").value = matchDataList[nowIndex] || "";
+      $autoComplete.style.display = "none";
+	}
+      // 초기화
+      nowIndex = 0;
+      matchDataList.length = 0;
+      break;
+      
+    // 그외 다시 초기화
+    default:
+      nowIndex = 0;
+      break;
+  }
+
+  // 리스트 보여주기
+  showList(matchDataList, value, nowIndex, movietitle);
+};
+
+const showList = (data, value, nowIndex, movietitle) => {
+  // 정규식으로 변환
+  const regex = new RegExp(`(${value})`, "g");
+  
+  $autoComplete.innerHTML = data
+    .map(
+      (label, index) => `
+      <div class='${nowIndex === index ? "active" : ""}'>
+        ${label.replace(regex, "<mark>$1</mark>")}
+        <input type='hidden' value='${movietitle[index]}'>
+      </div>
+    `
+    )
+    .join("");
+};
+
+$(function(){
+	$(document).on("click","#header-submit", function(){
+    let title = $("#header-search").val();
+    let modtitle = title.substring(0, 2);
+    $.ajax({
+      url:"/ezenCine/SearchMovie",
+      type : "post",
+      data : {title : modtitle},
+      success : function(result){
+        if(result == null){
+          alert("검색결과가 없습니다.");
+        }else{
+          $.ajax({
+            url: "movie/searchResult.jsp",
+            type: "get",
+            data : {id : result},
+            success: function() {
+                window.location.href = `index.jsp?fname=movie/searchResult&id=${result}`;
+            }
+        });
+        }
+      }
+    })
+  })
+})
+ 
