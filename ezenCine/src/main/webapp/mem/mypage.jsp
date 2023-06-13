@@ -144,9 +144,8 @@
 				// seat_num에 g관 6열도 들어가는가? 
 				// 						
 				// 관람인원은?
-			String seats = bd.getSeat_num();
-			char seat_alpha = seats.charAt(0);
-			char seat_num = seats.charAt(1);
+			String seats_num = bd.getSeat_num();
+			String[] seats_arr = seats_num.split(",");
 			
 			String[] ticket_dateArr = bd.getTicket_date().split("-");
 			String ticket_year = ticket_dateArr[0];
@@ -168,8 +167,25 @@
 	                            <div class="c-content">
 	                                <p class="c-title"><%=bd.getTitle() %></p>
 	                                <p>예매번호 <span><%=bd.getTicket_num() %></span></p>
-	                                <p>상영관/관람좌석 <span><%=bd.getRoom_num() %>/<%=seat_alpha%>열 <%=seat_num %></span></p>
-	                                <!--  <p>관람인원 <span>성인 1명</span></p>-->
+	                                <p>상영관/관람좌석 <span><%=bd.getRoom_num() %>관/
+<%
+			if(seats_arr.length == 1){
+%>
+									<%=seats_arr[0].charAt(0) %>열 <%=seats_arr[0].charAt(1) %>
+<%				
+			}else{
+				for(int i = 0; i < seats_arr.length-1; i++){
+%>
+									<%=seats_arr[i].charAt(0) %>열 <%=seats_arr[i].charAt(1) %>, 
+<%				
+				}
+%>
+									<%=seats_arr[seats_arr.length - 1].charAt(0) %>열 <%=seats_arr[seats_arr.length - 1].charAt(1) %>								
+<%				
+			}
+%>	                                
+	                                </span></p>
+	                                <p>관람인원 <span>성인 <%=seats_arr.length %>명</span></p>
 	                                <p>결제일시 <span><%=ticket_year %>.<%=ticket_month %>.<%=ticket_day %>(<%=ExtraFunc.dayToKor(bd.getTicket_day()) %>) <%=ticket_hour %>:<%=ticket_min %></span></p>
 	                                <p>관람일시 <span><%=screen_year %>.<%=screen_month %>.<%=screen_day %>(<%=ExtraFunc.dayToKor(bd.getScreen_day()) %>) <%=bd.getScreen_time() %></span></p>
 	                            </div>
@@ -203,9 +219,12 @@
 <%		
 		
 	}else{
+		int i = 0;
 		for(ReviewsDTO rd: rvd){			
 %>
                         <div class="col-6 c-mypage-review-num">
+                        <input type="hidden" value="<%=rd.getNum() %>" class="c-mypage-review-modi-num" />
+                        <input type="hidden" value="<%=rd.getMovie_id() %>" class="c-mypage-review-modi-mov-id" />
                             <img src="<%=rd.getPoster_url() %>" alt="<%=rd.getTitle()%>">
                             <div class="c-content">
                                 <p class="c-title"><%=rd.getTitle()%></p>
@@ -215,7 +234,7 @@
                                     <span class="first">
                                         <img class="c-like-img" class="" src="images/h-button/like.png" alt="like">
 <%
-	int diff = ReviewsDDL.getDateDiff(userid, rd.getMovie_id());
+	int diff = ReviewsDDL.getDateDiff(userid, rd.getMovie_id(), rd.getNum());
 	if(diff == 0){
 %>
                                     <span>오늘</span>
@@ -228,8 +247,8 @@
 %>                                       
                                     </span>
                                     <span class="second">
-                                        <a href="javascript:void(0);">수정</a>
-                                        <a href="javascript:void(0);">삭제</a>
+                                        <a href="javascript:cReviewPopupOpen(<%=i%>);">수정</a>
+                                        <a href="javascript:cMyPageReviewDel(<%=i%>)">삭제</a>
                                     </span></p>
                             </div>
                         </div>
@@ -319,6 +338,39 @@
 <%
 	}
 %>  
+<div class="c-mypage-modi-popup-shadow">
+	<div class="c-mypage-modi-popup">
+	<div class="c-mypage-popup-movie">
+		<img src="images/poster/Guardians of the Galaxy Volume 3.jpg" alt="poster" />
+		<div class="c-mypage-modi-popup-content">
+			<h1>가디언즈 오브 더 갤럭시: Volume 3</h1>
+		</div>
+	</div>
+	
+		<div class="c-modi-reviewbox c-mypage">
+        	<div class="c-mvrate">
+				<div class="c-rate">
+    				<input type="radio" id="c-rating10" name="c-rating" value="10" ><label for="c-rating10" title="10점"  ></label>
+					<input type="radio" id="c-rating9" name="c-rating" value="9"  ><label class="c-half" for="c-rating9" title="9점" ></label>
+					<input type="radio" id="c-rating8" name="c-rating" value="8" ><label for="c-rating8" title="8점" ></label>
+					<input type="radio" id="c-rating7" name="c-rating" value="7" ><label class="c-half" for="c-rating7" title="7점"  ></label>
+					<input type="radio" id="c-rating6" name="c-rating" value="6" ><label for="c-rating6" title="6점"  ></label>
+					<input type="radio" id="c-rating5" name="c-rating" value="5" ><label class="c-half" for="c-rating5" title="5점"  ></label>
+					<input type="radio" id="c-rating4" name="c-rating" value="4" ><label for="c-rating4" title="4점"  ></label>
+					<input type="radio" id="c-rating3" name="c-rating" value="3" ><label class="c-half" for="c-rating3" title="3점"></label>
+					<input type="radio" id="c-rating2" name="c-rating" value="2" ><label for="c-rating2" title="2점" ></label>
+					<input type="radio" id="c-rating1" name="c-rating" value="1" ><label class="c-half" for="c-rating1" title="1점" ></label>
+			    </div>
+			    <span class="c-rating-number">0</span>
+			</div>
+           	<textarea spellcheck="false" name="c-modi-review" class="c-modi-review" cols="30" rows="10"></textarea>
+			<div class="c-modi-btn">
+				<a href="javascript:cReviewPopupClose();" class="c-modi-reset">취소</a>
+				<a href="javascript:cReviewPopupOpen();" class="c-modi-complete">수정완료</a>
+            </div>
+	    </div>
+	</div>	
+</div>    
 <input type="hidden" name="booking-all-num" id="booking-all-num" value="<%=bookingAllNum %>" />
 <input type="hidden" name="review-all-num" id="review-all-num" value="<%=reviewAllNum %>" />
 <input type="hidden" name="like-all-num" id="like-all-num" value="<%=likeAllNum %>" />

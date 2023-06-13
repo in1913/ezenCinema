@@ -1,13 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="ezenCine.*, java.sql.*, java.util.*"%>
+    pageEncoding="UTF-8" import="ezenCine.*, java.sql.*, java.util.*, java.time.format.DateTimeFormatter, java.time.LocalDateTime"%>
 <%
-	String userid = (String) session.getAttribute("userid"); 
+	String userid = "";
+	if(session.getAttribute("userid") != null){
+		userid = (String) session.getAttribute("userid");
+	} 
 	String movieId = request.getParameter("mov_id");
 	Vector<MovieDTO> dto = MovieDDL.viewMovieDetail(movieId);
 	Vector<TrailerDTO> to = TrailerDDL.showTrailer(movieId);
+	Vector <ShowReviewDTO> srd = ShowReviewDDL.selectInit(movieId);
+	Vector <ShowReviewDTO> sld = ShowReviewDDL.selectInitLike(movieId);
+	Vector <LikeDTO> isMemLike = LikeDDL.isReviewLike(movieId);
 	int count = TrailerDDL.showTrailerCount(movieId);
+	int reviewCnt = ShowReviewDDL.selectAllNum(movieId);
 	Vector<CastingDTO> cto = CastingDDL.showCasing(movieId);
 	boolean isMovieLike = LikeDDL.checkMovieLike(movieId, userid);
+	
+	DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	LocalDateTime now = LocalDateTime.now();
+	String today = now.format(df).substring(0, 10);
 %>
 	<img src="./images/moviedetail/cloud3.png" alt="필터" class="cloud">
 	<div class="k-fade">
@@ -57,13 +68,14 @@
 <%
 	if(isMovieLike == true){
 %>
+<!-- 영화 좋아요. -->
                 	<div id="likeimage" class="on">
                         <span id="c-movieLike"><%=dt.getLike() %></span>
                     </div>
 <%		
 	}else{
 %>
-					<div id="notlikeimage">
+					<div id="likeimage">
                         <span id="c-movieLike"><%=dt.getLike() %></span>
                     </div>
 <%
@@ -72,7 +84,7 @@
 
                     <div id="linkshare" onclick="linkshare()">
                     <div id="linkshares"></div>
-                        <span></span>
+                        <span></span>                    
                     </div>
                 </div>
                 <ul class="k-mv_datan">
@@ -130,7 +142,7 @@
             <div class="container">
                 <ul class="k-tab">
                     <li><a href="javascript:void(0)" class="active" id="information">영화 정보</a></li>
-                    <li><a href="javascript:void(0)" id="review">영화 리뷰(0)</a></li>
+                    <li><a href="javascript:void(0)" id="review">평점 / 리뷰(<span id="reviewTab"><%=reviewCnt %></span>)</a></li>
                 </ul>
             </div>
             <!-- 정보시작 -->
@@ -200,9 +212,8 @@
                     <div class="k-trailer">
                         <h3>트레일러(<span><%=count %></span>)</h3>
                         <div class="k-slider">
-                              <img src="images/moviedetail/prev.png" class="slideprev" alt="1"></i>
-                              <img src="images/moviedetail/next.png" class="slidenext" alt="2"></i>
-                              <div class="k-slide">
+                              <img src="images/moviedetail/prev.png" class="slideprev" alt="1">
+                              <img src="images/moviedetail/next.png" class="slidenext" alt="2">                              <div class="k-slide">
                               <%
                               		for(TrailerDTO ro : to){
                               %>
@@ -257,70 +268,314 @@
             <!-- 리뷰 -->
             <div id="k-review" class="k-content container">
                 <div class="k-reviewform">
-                    <h3 class="text-center">평점·관람평 작성</h3>
+                    <h3 class="text-center">평점·리뷰 작성</h3>
                     <div class="k-mvrate">
+                    
                         <fieldset class="rate">
-                            <input type="radio" id="rating10" name="rating" value="10"><label for="rating10" title="5점"></label>
-                            <input type="radio" id="rating9" name="rating" value="9"><label class="half" for="rating9" title="4.5점"></label>
-                            <input type="radio" id="rating8" name="rating" value="8"><label for="rating8" title="4점"></label>
-                            <input type="radio" id="rating7" name="rating" value="7"><label class="half" for="rating7" title="3.5점"></label>
-                            <input type="radio" id="rating6" name="rating" value="6"><label for="rating6" title="3점"></label>
-                            <input type="radio" id="rating5" name="rating" value="5"><label class="half" for="rating5" title="2.5점"></label>
-                            <input type="radio" id="rating4" name="rating" value="4"><label for="rating4" title="2점"></label>
-                            <input type="radio" id="rating3" name="rating" value="3"><label class="half" for="rating3" title="1.5점"></label>
-                            <input type="radio" id="rating2" name="rating" value="2"><label for="rating2" title="1점"></label>
-                            <input type="radio" id="rating1" name="rating" value="1"><label class="half" for="rating1" title="0.5점"></label>
+                            <input type="radio" id="rating10" name="rating" value="10" ><label for="rating10" title="10점" ></label>
+                            <input type="radio" id="rating9" name="rating" value="9"  ><label class="half" for="rating9" title="9점" ></label>
+                            <input type="radio" id="rating8" name="rating" value="8" ><label for="rating8" title="8점"></label>
+                            <input type="radio" id="rating7" name="rating" value="7" ><label class="half" for="rating7" title="7점" ></label>
+                            <input type="radio" id="rating6" name="rating" value="6" ><label for="rating6" title="6점" ></label>
+                            <input type="radio" id="rating5" name="rating" value="5" ><label class="half" for="rating5" ></label>
+                            <input type="radio" id="rating4" name="rating" value="4" ><label for="rating4" title="4점" ></label>
+                            <input type="radio" id="rating3" name="rating" value="3" ><label class="half" for="rating3" title="3점"  ></label>
+                            <input type="radio" id="rating2" name="rating" value="2" ><label for="rating2" title="2점" ></label>
+                            <input type="radio" id="rating1" name="rating" value="1" ><label class="half" for="rating1" title="1점" ></label>
 
                         </fieldset>
                         <span class="rating-number">0</span>
                     </div>
+                    <p class="c-point">영화 관람 후 리뷰 작성시 1,OOOp 적립</p>
                     <div class="k-reviewbox">
                         <div class="k-text_box">
-                            <textarea  id="k-textbox" placeholder="평점 및 영화 관람평을 작성해주세요." maxlength="220"></textarea>
+                            <textarea spellcheck="false" id="k-textbox" placeholder="평점 및 영화 관람평을 작성해주세요." maxlength="220"></textarea>
                             <div class="count"><span>0</span>/220</div>
                         </div>
-                        <button type="button" id="k-textbtn">관람평 작성</button>
+                        <button type="button" id="k-textbtn" onclick="cReviewsSubmit();">리뷰 등록</button>
                     </div>
                     
                 </div>
                 <div class="k-reviewtitle">
-                    <h3><i class="fa-solid fa-star"></i>전체<span>(0)</span></h3>
+                    <p><i class="fa-solid fa-star"></i>전체 <span id="c-reviewlist-cnt"><%=reviewCnt %></span></p>
                     <div class="k-reviewtitle_ul">
-                        <span><a href="javascript:void(0)" class="active" id="k-score_1">최신순</a></span>
-                        <span><a href="javascript:void(0)" id="k-score_2">추천순</a></span>
-                        <span><a href="javascript:void(0)" id="k-score_3">평점 높은순</a></span>
-                        <span><a href="javascript:void(0)" id="k-score_4">평점 낮은순</a></span>
+                        <span class="c-review-tab" onclick="cChangeOrderReview(0);"><a href="javascript:void(0)" class="active" id="k-score_1">최신순</a></span>
+                        <span class="c-review-tab" onclick="cChangeOrderReview(1);"><a href="javascript:void(0)" id="k-score_2">추천순</a></span>
                     </div>
                 </div>
+                <!-- 최신순 -->
+                <div class="c-current-review c-review-content">
+	                <div class="k-reviewlist_all">
+	<%
+		int i = 0;
+		for(ShowReviewDTO ss: srd){
+	%>                
+	                    <div class="k-reviewlist c-currentlist">
+	                        <div class="k-listleft col-1">
+		                        <div class="c-list-img">
+		                        	<!-- <img src="upload/users/running.gif" alt="프로필"/>-->  
+<%
+			if(ss.getPhoto() == null){
+				if(i % 2 == 0){
+%>
+	                            <img src="images/icon/user/profile_dark.png" alt="프로필"/>
+<%					
+				}else{
+%>
+	                            <img src="images/icon/user/profile.png" alt="프로필"/>
+<%					
+				}
+			}else{
+%>
+		                            <img src="upload/users/<%=ss.getPhoto() %>" alt="프로필"/>
+<%				
+			}
+%>		                        	 
+		                        </div>
+	                        </div>
+	                        <div class="k-listright col-11">
+	                            <ul id="k-listbox">
+	                                <li id="k-listtext">
+	                                    <div class="k-listtext_box">
+	                                    <input type="hidden" value="<%=ss.getNum() %>"  class="c-current-num c-review-num"/>
+	                                        <span class="k-review-name"><%=ss.getNickname() %></span>
+	                                        <span class="k-review-stars">
+<%
+			int fill = 0;
+			int half = 0;
+			int empty = 0;
+			if(ss.getRating() % 2 != 0){
+				fill = (int) (ss.getRating() - 1) / 2;
+				half = 1;
+				empty = 5 - half - fill;
+				
+			}else{
+				fill = (int) ss.getRating() / 2;
+				empty = 5 - fill;
+			}
+			if(fill == 0){
+				// 0.5 or 0
+				if(half == 0){
+					// empty = 5;
+					for(int k = 0; k < empty; k++){
+%>
+	<img src="images/icon/inyoung/empty.png" alt="stars" />
+<%
+					}
+				}else{
+					//empty = 4;
+%>
+	<img src="images/icon/inyoung/half.png" alt="stars" />
+<%					
+					for(int k = 0; k < empty; k++){
+%>
+	<img src="images/icon/inyoung/empty.png" alt="stars" />
+<%
+					}				
+				}
+			}else{
+				if(half == 0){
+					for(int k = 0; k < fill; k++){
+%>
+	<img src="images/icon/inyoung/fill.png" alt="stars" />
+<%					
+					}
+					for(int k = 0; k < empty; k++){
+%>
+	<img src="images/icon/inyoung/empty.png" alt="stars" />
+<%						
+					}
+							
+				}else{
+					for(int k = 0; k < fill; k++){
+%>
+	<img src="images/icon/inyoung/fill.png" alt="stars" />
+<%					
+					}
+%>
+	<img src="images/icon/inyoung/half.png" alt="stars" />
+<%					
+					
+					for(int k = 0; k < empty; k++){
+%>
+	<img src="images/icon/inyoung/empty.png" alt="stars" />
+<%						
+					}
+					
+				}
+			}
+%>
+			
+			
+
+	                                        </span>
+	                                        <span class="k-review-starsnum"><%=ss.getRating() %></span>
+<%
+			String dbDate = ss.getDate().substring(0, 10);
+			if(dbDate.equals(today)){
+%>
+	                                        <span class="k-review-date"><%=ss.getDate().substring(10, 16) %></span>										
+<%				
+			}else{
+%>
+	                                        <span class="k-review-date"><%=ss.getDate().substring(0, 10).replace("-", ".") %></span>
+<%				
+			}
+%>	                                       
+	
+	                                    </div>
+	                                    <div class="c-review-bottom-content">
+		                                    <p class="k-review-info"><%=ss.getComments() %></p>
+		                                    <div class="c-modi-reviewbox">
+		                                    <div class="c-mvrate">
+						                        <div class="c-rate">
+						                            <input type="radio" id="c-rating10<%=i %>" name="c-rating<%=i %>" value="10" ><label for="c-rating10<%=i %>" title="10점"  ></label>
+						                            <input type="radio" id="c-rating9<%=i %>" name="c-rating<%=i %>" value="9"  ><label class="c-half" for="c-rating9<%=i %>" title="9점" ></label>
+						                            <input type="radio" id="c-rating8<%=i %>" name="c-rating<%=i %>" value="8" ><label for="c-rating8<%=i %>" title="8점" ></label>
+						                            <input type="radio" id="c-rating7<%=i %>" name="c-rating<%=i %>" value="7" ><label class="c-half" for="c-rating7<%=i %>" title="7점"  ></label>
+						                            <input type="radio" id="c-rating6<%=i %>" name="c-rating<%=i %>" value="6" ><label for="c-rating6<%=i %>" title="6점"  ></label>
+						                            <input type="radio" id="c-rating5<%=i %>" name="c-rating<%=i %>" value="5" ><label class="c-half" for="c-rating5<%=i %>" title="5점"  ></label>
+						                            <input type="radio" id="c-rating4<%=i %>" name="c-rating<%=i %>" value="4" ><label for="c-rating4<%=i %>" title="4점"  ></label>
+						                            <input type="radio" id="c-rating3<%=i %>" name="c-rating<%=i %>" value="3" ><label class="c-half" for="c-rating3<%=i %>" title="3점"></label>
+						                            <input type="radio" id="c-rating2<%=i %>" name="c-rating<%=i %>" value="2" ><label for="c-rating2<%=i %>" title="2점" ></label>
+						                            <input type="radio" id="c-rating1<%=i %>" name="c-rating<%=i %>" value="1" ><label class="c-half" for="c-rating1<%=i %>" title="1점" ></label>
+						
+						                        </div>
+						                        <span class="c-rating-number">0</span>
+						                    </div>
+		                                    	<textarea spellcheck="false" name="c-modi-review" class="c-modi-review" cols="30" rows="10"><%=ss.getComments()%></textarea>
+		                                    	<div class="c-modi-btn">
+		                                    		<a href="javascript:cReviewBoxClose(<%=i %>);" class="c-modi-reset">취소</a>
+		                                    		<a href="javascript:cReviewModiSend(<%=i %>);" class="c-modi-complete">수정완료</a>
+		                                    	</div>
+		                                    </div>
+		                                    <div class="k-utilbox">	                
+<%
+		int likeCnt = 0;
+		for(LikeDTO isLike: isMemLike){
+			if(isLike.getNum() == ss.getNum()){
+				if(userid.equals(isLike.getUserid())){
+					likeCnt = 1;
+				}else{
+				}
+			}
+		}
+		if(likeCnt == 0){
+%>
+												<a class="k-like2 c-current-like" href="javascript:cCurrentReviewLike(<%=i%>);"></a>
+<%			
+		}else{
+%>
+												<a class="k-like2 c-current-like on"  href="javascript:cCurrentReviewLike(<%=i%>);"></a>			
+<%
+		}
+%>	                                                        
+												<span class="c-current-like-num"><%=ss.getLikes() %></span>
+<%
+		if(!userid.equals(ss.getUserid())){
+			
+%>
+												<span class="k-declaration" onclick="cShowReviewUtil(<%=i%>)">
+		                                        	<ul class="c-review-cur-tooltip not-user">
+		                                        		<li><a href="javascript:void(0)">신고</a></li>
+		                                        	</ul>
+	                                        	</span>
+<%			
+		}else{
+%>
+												<span class="k-declaration" onclick="cShowReviewUtil(<%=i%>)">
+		                                        	<ul class="c-review-cur-tooltip">
+		                                        		<li><a href="javascript:cReviewModi(<%=i%>)">수정</a></li>
+		                                        		<li><a href="javascript:cReviewDel(<%=i%>)">삭제</a></li>
+		                                        	</ul>
+	                                        	</span>
+<%
+		}
+%>												
+	                                        	
+	                                    	</div> 
+	                                    </div>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	<%
+			i++;
+		}
+	%>                    
+	                </div>
+	<%
+		if(reviewCnt == 0){
+			
+		}else{
+	%>
+					<div class="c-list-btn">
+	                    <a href="javascript:cReviewMore(0);" class="k-list_btn c-review-active">더보기</a>
+	                    <a href="javascript:cReviewMore(1);" class="k-list_btn">더보기</a>
+	                </div>
+	<%		
+		}
+	%>
+				</div>
+            
+            <!-- 추천순 
+            <div class="c-like-review c-review-content">
                 <div class="k-reviewlist_all">
-                    <div class="k-reviewlist">
+<%
+	int j = 0;
+	for(ShowReviewDTO sl: sld){
+%>                
+                    <div class="k-reviewlist c-likelist">
                         <div class="k-listleft col-1">
-                            <img src="images/moviedetail/1.png" alt="프로필"/>
+	                        <div class="c-list-img">
+	                        	
+	                            <img src="upload/users/<%=sl.getPhoto() %>" alt="프로필"/> 
+	                        </div>
                         </div>
                         <div class="k-listright col-11">
                             <ul id="k-listbox">
                                 <li id="k-listtext">
                                     <div class="k-listtext_box">
-                                        <span class="k-review-name">aa123</span>
+                                    <input type="hidden" value="<%=sl.getNum() %>"  class="c-like-num"/>
+                                        <span class="k-review-name"><%=sl.getNickname() %></span>
                                         <span class="k-review-stars">★★★★★</span>
-                                        <span class="k-review-starsnum">10</span>
-                                        <span class="k-review-date">2023-05-24</span>
+                                        <span class="k-review-starsnum"><%=sl.getRating() %></span>
+                                        <span class="k-review-date"><%=sl.getDate().substring(0, 10) %></span>
                                     </div>
-                                    <p class="k-review-info">재밌어요!</p>
+                                    <p class="k-review-info"><%=sl.getComments() %></p>
                                     <div class="k-utilbox">
-                                        <span class="k-like2"></span>
-                                        <span class="k-declaration"></span>
+                                        <a class="k-like2 c-like-like" href="javascript:cLikeReviewLike(<%=j%>);"></a>
+                                        <span class="c-like-like-num"><%=sl.getLikes() %></span>
+                                        <span class="k-declaration">
+                                        	<span class="c-review-like-tooltip"></span>
+                                        </span>
                                     </div> 
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div>
-                        <button type="button" class="k-list_btn">더보기</button>
-                    </div>
+<%
+		j++;
+	}
+%>                    
                 </div>
+<%
+	if(reviewCnt == 0){
+		
+	}else{
+%>
+				<div class="c-list-btn">
+                    <a href="javascript:cReviewMore(1);" class="k-list_btn">더보기</a>
+                </div>
+<%		
+		}
+	%>
+			</div>
+			-->
             </div>
             <!-- 리뷰끝 -->
         </div>
     </div>
 	<!-- /영화상세 -->
+	<input type="hidden" id="userid" value="<%=userid %>" />
+	<input type="hidden" id="reviewAllNum" value=<%=reviewCnt %> />

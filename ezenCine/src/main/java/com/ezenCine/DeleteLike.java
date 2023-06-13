@@ -62,7 +62,7 @@ public class DeleteLike extends HttpServlet {
 					
 			}else {
 				doLike = LikeDDL.selectLikesReviews(movie_id, reviews_num);
-				boolean insertSuccess = LikeDDL.updateReviewsLike(doLike, movie_id, userid);
+				boolean insertSuccess = LikeDDL.updateReviewsLike(doLike, movie_id, reviews_num);
 				if(isSuccess && insertSuccess) {
 					out.println("{\"result\" : "+ doLike +"}");
 					System.out.println("좋아요 삭제 성공");

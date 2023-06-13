@@ -115,7 +115,7 @@ public class ReviewsDDL {
 		return result;
 	}
 	
-	public static int getDateDiff(String userid, String movie_id) {
+	public static int getDateDiff(String userid, String movie_id, int num) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -125,14 +125,15 @@ public class ReviewsDDL {
 		String today = format.format(currentTime);
 		int diff = 0;
 		
-		String sql = "select datediff((select date from Reviews where member_id = ? and movie_id = ?), ?) as diff";
+		String sql = "select datediff((select date from Reviews where member_id = ? and movie_id = ? and num = ?), ?) as diff";
 		
 		try {
 			conn = new DBConnect().getConn();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, userid);
 			ps.setString(2, movie_id);
-			ps.setString(3, today);
+			ps.setInt(3, num);
+			ps.setString(4, today);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -148,5 +149,67 @@ public class ReviewsDDL {
 			}catch(SQLException e) {}
 		}
 		return Math.abs(diff);
+	}
+	
+	public static boolean ReviewsDel(String movie_id, int num) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		int flag = 0;
+		
+		String sql = "delete from Reviews where movie_id = ? and Reviews.num = ?";
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, movie_id);
+			ps.setInt(2, num);
+			flag = ps.executeUpdate();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+			
+			}catch(SQLException e) {}
+		}
+		if(flag > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public static boolean ReviewsUpdate(String comments, double rating, String movie_id, int num) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		int flag = 0;
+		
+		String sql = "update Reviews set comments = ?, rating = ? where movie_id = ? and Reviews.num = ?";
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, comments);
+			ps.setDouble(2, rating);
+			ps.setString(3, movie_id);
+			ps.setInt(4, num);
+			flag = ps.executeUpdate();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+			
+			}catch(SQLException e) {}
+		}
+		if(flag > 0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

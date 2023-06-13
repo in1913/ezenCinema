@@ -3,6 +3,7 @@ package com.ezenCine;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,18 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import ezenCine.MemberDDL;
+import ezenCine.ShowReviewDDL;
+import ezenCine.ShowReviewDTO;
 
 
-@WebServlet("/FindId")
-public class FindId extends HttpServlet {
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
-	}
-
+@WebServlet("/ReviewMore")
+public class ReviewMore extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setCharacterEncoding("utf-8");
 		req.setCharacterEncoding("utf-8");
@@ -30,32 +29,34 @@ public class FindId extends HttpServlet {
 		StringBuffer jb = new StringBuffer();
 		String line = null;
 		
+		String movieid = "";
+		int num = 0;
+		int isCurrent = 0;
+		
+		PrintWriter out = res.getWriter();
 		try {
 			BufferedReader br = req.getReader();
 			while((line = br.readLine()) != null)
 				jb.append(line);
-			
 			JsonObject jsonObj = (JsonObject) JsonParser.parseString(jb.toString());
-			String username = jsonObj.get("username").getAsString();	
-			String useremail = jsonObj.get("useremail").getAsString();
-			
-			String userid = MemberDDL.findID(username, useremail);
-			
-			PrintWriter out = res.getWriter();
-			br.close();
-			if(userid == null) {
-				System.out.println("입력된 정보와 일치하는 아이디가 없습니다.");
-				out.println("{\"result\" : \"0\"}");
-			}else {
-				System.out.println(username + "님의 아이디는" + userid + "입니다.");
-				out.println("{\"result\" : \"" + userid + "\"}");
-			}
-			
-			out.flush();
-			out.close();
-			
+			movieid = jsonObj.get("movieid").getAsString();
+			num = jsonObj.get("num").getAsInt();
+			isCurrent = jsonObj.get("isCurrent").getAsInt();
 		}catch(Exception e) {}
-				
+		
+		if(isCurrent == 0) {
+			Vector <ShowReviewDTO> bkd = ShowReviewDDL.selectLike(movieid, num);
+			String gson = new Gson().toJson(bkd);
+			out.println(gson);
+		}else {
+			Vector <ShowReviewDTO> bkd = ShowReviewDDL.select(movieid, num);
+			String gson = new Gson().toJson(bkd);
+			out.println(gson);
+		}
+	
+		out.flush();
+		out.close();
 	}
+
 
 }

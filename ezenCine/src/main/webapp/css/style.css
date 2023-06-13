@@ -621,15 +621,59 @@ section.movieList{
 .h-movie-search-box{
     text-align: center;
     margin: 20px;
+    position: relative;
+}
+.c-search-complete{
+    position: absolute;
+    bottom: -28px;
+    left: 48%;
+    transform: translateX(-50%);
+    width: 300px;
+    z-index: 500;
+   	height: 100%;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	display: none;
+}
+.c-search-complete>li{
+	text-align: left;
+	background: #fff;
+	border-left: 1.5px solid #5C7EF7;
+	border-right: 1.5px solid #5C7EF7;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-rop: 7px;
+	padding-bottom: 5px;
+}
+.c-search-complete>li>a{
+	display: inline-block;
+	width: 100%;
+	border-bottom: 1px solid #ccc;
+	font-size: 14px;
+	
+}
+.c-search-complete>li:last-child{
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-bottom: 1.5px solid #5C7EF7;	
+}
+.c-search-color{
+	color: #5C7EF7;
+}
+.c-search-content:hover{
+	background: #ccc;
 }
 #h-movie-search{
     width: 300px;
     height: 30px;
     font-weight: bold;
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 20px;
     border: 1.5px solid #5C7EF7;
     display: inline;
+}
+#h-movie-search::placeholder{
+	font-weight: 400;
 }
 #h-movie-search:focus{
     outline: none;
@@ -925,7 +969,6 @@ section.movieList{
 #likeimage{
 	position:relative;
     border: 2.5px solid #5C7EF7;
-    background: #5C7EF7;
     border-radius:30px;
     margin-right:15px;
     height:28px;
@@ -943,7 +986,7 @@ section.movieList{
 	height:11px;
 	z-index:9999;
 	content:"";
-	background-image: url("../images/ico/ico-heart-fill.png");
+	background-image: url("../images/ico/ico-heart-line.png");
 	background-repeat: no-repeat;
 	background-size:100%;
 }
@@ -1469,21 +1512,23 @@ ul.slide_dots{
     display: block;
 }
 .k-reviewform{
-    height: 300px;
-    background: #eee;
+    height: 348px;
+    background: #f8f8f8;
 }
 .k-reviewform h3{
     font-weight: 500;
+   	font-size: 23px;
     padding-top: 30px;
+    color: #333;
 }
-.k-mvrate{
+div.k-mvrate{
     width: 800px;
     height: 90px;
     position: relative;
     margin-left: auto;
     margin-right: auto;
 }
-.rate {
+fieldset.rate {
     display: inline-block;
     border: 0;
     margin-right: 15px;
@@ -1494,14 +1539,14 @@ ul.slide_dots{
     position: absolute;
     top: 5px;
 }
-.rate > input {
+fieldset.rate > input {
     display: none;
 }
-.rate > label {
+fieldset.rate > label {
     float: right;
     color: #D3DCFD
 }
-.rate > label:before {
+fieldset.rate > label:before {
     display: inline-block;
     font-size: 3.2em;
     padding: .3rem .2rem;
@@ -1510,19 +1555,19 @@ ul.slide_dots{
     font-family: FontAwesome;
     content: "\f005 ";
 }
-.rate .half:before {
+fieldset.rate .half:before {
     content: "\f089 "; 
     position: absolute;
     padding-right: 0;
 }
-.rate input:checked ~ label, 
-.rate label:hover,.rate label:hover ~ label {
+fieldset.rate input:checked ~ label, 
+fieldset.rate label:hover,fieldset.rate label:hover ~ label {
      color: #3D56AE !important;  
     } 
-.rate input:checked + .rate label:hover,
-.rate input input:checked ~ label:hover,
-.rate input:checked ~ .rate label:hover ~ label,  
-.rate label:hover ~ input:checked ~ label { 
+fieldset.rate input:checked + fieldset.rate label:hover,
+fieldset.rate input input:checked ~ label:hover,
+fieldset.rate input:checked ~ fieldset.rate label:hover ~ label,  
+fieldset.rate label:hover ~ input:checked ~ label { 
     color: #3D56AE !important;  
 } 
 .k-text_box {
@@ -1538,8 +1583,14 @@ ul.slide_dots{
     font-size:18px; 
     line-height:28px; 
     padding:20px; 
-    border:1px solid #e4dcd3; 
+    border:2px solid #ccc; 
 
+}
+.c-point{
+	color: #878787;
+	text-align: center;
+	margin-bottom: 20px;
+	font-size: 14px;
 }
 .k-text_box .count {
     position:absolute; 
@@ -1563,17 +1614,21 @@ ul.slide_dots{
     padding: 15px 25px;
     font-size: 16px;
     outline: none;
+    font-family: 'SUITE', sans-serif;
 }
 #k-textbtn{
     width: 200px;
     height: 130px;
     background: #93AAFF;
     border-radius: 20px;
-    border: none;
+    border: 2px #ccc;
     font-size: 20px;
     color: #fff;
+    font-family: 'SUITE', sans-serif;
 }
-
+#k-textbox::placeholder{
+	font-family: 'SUITE', sans-serif;
+}
 .k-reviewtitle{
     margin-top: 20px;
     padding-bottom: 15px;
@@ -1581,10 +1636,11 @@ ul.slide_dots{
     display: flex;
     position: relative;
 }
-.k-reviewtitle>h3{
+.k-reviewtitle>p{
     width: 60%;
+    color: #333;
 }
-.k-reviewtitle>h3>.fa-star{
+.k-reviewtitle>p>.fa-star{
     font-size: 16px;
     color: #d3dcfd;
     margin-right: 3px;
@@ -1621,9 +1677,20 @@ ul.slide_dots{
 .k-listleft{
     padding: 0;
 }
+.c-list-img{
+	margin-top: 10px;
+	width: 75px;
+	height: 75px;
+	border-radius: 50%;
+	overflow: hidden;		
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #ccc;
+}
 .k-listleft img{
-    padding-left: 5px;
-    padding-top: 10px;
+    max-width: 75px;
+    max-height: 75px;
 }
 .k-listright{
     padding: 0;
@@ -1637,31 +1704,33 @@ ul.slide_dots{
 }
 .k-review-name{
     display: inline-block;
+    color: #878787;
 }
 .k-review-stars{
     display: inline-block;
+    margin-left: 10px;
+}
+.k-review-starsnum{
+	margin-left: 5px;
 }
 .k-review-date{
     float: right;
+    white-space: nowrap;
 }
 .k-review-info{
     display: block;
-    width: 100%;
     /* height: 60px; */
-    background: #faf8f8;
-    border-radius: 30px;
     border: none;
     resize: none;
     outline: none;
-    padding: 10px 20px;
     font-size: 16px;
+    width: 100%;
+    line-height: 14px;
 }
-.k-utilbox{
-    position: absolute;
+.k-utilbox{	
     display: flex;
-    width: 100px;
-    top: 55px;
-    right: -25px;
+    width: 80px;
+    margin-top: -5px;
 }
 .k-like2{
     width: 19px;
@@ -1669,8 +1738,14 @@ ul.slide_dots{
     background-image: url('../images/moviedetail/suggestionoff.png');
     background-repeat: no-repeat;
     background-size: 100%;
-    margin-right: 20px;
+    margin-right: 10px;
     cursor: pointer;
+}
+.c-current-like-num,.c-like-like-num{
+	width: 20px;
+	text-align: center;
+	margin-right: 10px;
+
 }
 .k-like2.on{
     background-image: url('../images/moviedetail/suggestionon.png');
@@ -1682,13 +1757,63 @@ ul.slide_dots{
     cursor: pointer;
     background-repeat: no-repeat;
     background-image: url('../images/moviedetail/declaration.png');
+    position: relative;
+}
+.c-review-cur-tooltip{
+	position: absolute;
+	top: -1px;
+	left: 25px;
+	background: #fff;
+	border: 1px solid #ccc;
+	width: 64px;
+	height: 46px;
+	font-size: 14px;
+	text-align: center;
+	border-radius: 4px;
+	color: #333333;
+	overflow: hidden;
+	display: none;
+}
+.c-review-cur-tooltip.not-user{
+	position: absolute;
+	top: -1px;
+	left: 25px;
+	background: #fff;
+	border: 1px solid #ccc;
+	width: 64px;
+	height: 23px;
+	font-size: 14px;
+	text-align: center;
+	border-radius: 4px;
+	color: #333333;
+	overflow: hidden;
+}
+.c-review-cur-tooltip.not-user>li{
+	padding: 0;
+}
+.c-review-cur-tooltip>li{
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.c-review-cur-tooltip>li:last-child{
+	height: 24px;
+}
+.c-review-cur-tooltip>li>a{
+	display: block;
+}
+.c-review-cur-tooltip>li:first-child>a{
+	border-bottom: #CCC 1px solid;		
+}
+
+.c-review-cur-tooltip>li:hover{
+	background: #5C7EF7;
 }
 .k-listright_btn{
     width: 1100px;
     height: 50px;
 }
 .k-list_btn{
-    display: block;
+    display: none;
     width: 1100px;
     height: 45px;
     margin-top: 20px;
@@ -1697,19 +1822,141 @@ ul.slide_dots{
     cursor: pointer;
     border: 1px solid #b9b6b1;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    line-height: 45px;
+    background: #faf8f8;
 }
 .mdvt{
 	position:absolute;
 	top:262px;
 	z-index:101;
 }
+.c-like-review{
+	display: none;
+}
+.c-review-content{
+	margin-bottom: 50px;
+}
+a.c-review-active{
+	display: block;
+}
+ul.c-review-active{
+	display: block;
+}
+.c-review-bottom-content{
+	padding-top: 18px;
+	padding-left: 18px;
+	padding-bottom: 12px;
+	display: flex;
+	justify-content: space-between;
+	background: #faf8f8;
+    border-radius: 13px;
+    color: #878787;
+}
+.c-modi-review{
+	width: 898px;
+	height: 77px;
+	border-radius: 4px;
+	border: 2px solid #ccc; 
+	resize: none;
+	outline: none;
+	font-family: 'SUITE', sans-serif;
+	color: #333;
+	padding: 10px;
+}
+.c-modi-btn{
+	display: flex;
+	justify-content: end;
+	margin-top: 3px;
+}
+.c-modi-btn a{
+	display: inline-block;
+}
+a.c-modi-reset{
+	width: 68px;
+	height: 34px;
+	border-radius: 8px;
+	background: #A4A4A4;
+	color: #fff;
+	text-align: center;
+	line-height: 34px;
+}
+a.c-modi-complete{
+	width: 99px;
+	height: 34px;
+	border-radius: 8px;
+	background: #3D56AE;
+	color: #fff;
+	text-align: center;
+	line-height: 34px;
+	margin-left: 5px;
+}
+.c-modi-reviewbox{
+	display:none;
+}
+/* c-rate */
+div.c-rate > input {
+    display: none;
+}
+.c-mvrate{
+    width: 800px;
+    height: 20px;
+    position: relative;
+    margin-bottom: 10px;
+}
+.c-rate {
+    display: inline-block;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    }
+.c-rating-number{
+    font-size: 13px;
+    position: absolute;
+    line-height: 29px;
+    margin-left: 5px;
+}
+.c-rate > input {
+    display: none;
+}
+.c-rate > label {
+    float: right;
+    color: #D3DCFD
+}
+.c-rate > label:before {
+    display: inline-block;
+    font-size: 12px;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f005 ";
+}
+.c-rate .c-half:before {
+    content: "\f089 "; 
+    position: absolute;
+    padding-right: 0;
+}
+.c-rate input:checked ~ label, 
+.c-rate label:hover,.c-rate label:hover ~ label {
+     color: #3D56AE !important;  
+    } 
+.c-rate input:checked + label:hover,
+.c-rate input input:checked ~ label:hover,
+.c-rate input:checked ~ label:hover ~ label,  
+.c-rate label:hover ~ input:checked ~ label { 
+    color: #3D56AE !important;  
+} 
+
+
+/* c-rate */
 /*** movieDetail 끝 ***/
 
 /********************* login *************************/
 .c-login{
     width: 430px;
     background: rgba(0,0,0,0.7);
-    position: absolute;
+    position: fixed;
     top: 45%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
@@ -2988,7 +3235,35 @@ font-weight: 300 900;
 
 layout.css에 저장되어있으니 그냥 선언해서 사용하면 됨
 */
-
+.c-mypage-modi-popup-shadow{
+	background: rgba(0,0,0,.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.c-mypage-modi-popup{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	background: #fff;
+	border-radius: 4px;
+	padding: 10px 20px;
+}
+.c-mypage-modi-popup img{
+	width: 144px;
+	height: 202px;
+}
+.c-mypage-popup-movie{
+	display: flex;
+	margin-bottom: 20px;
+}
+.c-modi-reviewbox.c-mypage{
+	display: block;
+}
 span.eg{
     font-family: 'SUITE Variable';
 }
@@ -3755,18 +4030,29 @@ div.c-mypage-noInfo p{
 }
 .c-mypage-booking .col-6>a{
     display: flex;
+    color: #333;
 }
 .c-mypage-bottom .c-content{
     padding-left: 17px;
     padding-top: 10px;
     width: 293px;
 }
+.c-mypage-booking .c-content>p:nth-child(3){
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.c-mypage-bottom p.c-title{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 div.c-mypage-booking p.c-title{
     margin-top: 0;
     font-size: 18px;
     padding-bottom: 10px;
-    height: 60px;
-    word-break: break-all;
 }
 div.c-mypage-review p.c-title{
     margin-top: 0;
@@ -3790,13 +4076,17 @@ div.c-mypage-review p.c-title{
 .c-mypage-review .c-comment{
     font-weight: 400;
     font-size: 13.5px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .c-mypage-review span.c-score{
     color: #3D56AE;
     font-size: 22px;
 }
 .c-mypage-review .c-bottom{
-    margin-top: 10px;
+    margin-top: 30px;
     height: 20px;
     display: flex;
     justify-content: space-between;
@@ -3835,6 +4125,7 @@ div.c-mypage-review p.c-title{
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #333;
 }
 .c-mypage-see span{
     margin-left: -11px;

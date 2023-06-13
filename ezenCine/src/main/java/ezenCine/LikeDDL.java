@@ -66,19 +66,19 @@ public class LikeDDL {
 		}
 	}
 	
-	public static boolean updateReviewsLike(int likes, String movie_id, String userid) {
+	public static boolean updateReviewsLike(int likes, String movie_id, int reviews_num) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		int flag = 0;
 		
-		String sql = "update Reviews set likes = ? where movie_id = ? and member_id = ?";
+		String sql = "update Reviews set likes = ? where movie_id = ? and num = ?";
 		
 		try {
 			conn = new DBConnect().getConn();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, likes);
 			ps.setString(2, movie_id);
-			ps.setString(3, userid);
+			ps.setInt(3, reviews_num);
 			flag = ps.executeUpdate();
 			
 		}catch(Exception e) {
@@ -224,6 +224,40 @@ public class LikeDDL {
 		return data;
 	}
 	
+	public static Vector <LikeDTO> isReviewLike(String movie_id){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = "select Reviews.num, Likes.userid from Reviews left join Likes on Reviews.num = Likes.reviews_num where Likes.reviews_num > -1 and Reviews.movie_id = ?";
+		
+		Vector <LikeDTO> data = new Vector <LikeDTO> ();
+		
+		
+		try {
+			
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, movie_id);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				LikeDTO dto = new LikeDTO();
+				dto.setNum(rs.getInt("num"));
+				dto.setUserid(rs.getString("userid"));
+				data.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {}
+		}
+		return data;
+	}
+	
 	public static boolean delete(String movie_id, int reviews_num, String userid) {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -255,4 +289,6 @@ public class LikeDDL {
 		}
 		
 	}
+	
+	
 }

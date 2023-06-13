@@ -13,15 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import ezenCine.MemberDDL;
+import ezenCine.ReviewsDDL;
 
 
-@WebServlet("/FindId")
-public class FindId extends HttpServlet {
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
-	}
-
+@WebServlet("/ReviewDel")
+public class ReviewDel extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setCharacterEncoding("utf-8");
 		req.setCharacterEncoding("utf-8");
@@ -36,26 +32,33 @@ public class FindId extends HttpServlet {
 				jb.append(line);
 			
 			JsonObject jsonObj = (JsonObject) JsonParser.parseString(jb.toString());
-			String username = jsonObj.get("username").getAsString();	
-			String useremail = jsonObj.get("useremail").getAsString();
+			int reviews_num = jsonObj.get("reviews_num").getAsInt();	
+			String movie_id = jsonObj.get("movie_id").getAsString();
 			
-			String userid = MemberDDL.findID(username, useremail);
+			System.out.println(reviews_num);
+			System.out.println(movie_id);
 			
 			PrintWriter out = res.getWriter();
+			
 			br.close();
-			if(userid == null) {
-				System.out.println("입력된 정보와 일치하는 아이디가 없습니다.");
-				out.println("{\"result\" : \"0\"}");
+			
+			boolean isSuccess = ReviewsDDL.ReviewsDel(movie_id, reviews_num);
+			
+			if(isSuccess) {
+				System.out.println("리뷰가 삭제되었습니다.");
+				out.println("1");
+				
 			}else {
-				System.out.println(username + "님의 아이디는" + userid + "입니다.");
-				out.println("{\"result\" : \"" + userid + "\"}");
+				System.out.println("리뷰 삭제가 실패했습니다.");
+				out.println("0");
 			}
 			
 			out.flush();
 			out.close();
 			
-		}catch(Exception e) {}
-				
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

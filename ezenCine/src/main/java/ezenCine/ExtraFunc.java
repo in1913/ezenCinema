@@ -66,4 +66,5 @@ public class ExtraFunc {
 			return "토";
 		}
 	}
+	
 }

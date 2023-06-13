@@ -130,7 +130,6 @@ $('#likeimage').click(function(){
                 })
             }).then((res) => res.json())
             .then((result) => {
-                console.log(result.result);
                 if(result.result == -1){
 
                 }else{
@@ -290,11 +289,22 @@ $('#notlikeimage').click(function(){
 
 
   //textarea 글자입력 설정
-  $('fieldset.rate input').on('click', function() {
-      var ratingValue = $(this).val();
-      $('.rating-number').text(ratingValue);
-  });
 
+  $('fieldset.rate input').on('click', function() {
+
+    var ratingValue = $(this).val();
+    $('.rating-number').text(ratingValue);
+  });
+/*
+  $('div.c-rate input').on('click', function() {
+    var ratingValue = $(this).val();
+    $('.c-rating-number').text(ratingValue);
+    });
+*/
+  $(document).on("click", 'div.c-rate input', function() {
+    var ratingValue = $(this).val();
+    $('.c-rating-number').text(ratingValue);
+    })
 
   //textarea 글자입력 설정
   $('.k-text_box textarea').keyup(function(){
@@ -308,9 +318,25 @@ $('#notlikeimage').click(function(){
   });
 
   //리뷰 좋아요버튼
+
+  /*
   $('.k-like2').click(function(){
-      $('.k-like2').toggleClass("on")
+    const userid = document.getElementById("userid").value;
+    const movieid = document.getElementById("movie-id").value;
+
+    if(userid == null || userid == "null" || userid == ""){
+        alert("로그인이 필요한 서비스입니다.");
+    }else{
+        if($(this).hasClass("on")){
+            
+        }else{
+            
+        }
+    }    
+    
+      $(this).toggleClass("on");
   });
+  */
 
   //리뷰 순위 active
   $('.k-reviewtitle_ul>span>a').click(function(){
@@ -321,14 +347,1089 @@ $('#notlikeimage').click(function(){
   /*** 영화상세 끝 ***/
 })
 // 영화 상세
+// 좋아요 버튼
+
+
+function cCurrentReviewLike(n){
+    const userid = document.getElementById("userid").value;
+    const movieid = document.getElementById("movie-id").value;
+    const reviews_num = document.getElementsByClassName("c-current-num")[n].value;
+    const like = document.getElementsByClassName("c-current-like")[n];
+    const insert = document.getElementsByClassName("c-current-like-num")[n];
+    if(userid == null || userid == "null" || userid == ""){
+        alert("로그인이 필요한 서비스입니다.");
+    }else{
+        if(like.classList.contains("on")){
+            fetch("/ezenCine/DeleteLike", {
+                headers : {"Content-Type" : "application/json"},
+                method : "post",
+                body : JSON.stringify({
+                    movieid : movieid, reviews_num : reviews_num
+                })
+            }).then((res) => res.json())
+            .then((result) => {
+                if(result.result == -1){
+
+                }else{
+                    insert.innerHTML = result.result;
+                    like.classList.toggle("on");
+                }
+                
+            })
+            
+        }else{
+            fetch("/ezenCine/UpdateLike", {
+                headers : {"Content-Type" : "application/json"},
+                method : "post",
+                body : JSON.stringify({
+                    movieid : movieid, reviews_num : reviews_num
+                })
+            }).then((res) => res.json())
+            .then((result) => {
+                if(result.result == -1){
+
+                }else{
+                    insert.innerHTML = result.result;
+                    like.classList.toggle("on");
+                }
+            })
+        }
+    }
+}
+
+function cLikeReviewLike(n){
+    const userid = document.getElementById("userid").value;
+    const movieid = document.getElementById("movie-id").value;
+    const reviews_num = document.getElementsByClassName("c-like-num")[n].value;
+    const like = document.getElementsByClassName("c-like-like")[n];
+    const insert = document.getElementsByClassName("c-like-like-num")[n];
+    if(userid == null || userid == "null" || userid == ""){
+        alert("로그인이 필요한 서비스입니다.");
+    }else{
+        if(like.classList.contains("on")){
+            fetch("/ezenCine/DeleteLike", {
+                headers : {"Content-Type" : "application/json"},
+                method : "post",
+                body : JSON.stringify({
+                    movieid : movieid, reviews_num : reviews_num
+                })
+            }).then((res) => res.json())
+            .then((result) => {
+                if(result.result == -1){
+
+                }else{
+                    insert.innerHTML = result.result;
+                    like.classList.toggle("on");
+                }
+                
+            })
+            
+        }else{
+            fetch("/ezenCine/UpdateLike", {
+                headers : {"Content-Type" : "application/json"},
+                method : "post",
+                body : JSON.stringify({
+                    movieid : movieid, reviews_num : reviews_num
+                })
+            }).then((res) => res.json())
+            .then((result) => {
+                if(result.result == -1){
+
+                }else{
+                    insert.innerHTML = result.result;
+                    like.classList.toggle("on");
+                }
+            })
+        }
+    }
+}
+
+
+function cChangeOrderReview(n){
+    const userid = document.getElementById("userid").value;
+    const movieid = document.getElementById("movie-id").value;
+    let insert = document.getElementsByClassName("k-reviewlist_all")[0];
+    const btn = document.getElementsByClassName("k-list_btn");
+    // 최신순
+    if(n == 0){
+        fetch("/ezenCine/ClickLikeOrder", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                movieid : movieid, isCurrent : 1
+            })
+        }).then((res) => res.json())
+        .then((result1) => {
+            fetch("/ezenCine/CheckLikeUser", {
+                headers : {"Content-Type" : "application/json"},
+                method : "post",
+                body : JSON.stringify({
+                movieid : movieid
+                })
+            }).then((res) => res.json())
+            .then((result2) => {
+                insert.innerHTML = "";
+                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                for(i = 0; i < result1.length; i++){
+                    let likeCnt = 0;
+                    for(j = 0; j < result2.length; j++){
+                        if(result2[j].num == result1[i].num){
+                            if(userid == result2[j].userid){
+                                likeCnt = 1; 
+                            }
+                        }
+                    }
+                    let utilBox = `<ul class="c-review-cur-tooltip not-user">
+                                        <li><a href="javascript:void(0)">신고</a></li>
+                                    </ul>`;
+                    if(userid == result1[i].userid){
+                        utilBox = `<ul class="c-review-cur-tooltip">
+                            <li><a href="javascript:cReviewModi(${i})">수정</a></li>
+                            <li><a href="javascript:cReviewDel(${i})">삭제</a></li>
+                        </ul>`
+                    }
+                    let active = ``;
+                    if(likeCnt == 0){
+                    }else if(likeCnt == 1){
+                        active = `on`;
+                    }
+                    let img = `<img src='upload/users/${result1[i].photo}' alt='프로필'/> `;
+                    if(result1[i].photo === undefined){
+                        if(i % 2 == 0){
+                            img = `<img src='images/icon/user/profile_dark.png' alt='프로필'/> `;
+                        }else{
+                            img = `<img src='images/icon/user/profile.png' alt='프로필'/> `;
+                        }
+                    }
+                    let dbDate = result1[i].date.substring(0, 10).replace(/-/g, ".");
+                    if(dbDate == today){
+                        dbDate = `${result1[i].date.substring(10, 16)}`;
+                    }
+                    let fill = 0;
+                    let half = 0;
+                    let empty = 0;
+                    if(result1[i].rating % 2 != 0){
+                        fill = (result1[i].rating - 1) / 2;
+                        half = 1;
+                        empty = 5 - half - fill;
+                    }else{
+                        fill = result1[i].rating / 2;
+				        empty = 5 - fill;
+                    }
+                    let stars = "";
+                    if(fill == 0){
+                        if(half == 0){
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }else{
+                        if(half == 0){
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }
+                    insert.insertAdjacentHTML("beforeend", `
+                    <div class="k-reviewlist c-currentlist">
+                    <div class="k-listleft col-1">
+                        <div class="c-list-img">
+                            ${img}
+                        </div>
+                    </div>
+                    <div class="k-listright col-11">
+                        <ul id="k-listbox">
+                            <li id="k-listtext">
+                                <div class="k-listtext_box">
+                                <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
+                                    <span class="k-review-name">${result1[i].nickname}</span>
+                                    <span class="k-review-stars">${stars}</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-date">${dbDate}</span>
+                                </div>
+                                <div class="c-review-bottom-content">
+                                    <p class="k-review-info">${result1[i].comments}</p>
+                                    <div class="c-modi-reviewbox">
+                                        <div class="c-mvrate">
+                                            <div class="c-rate">
+                                                <input type="radio" id="c-rating10${i}" name="c-rating${i}" value="10" ><label for="c-rating10${i}" title="10점"></label>
+                                                <input type="radio" id="c-rating9${i}" name="c-rating${i}" value="9"  ><label class="c-half" for="c-rating9${i}" title="9점"></label>
+                                                <input type="radio" id="c-rating8${i}" name="c-rating${i}" value="8" ><label for="c-rating8${i}" title="8점"></label>
+                                                <input type="radio" id="c-rating7${i}" name="c-rating${i}" value="7" ><label class="c-half" for="c-rating7${i}" title="7점" ></label>
+                                                <input type="radio" id="c-rating6${i}" name="c-rating${i}" value="6" ><label for="c-rating6${i}" title="6점" ></label>
+                                                <input type="radio" id="c-rating5${i}" name="c-rating${i}" value="5" ><label class="c-half" for="c-rating5${i}" title="5점" ></label>
+                                                <input type="radio" id="c-rating4${i}" name="c-rating${i}" value="4" ><label for="c-rating4${i}" title="4점" ></label>
+                                                <input type="radio" id="c-rating3${i}" name="c-rating${i}" value="3" ><label class="c-half" for="c-rating3${i}" title="3점" ></label>
+                                                <input type="radio" id="c-rating2${i}" name="c-rating${i}" value="2" ><label for="c-rating2${i}" title="2점"></label>
+                                                <input type="radio" id="c-rating1${i}" name="c-rating${i}" value="1" ><label class="c-half" for="c-rating1${i}" title="1점" ></label>
+                                            </div>
+                                            <span class="c-rating-number">0</span>
+                                        </div>
+                                        <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
+                                        <div class="c-modi-btn">
+                                            <a href="javascript:cReviewBoxClose(${i});" class="c-modi-reset">취소</a>
+                                            <a href="javascript:cReviewModiSend(${i});" class="c-modi-complete">수정완료</a>
+                                        </div>
+                                    </div>
+                                    <div class="k-utilbox">
+                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${i});"></a>                            
+                                        <span class="c-current-like-num">${result1[i].likes}</span>
+                                        <span class="k-declaration" onclick="cShowReviewUtil(${i})">
+                                            ${utilBox}
+                                        </span>
+                                    </div> 
+                                </div> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                `)
+                }
+                btn[0].classList.add("c-review-active");
+                btn[1].classList.remove("c-review-active");
+            })
+        })
+    // 추천순
+    }else if(n == 1){
+        fetch("/ezenCine/ClickLikeOrder", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                movieid : movieid, isCurrent : 0
+            })
+        }).then((res) => res.json())
+        .then((result1) => {
+            fetch("/ezenCine/CheckLikeUser", {
+                headers : {"Content-Type" : "application/json"},
+                method : "post",
+                body : JSON.stringify({
+                movieid : movieid
+                })
+            }).then((res) => res.json())
+            .then((result2) => {
+                insert.innerHTML = "";
+                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                for(i = 0; i < result1.length; i++){
+                    let likeCnt = 0;
+                    for(j = 0; j < result2.length; j++){
+                        if(result2[j].num == result1[i].num){
+                            if(userid == result2[j].userid){
+                                likeCnt = 1; 
+                            }
+                        }
+                    }
+                    let utilBox = `<ul class="c-review-cur-tooltip not-user">
+                                        <li><a href="javascript:void(0)">신고</a></li>
+                                    </ul>`;
+                    if(userid == result1[i].userid){
+                        utilBox = `<ul class="c-review-cur-tooltip">
+                            <li><a href="javascript:cReviewModi(${i})">수정</a></li>
+                            <li><a href="javascript:cReviewDel(${i})">삭제</a></li>
+                        </ul>`
+                    }
+                    let active = ``;
+                    if(likeCnt == 0){
+                    }else if(likeCnt == 1){
+                        active = `on`;
+                    }
+                    let img = `<img src='upload/users/${result1[i].photo}' alt='프로필'/> `;
+                    if(result1[i].photo === undefined){
+                        if(i % 2 == 0){
+                            img = `<img src='images/icon/user/profile_dark.png' alt='프로필'/> `;
+                        }else{
+                            img = `<img src='images/icon/user/profile.png' alt='프로필'/> `;
+                        }
+                    }
+                    let dbDate = result1[i].date.substring(0, 10).replace(/-/g, ".");
+                    if(dbDate == today){
+                        dbDate = `${result1[i].date.substring(10, 16)}`;
+                    }
+                    let fill = 0;
+                    let half = 0;
+                    let empty = 0;
+                    if(result1[i].rating % 2 != 0){
+                        fill = (result1[i].rating - 1) / 2;
+                        half = 1;
+                        empty = 5 - half - fill;
+                    }else{
+                        fill = result1[i].rating / 2;
+				        empty = 5 - fill;
+                    }
+                    let stars = "";
+                    if(fill == 0){
+                        if(half == 0){
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }else{
+                        if(half == 0){
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }
+                    insert.insertAdjacentHTML("beforeend", `
+                    <div class="k-reviewlist c-likelist">
+                    <div class="k-listleft col-1">
+                        <div class="c-list-img">
+                            ${img}
+                        </div>
+                    </div>
+                    <div class="k-listright col-11">
+                        <ul id="k-listbox">
+                            <li id="k-listtext">
+                                <div class="k-listtext_box">
+                                <input type="hidden" value="${result1[i].num}"  class="c-like-num c-review-num"/>
+                                    <span class="k-review-name">${result1[i].nickname}</span>
+                                    <span class="k-review-stars">${stars}</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-date">${dbDate}</span>
+                                </div>
+                                <div class="c-review-bottom-content">
+                                    <p class="k-review-info">${result1[i].comments}</p>
+                                    <div class="c-modi-reviewbox">
+                                        <div class="c-mvrate">
+                                            <div class="c-rate">
+                                                <input type="radio" id="c-rating10${i}" name="c-rating${i}" value="10" ><label for="c-rating10${i}" title="10점"></label>
+                                                <input type="radio" id="c-rating9${i}" name="c-rating${i}" value="9"  ><label class="c-half" for="c-rating9${i}" title="9점"></label>
+                                                <input type="radio" id="c-rating8${i}" name="c-rating${i}" value="8" ><label for="c-rating8${i}" title="8점"></label>
+                                                <input type="radio" id="c-rating7${i}" name="c-rating${i}" value="7" ><label class="c-half" for="c-rating7${i}" title="7점" ></label>
+                                                <input type="radio" id="c-rating6${i}" name="c-rating${i}" value="6" ><label for="c-rating6${i}" title="6점"></label>
+                                                <input type="radio" id="c-rating5${i}" name="c-rating${i}" value="5" ><label class="c-half" for="c-rating5${i}" title="5점"></label>
+                                                <input type="radio" id="c-rating4${i}" name="c-rating${i}" value="4" ><label for="c-rating4${i}" title="4점"></label>
+                                                <input type="radio" id="c-rating3${i}" name="c-rating${i}" value="3" ><label class="c-half" for="c-rating3${i}" title="3점"></label>
+                                                <input type="radio" id="c-rating2${i}" name="c-rating${i}" value="2" ><label for="c-rating2${i}" title="2점"></label>
+                                                <input type="radio" id="c-rating1${i}" name="c-rating${i}" value="1" ><label class="c-half" for="c-rating1${i}" title="1점"></label>
+                                            </div>
+                                            <span class="c-rating-number">0</span>
+                                        </div>
+                                        <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
+                                        <div class="c-modi-btn">
+                                            <a href="javascript:cReviewBoxClose(${i});" class="c-modi-reset">취소</a>
+                                            <a href="javascript:cReviewModiSend(${i});" class="c-modi-complete">수정완료</a>
+                                        </div>
+                                    </div>
+                                    <div class="k-utilbox">
+                                        <a class="k-like2 c-like-like ${active}" href="javascript:cLikeReviewLike(${i});"></a>                            
+                                        <span class="c-like-like-num">${result1[i].likes}</span>
+                                        <span class="k-declaration" onclick="cShowReviewUtil(${i})">
+                                        ${utilBox}
+                                        </span>
+                                    </div> 
+                                </div>    
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                `)
+                }
+                btn[0].classList.remove("c-review-active");
+                btn[1].classList.add("c-review-active");
+            })
+        })
+    }
+}
+
+function cReviewsSubmit(){
+    const userid = document.getElementById("userid").value;
+    const movieid = document.getElementById("movie-id").value;
+    const btn = document.getElementsByClassName("k-list_btn");
+    const isCurrent = document.getElementById("k-score_1");
+    const isNotCurrent = document.getElementById("k-score_2");
+    if(userid == "" || userid == "null" || userid == null){
+        alert("로그인이 필요한 서비스입니다.");
+    }else{
+        let review = document.getElementById("k-textbox");
+        const rating = document.getElementsByClassName("rating-number")[0].innerText;
+        let insert = document.getElementsByClassName("k-reviewlist_all")[0];
+        const allNum = document.getElementById("reviewAllNum").value;
+        const reviewTab = document.getElementById("reviewTab");
+        const reviewTab2 = document.getElementById("c-reviewlist-cnt");
+        fetch("/ezenCine/ReviewSubmit", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                review : review.value, rating, rating, movieid : movieid
+            })
+        }).then((res) => res.json())
+        .then((result1) => {
+            // 리뷰 전체도 + 1
+            // 새로 업데이트된 리뷰 어떻게 좋아요 할 것인가
+            // 추천순도 새로 업데이트된 리뷰때문에 비동기로 바꿔야함
+            // 리뷰도 등록하면 비동기
+            review.value = "";
+            reviewTab.innerHTML = Number(reviewTab.innerText) + 1;
+            reviewTab2.innerHTML = Number(reviewTab2.innerText) + 1;
+            insert.innerHTML = "";
+            fetch("/ezenCine/CheckLikeUser", {
+                headers : {"Content-Type" : "application/json"},
+                method : "post",
+                body : JSON.stringify({
+                movieid : movieid
+                })
+            }).then((res) => res.json())
+            .then((result2) => {
+                
+                insert.innerHTML = "";
+                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                for(i = 0; i < result1.length; i++){
+                    let likeCnt = 0;
+                    for(j = 0; j < result2.length; j++){
+                        if(result2[j].num == result1[i].num){
+                            if(userid == result2[j].userid){
+                                likeCnt = 1;        
+                            }
+                        }
+                    }                
+                    let utilBox = `<ul class="c-review-cur-tooltip not-user">
+                                        <li><a href="javascript:void(0)">신고</a></li>
+                                    </ul>`;
+                    if(userid == result1[i].userid){
+                        utilBox = `<ul class="c-review-cur-tooltip">
+                            <li><a href="javascript:cReviewModi(${i})">수정</a></li>
+                            <li><a href="javascript:cReviewDel(${i})">삭제</a></li>
+                        </ul>`
+                    }
+                    let active = ``;
+                    if(likeCnt == 0){
+                    }else if(likeCnt == 1){
+                        active = `on`;
+                    }
+                    let img = `<img src='upload/users/${result1[i].photo}' alt='프로필'/> `;
+                    if(result1[i].photo === undefined){
+                        if(i % 2 == 0){
+                            img = `<img src='images/icon/user/profile_dark.png' alt='프로필'/> `;
+                        }else{
+                            img = `<img src='images/icon/user/profile.png' alt='프로필'/> `;
+                        }
+                    }
+                    let dbDate = result1[i].date.substring(0, 10).replace(/-/g, ".");
+                    if(dbDate == today){
+                        dbDate = `${result1[i].date.substring(10, 16)}`;
+                    }
+                    let fill = 0;
+                    let half = 0;
+                    let empty = 0;
+                    if(result1[i].rating % 2 != 0){
+                        fill = (result1[i].rating - 1) / 2;
+                        half = 1;
+                        empty = 5 - half - fill;
+                    }else{
+                        fill = result1[i].rating / 2;
+				        empty = 5 - fill;
+                    }
+                    let stars = "";
+                    if(fill == 0){
+                        if(half == 0){
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }else{
+                        if(half == 0){
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }
+                    insert.insertAdjacentHTML("beforeend", `
+                    <div class="k-reviewlist c-currentlist">
+                    <div class="k-listleft col-1">
+                        <div class="c-list-img">
+                            ${img}
+                        </div>
+                    </div>
+                    <div class="k-listright col-11">
+                        <ul id="k-listbox">
+                            <li id="k-listtext">
+                                <div class="k-listtext_box">
+                                <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
+                                    <span class="k-review-name">${result1[i].nickname}</span>
+                                    <span class="k-review-stars">${stars}</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-date">${dbDate}</span>
+                                </div>
+                                <div class="c-review-bottom-content">
+                                    <p class="k-review-info">${result1[i].comments}</p>
+                                    <div class="c-modi-reviewbox">
+                                        <div class="c-mvrate">
+                                            <div class="c-rate">
+                                                <input type="radio" id="c-rating10${i}" name="c-rating${i}" value="10" ><label for="c-rating10${i}" title="10점"></label>
+                                                <input type="radio" id="c-rating9${i}" name="c-rating${i}" value="9"  ><label class="c-half" for="c-rating9${i}"></label>
+                                                <input type="radio" id="c-rating8${i}" name="c-rating${i}" value="8" ><label for="c-rating8${i}" title="8점"></label>
+                                                <input type="radio" id="c-rating7${i}" name="c-rating${i}" value="7" ><label class="c-half" for="c-rating7${i}" title="7점" ></label>
+                                                <input type="radio" id="c-rating6${i}" name="c-rating${i}" value="6" ><label for="c-rating6${i}" title="6점"></label>
+                                                <input type="radio" id="c-rating5${i}" name="c-rating${i}" value="5" ><label class="c-half" for="c-rating5${i}" title="5점"></label>
+                                                <input type="radio" id="c-rating4${i}" name="c-rating${i}" value="4" ><label for="c-rating4${i}" title="4점"></label>
+                                                <input type="radio" id="c-rating3${i}" name="c-rating${i}" value="3" ><label class="c-half" for="c-rating3${i}" title="3점"></label>
+                                                <input type="radio" id="c-rating2${i}" name="c-rating${i}" value="2" ><label for="c-rating2${i}" title="2점"></label>
+                                                <input type="radio" id="c-rating1${i}" name="c-rating${i}" value="1" ><label class="c-half" for="c-rating1${i}" title="1점"></label>
+                                            </div>
+                                            <span class="c-rating-number">0</span>
+                                        </div>
+                                        <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
+                                        <div class="c-modi-btn">
+                                            <a href="javascript:cReviewBoxClose(${i});" class="c-modi-reset">취소</a>
+                                            <a href="javascript:cReviewModiSend(${i});" class="c-modi-complete">수정완료</a>
+                                        </div>
+                                    </div>
+                                    <div class="k-utilbox">
+                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${i});"></a>                            
+                                        <span class="c-current-like-num">${result1[i].likes}</span>
+                                        <span class="k-declaration" onclick="cShowReviewUtil(${i})">
+                                        ${utilBox}
+                                        </span>
+                                    </div> 
+                                </div> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                `)
+                }
+            })
+        })
+        isCurrent.classList.add("active");
+        isNotCurrent.classList.remove("active");
+        btn[0].classList.add("c-review-active");
+        btn[1].classList.remove("c-review-active");
+    }
+    
+}
+
+function cReviewMore(n){
+    const userid = document.getElementById("userid").value;
+    const movieid = document.getElementById("movie-id").value;
+    const allNum = document.getElementById("reviewAllNum").value;
+    const btn = document.getElementsByClassName("k-list_btn");
+    if(n == 0){
+        const num = document.getElementsByClassName("c-currentlist").length;
+        let insert = document.getElementsByClassName("k-reviewlist_all")[0];
+        
+        fetch("/ezenCine/ReviewMore", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                movieid : movieid, num : num, isCurrent : 1
+            })
+        }).then((res) => res.json())
+        .then((result1) => {
+            fetch("/ezenCine/CheckLikeUser", {
+                headers : {"Content-Type" : "application/json"},
+                method : "post",
+                body : JSON.stringify({
+                movieid : movieid
+                })
+            }).then((res) => res.json())
+            .then((result2) => {
+                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                for(i = 0; i < result1.length; i++){
+                    let likeCnt = 0;
+                    for(j = 0; j < result2.length; j++){
+                        if(result2[j].num == result1[i].num){
+                            if(userid == result2[j].userid){
+                                likeCnt = 1; 
+                            }
+                        }
+                    }
+                    let utilBox = `<ul class="c-review-cur-tooltip not-user">
+                                        <li><a href="javascript:void(0)">신고</a></li>
+                                    </ul>`;
+                    if(userid == result1[i].userid){
+                        utilBox = `<ul class="c-review-cur-tooltip">
+                            <li><a href="javascript:cReviewModi(${num + i})">수정</a></li>
+                            <li><a href="javascript:cReviewDel(${num + i})">삭제</a></li>
+                        </ul>`
+                    }
+                    let active = ``;
+                    if(likeCnt == 0){
+                    }else if(likeCnt == 1){
+                        active = `on`;
+                    }
+                    let img = `<img src='upload/users/${result1[i].photo}' alt='프로필'/> `;
+                    if(result1[i].photo === undefined){
+                        if(i % 2 == 0){
+                            img = `<img src='images/icon/user/profile_dark.png' alt='프로필'/> `;
+                        }else{
+                            img = `<img src='images/icon/user/profile.png' alt='프로필'/> `;
+                        }
+                    }
+                    let dbDate = result1[i].date.substring(0, 10).replace(/-/g, ".");
+                    if(dbDate == today){
+                        dbDate = `${result1[i].date.substring(10, 16)}`;
+                    }
+                    let fill = 0;
+                    let half = 0;
+                    let empty = 0;
+                    if(result1[i].rating % 2 != 0){
+                        fill = (result1[i].rating - 1) / 2;
+                        half = 1;
+                        empty = 5 - half - fill;
+                    }else{
+                        fill = result1[i].rating / 2;
+				        empty = 5 - fill;
+                    }
+                    let stars = "";
+                    if(fill == 0){
+                        if(half == 0){
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }else{
+                        if(half == 0){
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }
+                    insert.insertAdjacentHTML("beforeend", `
+                    <div class="k-reviewlist c-currentlist">
+                    <div class="k-listleft col-1">
+                        <div class="c-list-img">
+                            ${img}
+                        </div>
+                    </div>
+                    <div class="k-listright col-11">
+                        <ul id="k-listbox">
+                            <li id="k-listtext">
+                                <div class="k-listtext_box">
+                                <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
+                                    <span class="k-review-name">${result1[i].nickname}</span>
+                                    <span class="k-review-stars">${stars}</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-date">${dbDate}</span>
+                                </div>
+                                <div class="c-review-bottom-content">
+                                    <p class="k-review-info">${result1[i].comments}</p>
+                                    <div class="c-modi-reviewbox">
+                                        <div class="c-mvrate">
+                                            <div class="c-rate">
+                                                <input type="radio" id="c-rating10${num + i}" name="c-rating${num + i}" value="10" ><label for="c-rating10${num + i}" title="10점" ></label>
+                                                <input type="radio" id="c-rating9${num + i}" name="c-rating${num + i}" value="9"  ><label class="c-half" for="c-rating9${num + i}" title="9점"></label>
+                                                <input type="radio" id="c-rating8${num + i}" name="c-rating${num + i}" value="8" ><label for="c-rating8${num + i}" title="8점" ></label>
+                                                <input type="radio" id="c-rating7${num + i}" name="c-rating${num + i}" value="7" ><label class="c-half" for="c-rating7${num + i}" title="7점" ></label>
+                                                <input type="radio" id="c-rating6${num + i}" name="c-rating${num + i}" value="6" ><label for="c-rating6${num + i}" title="6점"  ></label>
+                                                <input type="radio" id="c-rating5${num + i}" name="c-rating${num + i}" value="5" ><label class="c-half" for="c-rating5${num + i}" title="5점"></label>
+                                                <input type="radio" id="c-rating4${num + i}" name="c-rating${num + i}" value="4" ><label for="c-rating4${num + i}" title="4점" ></label>
+                                                <input type="radio" id="c-rating3${num + i}" name="c-rating${num + i}" value="3" ><label class="c-half" for="c-rating3${num + i}" title="3점" ></label>
+                                                <input type="radio" id="c-rating2${num + i}" name="c-rating${num + i}" value="2" ><label for="c-rating2${num + i}" title="2점"></label>
+                                                <input type="radio" id="c-rating1${num + i}" name="c-rating${num + i}" value="1" ><label class="c-half" for="c-rating1${num + i}" title="1점" ></label>
+                                            </div>
+                                            <span class="c-rating-number">0</span>
+                                        </div>
+                                        <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
+                                        <div class="c-modi-btn">
+                                            <a href="javascript:cReviewBoxClose(${num + i});" class="c-modi-reset">취소</a>
+                                            <a href="javascript:cReviewModiSend(${num + i});" class="c-modi-complete">수정완료</a>
+                                        </div>
+                                    </div>
+                                    <div class="k-utilbox">
+                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${num + i});"></a>                            
+                                        <span class="c-current-like-num">${result1[i].likes}</span>
+                                        <span class="k-declaration" onclick="cShowReviewUtil(${num + i})">
+                                        ${utilBox}
+                                        </span>
+                                    </div> 
+                                </div> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                `)
+                }
+            })
+            if(num == allNum - 1 || num == allNum - 2 || num == allNum - 3 || num == allNum - 4 || num == allNum - 5 || num == allNum - 6){
+                btn[0].classList.remove("c-review-active");
+                btn[1].classList.remove("c-review-active");
+            }
+            
+        })
+    }else{
+        const num = document.getElementsByClassName("c-likelist").length;
+        let insert = document.getElementsByClassName("k-reviewlist_all")[0];
+        fetch("/ezenCine/ReviewMore", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                movieid : movieid, num : num, isCurrent : 0
+            })
+        }).then((res) => res.json())
+        .then((result1) => {
+            fetch("/ezenCine/CheckLikeUser", {
+                headers : {"Content-Type" : "application/json"},
+                method : "post",
+                body : JSON.stringify({
+                movieid : movieid
+                })
+            }).then((res) => res.json())
+            .then((result2) => {
+                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                for(i = 0; i < result1.length; i++){
+                    let likeCnt = 0;
+                    for(j = 0; j < result2.length; j++){
+                        if(result2[j].num == result1[i].num){
+                            if(userid == result2[j].userid){
+                                likeCnt = 1; 
+                            }
+                        }
+                    }
+                    let utilBox = `<ul class="c-review-cur-tooltip not-user">
+                                        <li><a href="javascript:void(0)">신고</a></li>
+                                    </ul>`;
+                    if(userid == result1[i].userid){
+                        utilBox = `<ul class="c-review-cur-tooltip">
+                            <li><a href="javascript:cReviewModi(${num + i})">수정</a></li>
+                            <li><a href="javascript:cReviewDel(${num + i})">삭제</a></li>
+                        </ul>`
+                    }
+                    let active = ``;
+                    if(likeCnt == 0){
+                    }else if(likeCnt == 1){
+                        active = `on`;
+                    }
+                    let img = `<img src='upload/users/${result1[i].photo}' alt='프로필'/> `;
+                    if(result1[i].photo === undefined){
+                        if(i % 2 == 0){
+                            img = `<img src='images/icon/user/profile_dark.png' alt='프로필'/> `;
+                        }else{
+                            img = `<img src='images/icon/user/profile.png' alt='프로필'/> `;
+                        }
+                    }
+                    let dbDate = result1[i].date.substring(0, 10).replace(/-/g, ".");
+                    if(dbDate == today){
+                        dbDate = `${result1[i].date.substring(10, 16)}`;
+                    }
+                    let fill = 0;
+                    let half = 0;
+                    let empty = 0;
+                    if(result1[i].rating % 2 != 0){
+                        fill = (result1[i].rating - 1) / 2;
+                        half = 1;
+                        empty = 5 - half - fill;
+                    }else{
+                        fill = result1[i].rating / 2;
+				        empty = 5 - fill;
+                    }
+                    let stars = "";
+                    if(fill == 0){
+                        if(half == 0){
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }else{
+                        if(half == 0){
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }else{
+                            for(k = 0; k < fill; k++){
+                                stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                            }
+                            stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                            for(k = 0; k < empty; k++){
+                                stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                            }
+                        }
+                    }
+                    insert.insertAdjacentHTML("beforeend", `
+                    <div class="k-reviewlist c-likelist">
+                    <div class="k-listleft col-1">
+                        <div class="c-list-img">
+                            ${img}
+                        </div>
+                    </div>
+                    <div class="k-listright col-11">
+                        <ul id="k-listbox">
+                            <li id="k-listtext">
+                                <div class="k-listtext_box">
+                                <input type="hidden" value="${result1[i].num}"  class="c-like-num c-review-num"/>
+                                    <span class="k-review-name">${result1[i].nickname}</span>
+                                    <span class="k-review-stars">${stars}</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-date">${dbDate}</span>
+                                </div>
+                                <div class="c-review-bottom-content">
+                                    <p class="k-review-info">${result1[i].comments}</p>
+                                    <div class="c-modi-reviewbox">
+                                        <div class="c-mvrate">
+                                            <div class="c-rate">
+                                                <input type="radio" id="c-rating10${num + i}" name="c-rating${num + i}" value="10" ><label for="c-rating10${num + i}" title="10점"></label>
+                                                <input type="radio" id="c-rating9${num + i}" name="c-rating${num + i}" value="9"  ><label class="c-half" for="c-rating9${num + i}" title="9점" ></label>
+                                                <input type="radio" id="c-rating8${num + i}" name="c-rating${num + i}" value="8" ><label for="c-rating8${num + i}" title="8점" ></label>
+                                                <input type="radio" id="c-rating7${num + i}" name="c-rating${num + i}" value="7" ><label class="c-half" for="c-rating7${num + i}" title="7점"></label>
+                                                <input type="radio" id="c-rating6${num + i}" name="c-rating${num + i}" value="6" ><label for="c-rating6${num + i}" title="6점" ></label>
+                                                <input type="radio" id="c-rating5${num + i}" name="c-rating${num + i}" value="5" ><label class="c-half" for="c-rating5${num + i}" title="5점"></label>
+                                                <input type="radio" id="c-rating4${num + i}" name="c-rating${num + i}" value="4" ><label for="c-rating4${num + i}" title="4점"></label>
+                                                <input type="radio" id="c-rating3${num + i}" name="c-rating${num + i}" value="3" ><label class="c-half" for="c-rating3${num + i}" title="3점" ></label>
+                                                <input type="radio" id="c-rating2${num + i}" name="c-rating${num + i}" value="2" ><label for="c-rating2${num + i}" title="2점"></label>
+                                                <input type="radio" id="c-rating1${num + i}" name="c-rating${num + i}" value="1" ><label class="c-half" for="c-rating1${num + i}" title="1점" ></label>
+                                            </div>
+                                            <span class="c-rating-number">0</span>
+                                        </div>
+                                        <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
+                                        <div class="c-modi-btn">
+                                            <a href="javascript:cReviewBoxClose(${num + i});" class="c-modi-reset">취소</a>
+                                            <a href="javascript:cReviewModiSend(${num + i});" class="c-modi-complete">수정완료</a>
+                                        </div>
+                                    </div>
+                                    <div class="k-utilbox">
+                                        <a class="k-like2 c-like-like ${active}" href="javascript:cLikeReviewLike(${num + i});"></a>                            
+                                        <span class="c-like-like-num">${result1[i].likes}</span>
+                                        <span class="k-declaration" onclick="cShowReviewUtil(${num + i})">
+                                        ${utilBox}
+                                        </span>
+                                    </div> 
+                                </div>    
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                `)
+                }
+            })
+            if(num == allNum - 1 || num == allNum - 2 || num == allNum - 3 || num == allNum - 4 || num == allNum - 5 || num == allNum - 6){
+                btn[0].classList.remove("c-review-active");
+                btn[1].classList.remove("c-review-active");
+            }
+            
+        })
+    }
+    
+}
+function cShowReviewUtil(n){
+    const tooltip = document.getElementsByClassName("c-review-cur-tooltip")[n];
+    tooltip.classList.toggle("c-review-active");
+}
+function cReviewModi(n){
+    const modibox = document.getElementsByClassName('c-modi-reviewbox')[n];
+    const comment = document.getElementsByClassName('k-review-info')[n];
+    modibox.style.display = "block";
+    comment.style.display = "none";
+}
+function cReviewBoxClose(n){
+    const modibox = document.getElementsByClassName('c-modi-reviewbox')[n];
+    const comment = document.getElementsByClassName('k-review-info')[n];
+    modibox.style.display = "none";
+    comment.style.display = "block";
+}
+function cReviewDel(n){
+    const num = document.getElementsByClassName('c-review-num')[n].value;
+    const movieid = document.getElementById("movie-id").value;
+    const reviewbox = document.getElementsByClassName("k-reviewlist")[n];
+    const reviewTab = document.getElementById("reviewTab");
+    const reviewTab2 = document.getElementById("c-reviewlist-cnt");
+    if(confirm("정말 삭제하시겠습니까?")){
+        fetch("/ezenCine/ReviewDel", {
+            headers : {"Content-Type": "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                reviews_num : num, movie_id : movieid
+            })
+        }).then((res) => res.json())
+        .then((result) => {
+            if(result == 1){
+                reviewbox.style.display = "none";
+                reviewTab.innerHTML = Number(reviewTab.innerText) - 1;
+                reviewTab2.innerHTML = Number(reviewTab2.innerText) - 1;
+            }else{
+            }
+        })
+    }
+    
+}
+
+function cMyPageReviewDel(n){
+    const num = document.getElementsByClassName('c-mypage-review-modi-num')[n].value;
+    const movieid = document.getElementsByClassName("c-mypage-review-modi-mov-id")[n].value;
+    const reviewbox = document.getElementsByClassName("c-mypage-review-num")[n];
+    if(confirm("정말 삭제하시겠습니까?")){
+        fetch("/ezenCine/ReviewDel", {
+            headers : {"Content-Type": "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                reviews_num : num, movie_id : movieid
+            })
+        }).then((res) => res.json())
+        .then((result) => {
+            if(result == 1){
+                reviewbox.style.display = "none";
+            }else{
+            }
+        })
+    }
+    
+}
+
+function cReviewModiSend(n){
+    const num = document.getElementsByClassName('c-review-num')[n].value;
+    const movieid = document.getElementById("movie-id").value;
+    const review = document.getElementsByClassName("c-modi-review")[n].value;
+    const rating = document.getElementsByClassName("c-rating-number")[n].innerText;
+    let ratingBox = document.getElementsByClassName("k-review-starsnum")[n];
+    //const reviewbox = document.getElementsByClassName("k-reviewlist")[n];
+    const modireview = document.getElementsByClassName("k-review-info")[n];
+
+    // 별들 들어가는 곳
+    const starBox = document.getElementsByClassName("k-review-stars")[n];
+    // 전체 수정 박스
+    const modibox = document.getElementsByClassName('c-modi-reviewbox')[n];
+    // 리뷰들어가는 곳
+    const comment = document.getElementsByClassName('k-review-info')[n];
+
+    fetch("/ezenCine/ReviewModi", {
+        headers : {"Content-Type": "application/json"},
+        method : "post",
+        body : JSON.stringify({
+            reviews_num : num, movie_id : movieid, review : review, rating: rating
+        })
+    }).then((res) => res.json())
+    .then((result) => {
+        if(result == 1){
+            modibox.style.display = "none";
+            comment.style.display = "block";
+            modireview.innerHTML = review;
+            let fill = 0;
+            let half = 0;
+            let empty = 0;
+            if(rating % 2 != 0){
+                fill = (rating - 1) / 2;
+                half = 1;
+                empty = 5 - half - fill;
+            }else{
+                fill = rating / 2;
+                empty = 5 - fill;
+            }
+            let stars = "";
+            if(fill == 0){
+                if(half == 0){
+                    for(k = 0; k < empty; k++){
+                        stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                    }
+                }else{
+                    stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                    for(k = 0; k < empty; k++){
+                        stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                    }
+                }
+            }else{
+                if(half == 0){
+                    for(k = 0; k < fill; k++){
+                        stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                    }
+                    for(k = 0; k < empty; k++){
+                        stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                    }
+                }else{
+                    for(k = 0; k < fill; k++){
+                        stars += `<img src="images/icon/inyoung/fill.png" alt="stars" />`;
+                    }
+                    stars += `<img src="images/icon/inyoung/half.png" alt="stars" />`;
+                    for(k = 0; k < empty; k++){
+                        stars += `<img src="images/icon/inyoung/empty.png" alt="stars" />`;
+                    }
+                }
+            }
+            starBox.innerHTML = stars;
+            ratingBox.innerHTML = rating;
+        }else{
+
+        }
+        
+    })
+}
+
 // 공유버튼 클릭
 function linkshare(){
     const linkshares = document.getElementById("linkshares");
     linkshares.style.display = "block";
+    cCopy();
     setTimeout(function(){
         linkshares.style.display = "none";
     }, 2000)
 }  
+function cCopy(){
+    const textareas = document.createElement("textarea");
+    document.body.appendChild(textareas);
+    textareas.value = window.location.href;
+    textareas.select();
+    document.execCommand('copy');
+    document.body.removeChild(textareas);
+}
 
 
 function scrollToTop() {
@@ -1454,7 +2555,14 @@ $(window).scroll(function () {
     
 });
 */
-
+function cReviewPopupClose(){
+    const popup = document.getElementsByClassName("c-mypage-modi-popup-shadow")[0];
+    popup.style.display = "none";
+}
+function cReviewPopupOpen(n){
+    const popup = document.getElementsByClassName("c-mypage-modi-popup-shadow")[0];
+    popup.style.display = "block";
+}
 function cMyPageBottom(n){
     const content = document.getElementsByClassName("c-mypage-content");
     const tab = document.getElementsByClassName("c-mypage-tab");
@@ -1497,8 +2605,18 @@ function cMyPageMore(n){
         }).then((res) => res.json())
         .then((result) => {
             for(i = 0; i < result.length; i++){
-                const alpha = result[i].seat_num[0];
-                const seats = result[i].seat_num[1];
+                let seats_arr = result[i].seat_num.split(",");
+                let seats = [];
+                let seat = "";
+                if(seats_arr.length == 1){
+                    seats[i] = seats_arr[0][0] + "열 " + seats_arr[0][1];
+                }else{
+                    for(j = 0; j < seats_arr.length - 1; j++){
+                        seat += seats_arr[j][0] + "열 " + seats_arr[j][1] + ", ";
+                    }
+                    seat += seats_arr[seats_arr.length - 1][0] + "열 " + seats_arr[seats_arr.length - 1][1];
+                    seats[i] = seat;
+                }
                 const ticket_year = result[i].ticket_date.substring(0, 4);
                 const ticket_month = result[i].ticket_date.substring(5, 7);
                 const ticket_day = result[i].ticket_date.substring(8, 10);
@@ -1514,8 +2632,8 @@ function cMyPageMore(n){
                             <div class="c-content">
                                 <p class="c-title">${result[i].title}</p>
                                 <p>예매번호 <span>${result[i].ticket_num}</span></p>
-                                <p>상영관/관람좌석 <span>${result[i].room_num}/${alpha}열 ${seats}</span></p>
-                                <!--  <p>관람인원 <span>성인 1명</span></p>-->
+                                <p>상영관/관람좌석 <span>${result[i].room_num}관/ ${seats[i]}</span></p>
+                                <p>관람인원 <span>성인 ${seats_arr.length}명</span></p>
                                 <p>결제일시 <span>${ticket_year}.${ticket_month}.${ticket_day}(${dayToKor(result[i].ticket_day)}) ${ticket_hour}:${ticket_min}</span></p>
                                 <p>관람일시 <span>${screen_year}.${screen_month}.${screen_day}(${dayToKor(result[i].screen_day)}) ${result[i].screen_time}</span></p>
                             </div>
@@ -1548,6 +2666,8 @@ function cMyPageMore(n){
                 
                 insert.insertAdjacentHTML("beforeend",`
                     <div class="col-6 c-mypage-review-num">
+                        <input type="hidden" value="${result[i].num}" class="c-mypage-review-modi-num" />
+                        <input type="hidden" value="${result[i].movie_id}" class="c-mypage-review-modi-mov-id" />
                         <img src="${result[i].poster_url}" alt="${result[i].title}">
                         <div class="c-content">
                             <p class="c-title">${result[i].title}</p>
@@ -1560,7 +2680,7 @@ function cMyPageMore(n){
                                 </span>
                                 <span class="second">
                                     <a href="javascript:void(0);">수정</a>
-                                    <a href="javascript:void(0);">삭제</a>
+                                    <a href="javascript:cMyPageReviewDel(${num + i})">삭제</a>
                                 </span></p>
                         </div>
                     </div>
