@@ -64,7 +64,7 @@
 	    	int i = 1;
 		    for(MovieDTO pt : pto){
 	    %>
-            <div class="ao-list">
+            <div class="ao-list col-3">
                 <img src="<%=pt.getPoster_url() %>" alt="<%=pt.getTitle()%>포스터">
                 <div class="ao-contact">
                     <div class="ct-title" >
