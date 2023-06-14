@@ -14,7 +14,7 @@ public class BookingDDL {
 		
 		String sql = "select movie_id, title, poster_url, num as ticket_num, room_num, seat_num, ticket_date, DAYOFWEEK(ticket_date) as ticket_day, screen_date,DAYOFWEEK(screen_date) as screen_day, screen_time "
 				+ "from Ticketing join Movie on Ticketing.movie_id = Movie.id where Ticketing.userid = ? "
-				+ "and Ticketing.screen_date > curdate() order by concat(screen_date, screen_time) limit 0, 2";
+				+ "and concat(Ticketing.screen_date, ' ', Ticketing.screen_time) > curdate() order by concat(screen_date, screen_time) limit 0, 2";
 		
 		Vector <BookingDTO> data = new Vector <BookingDTO> ();
 		try {
@@ -56,7 +56,7 @@ public class BookingDDL {
 		
 		String sql = "select movie_id, title, poster_url, num as ticket_num, room_num, seat_num, ticket_date, DAYOFWEEK(ticket_date) as ticket_day, screen_date,DAYOFWEEK(screen_date) as screen_day, screen_time "
 				+ "from Ticketing join Movie on Ticketing.movie_id = Movie.id where Ticketing.userid = ? "
-				+ "and Ticketing.screen_date > curdate() order by concat(screen_date, screen_time) limit ?, 2";
+				+ "and concat(Ticketing.screen_date, ' ', Ticketing.screen_time) > curdate() order by concat(screen_date, screen_time) limit ?, 2";
 		
 		Vector <BookingDTO> data = new Vector <BookingDTO> ();
 		try {
@@ -97,7 +97,7 @@ public class BookingDDL {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int result = 0;
-		String sql = "select count(*) as cnt from Ticketing join Movie on Ticketing.movie_id = Movie.id where Ticketing.userid = ? and Ticketing.screen_date > curdate();";
+		String sql = "select count(*) as cnt from Ticketing join Movie on Ticketing.movie_id = Movie.id where Ticketing.userid = ? and concat(Ticketing.screen_date, ' ', Ticketing.screen_time) > curdate()";
 		
 		
 		try {
