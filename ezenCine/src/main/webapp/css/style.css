@@ -2671,7 +2671,7 @@ div.c-rate > input {
     padding: 17px 33px;
     font-weight: 300;
     display: none;
-    z-index: 1000;
+    z-index: 9999999;
 }
 #c-login-alert{
     margin-top: 5px;
