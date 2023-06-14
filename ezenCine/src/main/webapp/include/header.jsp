@@ -37,9 +37,32 @@
                         </ul>
                     </li>
                     <li>
+                    	<%
+                    		if(userid == null || userid == ""){
+                    	%>
+                    	<a href="javascript:void(0)" onclick="pleaseLogin()">예매</a>
+                    	<%
+                    		}else{
+                    	%>
                         <a href="index.jsp?fname=movie/booking">예매</a>
+                        <%
+                    		}
+                        %>
                         <ul class="lnb">
-                            <li><a href="index.jsp?fname=movie/booking">예매하기</a></li>
+                            <li>
+                            <%
+                    			if(userid == null || userid == ""){
+	                    	%>
+	                    	<a href="javascript:void(0)" onclick="pleaseLogin()">예매하기</a>
+	                    	<%
+	                    		}else{
+	                    	%>
+	                        <a href="index.jsp?fname=movie/booking">예매하기</a>
+	                        <%
+	                    		}
+	                        %>
+                            	
+                            </li>
                             <li><a href="javascript:void(0)">상영시간표</a></li>
                             <li><a href="javascript:void(0)">할인안내</a></li>
                         </ul>

@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="ezenCine.*, java.sql.*, java.util.*"%>
-    
+<%
+	String userid = "";
+	if(session.getAttribute("userid") == null){	
+	}else{
+		userid = (String) session.getAttribute("userid");	
+	}
+%> 
     <section class="movieList">
     	<div class="movieList_top">
     	<%@include file = "../include/listbanner.jsp" %>
@@ -32,8 +38,19 @@
 	                            <img src="<%=dt.getPoster_url() %>" alt="포스터">
 	                            <div class="h-movie-content">
 	                                <div class="h-movie-content-bg"></div>
+                                
 	                                <a href="index.jsp?fname=movie/movieDetail&mov_id=<%=dt.getId() %>" class="h-movie-info"></a>
-	                                <a href="index.jsp?fname=movie/booking" class="h-movie-booking"></a>
+	                            <%
+									if(userid == null || userid == ""){
+								%>
+									<a href="javascript:void(0)" onclick="pleaseLogin()" class="h-movie-booking"></a>
+								<%
+									}else{
+								%>
+									<a href="index.jsp?fname=movie/booking" class="h-movie-booking"></a>
+								<%
+									}
+								%>
 	                            </div>
 	                        </div>
 	                        <p class="h-movie-title"><%=dt.getTitle() %></p>
@@ -90,7 +107,17 @@
 	                            <div class="h-movie-content">
 	                                <div class="h-movie-content-bg"></div>
 	                                <a href="index.jsp?fname=movie/movieDetail&mov_id=<%=dt.getId() %>" class="h-movie-info"></a>
-	                                <a href="index.jsp?fname=movie/booking" class="h-movie-booking"></a>
+                                <%
+									if(userid == null || userid == ""){
+								%>
+									<a href="javascript:void(0)" onclick="pleaseLogin()" class="h-movie-booking"></a>
+								<%
+									}else{
+								%>
+									<a href="index.jsp?fname=movie/booking" class="h-movie-booking"></a>
+								<%
+									}
+								%>
 	                            </div>
 	                        </div>
 	                        <p class="h-movie-title"><%=dt.getTitle() %></p>
@@ -119,7 +146,17 @@
 	                            <div class="h-movie-content">
 	                                <div class="h-movie-content-bg"></div>
 	                                <a href="index.jsp?fname=movie/movieDetail&mov_id=<%=dt.getId() %>" class="h-movie-info"></a>
-	                                <a href="index.jsp?fname=movie/booking" class="h-movie-booking"></a>
+	                            <%
+									if(userid == null || userid == ""){
+								%>
+									<a href="javascript:void(0)" onclick="pleaseLogin()" class="h-movie-booking"></a>
+								<%
+									}else{
+								%>
+									<a href="index.jsp?fname=movie/booking" class="h-movie-booking"></a>
+								<%
+									}
+								%>
 	                            </div>
 	                        </div>
 	                        <p class="h-movie-title"><%=dt.getTitle() %></p>

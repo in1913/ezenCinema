@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="ezenCine.*, java.sql.*, java.util.*"%>
-    
+<%
+	String userid = "";
+	if(session.getAttribute("userid") == null){	
+	}else{
+		userid = (String) session.getAttribute("userid");	
+	}
+%> 
 <!-- 메인 팝업 -->
 <div class="main_warning">
 	<img src="images/back/main_warning.png" alt="개인정보 주의 팝업" />
@@ -89,7 +95,17 @@
                         </div>
                     </div>
                     <a href="index.jsp?fname=movie/movieDetail&mov_id=<%=pt.getId() %>" id="Viewdetailshv">상세보기</a>
-                    <a href="index.jsp?fname=movie/booking" id="Ticketinghv">예매하기</a>
+                    <%
+               			if(userid == null || userid == ""){
+                	%>
+                		<a href="javascript:void(0)" onclick="pleaseLogin()" id="Ticketinghv">예매하기</a>
+                	<%
+                		}else{
+                	%>
+                    	<a href="index.jsp?fname=movie/booking" id="Ticketinghv">예매하기</a>
+                    <%
+                		}
+                    %>
                 </div>
             </div>
 	    <%

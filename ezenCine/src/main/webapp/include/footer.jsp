@@ -66,7 +66,18 @@
     
     
     <div class="pageup" id="pageup">
-    	<a href="index.jsp?fname=movie/booking"><img src="images/ico/ico-quickbooking.png" alt="바로예매 버튼" /></a>
+    	<%
+		if(userid == null || userid == ""){
+		%>
+		<a href="javascript:void(0)" onclick="pleaseLogin()"><img src="images/ico/ico-quickbooking.png" alt="바로예매 버튼" /></a>
+		<%
+		}else{
+		%>
+		<a href="index.jsp?fname=movie/booking"><img src="images/ico/ico-quickbooking.png" alt="바로예매 버튼" /></a>
+		<%
+		}
+		%>
+    
     	<img id="scrollTop" onclick="scrollToTop()" src="images/ico/ico-top.png" alt="맨위로 가기" />	
     </div>
     <footer>

@@ -31,7 +31,7 @@ public class Ticketing extends HttpServlet {
 		String room = request.getParameter("room");
 		String cost = request.getParameter("cost");
 		HttpSession session = request.getSession();
-		String user = (String) session.getAttribute("user");
+		String user = (String) session.getAttribute("userid");
 		
 		TicketingDTO dto = new TicketingDTO();
 		TicketingDDL ddl = new TicketingDDL();

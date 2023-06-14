@@ -637,6 +637,9 @@ a.c-blue{
 	padding-top: 20px;
 	padding-bottom:100px;
 }
+.main-store .inner{
+	position:relative;
+}
 .main-store .store_contents{
 	margin: 50px 0 0;
 }
@@ -771,6 +774,7 @@ section.booking h3{
 }
 .movie_select{
     position:relative;
+    height:700px;
 }
 .h-booking_box{
 	position:relative;
@@ -4553,75 +4557,7 @@ div.h-hope-poster p{
     background-size: cover;
     margin: 0 auto;
 }
-/******** booking ********/
-.h-booking{
-    margin: 15px;
-}
-.h-booking_box{
-    border: 1px solid #333;
-    height: 400px;
-}
-.h-b-movie-booking{
-    padding: 10px;
-    height: 85%;
-    overflow-y: scroll;
-}
-.h-location,
-.h-date,
-.h-time{
-    position: relative;
-}
-.h-location-blurbox,
-.h-date-blurbox,
-.h-time-blurbox{
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 100;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.5;
-}
-input[type=radio]{
-    display: none;
-}
-.h-b-movie,
-.h-b-location,
-.h-b-date,
-.h-b-time{
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    text-align: start;
-}
-.b-on{
-    background-color: #ddd;
-}
-.h-b-time{
-    width: 100%;
-}
-.h-time{
-    float: left;
-}
-.h-sit{
-    float: right;
-}
-.h-booking-btn-box{
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    display: none;
-}
-.h-booking-btn{
-    padding: 5px;
-    border: 1px solid #333;
-}
-.h-booking-btn:hover{
-    color: #fff;
-    background: #333;
-}
+
 /* ********** c-mypage *************  */
 .c-mypage-background{
     background-color: #DCDEE7;
