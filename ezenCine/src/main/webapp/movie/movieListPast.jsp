@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="ezenCine.*, java.sql.*, java.util.*"%>
-    
+<%
+	String userid = "";
+	if(session.getAttribute("userid") == null){	
+	}else{
+		userid = (String) session.getAttribute("userid");	
+	}
+%> 
     <section class="movieList">
     	<div class="movieList_top">
     	<%@include file = "../include/listbanner.jsp" %>

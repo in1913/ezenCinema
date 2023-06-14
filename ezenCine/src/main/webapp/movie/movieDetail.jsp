@@ -134,7 +134,12 @@
                     String id = dt.getId();
                     ScreenDDL ddl = new ScreenDDL();
                     boolean result = ddl.checkMovie(id); 
-                    if(result){
+                    
+                	if(userid == null || userid == ""){
+				%>
+					<a href="javascript:void(0)" onclick="pleaseLogin()" class="k-ticketing">예매하기</a>
+                <%
+                	}else if(result){
                 %>
                     <a href="index.jsp?fname=movie/booking" class="k-ticketing">예매하기</a>
                 <%
