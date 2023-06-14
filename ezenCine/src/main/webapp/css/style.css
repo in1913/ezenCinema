@@ -1,7 +1,3 @@
-.gonggan{
-    height:2000px;
-    background-color: #ededed;
-}
 header{
     position:fixed;
     top:40px;
@@ -363,6 +359,8 @@ a.c-blue{
     display: flex;
     justify-content: space-between;
     height: 450px;
+    margin-left:-15px;
+   	margin-right:-15px;
 }
 .ao-ranking{
     position: absolute;
@@ -373,8 +371,6 @@ a.c-blue{
 }
 .ao-list{
     position: relative;
-    width: 260px;
-    height: 375px;
     border-radius: 10px;
 }
 .ao-list>img{
@@ -1373,6 +1369,10 @@ section.movieList{
     background-image: url(../images/h-button/버튼hover.png);
     transition: 0.5s;
 }
+.h-movie{
+	margin-left:-15px;
+	margin-right:-15px;
+}
 .h-movie-list{
     display: flex;
     /* height: 40px; */
@@ -1448,6 +1448,7 @@ ul.h-movie-movie li.col-3{
 }
 .h-imgbox img{
     width: 100%;
+    height:100%;
     background: #ddd;
     position: absolute;
     top: 0;
@@ -4124,151 +4125,7 @@ div.c-modi-rate > input {
 span.eg{
     font-family: 'SUITE Variable';
 }
-.h-movie-list li .h-active{
-    background: #D3DCFD;
-    color: #3D56AE;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-.h-movie-list{
-    display: flex;
-    height: 40px;
-}
-.h-movie-list li:hover{
-    background: #D3DCFD;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-.h-movie-list li:hover a{
-    color: #3D56AE;
-}
-.h-movie-list li a{
-    display: block;
-    line-height: 30px;
-    padding: 5px 50px;
-    font-size: 20px;
-    width: 100%;
-    height: 100%;
-    color: #333;
-}
-.h-movie{
-    padding-top: 10px;
-}
-.h-movie h5{
-    margin: 0 0 10px 35px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #333;
-    font-size: 20px;
-}
-.h-movie .h-plus{
-    display: inline;
-    float: right;
-    width: 40px;
-    height: 15px;
-    background: url(../images/h-button/Frame\ 152.png) no-repeat;
-    background-size: cover;
-    margin-top: 15px;
-}
-.h-movie ul{
-    padding-bottom: 20px;
-    display: flex;
-}
-.h-movie ul li{
-    text-align: center;
-    padding: 0 37px;
-    margin-top: 10px;
-}
-.h-imgbox{
-    width: 200px;
-    height: 300px;
-    position: relative;
-    margin: auto;
-    border-radius: 16px;
-    overflow: hidden;
-}
-.h-imgbox img{
-    width: 200px;
-    height: 300px;
-    background: #ddd;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.h-movie-content{
-    width: 100%;
-    height: 100%;
-    display: none;
-    position: absolute;
-    color: #fff;
-    top: 0;
-    padding: 10px 20px;
-}
-.h-movie-content-bg{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: #000;
-    opacity: 0.8;
-}
-.h-movie-content .h-movie-info{
-    display: block;
-    width: 120px;
-    height: 25px;
-    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=off.png) no-repeat;
-    background-size: cover;
-    opacity: 1;
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: 0.5s;
-}
-.h-movie-content .h-movie-info:hover{
-    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=om.png) no-repeat;
-    background-size: cover;
-    transition: 0.5s;
-}
-.h-movie-content .h-movie-booking{
-    display: block;
-    width: 120px;
-    height: 25px;
-    background: url(../images/h-button/상세보기_예매.png) no-repeat;
-    background-size: cover;
-    position: absolute;
-    top: 155px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: 0.5s;
-}
-.h-movie-content .h-movie-booking:hover{
-    background: url(../images/h-button/상세보기_예매hover.png) no-repeat;
-    background-size: cover;
-    transition: 0.5s;
-}
-.h-movie-title{
-    font-size: 12px;
-    padding: 10px 0 0;
-}
-.h-rate-star{
-    font-size: 10px;
-}
-.h-rate::after{
-    content: "|";
-    display: inline-block;
-    padding: 3px;
-    color: #D9D9D9;
-}
-.h-star:before{
-    content: "";
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    vertical-align: -5px;
-    background: url(../images/h-button/Property\ 1=별점\,\ Property\ 2=s\,\ Property\ 3=on.png) no-repeat;
-    background-size: cover;
-}
+
 
 /********** my page *************/
 
@@ -4923,7 +4780,9 @@ a.c-mypage-plus{
     width: 100%;
     height: 530px;
 }
-
+.visual img{
+	width:100%;
+}
 
 .store_contents {
     margin: 50px 0 150px;
@@ -4972,7 +4831,7 @@ a.c-mypage-plus{
 }
 
 .product li {
-    width: 353px;
+	width: 33.333333%;
     height: 429px;
     background: #F2f2f2;
     border-radius: 26px;
