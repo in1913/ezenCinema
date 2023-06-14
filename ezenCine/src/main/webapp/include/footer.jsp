@@ -30,7 +30,7 @@
                 <a href="javascript:loginWithKakao();"><img src="images/sns/login_kakao.png" alt="login_kakao"></a>
 <%
     String clientId = "ybgt8eoPV5ELLhZ2LTbP";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("https://localhost:8443/ezenCine/NaverOauth", "UTF-8");
+    String redirectURI = URLEncoder.encode("https://ezencinema.com/ezenCine/NaverOauth", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
     String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -47,7 +47,7 @@
                 
                 <div id="g_id_onload"
 			         data-client_id="523081570143-oanpb57bceggc2v5jnqgf13dc5u86laj.apps.googleusercontent.com"
-			         data-login_uri="https://localhost:8443/ezenCine/GoogleOauth"
+			         data-login_uri="https://ezencinema.com/ezenCine/GoogleOauth"
 			         data-ux_mode="redirect"
 			         data-auto_prompt="false">
 			      </div>
@@ -113,6 +113,11 @@
             </div>
         </div>
     </footer>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+  integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="js/script.js"></script>

@@ -1808,12 +1808,7 @@ function cLogout(){
     }).then((res) => res.json())
     .then((result) => {
         if(result == 1){
-            if(window.location.href.includes("signup") || window.location.href.includes("fname=mem")){
-                location.href = "index.jsp";
-            }else{
-                location.reload();
-            }
-            
+            location.href = "index.jsp";
         }
         
     })
@@ -1823,7 +1818,7 @@ function cLogout(){
 function loginWithKakao() {
 	Kakao.init('a3c2f415c4d6b740c5c1a27c6b37158f'); // 사용하려는 앱의 JavaScript 키 입력
     Kakao.Auth.authorize({
-        redirectUri: 'https://localhost:8443/ezenCine/KakaoOauth',
+        redirectUri: 'https://ezencinema.com/ezenCine/KakaoOauth',
         scope: 'account_email'
     });
     Kakao.Auth.setAccessToken(token);
