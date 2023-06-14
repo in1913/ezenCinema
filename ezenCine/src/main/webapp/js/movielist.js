@@ -87,24 +87,27 @@ function cSearchMovie(){
   let searchbox = document.getElementsByClassName("c-search-complete")[0];
   searchbox.style.display = "block";
   searchbox.innerHTML = "";
-  search.style.borderBottomLeftRadius = "18px";
-  search.style.borderBottomRightRadius = "18px";
+  search.style.borderBottomLeftRadius = "25px";
+  search.style.borderBottomRightRadius = "25px";
   if(search.value == ""){
     searchbox.innerHTML = "";
     searchbox.style.display = "none";
-    search.style.borderBottomLeftRadius = "18px";
-    search.style.borderBottomRightRadius = "18px";
+    search.style.borderBottomLeftRadius = "25px";
+    search.style.borderBottomRightRadius = "25px";
   }else{
-    
     let j = 0;
-    for(i = 0; i < movielist.length; i++){
+    for(i = 0; i < movielist.length / 2; i++){
       let word_start = movielistData[i].search(search.value.toLowerCase());
       let word_end = search.value.length;
+      
       if(word_start != -1){
         search.style.borderBottomLeftRadius = "0px";
         search.style.borderBottomRightRadius = "0px";
         searchbox.insertAdjacentHTML("beforeend", `
-        <li class="c-search-content"><a class="c-search-link" onfocus="cSearchLink(${j});" onfocusout="cSearchNotLink(${j})" href="index.jsp?fname=movie/movieDetail&mov_id=${movielistHref[i]}">${movielist[i].substring(0, word_start)}<span class="c-search-color">${movielist[i].substring(word_start, word_start + word_end)}</span>${movielist[i].substring(word_start + word_end)}</a></li>
+        <li class="c-search-content" onmouseover="cHoverInput(${i});">
+          <a class="c-search-link" onfocus="cSearchLink(${j});" onfocusout="cSearchNotLink(${j})" href="index.jsp?fname=movie/movieDetail&mov_id=${movielistHref[i]}">${movielist[i].substring(0, word_start)}<span class="c-search-color">${movielist[i].substring(word_start, word_start + word_end)}</span>${movielist[i].substring(word_start + word_end)}
+          </a>
+        </li>
         `);
         j++;
       }else{
@@ -122,19 +125,78 @@ function cSearchNotLink(n){
   searchContent.style.backgroundColor = "#fff";
 }
 
-const cSearchInput = document.querySelector("#h-movie-search");
-cSearchInput.addEventListener('keydown', (e) => {
-  
-  const searchbox = document.getElementsByClassName("c-search-complete")[0];
-  if(searchbox.firstChild){
-    const searchContent = document.getElementsByClassName("c-search-content");
-    const searchLink = document.getElementsByClassName("c-search-link");
-// down 40, up 38, left 37, right 39
-// tab 9,
+function cHoverInput(n){
+  let search = document.getElementById("h-movie-search");
+  search.value = movielist[n]; 
+}
+
+function cGoMovie(){
+  const searchInput = document.getElementById("h-movie-search");
+
+  let result = "";
+  for(i = 0; i < movielist.length / 2; i++){
+    if(movielist[i] == searchInput.value){
+      result = movielistHref[i];
+      location.href = "index.jsp?fname=movie/movieDetail&mov_id=" + result;
+    }
+  }
+  // 
+}
+
+const searchInput = document.querySelector("#h-movie-search");
+
+searchInput.addEventListener("keyup", function(e){
+  let nowIndex = 0;
   if(e.keyCode == 40){
-    
+    nowIndex = Math.min(nowIndex + 1, (movielist.length / 2) - 1);
+  }else if(e.keyCode == 38){
+    nowIndex = Math.max(nowIndex - 1, 0);
+  }else{
+    nowIndex = 0;
   }
-  
-  }
-  
 })
+
+
+
+/*
+$search.onkeyup = (event) => {
+  // 검색어
+  const value = $search.value.trim();
+   $autoComplete.style.display = "block";
+   if($search.value == null || $search.value == ""){$autoComplete.style.display = "none";}
+  // 자동완성 필터링
+  const matchDataList = value
+    ? movielist.filter((label) => label.includes(value))
+    : [];
+
+  switch (event.keyCode) {
+    // UP KEY
+    case 38:
+      nowIndex = Math.max(nowIndex - 1, 0);
+      break;
+
+    // DOWN KEY
+    case 40:
+      nowIndex = Math.min(nowIndex + 1, matchDataList.length - 1);
+      break;
+
+    // ENTER KEY
+    case 13:{
+      document.querySelector("#header-search").value = matchDataList[nowIndex] || "";
+      $autoComplete.style.display = "none";
+   }
+      // 초기화
+      nowIndex = 0;
+      matchDataList.length = 0;
+      break;
+      
+    // 그외 다시 초기화
+    default:
+      nowIndex = 0;
+      break;
+  }
+
+  // 리스트 보여주기
+  showList(matchDataList, value, nowIndex, movietitle);
+};
+*/

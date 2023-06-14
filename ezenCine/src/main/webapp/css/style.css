@@ -1279,44 +1279,54 @@ section.movieList{
 	margin-bottom:30px;
 }
 .h-movie-search-box{
-    text-align: center;
-    margin-top:80px;
-    margin-bottom:40px;
-    position: relative;
+	padding-top:80px;
+	padding-bottom:40px;
+    height:170px;
+}
+.c-searchbox{
+	margin-left: auto;
+	margin-right: auto;
+	width: 540px;
+	height: 50px;
+	position: relative;
 }
 .c-search-complete{
     position: absolute;
-    bottom: -30px;
-    left: 48%;
-    transform: translateX(-50%);
-    width: 300px;
-    z-index: 500;
+ 	top:48px;
+    left:0;
+    width: 465px;
+    z-index: 998;
    	height: 100%;
-	border-bottom-left-radius: 20px;
-	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 25px;
+	border-bottom-right-radius: 25px;
 	display: none;
 }
 .c-search-complete>li{
 	text-align: left;
 	background: #fff;
-	border-left: 1.5px solid #5C7EF7;
-	border-right: 1.5px solid #5C7EF7;
-	padding-left: 5px;
-	padding-right: 5px;
-	padding-top: 7px;
-	padding-bottom: 5px;
+	border-left: 2px solid #5C7EF7;
+	border-right: 2px solid #5C7EF7;
+	height: 50px;
+	line-height: 50px;
+	padding-left: 20px;
+	padding-right: 20px;
+	color: #333;
 }
 .c-search-complete>li>a{
 	display: inline-block;
 	width: 100%;
 	border-bottom: 1px solid #ccc;
 	font-size: 14px;
-	
+	height: 50px;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;	
 }
 .c-search-complete>li:last-child{
-	border-bottom-left-radius: 20px;
-	border-bottom-right-radius: 20px;
-	border-bottom: 1.5px solid #5C7EF7;	
+	border-bottom-left-radius: 25px;
+	border-bottom-right-radius: 25px;
+	border-bottom: 2px solid #5C7EF7;	
+	overflow: hidden;
 }
 .c-search-color{
 	color: #5C7EF7;
@@ -1325,27 +1335,32 @@ section.movieList{
 	background: #ccc;
 }
 #h-movie-search{
-    width: 300px;
-    height: 30px;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 20px;
-    border: 1.5px solid #5C7EF7;
-    display: inline;
+	position:absolute;
+	top: 0;
+	left: 0;
+    width: 465px;
+    height: 50px;
+    padding-left: 20px;
+    border-radius: 25px;
+    border: 2px solid #5C7EF7;
+    font-size: 17px;
+    color: #333;
 }
 #h-movie-search::placeholder{
 	font-weight: 400;
+	color: #878787;
 }
 #h-movie-search:focus{
     outline: none;
     border-color: #5C7EF7;
 }
 .h-movie-search-btn{
-    display: inline-block;
+    position: absolute;
+    top: 0;
+    right:0;
     border: none;
-    width: 40px;
-    height: 30px;
-    vertical-align: middle;
+    width: 71px;
+    height: 52px;
     background: url(../images/h-button/버튼.png) no-repeat;
     background-size: cover;
     transition: 0.5s;
@@ -3929,7 +3944,8 @@ layout.css에 저장되어있으니 그냥 선언해서 사용하면 됨
     top: 0;
     width: 100%;
     height: 100%;
-    display: none;
+    display:none;
+    z-index: 998;
 }
 .c-mypage-modi-popup{
 	position: absolute;
@@ -3937,20 +3953,170 @@ layout.css에 저장되어있으니 그냥 선언해서 사용하면 됨
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
 	background: #fff;
-	border-radius: 4px;
-	padding: 10px 20px;
+	width: 600px;
+	color: #333;
 }
-.c-mypage-modi-popup img{
-	width: 144px;
-	height: 202px;
+.c-mypage-modi-title{
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	position: relative;
+	box-shadow: 0px 3px 2px rgba(88,88,88,.2); 
+	font-size: 17px;
 }
-.c-mypage-popup-movie{
+div.c-mypage-modi-title img{
+	position: absolute;
+	top:18px;
+	right: 26px;
+	width: 24px;
+	height: 24px;
+}
+.c-mypage-popup-content{
+	width: 100%; 
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+div.c-mypage-popup-content p{
+	height: 42px;
+	line-height: 42px;
+	border-bottom: 1px solid #333;
+	padding:0;
+	margin:0;
+	width: 100%;
+	font-size: 24px;
+	padding-left: 10px;
+}
+.c-mypage-popup-real-content{
+	padding-top: 20px;
+	width: 100%;
 	display: flex;
-	margin-bottom: 20px;
 }
-.c-modi-reviewbox.c-mypage{
+div.c-mypage-popup-real-content>img{
+	width: 110px;
+	height: 161px;
+	border-radius: 8px;
+}
+.c-mypage-popup-right-content{
+	margin-left: 15px;
+	width: 100%;
+}
+.c-mypage-popup-userimg{
+	height:45px;
+	width: 45px;
+	display: flex;
+	justify-content: cneter;
+	align-items: center;
+	border-radius: 50%;
+	overflow: hidden;	
+}
+div.c-mypage-popup-userimg>img{
+	max-height:45px;
+	max-width: 45px;
+}
+.c-mypage-modi-content-top{
+	display: flex;
+}
+.c-mypage-popup-rating{
+	font-size: 17px;
+}
+.c-mypage-popup-rating span.c-mypage-popup-rate{
+	font-weight: 600;
+	font-size: 28px;
+}
+.c-mypage-textarea{
+	width: 395px;
 	display: block;
+	height: 105px;
+	resize: none;
+	outline: none;
+	padding: 5px;
+	font-family: 'SUITE', sans-serif;
+	border: 1px solid #ccc;
+	padding: 10px;
 }
+.c-mypage-popup-btn>a{
+	width: 68px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	display: inline-block;
+	border-radius: 8px;
+}
+.c-mypage-popup-btn{
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+.c-mypage-popup-btn>a:first-child{
+	border: 1px solid #3D56AE;
+	color: #3D56AE;
+	margin-right: 5px;
+}
+.c-mypage-popup-btn>a:last-child{
+	background:#3D56AE; 
+	color: #fff;
+}
+.c-modi-mvrate::after{
+	content: "|";
+	color: #ccc;
+	position: absolute;
+	top:6px; 
+	right: 6px;
+	font-size: 22px;
+}
+/* mypage-rate */
+div.c-modi-rate > input {
+    display: none;
+}
+.c-modi-mvrate{
+    width: 165px;
+    height: 45px;
+    position: relative;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.c-modi-rate {
+    display: inline-block;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    }
+.c-modi-rate > input {
+    display: none;
+}
+.c-modi-rate > label {
+    float: right;
+    color: #D3DCFD
+}
+.c-modi-rate > label:before {
+    display: inline-block;
+    font-size: 25px;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f005 ";
+}
+.c-modi-rate .c-half:before {
+    content: "\f089 "; 
+    position: absolute;
+    padding-right: 0;
+}
+.c-modi-rate input:checked ~ label, 
+.c-modi-rate label:hover,.c-modi-rate label:hover ~ label {
+     color: #3D56AE !important;  
+    } 
+.c-modi-rate input:checked + label:hover,
+.c-modi-rate input input:checked ~ label:hover,
+.c-modi-rate input:checked ~ label:hover ~ label,  
+.c-modi-rate label:hover ~ input:checked ~ label { 
+    color: #3D56AE !important;  
+} 
+/*  */
+
 span.eg{
     font-family: 'SUITE Variable';
 }
@@ -3959,33 +4125,6 @@ span.eg{
     color: #3D56AE;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
-#h-movie-search{
-    width: 300px;
-    height: 30px;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 15px;
-    border: 1.5px solid #5C7EF7;
-    display: inline;
-}
-#h-movie-search:focus{
-    outline: none;
-    border-color: #5C7EF7;
-}
-.h-movie-search-btn{
-    display: inline-block;
-    border: none;
-    width: 40px;
-    height: 30px;
-    vertical-align: middle;
-    background: url(../images/h-button/버튼.png) no-repeat;
-    background-size: cover;
-    transition: 0.5s;
-}
-.h-movie-search-btn:hover{
-    background-image: url(../images/h-button/버튼hover.png);
-    transition: 0.5s;
 }
 .h-movie-list{
     display: flex;

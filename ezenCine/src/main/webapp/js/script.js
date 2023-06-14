@@ -366,7 +366,12 @@ $('#notlikeimage').click(function(){
   $(document).on("click", 'div.c-rate input', function() {
     var ratingValue = $(this).val();
     $('.c-rating-number').text(ratingValue);
-    })
+})
+
+$(document).on("click", 'div.c-modi-rate input', function() {
+    var ratingValue = $(this).val();
+    $('.c-mypage-popup-rate').text(ratingValue);
+})
 
   //textarea 글자입력 설정
   $('.k-text_box textarea').keyup(function(){
@@ -378,6 +383,8 @@ $('#notlikeimage').click(function(){
         $('.k-text_box .count span').html(220);
       }
   });
+
+  
 
   //리뷰 좋아요버튼
 
@@ -531,7 +538,8 @@ function cChangeOrderReview(n){
             }).then((res) => res.json())
             .then((result2) => {
                 insert.innerHTML = "";
-                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+                const today = new Date(Date.now() - timezoneOffset).toISOString().substring(0, 10).replace(/-/g, ".");
                 for(i = 0; i < result1.length; i++){
                     let likeCnt = 0;
                     for(j = 0; j < result2.length; j++){
@@ -686,7 +694,8 @@ function cChangeOrderReview(n){
             }).then((res) => res.json())
             .then((result2) => {
                 insert.innerHTML = "";
-                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+                const today = new Date(Date.now() - timezoneOffset).toISOString().substring(0, 10).replace(/-/g, ".");
                 for(i = 0; i < result1.length; i++){
                     let likeCnt = 0;
                     for(j = 0; j < result2.length; j++){
@@ -831,10 +840,12 @@ function cReviewsSubmit(){
     const btn = document.getElementsByClassName("k-list_btn");
     const isCurrent = document.getElementById("k-score_1");
     const isNotCurrent = document.getElementById("k-score_2");
+    let review = document.getElementById("k-textbox");
     if(userid == "" || userid == "null" || userid == null){
         alert("로그인이 필요한 서비스입니다.");
+    }else if(review.value == ""){
+        alert("내용을 입력해주세요.");
     }else{
-        let review = document.getElementById("k-textbox");
         const rating = document.getElementsByClassName("rating-number")[0].innerText;
         let insert = document.getElementsByClassName("k-reviewlist_all")[0];
         const allNum = document.getElementById("reviewAllNum").value;
@@ -864,9 +875,9 @@ function cReviewsSubmit(){
                 })
             }).then((res) => res.json())
             .then((result2) => {
-                
                 insert.innerHTML = "";
-                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+                const today = new Date(Date.now() - timezoneOffset).toISOString().substring(0, 10).replace(/-/g, ".");
                 for(i = 0; i < result1.length; i++){
                     let likeCnt = 0;
                     for(j = 0; j < result2.length; j++){
@@ -1033,7 +1044,8 @@ function cReviewMore(n){
                 })
             }).then((res) => res.json())
             .then((result2) => {
-                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+                const today = new Date(Date.now() - timezoneOffset).toISOString().substring(0, 10).replace(/-/g, ".");
                 for(i = 0; i < result1.length; i++){
                     let likeCnt = 0;
                     for(j = 0; j < result2.length; j++){
@@ -1191,7 +1203,8 @@ function cReviewMore(n){
                 })
             }).then((res) => res.json())
             .then((result2) => {
-                const today = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+                const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+                const today = new Date(Date.now() - timezoneOffset).toISOString().substring(0, 10).replace(/-/g, ".");
                 for(i = 0; i < result1.length; i++){
                     let likeCnt = 0;
                     for(j = 0; j < result2.length; j++){
@@ -1814,10 +1827,6 @@ function loginWithKakao() {
         scope: 'account_email'
     });
     Kakao.Auth.setAccessToken(token);
-}
-
-window.onload = function(){
-    document.getElementById("url").value = window.location.href;
 }
 
 
@@ -2613,14 +2622,19 @@ $(window).scroll(function () {
     
 });
 */
-function cReviewPopupClose(){
-    const popup = document.getElementsByClassName("c-mypage-modi-popup-shadow")[0];
+function cReviewPopupClose(n){
+    const popup = document.getElementsByClassName("c-mypage-modi-popup-shadow")[n];
     popup.style.display = "none";
 }
 function cReviewPopupOpen(n){
-    const popup = document.getElementsByClassName("c-mypage-modi-popup-shadow")[0];
+    const popup = document.getElementsByClassName("c-mypage-modi-popup-shadow")[n];
     popup.style.display = "block";
+
+    const rating = document.getElementsByClassName("c-mypage-popup-rate")[n];
+    const radioRate = document.getElementsByClassName("c-rating" + n)[10 - Number(rating.innerText)];
+    radioRate.checked = true;
 }
+
 function cMyPageBottom(n){
     const content = document.getElementsByClassName("c-mypage-content");
     const tab = document.getElementsByClassName("c-mypage-tab");
@@ -2647,6 +2661,35 @@ function dayToKor(n){
     }else if(n == 7){
         return "토";
     }
+}
+function cReviewPopupModiSend(n){
+    const num = document.getElementsByClassName('c-mypage-review-modi-num')[n].value;
+    const movieid = document.getElementsByClassName("c-mypage-review-modi-mov-id")[n].value;
+    const review = document.getElementsByClassName("c-mypage-textarea")[n].value;
+    const rating = document.getElementsByClassName("c-mypage-popup-rate")[n].innerText;
+    let ratingBox = document.getElementsByClassName("c-score")[n];
+    const popup = document.getElementsByClassName("c-mypage-modi-popup-shadow")[n];
+    
+    //const reviewbox = document.getElementsByClassName("k-reviewlist")[n];
+    const modireview = document.getElementsByClassName("c-comment")[n];
+    fetch("/ezenCine/ReviewModi", {
+        headers : {"Content-Type": "application/json"},
+        method : "post",
+        body : JSON.stringify({
+            reviews_num : num, movie_id : movieid, review : review, rating: rating
+        })
+    }).then((res) => res.json())
+    .then((result) => {
+        if(result == 1){
+            ratingBox.innerHTML = rating + ".0";
+            modireview.innerHTML = review;
+            popup.style.display = "none";
+        }else{
+
+        }
+        
+    })
+
 }
 function cMyPageMore(n){
     if(n == 0){
@@ -2704,6 +2747,7 @@ function cMyPageMore(n){
             }
         })
     }else if(n == 1){
+        const userImg = document.getElementById("userimg").src;
         const plusbtn = document.getElementById("c-mypage-plus-review-btn");
         const reviewAllnum = document.getElementById("review-all-num").value;
         const num = document.getElementsByClassName("c-mypage-review-num").length;
@@ -2737,11 +2781,54 @@ function cMyPageMore(n){
                                     <span>${diff}일 전</span>
                                 </span>
                                 <span class="second">
-                                    <a href="javascript:void(0);">수정</a>
-                                    <a href="javascript:cMyPageReviewDel(${num + i})">삭제</a>
+                                    <a href="javascript:cReviewPopupOpen(${num + i});">수정</a>
+                                    <a href="javascript:cMyPageReviewDel(${num + i});">삭제</a>
                                 </span></p>
                         </div>
                     </div>
+                    <div class="c-mypage-modi-popup-shadow">
+					<div class="c-mypage-modi-popup">
+						<div class="c-mypage-modi-title">리뷰 수정하기 
+							<a href="javascript:cReviewPopupClose(${num + i});"><img src="images/icon/inyoung/close.png" alt="close" /></a>
+						</div>
+						<div class="c-mypage-popup-content">
+							<p>${result[i].title}</p>
+							<div class="c-mypage-popup-real-content">
+								
+									<img src="${result[i].poster_url}" alt="poster" />
+								
+								<div class="c-mypage-popup-right-content">
+									<div class="c-mypage-modi-content-top">
+										<div class="c-mypage-popup-userimg">
+											<img src="${userImg}" alt="user" />
+										</div>
+								    	<div class="c-modi-mvrate">
+											<div class="c-modi-rate">
+							    				<input type="radio" id="c-rating10${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="10" ><label for="c-rating10${num + i}" title="10점"  ></label>
+					                            <input type="radio" id="c-rating9${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="9"  ><label class="c-half" for="c-rating9${num + i}" title="9점" ></label>
+					                            <input type="radio" id="c-rating8${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="8" ><label for="c-rating8${num + i}" title="8점" ></label>
+					                            <input type="radio" id="c-rating7${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="7" ><label class="c-half" for="c-rating7${num + i}" title="7점"  ></label>
+					                            <input type="radio" id="c-rating6${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="6" ><label for="c-rating6${num + i}" title="6점"  ></label>
+					                            <input type="radio" id="c-rating5${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="5" ><label class="c-half" for="c-rating5${num + i}" title="5점"  ></label>
+					                            <input type="radio" id="c-rating4${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="4" ><label for="c-rating4${num + i}" title="4점"  ></label>
+					                            <input type="radio" id="c-rating3${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="3" ><label class="c-half" for="c-rating3${num + i}" title="3점"></label>
+					                            <input type="radio" id="c-rating2${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="2" ><label for="c-rating2${num + i}" title="2점" ></label>
+					                            <input type="radio" id="c-rating1${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="1" ><label class="c-half" for="c-rating1${num + i}" title="1점" ></label>
+						
+										    </div>
+										</div>
+										<div class="c-mypage-popup-rating"><span class="c-mypage-popup-rate">${result[i].rating}</span> 점</div>
+									</div>
+									<textarea spellcheck="false" maxlength="220" class="c-mypage-textarea" id="" cols="30" rows="10">${result[i].comments}</textarea>
+								</div>
+							</div>
+							<div class="c-mypage-popup-btn">
+								<a href="javascript:cReviewPopupClose(${num + i});">취소</a>
+								<a href="javascript:cReviewPopupModiSend(${num + i});">수정</a>
+							</div>
+						</div>
+					</div>	
+				</div>          
                 `);
             }
             if(num == reviewAllnum - 1 || num == reviewAllnum - 2){
