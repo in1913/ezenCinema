@@ -67,7 +67,7 @@ public class MovieDDL {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM Movie WHERE CURDATE() BETWEEN open_date AND close_date order by likes desc limit 0, 4;";
+		String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id WHERE CURDATE() BETWEEN open_date AND close_date order by Likes desc limit 0, 4";
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -81,6 +81,7 @@ public class MovieDDL {
 				dto.setTitle(rs.getString("title"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setLike(rs.getInt("likes"));
+				dto.setAvg_rating(rs.getFloat("avg_rating"));
 				
 				data.add(dto);
 			}
@@ -104,7 +105,7 @@ public class MovieDDL {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM Movie WHERE CURDATE() BETWEEN open_date AND close_date order by likes desc";
+		String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id WHERE CURDATE() BETWEEN open_date AND close_date order by Likes desc";
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -118,6 +119,7 @@ public class MovieDDL {
 				dto.setTitle(rs.getString("title"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setLike(rs.getInt("likes"));
+				dto.setAvg_rating(rs.getFloat("avg_rating"));
 				
 				data.add(dto);
 			}
@@ -141,7 +143,7 @@ public class MovieDDL {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM Movie WHERE open_date > CURDATE() order by likes desc limit 0, 4" ;
+		String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id WHERE open_date > CURDATE() order by Likes desc limit 0, 4" ;
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -155,6 +157,7 @@ public class MovieDDL {
 				dto.setTitle(rs.getString("title"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setLike(rs.getInt("likes"));
+				dto.setAvg_rating(rs.getFloat("avg_rating"));
 				
 				data.add(dto);
 			}
@@ -177,7 +180,7 @@ public class MovieDDL {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM Movie WHERE open_date > CURDATE() order by likes desc" ;
+		String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id WHERE open_date > CURDATE() order by Likes desc" ;
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -191,6 +194,7 @@ public class MovieDDL {
 				dto.setTitle(rs.getString("title"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setLike(rs.getInt("likes"));
+				dto.setAvg_rating(rs.getFloat("avg_rating"));
 				
 				data.add(dto);
 			}
@@ -252,7 +256,7 @@ public class MovieDDL {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM Movie order by likes desc limit 0, 20" ;
+		String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id order by Likes desc limit 0, 20" ;
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -266,6 +270,7 @@ public class MovieDDL {
 				dto.setTitle(rs.getString("title"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setLike(rs.getInt("likes"));
+				dto.setAvg_rating(rs.getFloat("avg_rating"));
 				
 				data.add(dto);
 			}
@@ -289,7 +294,7 @@ public class MovieDDL {
 			Connection conn = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			String query = "SELECT * FROM Movie WHERE close_date < CURDATE() order by likes desc" ;
+			String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id WHERE close_date < CURDATE() order by Likes desc" ;
 			Vector<MovieDTO> data = new Vector<>();
 			
 			try {
@@ -303,6 +308,7 @@ public class MovieDDL {
 					dto.setTitle(rs.getString("title"));
 					dto.setPoster_url(rs.getString("poster_url"));
 					dto.setLike(rs.getInt("likes"));
+					dto.setAvg_rating(rs.getFloat("avg_rating"));
 					
 					data.add(dto);
 				}
@@ -326,7 +332,7 @@ public class MovieDDL {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM Movie where genre='애니메이션' limit 0, 4;" ;
+		String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id WHERE genre='애니메이션' order by Likes desc limit 0, 4" ;
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -340,6 +346,7 @@ public class MovieDDL {
 				dto.setTitle(rs.getString("title"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setLike(rs.getInt("likes"));
+				dto.setAvg_rating(rs.getFloat("avg_rating"));
 				
 				data.add(dto);
 			}
@@ -362,7 +369,7 @@ public class MovieDDL {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM Movie where genre='애니메이션' limit 0, 4;" ;
+		String query = "SELECT M.*, COALESCE(R.avg_rating, 0) AS avg_rating FROM Movie M LEFT JOIN (SELECT movie_id, ROUND(AVG(rating), 2) AS avg_rating FROM Reviews GROUP BY movie_id) R ON M.id = R.movie_id WHERE genre='애니메이션' order by Likes desc" ;
 		Vector<MovieDTO> data = new Vector<>();
 		
 		try {
@@ -376,6 +383,7 @@ public class MovieDDL {
 				dto.setTitle(rs.getString("title"));
 				dto.setPoster_url(rs.getString("poster_url"));
 				dto.setLike(rs.getInt("likes"));
+				dto.setAvg_rating(rs.getFloat("avg_rating"));
 				
 				data.add(dto);
 			}

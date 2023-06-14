@@ -88,10 +88,21 @@ $(function(){
     
     // 시간 클릭
     $(document).on("click", ".h-b-time-btn", function(){
-        $(".h-b-time-btn").removeClass("b-on");
-        $(this).addClass("b-on");
-        $(this).find("input").prop("checked", true);
-        $(".h-booking-btn-box").css({"display" : "block"});
+    	let timeVal = $(this).find("input[type='radio']").val();
+    	let timeValarr = timeVal.split(":");
+    	let now = new Date();
+    	let nowTime = now.getHours();
+    	
+    	if(timeValarr[0] < nowTime){
+    		alert("예약 가능시간이 지난 영화입니다.");
+    	
+    	}else{
+    		$(".h-b-time-btn").removeClass("b-on");
+	        $(this).addClass("b-on");
+	        $(this).find("input").prop("checked", true);
+	        $(".h-booking-btn-box").css({"display" : "block"});
+    	}
+        
     });
     
     // 좌석선택 나와라

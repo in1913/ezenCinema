@@ -103,6 +103,8 @@ $(function(){
         const fadeOut = document.getElementsByClassName("k-fade")[0];
         PopupSlide.style.display = "none";
         fadeOut.style.display = "none";
+        
+        $(".k-popup>iframe").attr("src", " ");
     });
     //슬라이드 링크 변경
     $(".nt-post").click(function() {
