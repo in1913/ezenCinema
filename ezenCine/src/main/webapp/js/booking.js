@@ -320,7 +320,7 @@ $(function(){
 	               		alert("예매에 실패했습니다");
 	               	}else{
 	               		alert("예매가 완료되었습니다.");
-	               		location.reload();
+	               		window.location.href = `index.jsp?fname=mem/mypage`;
 	               	}
 	            }
 	        });
