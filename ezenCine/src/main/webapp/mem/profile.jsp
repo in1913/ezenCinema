@@ -54,11 +54,17 @@
         </div>
         <div class="second userpass-length">
 <%
-	int len = ml.getPassword().length();
+	int len = 0;
 	String star = ""; 
-	for(int i = 0; i < len; i++){
-		star += "*";
-	}
+	if(ml.getPassword() == null){	
+	}else{
+		len = ml.getPassword().length();
+		for(int i = 0; i < len; i++){
+			star += "*";
+		}
+	} 
+	
+	
 %>        
             <%=star %>
         </div>
@@ -73,9 +79,17 @@
         <div class="second" id="c-profile-show-username">
             <%=ml.getUsername() %>
         </div>
-        <div class="third">
+<%
+	if(ml.getPassword() == null){
+	}else{
+%>
+   		<div class="third">
             <a href="javascript:cProfileShow(2);" class="c-profile-btn">이름 변경</a>
         </div>
+<%		
+	}
+%>        
+     
     </div>
     <div class="c-profile-nickname">
         <div class="first">
