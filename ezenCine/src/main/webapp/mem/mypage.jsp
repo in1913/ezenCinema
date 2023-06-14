@@ -366,7 +366,7 @@ System.out.println(i);
         <div class="h-right-nav">
             <div class="h-nav">
                 <div class="h-nav-booking">
-                    <a href="javascript:void(0)">
+                    <a href="index.jsp?fname=movie/booking">
                         <div class="h-img"></div>
                         <p>예매하기</p>
                     </a>
