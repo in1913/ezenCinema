@@ -3060,7 +3060,14 @@ function cUpdatePw(){
 
 function cFindIdPwClose(){
     const popup = document.getElementById("c-find-idpw-popup");
+    const popup_alert = document.getElementById("idpw-popup-alert");
+    if(popup_alert.innerHTML.includes("입력하신 비밀번호로 비밀번호가 변경되었습니다.")){
+        popup.style.display = "none";
+        location.href = "index.jsp";
+        
+    }
     popup.style.display = "none";
+    
 }
 /********************* profile *********************** */
 function regexCurPwCheck(){    

@@ -14,7 +14,7 @@ public class OCIEmail {
 	 
     // Replace FROM with your "From" address.
     // This address must be added to Approved Senders in the console.
-    static final String FROM = "admin@ioracle.cloud";
+    static final String FROM = "admin@ezencinema.com";
     static final String FROMNAME = "EzenCinema";
  
     // Replace TO with a recipient address.
@@ -71,62 +71,20 @@ public class OCIEmail {
         // Create a message with the specified information.
        String receiver = to;
        String contents = "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/gh/sunn-us/SUITE/fonts/static/woff2/SUITE.css\">\n"
-       		+ "    <div class=\"c-mail-view\" style=\"width: 100%;\n"
-       		+ "    height: 100%;\n"
-       		+ "    background-color: #fff;\">\n"
-       		+ "\n"
-       		+ "        <div class=\"c-mail-container\" style=\"width: 659px;\n"
-       		+ "        padding-top: 60px;\n"
-       		+ "        padding-bottom: 80px;\n"
-       		+ "        margin-left: auto;\n"
-       		+ "        margin-right: auto;\n"
-       		+ "        margin-top: 46px;\n"
-       		+ "        display: flex;\n"
-       		+ "        flex-direction: column;\n"
-       		+ "        align-items: center;\n"
-       		+ "        color: #333333;\n"
-       		+ "        font-family: 'SUITE', sans-serif;\">\n"
-       		+ "            <img src=\"https://filerun.ioracle.cloud/wl/?id=UyS1fvL4EUgbvQs1AIbUBKKbXFrCrMKN&fmode=open\" alt=\"logo\" class=\"mail-logo\" style=\"width: 82.19px;\n"
-       		+ "            height: 80px;\">\n"
-       		+ "            <h2 style=\"margin-top: 30px;\n"
-       		+ "            font-size: 35px;\n"
-       		+ "            font-weight: 600;\">이메일 인증</h2>\n"
-       		+ "            <p class=\"top\" style=\"margin-top: 15px;\n"
-       		+ "            font-size: 24px;\">이메일 인증 화면에서 아래의 인증번호를 입력하고 인증을 완료해주세요.</p>\n"
-       		+ "            <div class=\"code\" style=\"margin-top: 60px;\n"
-       		+ "            font-size: 50px;\n"
-       		+ "            font-weight: 500;\n"
-       		+ "            letter-spacing: 30px;\n"
-       		+ "            margin-bottom: 60px;\">\n"
-       		+ "                " + oauthCode + "\n"
-       		+ "            </div>\n"
-       		+ "            <hr style=\"margin: 0;\n"
-       		+ "            padding: 0;\n"
-       		+ "            color: #ccc;\n"
-       		+ "            border: 1px solid;\n"
-       		+ "            width: 100%;\">\n"
-       		+ "            <p class=\"middle\" style=\"margin-top: 20px;\n"
-       		+ "            font-size: 18px;\n"
-       		+ "            color: #878787;\n"
-       		+ "            text-align: center;\n"
-       		+ "            line-height: 30px;\n"
-       		+ "            font-weight: 300;\n"
-       		+ "            margin-bottom: 60px;\">이젠시네마는 앞으로도 더 나은 서비스를 드리기 위해 최선을 다하겠습니다. <br> 감사합니다.</p>\n"
-       		+ "            <ul class=\"mail-list\" style=\"list-style:disc;\n"
-       		+ "            margin: 0;\n"
-       		+ "            padding: 0;\n"
-       		+ "            width: 100%;\n"
-       		+ "            color: #878787;\n"
-       		+ "            padding-left: 30px;\">\n"
-       		+ "                <li>이메일은 발신 전용으로 회신되지 않습니다.</li>\n"
-       		+ "                <li>이메일 인증요청을 하지 않은 경우 무시해주시기 바랍니다.</li>\n"
-       		+ "            </ul>\n"
-       		+ "            <p class=\"copy\" style=\"width: 100%;\n"
-       		+ "            padding-left: 7px;\n"
-       		+ "            margin-top: 20px;\n"
-       		+ "            color: #ccc;\">&copy; EZEN Cinema Inc.</p>\n"
-       		+ "        </div>\n"
-       		+ "    </div>";
+       		+ "    <table style=\"margin-left: auto; margin-right: auto; margin-top: 60px;\">\n"
+       		+ "        <tbody style=\"background-color: #fff;\">\n"
+       		+ "            <tr style=\"width: 659px;\">\n"
+       		+ "                <td>\n"
+       		+ "                    <img src=\"https://filerun.ioracle.cloud/wl/?id=bYC0htkydnPAPaCxmYrT9APLCe9NYAyQ&fmode=open\" alt=\"email_top\" style=\"display: block;\">\n"
+       		+ "                    <h1 style=\"text-align: center; margin-top: 60px; margin-bottom: 60px; width: 659px; letter-spacing: 30px; font-family: 'SUITE', sans-serif; font-size: 48px;\">" + oauthCode + "</h1>\n"
+       		+ "                    <img src=\"https://filerun.ioracle.cloud/wl/?id=hrjxQOrZqD4uBBuw2cX7Csq7HicaMTRw&fmode=open\" alt=\"email_middle\" style=\"display: block; margin-bottom: 60px;\">\n"
+       		+ "                    <img src=\"https://filerun.ioracle.cloud/wl/?id=kyHOf65j5uA0JQiptTTYEE3eujadYMEy&fmode=open\" alt=\"email_bottom\" style=\"display: block;\">\n"
+       		+ "                </td>\n"
+       		+ "                \n"
+       		+ "            </tr>\n"
+       		+ "        </tbody>\n"
+       		+ "    </table>\n"
+       		+ "";
        MimeMessage msg = new MimeMessage(session);
        try {
     	   msg.setFrom(new InternetAddress(FROM,FROMNAME, "utf-8"));
