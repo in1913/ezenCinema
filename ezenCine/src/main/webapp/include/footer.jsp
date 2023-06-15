@@ -123,6 +123,7 @@
     <script src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/movielist.js"></script>
 
 </body>
 </html>
