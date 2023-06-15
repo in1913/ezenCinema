@@ -88,7 +88,7 @@
                         
                     </li>
                     <li>
-                        <a class="c-blue" href="javascript:void(0)">혜택</a>
+                        <a href="javascript:void(0)">혜택</a>
                         <ul class="lnb">
                             <li><a href="javascript:void(0)">멤버십</a></li>
                             <li><a href="javascript:void(0)">제휴/할인</a></li>

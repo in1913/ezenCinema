@@ -62,6 +62,7 @@
 			len = ml.getPassword().length();
 			for(int i = 0; i < len; i++){
 				star += "*";	
+			}
 %>        
             <%=star %>
         </div>
