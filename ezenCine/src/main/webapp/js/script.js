@@ -8,6 +8,7 @@ $(function(){
     $(".gnb>li").mouseleave(function(){
         $(this).find(".lnb").stop().fadeOut(300);
         $("header.fixed>.subdp").stop().fadeOut(300);
+        $("header>.subdp").stop().fadeOut(300);
         $("header.fixed").css({"border-bottom":"1.8px solid #000"});
     });
 
@@ -120,8 +121,11 @@ $(function(){
     })
 
     // movieList 시작
-    $(".h-movie-all").hover(function(){
-        $(this).find(".h-imgbox").find(".h-movie-content").fadeToggle(300);
+    $(".h-movie-all").mouseover(function(){
+        $(this).find(".h-imgbox").find(".h-movie-content").stop().fadeIn(300);
+    });
+    $(".h-movie-all").mouseleave(function(){
+        $(this).find(".h-imgbox").find(".h-movie-content").stop().fadeOut(300);
     });
     
     $("#nav-movie").click(function(){
@@ -129,44 +133,44 @@ $(function(){
         const scroll = $(document).scrollTop();
         
         if(scroll == 0){
-          $('html').animate({scrollTop : offset.top-80}, 400);
+            $('html').animate({scrollTop : offset.top-80}, 400);
         }else{
-          $('html').animate({scrollTop : offset.top-40}, 400);
+            $('html').animate({scrollTop : offset.top-40}, 400);
         }
     });
   
   
     $("#nav-upcoming").click(function(){
-      let offset = $('#upcoming').offset();
-      const scroll = $(document).scrollTop();
-  
-      if(scroll == 0){
-        $('html').animate({scrollTop : offset.top-80}, 400);
-      }else{
-        $('html').animate({scrollTop : offset.top-40}, 400);
-      }
+        let offset = $('#upcoming').offset();
+        const scroll = $(document).scrollTop();
+    
+        if(scroll == 0){
+            $('html').animate({scrollTop : offset.top-80}, 400);
+        }else{
+            $('html').animate({scrollTop : offset.top-40}, 400);
+        }
     });
   
     $("#nav-top").click(function(){
-      let offset = $('#top').offset();
-      const scroll = $(document).scrollTop();
-      
-      if(scroll == 0){
-        $('html').animate({scrollTop : offset.top-80}, 400);
-      }else{
-        $('html').animate({scrollTop : offset.top-40}, 400);
-      }
+        let offset = $('#top').offset();
+        const scroll = $(document).scrollTop();
+        
+        if(scroll == 0){
+            $('html').animate({scrollTop : offset.top-80}, 400);
+        }else{
+            $('html').animate({scrollTop : offset.top-40}, 400);
+        }
     });
   
     $("#nav-animation").click(function(){
-      let offset = $('#animation').offset(); 
-      const scroll = $(document).scrollTop();
-      
-      if(scroll == 0){
-        $('html').animate({scrollTop : offset.top-60}, 400);
-      }else{
-        $('html').animate({scrollTop : offset.top-40}, 400);
-      }
+        let offset = $('#animation').offset(); 
+        const scroll = $(document).scrollTop();
+        
+        if(scroll == 0){
+            $('html').animate({scrollTop : offset.top-60}, 400);
+        }else{
+            $('html').animate({scrollTop : offset.top-40}, 400);
+        }
     });
 
     // 광고배너
@@ -265,107 +269,107 @@ $('#notlikeimage').click(function(){
     }    
 });
 
-  //정보 리뷰 active
-  $('.k-tab>li').click(function(){
-      $('.k-tab>li>a').toggleClass('active');
-      if($('#information').hasClass("active")){
-          $('#k-information').addClass("active");
-      }else{
-          $('#k-information').removeClass("active");
-      }
-      if($('#review').hasClass("active")){
-          $('#k-review').addClass("active");
-      }else{
-          $('#k-review').removeClass("active");
-      }
-  });
+//정보 리뷰 active
+$('.k-tab>li').click(function(){
+    $('.k-tab>li>a').toggleClass('active');
+    if($('#information').hasClass("active")){
+        $('#k-information').addClass("active");
+    }else{
+        $('#k-information').removeClass("active");
+    }
+    if($('#review').hasClass("active")){
+        $('#k-review').addClass("active");
+    }else{
+        $('#k-review').removeClass("active");
+    }
+});
   
-  // 줄거리버튼
-  $('.k-summary_btn').click(function(){
-      $('.k-summary').toggleClass("wide");
-      $(this).find("i").toggleClass("fa-angle-down");
-      $(this).find("i").toggleClass("fa-angle-up");
-  });
+// 줄거리버튼
+$('.k-summary_btn').click(function(){
+    $('.k-summary').toggleClass("wide");
+    $(this).find("i").toggleClass("fa-angle-down");
+    $(this).find("i").toggleClass("fa-angle-up");
+});
 
-  //스틸컷 슬라이드
-  $('.pt-in').slick({
-      infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      centerMode:true,
-      centerPadding: '60px',
-      nextArrow: $('#btn-right'),
-      prevArrow: $('#btn-left'),
-  });
-  $('.pt-in').on('afterChange', function(event, slick, currentSlide) {
-      $('#cnum').text(currentSlide + 1);
-  });
-  $('.pt-in').on('afterChange', function(event, slick, currentSlide) {
-      $('.page .bar').removeClass('active onn');
-      $('.page .bar').eq(currentSlide).addClass('active onn');
-  });
-  
-  //예고편 슬라이드
-  $('.k-slide').slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      nextArrow:$('.slidenext'),
-      prevArrow:$('.slideprev'),
-      dots:true,
-      dotsClass:'slide_dots',
-    });
+//스틸컷 슬라이드
+$('.pt-in').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    centerMode:true,
+    centerPadding: '60px',
+    nextArrow: $('#btn-right'),
+    prevArrow: $('#btn-left'),
+});
+$('.pt-in').on('afterChange', function(event, slick, currentSlide) {
+    $('#cnum').text(currentSlide + 1);
+});
+$('.pt-in').on('afterChange', function(event, slick, currentSlide) {
+    $('.page .bar').removeClass('active onn');
+    $('.page .bar').eq(currentSlide).addClass('active onn');
+});
+
+//예고편 슬라이드
+$('.k-slide').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow:$('.slidenext'),
+    prevArrow:$('.slideprev'),
+    dots:true,
+    dotsClass:'slide_dots',
+});
 
 
   //영상 켜기
-    $(".k-trailer_btn").click(function(){
-      const Popup = document.getElementsByClassName("k-popup")[0];
-      const fade = document.getElementsByClassName("k-fade")[0];
-      Popup.style.display = "block";
-      fade.style.display = "block";
-  });
+$(".k-trailer_btn").click(function(){
+    const Popup = document.getElementsByClassName("k-popup")[0];
+    const fade = document.getElementsByClassName("k-fade")[0];
+    Popup.style.display = "block";
+    fade.style.display = "block";
+});
 
   //영상 끄기
-  $(".k-fade").click(function(){
-      const PopupSlide = document.getElementsByClassName("k-popup")[0];
-      const fadeOut = document.getElementsByClassName("k-fade")[0];
-      PopupSlide.style.display = "none";
-      fadeOut.style.display = "none";
-  });
+$(".k-fade").click(function(){
+    const PopupSlide = document.getElementsByClassName("k-popup")[0];
+    const fadeOut = document.getElementsByClassName("k-fade")[0];
+    PopupSlide.style.display = "none";
+    fadeOut.style.display = "none";
+});
 
   //슬라이드 링크 변경
-  $(".k-trailer_btn").click(function() {
-      const vodsrcs = $(this).prev("img").data("vodsrc");
-      $(".k-popup iframe").attr("src", vodsrcs);
-    });
+$(".k-trailer_btn").click(function() {
+    const vodsrcs = $(this).prev("img").data("vodsrc");
+    $(".k-popup iframe").attr("src", vodsrcs);
+});
 
   //감독 출연진 슬라이드
-  $('.k-post-wrapper').slick({
-      slidesToShow: 6,
-      slidesToScroll: 2,
-      // autoplay: true,
-      // autoplaySpeed: 2000,
-      nextArrow:$('.next'),
-      prevArrow:$('.prev'),
-    });
+$('.k-post-wrapper').slick({
+    slidesToShow: 6,
+    slidesToScroll: 2,
+    // autoplay: true,
+    // autoplaySpeed: 2000,
+    nextArrow:$('.next'),
+    prevArrow:$('.prev'),
+});
 
   
-    // 리뷰상세
+// 리뷰상세
 
 
-  //textarea 글자입력 설정
+//textarea 글자입력 설정
 
-  $('fieldset.rate input').on('click', function() {
+$('fieldset.rate input').on('click', function() {
 
     var ratingValue = $(this).val();
     $('.rating-number').text(ratingValue);
-  });
+});
 /*
   $('div.c-rate input').on('click', function() {
     var ratingValue = $(this).val();
     $('.c-rating-number').text(ratingValue);
     });
 */
-  $(document).on("click", 'div.c-rate input', function() {
+$(document).on("click", 'div.c-rate input', function() {
     var ratingValue = $(this).val();
     $('.c-rating-number').text(ratingValue);
 })
@@ -376,15 +380,15 @@ $(document).on("click", 'div.c-modi-rate input', function() {
 })
 
   //textarea 글자입력 설정
-  $('.k-text_box textarea').keyup(function(){
-      var content = $(this).val();
-      $('.k-text_box .count span').html(content.length);
-      if (content.length > 220){
+$('.k-text_box textarea').keyup(function(){
+    var content = $(this).val();
+    $('.k-text_box .count span').html(content.length);
+    if (content.length > 220){
         alert("최대 220자까지 입력 가능합니다.");
         $(this).val(content.substring(0, 220));
         $('.k-text_box .count span').html(220);
-      }
-  });
+    }
+});
 
   
 
@@ -410,10 +414,10 @@ $(document).on("click", 'div.c-modi-rate input', function() {
   */
 
   //리뷰 순위 active
-  $('.k-reviewtitle_ul>span>a').click(function(){
-      $('.k-reviewtitle_ul>span>a').removeClass("active");
-      $(this).addClass("active");
-  });
+$('.k-reviewtitle_ul>span>a').click(function(){
+    $('.k-reviewtitle_ul>span>a').removeClass("active");
+    $(this).addClass("active");
+});
 
   /*** 영화상세 끝 ***/
 })
@@ -1510,10 +1514,10 @@ function cCopy(){
 
 
 function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // 부드러운 스크롤 효과를 위해 'smooth' 사용
-  });
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // 부드러운 스크롤 효과를 위해 'smooth' 사용
+    });
 }
 
 
@@ -2444,181 +2448,102 @@ function cSignUpSns(){
     
 }
 function sDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var address = ''; // 주소 변수
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var address = ''; // 주소 변수
 
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    address = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    address = data.jibunAddress;
-                }
-                var extraRoadAddr = ""; //참고항목 
-                //도로명에 동,로,가가 있는 경우 추가
-                if(data.bname !== '' &&/[동|로|가]$/g.test(data.bname)){
-               	extraRoadAddr += data.bname;
-            	}
-            	//건물명, 공동주택 추가
-	            if(data.bname !== '' && data.apartment === 'Y'){
-	               extraRoadAddr += (extraRoadAddr !== ''?','+data.buildingName : data.buildingName);
-	            }
-	                //표시할 참고항목이 있을 경우
-	            if(extraRoadAddr !== ''){
-	               extraRoadAddr = ' (' + extraRoadAddr + ')';
-	            }
-
-                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postcode').value = data.zonecode;
-                document.getElementById("addr").value = address;
-                document.getElementById("addr").value += extraRoadAddr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("detailaddr").focus();
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                address = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                address = data.jibunAddress;
             }
-        }).open();
+            var extraRoadAddr = ""; //참고항목 
+            //도로명에 동,로,가가 있는 경우 추가
+            if(data.bname !== '' &&/[동|로|가]$/g.test(data.bname)){
+            extraRoadAddr += data.bname;
+            }
+            //건물명, 공동주택 추가
+            if(data.bname !== '' && data.apartment === 'Y'){
+                extraRoadAddr += (extraRoadAddr !== ''?','+data.buildingName : data.buildingName);
+            }
+                //표시할 참고항목이 있을 경우
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('postcode').value = data.zonecode;
+            document.getElementById("addr").value = address;
+            document.getElementById("addr").value += extraRoadAddr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("detailaddr").focus();
+        }
+    }).open();
 }
 
 /********************* mypage ***************************/
 $(function(){
 
-  $("#nav-movie").click(function(){
-      let offset = $('#movie').offset();
-      const scroll = $(document).scrollTop();
-      
-      if(scroll == 0){
-        $('html').animate({scrollTop : offset.top-80}, 400);
-      }else{
-        $('html').animate({scrollTop : offset.top-40}, 400);
-      }
-  });
+    $("#nav-movie").click(function(){
+        let offset = $('#movie').offset();
+        const scroll = $(document).scrollTop();
+        
+        if(scroll == 0){
+            $('html').animate({scrollTop : offset.top-80}, 400);
+        }else{
+            $('html').animate({scrollTop : offset.top-40}, 400);
+        }
+    });
 
 
-  $("#nav-upcoming").click(function(){
-    let offset = $('#upcoming').offset();
-    const scroll = $(document).scrollTop();
+    $("#nav-upcoming").click(function(){
+        let offset = $('#upcoming').offset();
+        const scroll = $(document).scrollTop();
 
-    if(scroll == 0){
-      $('html').animate({scrollTop : offset.top-80}, 400);
-    }else{
-      $('html').animate({scrollTop : offset.top-40}, 400);
-    }
-  });
+        if(scroll == 0){
+            $('html').animate({scrollTop : offset.top-80}, 400);
+        }else{
+            $('html').animate({scrollTop : offset.top-40}, 400);
+        }
+    });
 
-  $("#nav-top").click(function(){
-    let offset = $('#top').offset();
-    const scroll = $(document).scrollTop();
-    
-    if(scroll == 0){
-      $('html').animate({scrollTop : offset.top-80}, 400);
-    }else{
-      $('html').animate({scrollTop : offset.top-40}, 400);
-    }
-  });
+    $("#nav-top").click(function(){
+        let offset = $('#top').offset();
+        const scroll = $(document).scrollTop();
+        
+        if(scroll == 0){
+            $('html').animate({scrollTop : offset.top-80}, 400);
+        }else{
+            $('html').animate({scrollTop : offset.top-40}, 400);
+        }
+    });
 
-  $("#nav-animation").click(function(){
-    let offset = $('#animation').offset(); 
-    const scroll = $(document).scrollTop();
-    
-    if(scroll == 0){
-      $('html').animate({scrollTop : offset.top-60}, 400);
-    }else{
-      $('html').animate({scrollTop : offset.top-40}, 400);
-    }
-  });
+    $("#nav-animation").click(function(){
+        let offset = $('#animation').offset(); 
+        const scroll = $(document).scrollTop();
+        
+        if(scroll == 0){
+            $('html').animate({scrollTop : offset.top-60}, 400);
+        }else{
+            $('html').animate({scrollTop : offset.top-40}, 400);
+        }
+    });
 
-  //mypage
-  $(".h-review-gnb li").click(function(){
-    $(".h-review-gnb li").removeClass("active");
-    $(this).toggleClass("active");
-    $(".h-lnb").css({"display" : "none"});
-    $(this).find(".h-lnb").css({"display" : "flex"});
-  });
+    //mypage
+    $(".h-review-gnb li").click(function(){
+        $(".h-review-gnb li").removeClass("active");
+        $(this).toggleClass("active");
+        $(".h-lnb").css({"display" : "none"});
+        $(this).find(".h-lnb").css({"display" : "flex"});
+    });
 
   
-  //booking
   
-  $(".h-b-movie-btn").click(function(){
-    $(".h-b-movie-btn").removeClass("b-on");
-    $(this).addClass("b-on");
-    $(".h-location-blurbox").css({"display" : "none"});
-  });
-
-  $(".h-b-location-btn button").click(function(){
-    $(".h-b-location-btn button").removeClass("b-on");
-    $(this).addClass("b-on");
-    $(".h-date-blurbox").css({"display" : "none"});
-  });
-  
-  $(".h-b-date-btn button").click(function(){
-    $(".h-b-date-btn button").removeClass("b-on");
-    $(this).addClass("b-on");
-    $(".h-time-blurbox").css({"display" : "none"});
-  });
-
-  $(".h-b-time-btn button").click(function(){
-    $(".h-b-time-btn button").removeClass("b-on");
-    $(this).addClass("b-on");
-    $(".h-booking-btn-box").css({"display" : "block"});
-  });
 
 })//jquery
-/*
-const SearchBox = document.querySelector(".h-movie-search-box");
-const movieList = document.querySelector(".h-movie-list");
-const SearchBoxHeight = SearchBox.offsetTop;
-const movieListHight = movieList.offsetTop;
-console.log(movieListHight);
 
-const movie = document.querySelector('#nav-movie');
-const movieHeight = window.pageYOffset + document.querySelector("#movie").getBoundingClientRect().top-81;
-const upcoming = document.querySelector("#nav-upcoming");
-const upcomingHeight = window.pageYOffset + document.querySelector("#upcoming").getBoundingClientRect().top-81;
-const navTop = document.querySelector("#nav-top");
-const navTopHeight = window.pageYOffset + document.querySelector("#top").getBoundingClientRect().top-81;
-const animation = document.querySelector("#nav-animation");
-const animationHeight = window.pageYOffset + document.querySelector("#animation").getBoundingClientRect().top-81;
 
-window.onscroll = function () {
-  const windowTop = window.scrollY;
-  	// 스크롤 세로값이 h-movie-list높이보다 크거나 같으면 
-	// h-movie-list에 클래스 'drop'을 추가한다
-  if (windowTop >= SearchBoxHeight) {
-    movieList.classList.add("drop");
-  } 
-  // 아니면 클래스 'drop'을 제거
-  else {
-    movieList.classList.remove("drop");
-  }
-};
-
-$(window).scroll(function () { 
-	const scroll = $(document).scrollTop(); 
-  console.log(scroll);
-  console.log(movieHeight);
-  console.log(upcomingHeight);
-  console.log(navTopHeight);
-  console.log(animationHeight);
-
-  if(scroll < movieHeight){
-    movie.classList.remove("h-active");
-  }else if(scroll >= movieHeight && scroll < upcomingHeight){
-    movie.classList.add("h-active");
-    upcoming.classList.remove("h-active");
-  }else if(scroll >= upcomingHeight && scroll < navTopHeight){
-    movie.classList.remove("h-active");
-    upcoming.classList.add("h-active");
-    navTop.classList.remove("h-active");
-  }else if(scroll >= navTopHeight && scroll < animationHeight){
-    upcoming.classList.remove("h-active");
-    navTop.classList.add("h-active");
-    animation.classList.remove("h-active");
-  }else if(scroll >= animationHeight){
-    navTop.classList.remove("h-active");
-    animation.classList.add("h-active");
-  }
-    
-});
-*/
 function cReviewPopupClose(n){
     const popup = document.getElementsByClassName("c-mypage-modi-popup-shadow")[n];
     popup.style.display = "none";
@@ -3453,24 +3378,24 @@ var movielistData = [];
 var movielistHref = [];
 var movietitle = []
 $(document).ready(function(){
-  fetch("/ezenCine/GetMovieList", {
-    headers : {"Content-Type" : "application/json"},
-    method : "get"
-  }).then((res) => res.json())
-  .then((result) => {
-    let titles = "";
-    let titlesData = "";
-    let title = "";
-    for(i = 0; i < result.length; i++){
-      title = result[i].title;
-      titles = result[i].title + " (" + result[i].title_eng + ")";
-      titlesData = result[i].title + " (" + result[i].title_eng.toLowerCase() + ")";
-      movielist.push(titles);
-      movielistData.push(titlesData);
-      movielistHref.push(result[i].id);
-      movietitle.push(title);
-    }
-  });
+    fetch("/ezenCine/GetMovieList", {
+        headers : {"Content-Type" : "application/json"},
+        method : "get"
+    }).then((res) => res.json())
+    .then((result) => {
+        let titles = "";
+        let titlesData = "";
+        let title = "";
+        for(i = 0; i < result.length; i++){
+            title = result[i].title;
+            titles = result[i].title + " (" + result[i].title_eng + ")";
+            titlesData = result[i].title + " (" + result[i].title_eng.toLowerCase() + ")";
+            movielist.push(titles);
+            movielistData.push(titlesData);
+            movielistHref.push(result[i].id);
+            movietitle.push(title);
+        }
+    });
 });
 // 헤더 검색창 자동완성
 
@@ -3482,86 +3407,86 @@ $search.addEventListener("focusout", function(){
 	$autoComplete.style.display="none";
 })
 $search.onkeyup = (event) => {
-  // 검색어
-  const value = $search.value.trim();
-	$autoComplete.style.display = "block";
-	if($search.value == null || $search.value == ""){$autoComplete.style.display = "none";}
-  // 자동완성 필터링
-  const matchDataList = value
-    ? movielist.filter((label) => label.includes(value))
-    : [];
+    // 검색어
+    const value = $search.value.trim();
+        $autoComplete.style.display = "block";
+        if($search.value == null || $search.value == ""){$autoComplete.style.display = "none";}
+    // 자동완성 필터링
+    const matchDataList = value
+        ? movielist.filter((label) => label.includes(value))
+        : [];
 
-  switch (event.keyCode) {
-    // UP KEY
-    case 38:
-      nowIndex = Math.max(nowIndex - 1, 0);
-      break;
+    switch (event.keyCode) {
+        // UP KEY
+        case 38:
+        nowIndex = Math.max(nowIndex - 1, 0);
+        break;
 
-    // DOWN KEY
-    case 40:
-      nowIndex = Math.min(nowIndex + 1, matchDataList.length - 1);
-      break;
+        // DOWN KEY
+        case 40:
+        nowIndex = Math.min(nowIndex + 1, matchDataList.length - 1);
+        break;
 
-    // ENTER KEY
-    case 13:{
-      document.querySelector("#header-search").value = matchDataList[nowIndex] || "";
-      $autoComplete.style.display = "none";
-	}
-      // 초기화
-      nowIndex = 0;
-      matchDataList.length = 0;
-      break;
-      
-    // 그외 다시 초기화
-    default:
-      nowIndex = 0;
-      break;
-  }
+        // ENTER KEY
+        case 13:{
+        document.querySelector("#header-search").value = matchDataList[nowIndex] || "";
+        $autoComplete.style.display = "none";
+        }
+        // 초기화
+        nowIndex = 0;
+        matchDataList.length = 0;
+        break;
+        
+        // 그외 다시 초기화
+        default:
+        nowIndex = 0;
+        break;
+    }
 
-  // 리스트 보여주기
-  showList(matchDataList, value, nowIndex, movietitle);
+    // 리스트 보여주기
+    showList(matchDataList, value, nowIndex, movietitle);
 };
 
 const showList = (data, value, nowIndex, movietitle) => {
-  // 정규식으로 변환
-  const regex = new RegExp(`(${value})`, "g");
-  
-  $autoComplete.innerHTML = data
-    .map(
-      (label, index) => `
-      <div class='${nowIndex === index ? "active" : ""}'>
-        ${label.replace(regex, "<mark>$1</mark>")}
-        <input type='hidden' value='${movietitle[index]}'>
-      </div>
-    `
-    )
-    .join("");
+    // 정규식으로 변환
+    const regex = new RegExp(`(${value})`, "g");
+    
+    $autoComplete.innerHTML = data
+        .map(
+        (label, index) => `
+        <div class='${nowIndex === index ? "active" : ""}'>
+            ${label.replace(regex, "<mark>$1</mark>")}
+            <input type='hidden' value='${movietitle[index]}'>
+        </div>
+        `
+        )
+        .join("");
 };
 
 $(function(){
 	$(document).on("click","#header-submit", function(){
     let title = $("#header-search").val();
     let modtitle = title.substring(0, 2);
-    $.ajax({
-      url:"/ezenCine/SearchMovie",
-      type : "post",
-      data : {title : modtitle},
-      success : function(result){
-        if(result == null){
-          alert("검색결과가 없습니다.");
-        }else{
-          $.ajax({
-            url: "movie/searchResult.jsp",
-            type: "get",
-            data : {id : result},
-            success: function() {
-                window.location.href = `index.jsp?fname=movie/searchResult&id=${result}`;
+        $.ajax({
+            url:"/ezenCine/SearchMovie",
+            type : "post",
+            data : {title : modtitle},
+            success : function(result){
+                if(result == null){
+                    alert("검색결과가 없습니다.");
+                }else{
+                    $.ajax({
+                        url: "movie/searchResult.jsp",
+                        type: "get",
+                        data : {id : result},
+                        success: function() {
+                            window.location.href = `index.jsp?fname=movie/searchResult&id=${result}`;
+                        }
+                    });
+                }
             }
-        });
-        }
-      }
+        })
     })
-  })
 })
  
 function pleaseLogin(){
