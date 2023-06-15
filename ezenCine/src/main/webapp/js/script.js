@@ -29,7 +29,7 @@ $(function(){
     // 스크롤하면 header 변신
     $(window).scroll(function(){
         const header = $('#header').offset().top;
-        if(header > 0){
+        if(header > 50){
             $('#header').addClass('fixed');
         }else{
             $('#header').removeClass('fixed');
