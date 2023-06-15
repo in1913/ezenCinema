@@ -88,7 +88,7 @@
                         
                     </li>
                     <li>
-                        <a class="c-blue" href="javascript:void(0)">혜택</a>
+                        <a href="javascript:void(0)">혜택</a>
                         <ul class="lnb">
                             <li><a href="javascript:void(0)">멤버십</a></li>
                             <li><a href="javascript:void(0)">제휴/할인</a></li>
@@ -115,7 +115,7 @@
                 <span><a href="javascript:void(0)"><img src="images/ico/ico-search.png" alt="search" id="search-on"></a></span>
                 <div class="header-search-box" id="header-search-box">
                     <div class="d-flex">
-                        <input type="text" placeholder="검색어를 입력해주세요." name="header-search" id="header-search" autocomplete="off">
+                        <input spellcheck="false" type="text" placeholder="검색어를 입력해주세요." name="header-search" id="header-search" autocomplete="off">
                         <button type="button" id="header-submit"></button>
                         <div class="autocomplete"></div>
                     </div>

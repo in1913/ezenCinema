@@ -1623,8 +1623,8 @@ ul.h-movie-movie li.col-3{
 .k-age{
     position: absolute;
     z-index: 50;
-    top: -18px;
-    left: -18px;
+    top: -5px;
+    left: -5px;
     width:48px;
     height:48px;
 }
@@ -1700,9 +1700,11 @@ ul.h-movie-movie li.col-3{
 }
 #likeimage.on{
 	background-color:#5C7EF7;
+	transition: all 300ms;
 }
 #likeimage.on::after{
-	background-image: url("../images/ico/ico-heart-fill.png");
+	background-image: url("../images/ico/ico-heart-white.png");
+	transition: all 300ms;
 }
 #likeimage>span{
 	margin-left:15px;
@@ -2332,6 +2334,7 @@ fieldset.rate label:hover ~ input:checked ~ label {
     font-size: 20px;
     color: #fff;
     font-family: 'SUITE', sans-serif;
+    cursor: pointer;
 }
 #k-textbox::placeholder{
 	font-family: 'SUITE', sans-serif;
@@ -2339,7 +2342,7 @@ fieldset.rate label:hover ~ input:checked ~ label {
 .k-reviewtitle{
     margin-top: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 2px solid #ccc;
     display: flex;
     position: relative;
 }
@@ -2385,7 +2388,7 @@ fieldset.rate label:hover ~ input:checked ~ label {
     padding: 0;
 }
 .c-list-img{
-	margin-top: 10px;
+	margin-top: 23px;
 	width: 75px;
 	height: 75px;
 	border-radius: 50%;
@@ -2447,6 +2450,7 @@ fieldset.rate label:hover ~ input:checked ~ label {
     background-size: 100%;
     margin-right: 10px;
     cursor: pointer;
+    transition: all 300ms;
 }
 .c-current-like-num,.c-like-like-num{
 	width: 20px;
@@ -2456,6 +2460,7 @@ fieldset.rate label:hover ~ input:checked ~ label {
 }
 .k-like2.on{
     background-image: url('../images/moviedetail/suggestionon.png');
+    transition: all 300ms;
 }
 .k-declaration{
     width: 17px;
@@ -2498,6 +2503,9 @@ fieldset.rate label:hover ~ input:checked ~ label {
 .c-review-cur-tooltip.not-user>li{
 	padding: 0;
 }
+.c-review-cur-tooltip.not-user>li>a{
+	color: #333;
+}
 .c-review-cur-tooltip>li{
 	padding-left: 3px;
 	padding-right: 3px;
@@ -2507,6 +2515,7 @@ fieldset.rate label:hover ~ input:checked ~ label {
 }
 .c-review-cur-tooltip>li>a{
 	display: block;
+	color: #333;
 }
 .c-review-cur-tooltip>li:first-child>a{
 	border-bottom: #CCC 1px solid;		
@@ -2519,19 +2528,26 @@ fieldset.rate label:hover ~ input:checked ~ label {
     width: 1100px;
     height: 50px;
 }
-.k-list_btn{
+a.k-list_btn{
     display: none;
     width: 1100px;
-    height: 45px;
+    height: 57px;
     margin-top: 20px;
     border: none;
     border-radius: 30px;
-    cursor: pointer;
-    border: 1px solid #b9b6b1;
+    border: 2px solid #ccc;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    line-height: 45px;
-    background: #faf8f8;
+    line-height: 57px;
+    background: #f8f8f8;
+    color: #333;
+}
+.k-list_btn>span{
+	display: inline-block;
+	font-size: 22px;
+	transform: rotate(90deg);
+	vertical-align: top;
+	font-weight: 400;
 }
 .mdvt{
 	position:absolute;
@@ -2556,7 +2572,7 @@ ul.c-review-active{
 	padding-bottom: 12px;
 	display: flex;
 	justify-content: space-between;
-	background: #faf8f8;
+	background: #f8f8f8;
     border-radius: 13px;
     color: #878787;
 }
@@ -2661,7 +2677,7 @@ div.c-rate > input {
 
 /********************* login *************************/
 .c-login{
-    width: 430px;
+    width: 550px;
     background: rgba(0,0,0,0.7);
     position: fixed;
     top: 45%;
@@ -2669,14 +2685,14 @@ div.c-rate > input {
     transform: translateX(-50%) translateY(-50%);
     color: #fff;
     border-radius: 10px;
-    padding: 17px 33px;
+    padding: 30px 58px;
     font-weight: 300;
     display: none;
     z-index: 9999999;
 }
 #c-login-alert{
     margin-top: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     height: 22px;
     font-size: 11px;
 }
@@ -2689,8 +2705,8 @@ div.c-rate > input {
     font-weight: 300;
 }
 .c-login-userid{
-    margin-top: 13px;
-    margin-bottom: 5px;
+    margin-top: 22px;
+    margin-bottom: 10px;
 }
 .c-login-userpass{
     margin-bottom: 7px;
@@ -2698,8 +2714,8 @@ div.c-rate > input {
 .c-login input.c-userid, 
 .c-login input.c-userpass{
     width: 100%;
-    height: 40px;
-    border-radius: 3px;
+    height: 50px;
+    border-radius: 8px;
     background: transparent;
     font-size: 15px;
     font-weight: 600;
@@ -2719,15 +2735,15 @@ div.c-rate > input {
 .c-login-userid span{
     position: absolute;
     top: 25%;
-    left: 7px;
-    font-size: 14px;
+    left: 10px;
+    font-size: 15px;
     color: #ccc;
 }
 .c-login-userpass span{
     position: absolute;
     top: 25%;
-    left: 7px;
-    font-size: 14px;
+    left: 10px;
+    font-size: 15px;
     color: #ccc;
 }
 .c-id-save{
@@ -2744,8 +2760,8 @@ div.c-rate > input {
     text-align: center;
     background-color: #5c7ef7;
     display: block;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
     border-radius: 33px;
 }
 .c-login-btn h3{
@@ -2775,6 +2791,7 @@ div.c-rate > input {
     border-left: none;
     border-right: none;
     border-bottom: none;
+    font-size: 12px;
 }
 .c-login-sns{
     display: flex;
@@ -2783,18 +2800,18 @@ div.c-rate > input {
 }
 .c-login-sns a>img,
 .c-login-sns div>img{
-    width: 30px;
+    width: 38px;
 }
 .c-login-sns a:first-child{
     margin-left: 0;
     
 }
 .c-login-sns a{
-    margin-left: 10px;
+    margin-left: 20px;
     border-radius: 50%;
 }
 .c-login-sns div.g_id_signin{
-	margin-left: 10px;
+	margin-left: 20px;
 }
 .c-shadow{
     background: rgba(88,88,88,.5);

@@ -176,14 +176,28 @@ $(function(){
   
 /*** 영화상세 ***/
 //좋아요 버튼
+$('#likeimage').mouseenter(function(){
+    let isLike = document.getElementById("movie-like");
+    if(isLike.value == 0){
+        $(this).addClass("on");
+    }
+})
+
+$('#likeimage').mouseleave(function(){
+    let isLike = document.getElementById("movie-like");
+    if(isLike.value == 0){
+        $(this).removeClass("on");
+    }
+})
 $('#likeimage').click(function(){
     const userid = document.getElementById("userid").value;
     const movieid = document.getElementById("movie-id").value;
     const movieLike = document.getElementById("c-movieLike");
+    let isLike = document.getElementById("movie-like");
     if(userid == null || userid == "null" || userid == ""){
         alert("로그인이 필요한 서비스입니다.");
     }else{
-        if($(this).hasClass("on")){
+        if(isLike.value == 1){
             fetch("/ezenCine/DeleteLike", {
             headers: {"Content-Type" : "application/json"},
             method: "post",
@@ -196,7 +210,8 @@ $('#likeimage').click(function(){
 
                 }else{
                     movieLike.innerHTML = result.result;
-                    $("#likeimage").toggleClass("on");
+                    $("#likeimage").removeClass("on");
+                    isLike.value = 0;
                 }
                 
             })
@@ -213,7 +228,8 @@ $('#likeimage').click(function(){
 
                 }else{
                     movieLike.innerHTML = result.result;
-                    $("#likeimage").toggleClass("on");
+                    $("#likeimage").addClass("on");
+                    isLike.value = 1;
                 }
             })
         }
@@ -373,6 +389,16 @@ $(document).on("click", 'div.c-modi-rate input', function() {
     $('.c-mypage-popup-rate').text(ratingValue);
 })
 
+$(document).on("mouseenter", ".k-like2", function(){
+    if($(this).next().val() == 0){
+        $(this).addClass("on");
+    }
+})
+$(document).on("mouseleave", ".k-like2", function(){
+    if($(this).next().val() == 0){
+        $(this).removeClass("on");
+    }
+})
   //textarea 글자입력 설정
   $('.k-text_box textarea').keyup(function(){
       var content = $(this).val();
@@ -425,10 +451,11 @@ function cCurrentReviewLike(n){
     const reviews_num = document.getElementsByClassName("c-current-num")[n].value;
     const like = document.getElementsByClassName("c-current-like")[n];
     const insert = document.getElementsByClassName("c-current-like-num")[n];
+    let isLike = document.getElementsByClassName("review-like")[n];
     if(userid == null || userid == "null" || userid == ""){
         alert("로그인이 필요한 서비스입니다.");
     }else{
-        if(like.classList.contains("on")){
+        if(isLike.value == 1){
             fetch("/ezenCine/DeleteLike", {
                 headers : {"Content-Type" : "application/json"},
                 method : "post",
@@ -441,7 +468,8 @@ function cCurrentReviewLike(n){
 
                 }else{
                     insert.innerHTML = result.result;
-                    like.classList.toggle("on");
+                    like.classList.remove("on");
+                    isLike.value = 0;
                 }
                 
             })
@@ -459,7 +487,8 @@ function cCurrentReviewLike(n){
 
                 }else{
                     insert.innerHTML = result.result;
-                    like.classList.toggle("on");
+                    like.classList.add("on");
+                    isLike.value = 1;
                 }
             })
         }
@@ -472,10 +501,11 @@ function cLikeReviewLike(n){
     const reviews_num = document.getElementsByClassName("c-like-num")[n].value;
     const like = document.getElementsByClassName("c-like-like")[n];
     const insert = document.getElementsByClassName("c-like-like-num")[n];
+    let isLike = document.getElementsByClassName("review-like")[n];
     if(userid == null || userid == "null" || userid == ""){
         alert("로그인이 필요한 서비스입니다.");
     }else{
-        if(like.classList.contains("on")){
+        if(isLike.value == 1){
             fetch("/ezenCine/DeleteLike", {
                 headers : {"Content-Type" : "application/json"},
                 method : "post",
@@ -488,7 +518,8 @@ function cLikeReviewLike(n){
 
                 }else{
                     insert.innerHTML = result.result;
-                    like.classList.toggle("on");
+                    like.classList.remove("on");
+                    isLike.value = 0;
                 }
                 
             })
@@ -506,7 +537,8 @@ function cLikeReviewLike(n){
 
                 }else{
                     insert.innerHTML = result.result;
-                    like.classList.toggle("on");
+                    like.classList.add("on");
+                    isLike.value = 1;
                 }
             })
         }
@@ -519,6 +551,7 @@ function cChangeOrderReview(n){
     const movieid = document.getElementById("movie-id").value;
     let insert = document.getElementsByClassName("k-reviewlist_all")[0];
     const btn = document.getElementsByClassName("k-list_btn");
+    const allNum = document.getElementById("reviewAllNum").value;
     // 최신순
     if(n == 0){
         fetch("/ezenCine/ClickLikeOrder", {
@@ -630,7 +663,7 @@ function cChangeOrderReview(n){
                                 <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                                     <span class="k-review-name">${result1[i].nickname}</span>
                                     <span class="k-review-stars">${stars}</span>
-                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}</span>
                                     <span class="k-review-date">${dbDate}</span>
                                 </div>
                                 <div class="c-review-bottom-content">
@@ -658,7 +691,8 @@ function cChangeOrderReview(n){
                                         </div>
                                     </div>
                                     <div class="k-utilbox">
-                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${i});"></a>                            
+                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${i});"></a>  
+                                        <input type="hidden" class="review-like" value="${likeCnt}" />                          
                                         <span class="c-current-like-num">${result1[i].likes}</span>
                                         <span class="k-declaration" onclick="cShowReviewUtil(${i})">
                                             ${utilBox}
@@ -671,8 +705,11 @@ function cChangeOrderReview(n){
                 </div>
                 `)
                 }
-                btn[0].classList.add("c-review-active");
-                btn[1].classList.remove("c-review-active");
+                if(allNum > 6){
+                    btn[0].classList.add("c-review-active");
+                    btn[1].classList.remove("c-review-active");
+                }
+                
             })
         })
     // 추천순
@@ -786,7 +823,7 @@ function cChangeOrderReview(n){
                                 <input type="hidden" value="${result1[i].num}"  class="c-like-num c-review-num"/>
                                     <span class="k-review-name">${result1[i].nickname}</span>
                                     <span class="k-review-stars">${stars}</span>
-                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}</span>
                                     <span class="k-review-date">${dbDate}</span>
                                 </div>
                                 <div class="c-review-bottom-content">
@@ -814,7 +851,8 @@ function cChangeOrderReview(n){
                                         </div>
                                     </div>
                                     <div class="k-utilbox">
-                                        <a class="k-like2 c-like-like ${active}" href="javascript:cLikeReviewLike(${i});"></a>                            
+                                        <a class="k-like2 c-like-like ${active}" href="javascript:cLikeReviewLike(${i});"></a>      
+                                        <input type="hidden" class="review-like" value="${likeCnt}" />                                                
                                         <span class="c-like-like-num">${result1[i].likes}</span>
                                         <span class="k-declaration" onclick="cShowReviewUtil(${i})">
                                         ${utilBox}
@@ -827,8 +865,11 @@ function cChangeOrderReview(n){
                 </div>
                 `)
                 }
-                btn[0].classList.remove("c-review-active");
-                btn[1].classList.add("c-review-active");
+                if(allNum > 6){
+                    btn[0].classList.remove("c-review-active");
+                    btn[1].classList.add("c-review-active");
+                }
+                
             })
         })
     }
@@ -848,9 +889,10 @@ function cReviewsSubmit(){
     }else{
         const rating = document.getElementsByClassName("rating-number")[0].innerText;
         let insert = document.getElementsByClassName("k-reviewlist_all")[0];
-        const allNum = document.getElementById("reviewAllNum").value;
+        let allNum = document.getElementById("reviewAllNum");
         const reviewTab = document.getElementById("reviewTab");
         const reviewTab2 = document.getElementById("c-reviewlist-cnt");
+        const listnum = document.getElementsByClassName("c-currentlist").length;
         fetch("/ezenCine/ReviewSubmit", {
             headers : {"Content-Type" : "application/json"},
             method : "post",
@@ -859,10 +901,6 @@ function cReviewsSubmit(){
             })
         }).then((res) => res.json())
         .then((result1) => {
-            // 리뷰 전체도 + 1
-            // 새로 업데이트된 리뷰 어떻게 좋아요 할 것인가
-            // 추천순도 새로 업데이트된 리뷰때문에 비동기로 바꿔야함
-            // 리뷰도 등록하면 비동기
             review.value = "";
             reviewTab.innerHTML = Number(reviewTab.innerText) + 1;
             reviewTab2.innerHTML = Number(reviewTab2.innerText) + 1;
@@ -968,7 +1006,7 @@ function cReviewsSubmit(){
                                 <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                                     <span class="k-review-name">${result1[i].nickname}</span>
                                     <span class="k-review-stars">${stars}</span>
-                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}</span>
                                     <span class="k-review-date">${dbDate}</span>
                                 </div>
                                 <div class="c-review-bottom-content">
@@ -996,7 +1034,8 @@ function cReviewsSubmit(){
                                         </div>
                                     </div>
                                     <div class="k-utilbox">
-                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${i});"></a>                            
+                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${i});"></a>  
+                                        <input type="hidden" class="review-like" value="${likeCnt}" />                                                    
                                         <span class="c-current-like-num">${result1[i].likes}</span>
                                         <span class="k-declaration" onclick="cShowReviewUtil(${i})">
                                         ${utilBox}
@@ -1013,8 +1052,12 @@ function cReviewsSubmit(){
         })
         isCurrent.classList.add("active");
         isNotCurrent.classList.remove("active");
-        btn[0].classList.add("c-review-active");
-        btn[1].classList.remove("c-review-active");
+        allNum.value = Number(allNum.value) + 1;
+
+        for(i = 1; i < 11; i++){
+            document.getElementById("rating" + i).checked = false;
+        }
+        document.getElementsByClassName("rating-number")[0].innerHTML = 0;
     }
     
 }
@@ -1136,7 +1179,7 @@ function cReviewMore(n){
                                 <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                                     <span class="k-review-name">${result1[i].nickname}</span>
                                     <span class="k-review-stars">${stars}</span>
-                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}</span>
                                     <span class="k-review-date">${dbDate}</span>
                                 </div>
                                 <div class="c-review-bottom-content">
@@ -1164,7 +1207,8 @@ function cReviewMore(n){
                                         </div>
                                     </div>
                                     <div class="k-utilbox">
-                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${num + i});"></a>                            
+                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${num + i});"></a>   
+                                        <input type="hidden" class="review-like" value="${likeCnt}" />                                                   
                                         <span class="c-current-like-num">${result1[i].likes}</span>
                                         <span class="k-declaration" onclick="cShowReviewUtil(${num + i})">
                                         ${utilBox}
@@ -1295,7 +1339,7 @@ function cReviewMore(n){
                                 <input type="hidden" value="${result1[i].num}"  class="c-like-num c-review-num"/>
                                     <span class="k-review-name">${result1[i].nickname}</span>
                                     <span class="k-review-stars">${stars}</span>
-                                    <span class="k-review-starsnum">${result1[i].rating}.0</span>
+                                    <span class="k-review-starsnum">${result1[i].rating}</span>
                                     <span class="k-review-date">${dbDate}</span>
                                 </div>
                                 <div class="c-review-bottom-content">
@@ -1323,7 +1367,8 @@ function cReviewMore(n){
                                         </div>
                                     </div>
                                     <div class="k-utilbox">
-                                        <a class="k-like2 c-like-like ${active}" href="javascript:cLikeReviewLike(${num + i});"></a>                            
+                                        <a class="k-like2 c-like-like ${active}" href="javascript:cLikeReviewLike(${num + i});"></a>       
+                                        <input type="hidden" class="review-like" value="${likeCnt}" />                                               
                                         <span class="c-like-like-num">${result1[i].likes}</span>
                                         <span class="k-declaration" onclick="cShowReviewUtil(${num + i})">
                                         ${utilBox}
@@ -1368,6 +1413,8 @@ function cReviewDel(n){
     const reviewbox = document.getElementsByClassName("k-reviewlist")[n];
     const reviewTab = document.getElementById("reviewTab");
     const reviewTab2 = document.getElementById("c-reviewlist-cnt");
+    const len = document.getElementById("reviewAllNum").length;
+    const btn = document.getElementsByClassName("k-list_btn");
     if(confirm("정말 삭제하시겠습니까?")){
         fetch("/ezenCine/ReviewDel", {
             headers : {"Content-Type": "application/json"},
@@ -1381,6 +1428,10 @@ function cReviewDel(n){
                 reviewbox.style.display = "none";
                 reviewTab.innerHTML = Number(reviewTab.innerText) - 1;
                 reviewTab2.innerHTML = Number(reviewTab2.innerText) - 1;
+                if(len < 7){
+                    btn[0].style.display = "none";
+                    btn[1].style.display = "none";
+                }
             }else{
             }
         })
@@ -1542,8 +1593,47 @@ function showLoginPopup(){
     shadow.style.display = "block";
 }
 
+function idOutFunc(){
+    const userid = document.getElementById("userId").value;
+        // 값이 없으면
+        if(userid == ""){
+            $(".c-login-userid .move").css({
+                fontSize: "15px",
+                transition : "0.3s",
+                top: "25%",
+            });
+            $(".c-login-userid input").css({
+                border: "2px solid #ccc",
+                transition : "0.3s",
+            })
+            $(".c-login-userid input").blur();
+        // 값이 있으면
+        }else{
+            
+        }
+}
+
+function passOutFunc(){
+    const userpass = document.getElementById("userPass").value;
+    // 값이 없으면
+    if(userpass == ""){
+        $(".c-login-userpass .move").css({
+            fontSize: "15px",
+            transition : "0.3s",
+            top: "25%",
+        });
+        $(".c-login-userpass input").css({
+            border: "2px solid #ccc",
+            transition : "0.3s",
+        })
+        $(".c-login-userpass input").blur();
+    // 값이 있으면
+    }else{
+    }
+}
 
 $(function(){
+    /*
     $(".c-login-userid").mouseleave(function(){
         const userid = document.getElementById("userId").value;
         // 값이 없으면
@@ -1582,7 +1672,7 @@ $(function(){
         }else{
         }
     })
-
+    */
     // 아이디 저장 
     $(".c-id-not-save").click(function(){
         document.getElementsByClassName("c-id-not-save")[0].style.display = "none";
@@ -1763,12 +1853,15 @@ function loginSubmit(){
     const userpass = document.getElementById("userPass");
     let idSave = document.getElementById("c-id-save-val");
     const alert = document.getElementById("c-login-alert");
+    let cnt = 0;
     if(userid.value == "" || userid.value == null){
         alert.style.color = "red";
         alert.innerHTML = "아이디를 입력해주세요.";
+        cnt += 1;
     }else if(userpass.value == "" || userpass.value == null){
         alert.style.color = "red";
         alert.innerHTML = "비밀번호를 입력해주세요.";
+        cnt += 1;
     }else{
         alert.innerHTML = "";
     }
@@ -1777,26 +1870,29 @@ function loginSubmit(){
 	}else{
 		delCookie('user');
 	}
-    fetch("/ezenCine/Login", {
-        headers : {"Content-Type" : "Application/json"},
-        method : "post",
-        body : JSON.stringify({
-            userid : userid.value, userpass : userpass.value
-        })
-        }).then((res) => res.json())
-        .then((result) =>{
-            if(result == 1){      
-                if(window.location.href.includes("signup") || window.location.href.includes("fname=mem")){
-                    location.href = "index.jsp";
+    if(cnt == 0){
+        fetch("/ezenCine/Login", {
+            headers : {"Content-Type" : "Application/json"},
+            method : "post",
+            body : JSON.stringify({
+                userid : userid.value, userpass : userpass.value
+            })
+            }).then((res) => res.json())
+            .then((result) =>{
+                if(result == 1){      
+                    if(window.location.href.includes("signup") || window.location.href.includes("fname=mem")){
+                        location.href = "index.jsp";
+                    }else{
+                        location.reload();
+                    }
+                    
                 }else{
-                    location.reload();
+                    alert.style.color = "red";
+                    alert.innerHTML = "아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.";
                 }
-                
-            }else{
-                alert.style.color = "red";
-                alert.innerHTML = "아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.";
-            }
-        })
+            })
+    }
+    
 }
 
 
@@ -2676,7 +2772,7 @@ function cReviewPopupModiSend(n){
     }).then((res) => res.json())
     .then((result) => {
         if(result == 1){
-            ratingBox.innerHTML = rating + ".0";
+            ratingBox.innerHTML = rating;
             modireview.innerHTML = review;
             popup.style.display = "none";
         }else{
@@ -2768,7 +2864,7 @@ function cMyPageMore(n){
                         <img src="${result[i].poster_url}" alt="${result[i].title}">
                         <div class="c-content">
                             <p class="c-title">${result[i].title}</p>
-                            <p>평점<span class="c-score">${result[i].rating}.0</span></p>
+                            <p>평점<span class="c-score">${result[i].rating}</span></p>
                             <p class="c-comment">${result[i].comments}</p>
                             <p class="c-bottom">
                                 <span class="first">

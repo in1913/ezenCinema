@@ -71,20 +71,15 @@ public class OCIEmail {
         // Create a message with the specified information.
        String receiver = to;
        String contents = "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/gh/sunn-us/SUITE/fonts/static/woff2/SUITE.css\">\n"
-       		+ "    <table style=\"margin-left: auto; margin-right: auto; margin-top: 60px;\">\n"
-       		+ "        <tbody style=\"background-color: #fff;\">\n"
-       		+ "            <tr style=\"width: 659px;\">\n"
+       		+ "    <table style=\"margin-left: auto; margin-right: auto; margin-top: 60px; background: url('https://filerun.ioracle.cloud/wl/?id=s9PmKZ8EiCXsWBzsvrFpZZlVUSMyDUbD&fmode=open') no-repeat; width: 1175px; height: 680px;\">\n"
+       		+ "        <tbody>\n"
+       		+ "            <tr>\n"
        		+ "                <td>\n"
-       		+ "                    <img src=\"https://filerun.ioracle.cloud/wl/?id=bYC0htkydnPAPaCxmYrT9APLCe9NYAyQ&fmode=open\" alt=\"email_top\" style=\"display: block;\">\n"
-       		+ "                    <h1 style=\"text-align: center; margin-top: 60px; margin-bottom: 60px; width: 659px; letter-spacing: 30px; font-family: 'SUITE', sans-serif; font-size: 48px;\">" + oauthCode + "</h1>\n"
-       		+ "                    <img src=\"https://filerun.ioracle.cloud/wl/?id=hrjxQOrZqD4uBBuw2cX7Csq7HicaMTRw&fmode=open\" alt=\"email_middle\" style=\"display: block; margin-bottom: 60px;\">\n"
-       		+ "                    <img src=\"https://filerun.ioracle.cloud/wl/?id=kyHOf65j5uA0JQiptTTYEE3eujadYMEy&fmode=open\" alt=\"email_bottom\" style=\"display: block;\">\n"
+       		+ "                    <h1 style=\"font-family: 'SUITE', sans-serif; text-align: center; width: 1175px; letter-spacing: 50px; font-size: 48px; color: #333\">" + oauthCode + "</h1>\n"
        		+ "                </td>\n"
-       		+ "                \n"
        		+ "            </tr>\n"
        		+ "        </tbody>\n"
-       		+ "    </table>\n"
-       		+ "";
+       		+ "    </table>";
        MimeMessage msg = new MimeMessage(session);
        try {
     	   msg.setFrom(new InternetAddress(FROM,FROMNAME, "utf-8"));

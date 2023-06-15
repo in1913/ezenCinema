@@ -228,7 +228,7 @@
                             <img src="<%=rd.getPoster_url() %>" alt="<%=rd.getTitle()%>">
                             <div class="c-content">
                                 <p class="c-title"><%=rd.getTitle()%></p>
-                                <p>평점<span class="c-score"><%=rd.getRating() %></span></p>
+                                <p>평점<span class="c-score"><%= (int) rd.getRating() %></span></p>
                                 <p class="c-comment"><%=rd.getComments() %></p>
                                 <p class="c-bottom">
                                     <span class="first">
@@ -294,7 +294,7 @@
 						
 										    </div>
 										</div>
-										<div class="c-mypage-popup-rating"><span class="c-mypage-popup-rate"><%=rd.getRating() %></span> 점</div>
+										<div class="c-mypage-popup-rating"><span class="c-mypage-popup-rate"><%= (int) rd.getRating() %></span> 점</div>
 									</div>
 									<textarea spellcheck="false" maxlength="220" class="c-mypage-textarea" id="" cols="30" rows="10"><%=rd.getComments() %></textarea>
 								</div>

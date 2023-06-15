@@ -61,28 +61,8 @@ $(window).scroll(function () {
 
 /*************** movieList Choi in young ***************** */
 
-var movielist = [];
-var movielistData = [];
-var movielistHref = [];
-$(document).ready(function(){
-  fetch("/ezenCine/GetMovieList", {
-    headers : {"Content-Type" : "application/json"},
-    method : "get"
-  }).then((res) => res.json())
-  .then((result) => {
-    let titles = "";
-    let titlesData = "";
-    for(i = 0; i < result.length; i++){
-      titles = result[i].title + " (" + result[i].title_eng + ")";
-      titlesData = result[i].title + " (" + result[i].title_eng.toLowerCase() + ")";
-      movielist.push(titles);
-      movielistData.push(titlesData);
-      movielistHref.push(result[i].id);
-    }
-  });
-});
-
 function cSearchMovie(){
+  
   let search = document.getElementById("h-movie-search");
   let searchbox = document.getElementsByClassName("c-search-complete")[0];
   searchbox.style.display = "block";
@@ -94,12 +74,14 @@ function cSearchMovie(){
     searchbox.style.display = "none";
     search.style.borderBottomLeftRadius = "25px";
     search.style.borderBottomRightRadius = "25px";
+  
   }else{
     let j = 0;
-    for(i = 0; i < movielist.length / 2; i++){
+  
+    for(i = 0; i < movielist.length; i++){
       let word_start = movielistData[i].search(search.value.toLowerCase());
       let word_end = search.value.length;
-      
+  
       if(word_start != -1){
         search.style.borderBottomLeftRadius = "0px";
         search.style.borderBottomRightRadius = "0px";
@@ -134,7 +116,7 @@ function cGoMovie(){
   const searchInput = document.getElementById("h-movie-search");
 
   let result = "";
-  for(i = 0; i < movielist.length / 2; i++){
+  for(i = 0; i < movielist.length; i++){
     if(movielist[i] == searchInput.value){
       result = movielistHref[i];
       location.href = "index.jsp?fname=movie/movieDetail&mov_id=" + result;
@@ -142,61 +124,3 @@ function cGoMovie(){
   }
   // 
 }
-
-const searchInput = document.querySelector("#h-movie-search");
-
-searchInput.addEventListener("keyup", function(e){
-  let nowIndex = 0;
-  if(e.keyCode == 40){
-    nowIndex = Math.min(nowIndex + 1, (movielist.length / 2) - 1);
-  }else if(e.keyCode == 38){
-    nowIndex = Math.max(nowIndex - 1, 0);
-  }else{
-    nowIndex = 0;
-  }
-})
-
-
-
-/*
-$search.onkeyup = (event) => {
-  // 검색어
-  const value = $search.value.trim();
-   $autoComplete.style.display = "block";
-   if($search.value == null || $search.value == ""){$autoComplete.style.display = "none";}
-  // 자동완성 필터링
-  const matchDataList = value
-    ? movielist.filter((label) => label.includes(value))
-    : [];
-
-  switch (event.keyCode) {
-    // UP KEY
-    case 38:
-      nowIndex = Math.max(nowIndex - 1, 0);
-      break;
-
-    // DOWN KEY
-    case 40:
-      nowIndex = Math.min(nowIndex + 1, matchDataList.length - 1);
-      break;
-
-    // ENTER KEY
-    case 13:{
-      document.querySelector("#header-search").value = matchDataList[nowIndex] || "";
-      $autoComplete.style.display = "none";
-   }
-      // 초기화
-      nowIndex = 0;
-      matchDataList.length = 0;
-      break;
-      
-    // 그외 다시 초기화
-    default:
-      nowIndex = 0;
-      break;
-  }
-
-  // 리스트 보여주기
-  showList(matchDataList, value, nowIndex, movietitle);
-};
-*/

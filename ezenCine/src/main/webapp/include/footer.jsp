@@ -5,11 +5,11 @@
         <h2>로그인</h2>
         <h5>EZEN CINEMA 계정으로 로그인</h5>
         <div class="c-login-userid">
-            <input spellcheck="false" type="text" id="userId" class="c-userid" onfocus="idFunc()">
+            <input spellcheck="false" type="text" id="userId" class="c-userid" onfocus="idFunc()" onfocusout="idOutFunc();">
             <span class="move">아이디</span>
         </div>
         <div class="c-login-userpass">
-            <input spellcheck="false" type="password" id="userPass" class="c-userpass" onfocus="passFunc()">
+            <input spellcheck="false" type="password" id="userPass" class="c-userpass" onfocus="passFunc()" onfocusout="passOutFunc();">
             <span class="move">비밀번호</span>
         </div>  
         <a href="#" class="c-id-not-save" style="color: #fff"><img class="c-check c-check-no" id="c-check-no" src="images/icon/describe/check.png" alt="idNo"> &nbsp;아이디 저장</a>
@@ -54,7 +54,7 @@
 			      <div class="g_id_signin"
 			         data-type="icon"
 			         data-theme="outline"
-			         data-size="medium"
+			         data-size="big"
 			         data-shape="circle"
 			         data-width=16
 			         >

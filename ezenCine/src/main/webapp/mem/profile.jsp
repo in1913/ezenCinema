@@ -47,24 +47,21 @@
             
         </div>
     </div>
-
+<%
+	if(ml.getPassword() == null){	
+	}else{
+%>
     <div class="c-profile-userpass">
         <div class="first">
             비밀번호
         </div>
         <div class="second userpass-length">
 <%
-	int len = 0;
-	String star = ""; 
-	if(ml.getPassword() == null){	
-	}else{
-		len = ml.getPassword().length();
-		for(int i = 0; i < len; i++){
-			star += "*";
-		}
-	} 
-	
-	
+			int len = 0;
+			String star = ""; 
+			len = ml.getPassword().length();
+			for(int i = 0; i < len; i++){
+				star += "*";	
 %>        
             <%=star %>
         </div>
@@ -72,6 +69,9 @@
             <a href="javascript:cProfileShow(1);" class="c-profile-btn">비밀번호 변경</a>
         </div>
     </div>
+<%
+	}
+%>    
     <div class="c-profile-username">
         <div class="first">
             이름
@@ -79,17 +79,9 @@
         <div class="second" id="c-profile-show-username">
             <%=ml.getUsername() %>
         </div>
-<%
-	if(ml.getPassword() == null){
-	}else{
-%>
    		<div class="third">
             <a href="javascript:cProfileShow(2);" class="c-profile-btn">이름 변경</a>
         </div>
-<%		
-	}
-%>        
-     
     </div>
     <div class="c-profile-nickname">
         <div class="first">
