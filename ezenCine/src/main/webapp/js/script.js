@@ -2366,7 +2366,7 @@ function cSignUp(){
         	
         	if(res == 1){
         		$(".c-part2").css({
-                display : "none"
+                    display : "none"
 	            });
 	            $(".c-part3").css({
 	                display : "block"
