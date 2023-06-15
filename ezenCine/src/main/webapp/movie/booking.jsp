@@ -8,7 +8,7 @@
 	SimpleDateFormat out1 = new SimpleDateFormat("yyyy년MM월");
 	String month = out1.format(date);
 	SimpleDateFormat output1 = new SimpleDateFormat("yyyy-MM-dd");
-	SimpleDateFormat output2 = new SimpleDateFormat("yyyy-M-d-E");
+	SimpleDateFormat output2 = new SimpleDateFormat("yyyy-M-d-E", Locale.KOREAN);
 	Vector<MovieDTO> dto = MovieDDL.selectMovie();
 	
 %>
