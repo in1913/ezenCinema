@@ -120,39 +120,42 @@
 <!-- 메인 트레일러 -->
 <div class="nowtrailer">
     <div class="nt-title">
-        <h3>현재 상영중인 트레일러</h3>
+	    <div class="container">
+	    	<h3>현재 상영중인 트레일러</h3>
+	    </div>
     </div>
-        <!--page slider -->
-        <div class="nt-trailer">
-          <div class="nt-slide">
-          <%
-          	Vector<TrailerDTO> tto = TrailerDDL.showTrailerAll();
-          	for(TrailerDTO tt : tto){
-          %>
-            <div class="nt-post">
-                <img src="<%=tt.getThumbnail() %>" data-vodsrc="<%=tt.getVodsrc() %>" alt="1">
-                <div class="nt-postbg">
-                    <span class="nt-posttitle"><%=tt.getTitle() %></span>
-                    <span class="nt-postdetail"><%=tt.getVodtitle() %></span>
-                    
-                </div>
-            </div>
-            
-          <%
-          	}
-          %>
-          </div>
-          <div class="dotsbox">
-            <img src="images/advanceorder/nt-dotsprev.png" class="nt-slideprev" alt="1"/>
-            <img src="images/advanceorder/nt-dotsnext.png" class="nt-slidenext ml-2" alt="2"/>
-          </div>
-        </div>
+<!--page slider -->
+	<div class="nt-trailer">
+		<div class="nt-slide">
+		<%
+			Vector<TrailerDTO> tto = TrailerDDL.showTrailerAll();
+			for(TrailerDTO tt : tto){
+		%>
+			<div class="nt-post">
+			    <img src="<%=tt.getThumbnail() %>" data-vodsrc="<%=tt.getVodsrc() %>" alt="1">
+				<div class="nt-postbg">
+				    <span class="nt-posttitle"><%=tt.getTitle() %></span>
+					<span class="nt-postdetail"><%=tt.getVodtitle() %></span>
+			    </div>
+			</div>
+		
+		<%
+			}
+		%>
+		</div>
+		<div class="container">
+			<div class="dotsbox">
+				<img src="images/advanceorder/nt-dotsprev.png" class="nt-slideprev" alt="1"/>
+				<img src="images/advanceorder/nt-dotsnext.png" class="nt-slidenext ml-2" alt="2"/>
+			</div>
+		</div>
+	</div>
         <!--post slider-->
 </div>
 <div class="main-store">
 	<section class="store_contents">
         <div class="inner">
-            <h3>스토어</h3>
+            <h3>인기메뉴</h3>
 
             <ul class="tab">
                 <li class="on">콤보</li>

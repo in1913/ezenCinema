@@ -90,44 +90,59 @@
                     </div>
                 </div>
                 <ul class="k-mv_datan">
-                    <li>
-                        <div>
-                            관람객 평점
-                             <i class="fa-solid fa-star"></i>
-                            <span><%=dt.getAvg_rating() %></span>
-                        </div>
-                        <div>
-                            예매율
-                            
-                            <span><%= MovieDDL.getBookingRate(dt.getId())%>%</span>
-                        </div>
-                        <div>
-                            누적 관객수
-                            <span><%=dt.getAudience() %>명</span>
-                        </div>
+                    <li class="top_info">
+                    	<span class="info_left">
+                    		관람객 평점
+                    	</span>
+                    	<span class="info_right big">
+                    		<i class="fa-solid fa-star"></i>
+                            <span class="avg_rate"><%=dt.getAvg_rating() %></span>
+                    	</span>
+                       	<span class="info_left">
+                       		예매율
+                       	</span>
+                       	<span class="info_right big">
+                       		<%= MovieDDL.getBookingRate(dt.getId())%>%
+                       	</span>
+                        <span class="info_left">
+                        	누적 관객수
+                        </span>
+                        <span class="info_right big">
+                        	<%=dt.getAudience() %>명
+                        </span>
                     </li>
-                    <li>
-                        <div>
-                            장르
-                        </div>
-                        <span><%=dt.getGenre() %>/<%=dt.getNation() %></span>
-                        <div>
-                            개봉
-                        </div>
-                        <span><%=dt.getOpen_date() %></span>
-                        <span><%=dt.getRuntime() %>분</span>
+                    <li class="top_info">
+                    	<span class="info_left">
+                    		장르
+                    	</span>
+                    	<span class="info_right">
+                    		<%=dt.getGenre() %>/<%=dt.getNation() %>
+                    	</span>
+                        <span class="info_left">
+                        	개봉
+                        </span>
+                        <span class="info_right">
+                        	<%=dt.getOpen_date() %>
+                        </span>
+                        <span class="info_right">
+                        	<%=dt.getRuntime() %>분
+                        </span>
                     </li>
-                    <li>
-                        <div>
-                            감독
-                        </div>
-                        <span><%=dt.getDirector() %></span>
+                    <li class="top_info">
+                    	<span class="info_left">
+                    		감독
+                    	</span>
+                    	<span class="info_right">
+                    		<%=dt.getDirector() %>
+                    	</span>
                     </li>
-                    <li>
-                        <div>
-                            출연
-                        </div>
-                        <span><%=dt.getCasting() %></span>
+                    <li class="top_info casting">
+                    	<span class="info_left">
+                    		출연
+                    	</span>
+                    	<span class="info_right">
+                    		<%=dt.getCasting() %>
+                    	</span>
                     </li>
                 </ul>
                 <div class="k-mv_butset">
