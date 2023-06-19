@@ -3438,6 +3438,9 @@ function noScreen(){
 }
 // 스토어
 $(function () {
+	
+    $('.popcorn').hide();
+    $('.hotdog').hide();
     $('.snack').hide();
     $('.drink').hide();
 
@@ -3450,16 +3453,34 @@ $(function () {
 
 
         if (num == 0) {
+            $('.popcorn').hide();
             $('.snack').hide();
+            $('.hotdog').hide();
             $('.drink').hide();
             $('.combo').show();
         } else if (num == 1) {
             $('.combo').hide();
+            $('.snack').hide();
+            $('.hotdog').hide();
             $('.drink').hide();
-            $('.snack').show();
+            $('.popcorn').show();
         } else if (num == 2) {
             $('.combo').hide();
+            $('.popcorn').hide();
+            $('.hotdog').hide();
+            $('.drink').hide();
+            $('.snack').show();
+        } else if (num == 3) {
+            $('.combo').hide();
+            $('.popcorn').hide();
             $('.snack').hide();
+            $('.drink').hide();
+            $('.hotdog').show();
+        } else if (num == 4) {
+            $('.combo').hide();
+            $('.popcorn').hide();
+            $('.snack').hide();
+            $('.hotdog').hide();
             $('.drink').show();
         }
     });
