@@ -22,11 +22,11 @@
 <%
 	for(MovieDTO dt : dto){
 %>
-		<img src="<%=dt.getPoster_url() %>" alt="#" />
+		<img src="<%=dt.getPoster_url() %>" alt="poster" />
 	</div>
 	<ul class="book_screen_info">
 		<li>
-			<img src="images/ico/ico-age-<%=dt.getLimit_age() %>.png" alt="#" />
+			<img src="images/ico/ico-age-<%=dt.getLimit_age() %>.png" alt="age" />
 			<span class="book_movie_title"><%=dt.getTitle() %></span>
 		</li>
 <%

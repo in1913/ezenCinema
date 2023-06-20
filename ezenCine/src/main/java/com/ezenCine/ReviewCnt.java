@@ -17,8 +17,8 @@ import ezenCine.ReviewsDDL;
 import ezenCine.ShowReviewDDL;
 
 
-@WebServlet("/ReviewDel")
-public class ReviewDel extends HttpServlet {
+@WebServlet("/ReviewCnt")
+public class ReviewCnt extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setCharacterEncoding("utf-8");
 		req.setCharacterEncoding("utf-8");
@@ -33,28 +33,18 @@ public class ReviewDel extends HttpServlet {
 				jb.append(line);
 			
 			JsonObject jsonObj = (JsonObject) JsonParser.parseString(jb.toString());
-			int reviews_num = jsonObj.get("reviews_num").getAsInt();	
-			String movie_id = jsonObj.get("movie_id").getAsString();
+				
+			String movie_id = jsonObj.get("movieid").getAsString();
 			
-			System.out.println(reviews_num);
 			System.out.println(movie_id);
 			
 			PrintWriter out = res.getWriter();
 			
 			br.close();
 			
-			boolean isSuccess = ReviewsDDL.ReviewsDel(movie_id, reviews_num);
 			int reviewCnt = ShowReviewDDL.selectAllNum(movie_id);
 			
-			if(isSuccess) {
-				System.out.println("리뷰가 삭제되었습니다.");
-				out.println("{\"result\" : \"1\", \"cnt\" : \"" + reviewCnt +"\"}");
-				
-			}else {
-				System.out.println("리뷰 삭제가 실패했습니다.");
-				out.println("{\"result\" : \"0\", \"cnt\" : \"" + reviewCnt +"\"}");
-			}
-			
+			out.println("{\"result\" : \"" + reviewCnt + "\"}");
 			out.flush();
 			out.close();
 			

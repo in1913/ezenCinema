@@ -270,7 +270,7 @@
                                             <img src="images/casting/<%=ct.getMovie_id()%>/<%=ct.getName()%>.jpg" alt="<%=ct.getName()%>">
                                         </div>
                                         <div class="k-post-info">
-                                            <h4><a href="#" class="post-subject"><%=ct.getName() %></a></h4>
+                                            <h4><a href="javascript:void(0)" class="post-subject"><%=ct.getName() %></a></h4>
                                             <span><%=ct.getRole() %></span>
                                         </div>
                                     </div>

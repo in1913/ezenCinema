@@ -23,7 +23,7 @@
 <%		
 	}else {
 %>
-                <img src="/ezenCine/ShowMemPhoto" alt="user" id="c-profile-user-img">
+                <img src="upload/users/<%=ml.getPhoto()%>" alt="user" id="c-profile-user-img">
                 <input type="hidden" name="isBasicPhoto" id="isBasicPhoto" value="0">
 <%		
 	}
@@ -232,7 +232,7 @@
 		
 	}else{
 %>
-                <img src="/ezenCine/ShowMemPhoto" alt="user-img" id="c-profile-popup-user-img">
+                <img src="upload/users/<%=ml.getPhoto()%>" alt="user-img" id="c-profile-popup-user-img">
 <%		
 		
 	}
@@ -296,7 +296,7 @@
         </div>
         <div class="c-profile-popup-photo-btnbox">
             <a href="javascript:cProfilePopupCancel(1);" class="c-profile-popup-photo-reset-btn">취소</a>
-            <a href="javascript:cProfilePopupModi(1);" class="c-profile-popup-photo-submit-btn">수정 완료</a>
+            <a class="c-profile-popup-photo-submit-btn">수정 완료</a>
         </div>
     </div>
 </div>

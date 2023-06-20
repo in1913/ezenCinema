@@ -223,8 +223,8 @@
 		for(ReviewsDTO rd: rvd){			
 %>
                         <div class="col-6 c-mypage-review-num">
-                        <input type="hidden" value="<%=rd.getNum() %>" class="c-mypage-review-modi-num" />
-                        <input type="hidden" value="<%=rd.getMovie_id() %>" class="c-mypage-review-modi-mov-id" />
+	                        <input type="hidden" value="<%=rd.getNum() %>" class="c-mypage-review-modi-num" />
+	                        <input type="hidden" value="<%=rd.getMovie_id() %>" class="c-mypage-review-modi-mov-id" />
                             <img src="<%=rd.getPoster_url() %>" alt="<%=rd.getTitle()%>">
                             <div class="c-content">
                                 <p class="c-title"><%=rd.getTitle()%></p>
@@ -247,65 +247,67 @@
 %>                                       
                                     </span>
                                     <span class="second">
-                                        <a href="javascript:cReviewPopupOpen(<%=i%>);">수정</a>
-                                        <a href="javascript:cMyPageReviewDel(<%=i%>);">삭제</a>
+                                        <a href="javascript:void(0)" class="c-mypage-modi">수정</a>
+                                        <a href="javascript:void(0)" class="c-mypage-del">삭제</a>
                                     </span></p>
                             </div>
+                            
+			                <div class="c-mypage-modi-popup-shadow">
+								<div class="c-mypage-modi-popup">
+									<div class="c-mypage-modi-title">리뷰 수정하기 
+										<a href="javascript:void(0)" class="c-mypage-popup-close"><img src="images/icon/inyoung/close.png" alt="close" class="c-mypage-popup-close" /></a>
+									</div>
+									<div class="c-mypage-popup-content">
+										<p><%=rd.getTitle() %></p>
+										<div class="c-mypage-popup-real-content">
+											
+												<img src="<%=rd.getPoster_url() %>" alt="poster" />
+											
+											<div class="c-mypage-popup-right-content">
+												<div class="c-mypage-modi-content-top">
+													<div class="c-mypage-popup-userimg">
+			<%
+					if(m.getPhoto() == null || m.getPhoto() == ""|| m.getPhoto().isEmpty()){
+			%>                
+		                	<img src="images/icon/user/user.png" alt="user"/>
+			<%
+					}else{
+			%>            
+			                	<img src="upload/users/<%=m.getPhoto() %>" alt="user"/>
+			<%
+					}
+			%>    	
+													</div>
+											    	<div class="c-modi-mvrate">
+														<div class="c-modi-rate">
+										    				<input type="radio" id="c-rating10<%=i %>" name="c-rating<%=i %>" class="c-rating" value="10" ><label for="c-rating10<%=i %>" title="10점"  ></label>
+								                            <input type="radio" id="c-rating9<%=i %>" name="c-rating<%=i %>" class="c-rating" value="9"  ><label class="c-half" for="c-rating9<%=i %>" title="9점" ></label>
+								                            <input type="radio" id="c-rating8<%=i %>" name="c-rating<%=i %>" class="c-rating" value="8" ><label for="c-rating8<%=i %>" title="8점" ></label>
+								                            <input type="radio" id="c-rating7<%=i %>" name="c-rating<%=i %>" class="c-rating" value="7" ><label class="c-half" for="c-rating7<%=i %>" title="7점"  ></label>
+								                            <input type="radio" id="c-rating6<%=i %>" name="c-rating<%=i %>" class="c-rating" value="6" ><label for="c-rating6<%=i %>" title="6점"  ></label>
+								                            <input type="radio" id="c-rating5<%=i %>" name="c-rating<%=i %>" class="c-rating" value="5" ><label class="c-half" for="c-rating5<%=i %>" title="5점"  ></label>
+								                            <input type="radio" id="c-rating4<%=i %>" name="c-rating<%=i %>" class="c-rating" value="4" ><label for="c-rating4<%=i %>" title="4점"  ></label>
+								                            <input type="radio" id="c-rating3<%=i %>" name="c-rating<%=i %>" class="c-rating" value="3" ><label class="c-half" for="c-rating3<%=i %>" title="3점"></label>
+								                            <input type="radio" id="c-rating2<%=i %>" name="c-rating<%=i %>" class="c-rating" value="2" ><label for="c-rating2<%=i %>" title="2점" ></label>
+								                            <input type="radio" id="c-rating1<%=i %>" name="c-rating<%=i %>" class="c-rating" value="1" ><label class="c-half" for="c-rating1<%=i %>" title="1점" ></label>
+									
+													    </div>
+													</div>
+													<div class="c-mypage-popup-rating"><span class="c-mypage-popup-rate"><%= (int) rd.getRating() %></span> 점</div>
+												</div>
+												<textarea spellcheck="false" maxlength="220" class="c-mypage-textarea" id="" cols="30" rows="10"><%=rd.getComments() %></textarea>
+											</div>
+										</div>
+										<div class="c-mypage-popup-btn">
+											<a href="javascript:void(0)" class="c-mypage-popup-close">취소</a>
+											<a href="javascript:void(0)" class="c-mypage-popup-review-send">수정</a>
+										</div>
+									</div>
+								</div>	
+							</div>          
                         </div>
                         
-                  <div class="c-mypage-modi-popup-shadow">
-					<div class="c-mypage-modi-popup">
-						<div class="c-mypage-modi-title">리뷰 수정하기 
-							<a href="javascript:cReviewPopupClose(<%=i%>);"><img src="images/icon/inyoung/close.png" alt="close" /></a>
-						</div>
-						<div class="c-mypage-popup-content">
-							<p><%=rd.getTitle() %></p>
-							<div class="c-mypage-popup-real-content">
-								
-									<img src="<%=rd.getPoster_url() %>" alt="poster" />
-								
-								<div class="c-mypage-popup-right-content">
-									<div class="c-mypage-modi-content-top">
-										<div class="c-mypage-popup-userimg">
-										<%
-		if(m.getPhoto() == null || m.getPhoto() == ""|| m.getPhoto().isEmpty()){
-%>                
-                	<img src="images/icon/user/user.png" alt="user"/>
-<%
-		}else{
-%>            
-                	<img src="upload/users/<%=m.getPhoto() %>" alt="user"/>
-<%
-		}
-%>    	
-										</div>
-								    	<div class="c-modi-mvrate">
-											<div class="c-modi-rate">
-							    				<input type="radio" id="c-rating10<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="10" ><label for="c-rating10<%=i %>" title="10점"  ></label>
-					                            <input type="radio" id="c-rating9<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="9"  ><label class="c-half" for="c-rating9<%=i %>" title="9점" ></label>
-					                            <input type="radio" id="c-rating8<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="8" ><label for="c-rating8<%=i %>" title="8점" ></label>
-					                            <input type="radio" id="c-rating7<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="7" ><label class="c-half" for="c-rating7<%=i %>" title="7점"  ></label>
-					                            <input type="radio" id="c-rating6<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="6" ><label for="c-rating6<%=i %>" title="6점"  ></label>
-					                            <input type="radio" id="c-rating5<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="5" ><label class="c-half" for="c-rating5<%=i %>" title="5점"  ></label>
-					                            <input type="radio" id="c-rating4<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="4" ><label for="c-rating4<%=i %>" title="4점"  ></label>
-					                            <input type="radio" id="c-rating3<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="3" ><label class="c-half" for="c-rating3<%=i %>" title="3점"></label>
-					                            <input type="radio" id="c-rating2<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="2" ><label for="c-rating2<%=i %>" title="2점" ></label>
-					                            <input type="radio" id="c-rating1<%=i %>" name="c-rating<%=i %>" class="c-rating<%=i %>" value="1" ><label class="c-half" for="c-rating1<%=i %>" title="1점" ></label>
-						
-										    </div>
-										</div>
-										<div class="c-mypage-popup-rating"><span class="c-mypage-popup-rate"><%= (int) rd.getRating() %></span> 점</div>
-									</div>
-									<textarea spellcheck="false" maxlength="220" class="c-mypage-textarea" id="" cols="30" rows="10"><%=rd.getComments() %></textarea>
-								</div>
-							</div>
-							<div class="c-mypage-popup-btn">
-								<a href="javascript:cReviewPopupClose(<%=i%>);">취소</a>
-								<a href="javascript:cReviewPopupModiSend(<%=i%>);">수정</a>
-							</div>
-						</div>
-					</div>	
-				</div>          
+                  
                         
                         
 <%
@@ -399,4 +401,5 @@ System.out.println(i);
 <input type="hidden" name="booking-all-num" id="booking-all-num" value="<%=bookingAllNum %>" />
 <input type="hidden" name="review-all-num" id="review-all-num" value="<%=reviewAllNum %>" />
 <input type="hidden" name="like-all-num" id="like-all-num" value="<%=likeAllNum %>" />
+<script src="js/mypage.js"></script>
   

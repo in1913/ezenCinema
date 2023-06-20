@@ -396,12 +396,12 @@ $(document).on("click", 'div.c-modi-rate input', function() {
 })
 
 $(document).on("mouseenter", ".k-like2", function(){
-    if($(this).next().val() == 0){
+    if($(this).find(".review-like").val() == 0){
         $(this).addClass("on");
     }
 })
 $(document).on("mouseleave", ".k-like2", function(){
-    if($(this).next().val() == 0){
+    if($(this).find(".review-like").val() == 0){
         $(this).removeClass("on");
     }
 })
@@ -589,13 +589,14 @@ function cChangeOrderReview(n){
                         }
                     }
                     let utilBox = `<ul class="c-review-cur-tooltip not-user">
-                                        <li><a href="javascript:void(0)">신고</a></li>
-                                    </ul>`;
+                    <li><a href="javascript:void(0)">신고</a>
+                    </li>
+                </ul>`;
                     if(userid == result1[i].userid){
                         utilBox = `<ul class="c-review-cur-tooltip">
-                            <li><a href="javascript:cReviewModi(${i})">수정</a></li>
-                            <li><a href="javascript:cReviewDel(${i})">삭제</a></li>
-                        </ul>`
+                        <li><a href="javascript:void(0)" class="c-show-modi">수정</a></li>
+                        <li><a href="javascript:void(0)" class="c-comment-del">삭제</a></li>
+                    </ul>`
                     }
                     let active = ``;
                     if(likeCnt == 0){
@@ -657,6 +658,7 @@ function cChangeOrderReview(n){
                     }
                     insert.insertAdjacentHTML("beforeend", `
                     <div class="k-reviewlist c-currentlist">
+                    <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                     <div class="k-listleft col-1">
                         <div class="c-list-img">
                             ${img}
@@ -666,7 +668,6 @@ function cChangeOrderReview(n){
                         <ul id="k-listbox">
                             <li id="k-listtext">
                                 <div class="k-listtext_box">
-                                <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                                     <span class="k-review-name">${result1[i].nickname}</span>
                                     <span class="k-review-stars">${stars}</span>
                                     <span class="k-review-starsnum">${result1[i].rating}</span>
@@ -688,7 +689,7 @@ function cChangeOrderReview(n){
                                                 <input type="radio" id="c-rating2${i}" name="c-rating${i}" value="2" ><label for="c-rating2${i}" title="2점"></label>
                                                 <input type="radio" id="c-rating1${i}" name="c-rating${i}" value="1" ><label class="c-half" for="c-rating1${i}" title="1점" ></label>
                                             </div>
-                                            <span class="c-rating-number">0</span>
+                                            <span class="c-rating-number">${result1[i].rating}</span>
                                         </div>
                                         <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
                                         <div class="c-modi-btn">
@@ -848,7 +849,7 @@ function cChangeOrderReview(n){
                                                 <input type="radio" id="c-rating2${i}" name="c-rating${i}" value="2" ><label for="c-rating2${i}" title="2점"></label>
                                                 <input type="radio" id="c-rating1${i}" name="c-rating${i}" value="1" ><label class="c-half" for="c-rating1${i}" title="1점"></label>
                                             </div>
-                                            <span class="c-rating-number">0</span>
+                                            <span class="c-rating-number">${result1[i].rating}</span>
                                         </div>
                                         <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
                                         <div class="c-modi-btn">
@@ -898,7 +899,7 @@ function cReviewsSubmit(){
         let allNum = document.getElementById("reviewAllNum");
         const reviewTab = document.getElementById("reviewTab");
         const reviewTab2 = document.getElementById("c-reviewlist-cnt");
-        const listnum = document.getElementsByClassName("c-currentlist").length;
+        // 리뷰 등록하기
         fetch("/ezenCine/ReviewSubmit", {
             headers : {"Content-Type" : "application/json"},
             method : "post",
@@ -907,18 +908,31 @@ function cReviewsSubmit(){
             })
         }).then((res) => res.json())
         .then((result1) => {
-            review.value = "";
-            reviewTab.innerHTML = Number(reviewTab.innerText) + 1;
-            reviewTab2.innerHTML = Number(reviewTab2.innerText) + 1;
-            insert.innerHTML = "";
+            // 좋아요 사용자 확인
             fetch("/ezenCine/CheckLikeUser", {
                 headers : {"Content-Type" : "application/json"},
                 method : "post",
                 body : JSON.stringify({
-                movieid : movieid
+                    movieid : movieid
                 })
             }).then((res) => res.json())
             .then((result2) => {
+                // 전체 리뷰 수 가져오기
+                fetch("/ezenCine/ReviewCnt", {
+                    headers : {"Content-Type" : "application/json"},
+                    method : "post",
+                    body : JSON.stringify({
+                        movieid : movieid
+                    })
+                }).then((res) => res.json())
+                .then((result3) => {
+                    const reviewCnt = result3.result;
+                    reviewTab.innerHTML = reviewCnt;
+                    reviewTab2.innerHTML = reviewCnt;
+                    allNum.value = reviewCnt;
+                })
+                review.value = "";
+                
                 insert.innerHTML = "";
                 const timezoneOffset = new Date().getTimezoneOffset() * 60000;
                 const today = new Date(Date.now() - timezoneOffset).toISOString().substring(0, 10).replace(/-/g, ".");
@@ -932,13 +946,14 @@ function cReviewsSubmit(){
                         }
                     }                
                     let utilBox = `<ul class="c-review-cur-tooltip not-user">
-                                        <li><a href="javascript:void(0)">신고</a></li>
-                                    </ul>`;
+                                <li><a href="javascript:void(0)">신고</a>
+                                </li>
+                            </ul>`;
                     if(userid == result1[i].userid){
                         utilBox = `<ul class="c-review-cur-tooltip">
-                            <li><a href="javascript:cReviewModi(${i})">수정</a></li>
-                            <li><a href="javascript:cReviewDel(${i})">삭제</a></li>
-                        </ul>`
+                        <li><a href="javascript:void(0)" class="c-show-modi">수정</a></li>
+                        <li><a href="javascript:void(0)" class="c-comment-del">삭제</a></li>
+                    </ul>`
                     }
                     let active = ``;
                     if(likeCnt == 0){
@@ -1000,6 +1015,7 @@ function cReviewsSubmit(){
                     }
                     insert.insertAdjacentHTML("beforeend", `
                     <div class="k-reviewlist c-currentlist">
+                        <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                     <div class="k-listleft col-1">
                         <div class="c-list-img">
                             ${img}
@@ -1009,7 +1025,6 @@ function cReviewsSubmit(){
                         <ul id="k-listbox">
                             <li id="k-listtext">
                                 <div class="k-listtext_box">
-                                <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                                     <span class="k-review-name">${result1[i].nickname}</span>
                                     <span class="k-review-stars">${stars}</span>
                                     <span class="k-review-starsnum">${result1[i].rating}</span>
@@ -1031,19 +1046,20 @@ function cReviewsSubmit(){
                                                 <input type="radio" id="c-rating2${i}" name="c-rating${i}" value="2" ><label for="c-rating2${i}" title="2점"></label>
                                                 <input type="radio" id="c-rating1${i}" name="c-rating${i}" value="1" ><label class="c-half" for="c-rating1${i}" title="1점"></label>
                                             </div>
-                                            <span class="c-rating-number">0</span>
+                                            <span class="c-rating-number">${result1[i].rating}</span>
                                         </div>
                                         <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
                                         <div class="c-modi-btn">
-                                            <a href="javascript:cReviewBoxClose(${i});" class="c-modi-reset">취소</a>
-                                            <a href="javascript:cReviewModiSend(${i});" class="c-modi-complete">수정완료</a>
+                                            <a href="javascript:void(0);" class="c-modi-reset">취소</a>
+                                            <a href="javascript:void(0);" class="c-modi-complete">수정완료</a>
                                         </div>
                                     </div>
                                     <div class="k-utilbox">
-                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${i});"></a>  
-                                        <input type="hidden" class="review-like" value="${likeCnt}" />                                                    
+                                        <span class="k-like2 c-current-like ${active}">
+                                            <input type="hidden" class="review-like" value="${likeCnt}" />                                                    
+                                        </span>  
                                         <span class="c-current-like-num">${result1[i].likes}</span>
-                                        <span class="k-declaration" onclick="cShowReviewUtil(${i})">
+                                        <span class="k-declaration">
                                         ${utilBox}
                                         </span>
                                     </div> 
@@ -1058,7 +1074,6 @@ function cReviewsSubmit(){
         })
         isCurrent.classList.add("active");
         isNotCurrent.classList.remove("active");
-        allNum.value = Number(allNum.value) + 1;
 
         for(i = 1; i < 11; i++){
             document.getElementById("rating" + i).checked = false;
@@ -1105,13 +1120,14 @@ function cReviewMore(n){
                         }
                     }
                     let utilBox = `<ul class="c-review-cur-tooltip not-user">
-                                        <li><a href="javascript:void(0)">신고</a></li>
-                                    </ul>`;
+                    <li><a href="javascript:void(0)">신고</a>
+                    </li>
+                </ul>`;
                     if(userid == result1[i].userid){
                         utilBox = `<ul class="c-review-cur-tooltip">
-                            <li><a href="javascript:cReviewModi(${num + i})">수정</a></li>
-                            <li><a href="javascript:cReviewDel(${num + i})">삭제</a></li>
-                        </ul>`
+                        <li><a href="javascript:void(0)" class="c-show-modi">수정</a></li>
+                        <li><a href="javascript:void(0)" class="c-comment-del">삭제</a></li>
+                    </ul>`
                     }
                     let active = ``;
                     if(likeCnt == 0){
@@ -1173,6 +1189,7 @@ function cReviewMore(n){
                     }
                     insert.insertAdjacentHTML("beforeend", `
                     <div class="k-reviewlist c-currentlist">
+                    <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                     <div class="k-listleft col-1">
                         <div class="c-list-img">
                             ${img}
@@ -1182,7 +1199,6 @@ function cReviewMore(n){
                         <ul id="k-listbox">
                             <li id="k-listtext">
                                 <div class="k-listtext_box">
-                                <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                                     <span class="k-review-name">${result1[i].nickname}</span>
                                     <span class="k-review-stars">${stars}</span>
                                     <span class="k-review-starsnum">${result1[i].rating}</span>
@@ -1193,30 +1209,31 @@ function cReviewMore(n){
                                     <div class="c-modi-reviewbox">
                                         <div class="c-mvrate">
                                             <div class="c-rate">
-                                                <input type="radio" id="c-rating10${num + i}" name="c-rating${num + i}" value="10" ><label for="c-rating10${num + i}" title="10점" ></label>
-                                                <input type="radio" id="c-rating9${num + i}" name="c-rating${num + i}" value="9"  ><label class="c-half" for="c-rating9${num + i}" title="9점"></label>
-                                                <input type="radio" id="c-rating8${num + i}" name="c-rating${num + i}" value="8" ><label for="c-rating8${num + i}" title="8점" ></label>
-                                                <input type="radio" id="c-rating7${num + i}" name="c-rating${num + i}" value="7" ><label class="c-half" for="c-rating7${num + i}" title="7점" ></label>
-                                                <input type="radio" id="c-rating6${num + i}" name="c-rating${num + i}" value="6" ><label for="c-rating6${num + i}" title="6점"  ></label>
-                                                <input type="radio" id="c-rating5${num + i}" name="c-rating${num + i}" value="5" ><label class="c-half" for="c-rating5${num + i}" title="5점"></label>
-                                                <input type="radio" id="c-rating4${num + i}" name="c-rating${num + i}" value="4" ><label for="c-rating4${num + i}" title="4점" ></label>
-                                                <input type="radio" id="c-rating3${num + i}" name="c-rating${num + i}" value="3" ><label class="c-half" for="c-rating3${num + i}" title="3점" ></label>
-                                                <input type="radio" id="c-rating2${num + i}" name="c-rating${num + i}" value="2" ><label for="c-rating2${num + i}" title="2점"></label>
-                                                <input type="radio" id="c-rating1${num + i}" name="c-rating${num + i}" value="1" ><label class="c-half" for="c-rating1${num + i}" title="1점" ></label>
+                                                <input type="radio" id="c-rating10${num + i}" name="c-rating${num + i}" value="10" class="c-m-rating"  ><label for="c-rating10${num + i}" title="10점" ></label>
+                                                <input type="radio" id="c-rating9${num + i}" name="c-rating${num + i}" value="9"  class="c-m-rating"  ><label class="c-half" for="c-rating9${num + i}" title="9점"></label>
+                                                <input type="radio" id="c-rating8${num + i}" name="c-rating${num + i}" value="8"  class="c-m-rating" ><label for="c-rating8${num + i}" title="8점" ></label>
+                                                <input type="radio" id="c-rating7${num + i}" name="c-rating${num + i}" value="7"  class="c-m-rating" ><label class="c-half" for="c-rating7${num + i}" title="7점" ></label>
+                                                <input type="radio" id="c-rating6${num + i}" name="c-rating${num + i}" value="6" class="c-m-rating"  ><label for="c-rating6${num + i}" title="6점"  ></label>
+                                                <input type="radio" id="c-rating5${num + i}" name="c-rating${num + i}" value="5" class="c-m-rating"  ><label class="c-half" for="c-rating5${num + i}" title="5점"></label>
+                                                <input type="radio" id="c-rating4${num + i}" name="c-rating${num + i}" value="4"  class="c-m-rating" ><label for="c-rating4${num + i}" title="4점" ></label>
+                                                <input type="radio" id="c-rating3${num + i}" name="c-rating${num + i}" value="3"  class="c-m-rating" ><label class="c-half" for="c-rating3${num + i}" title="3점" ></label>
+                                                <input type="radio" id="c-rating2${num + i}" name="c-rating${num + i}" value="2"  class="c-m-rating" ><label for="c-rating2${num + i}" title="2점"></label>
+                                                <input type="radio" id="c-rating1${num + i}" name="c-rating${num + i}" value="1"  class="c-m-rating" ><label class="c-half" for="c-rating1${num + i}" title="1점" ></label>
                                             </div>
-                                            <span class="c-rating-number">0</span>
+                                            <span class="c-rating-number">${result1[i].rating}</span>
                                         </div>
                                         <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
                                         <div class="c-modi-btn">
-                                            <a href="javascript:cReviewBoxClose(${num + i});" class="c-modi-reset">취소</a>
-                                            <a href="javascript:cReviewModiSend(${num + i});" class="c-modi-complete">수정완료</a>
+                                            <a href="javascript:void(0);" class="c-modi-reset">취소</a>
+                                            <a href="javascript:void(0);" class="c-modi-complete">수정완료</a>
                                         </div>
                                     </div>
                                     <div class="k-utilbox">
-                                        <a class="k-like2 c-current-like ${active}" href="javascript:cCurrentReviewLike(${num + i});"></a>   
-                                        <input type="hidden" class="review-like" value="${likeCnt}" />                                                   
+                                        <span class="k-like2 c-current-like ${active}">
+                                            <input type="hidden" class="review-like" value="${likeCnt}" />                                                    
+                                        </span>  
                                         <span class="c-current-like-num">${result1[i].likes}</span>
-                                        <span class="k-declaration" onclick="cShowReviewUtil(${num + i})">
+                                        <span class="k-declaration">
                                         ${utilBox}
                                         </span>
                                     </div> 
@@ -1265,13 +1282,14 @@ function cReviewMore(n){
                         }
                     }
                     let utilBox = `<ul class="c-review-cur-tooltip not-user">
-                                        <li><a href="javascript:void(0)">신고</a></li>
-                                    </ul>`;
+                    <li><a href="javascript:void(0)">신고</a>
+                    </li>
+                </ul>`;
                     if(userid == result1[i].userid){
                         utilBox = `<ul class="c-review-cur-tooltip">
-                            <li><a href="javascript:cReviewModi(${num + i})">수정</a></li>
-                            <li><a href="javascript:cReviewDel(${num + i})">삭제</a></li>
-                        </ul>`
+                        <li><a href="javascript:void(0)" class="c-show-modi">수정</a></li>
+                        <li><a href="javascript:void(0)" class="c-comment-del">삭제</a></li>
+                    </ul>`
                     }
                     let active = ``;
                     if(likeCnt == 0){
@@ -1333,6 +1351,7 @@ function cReviewMore(n){
                     }
                     insert.insertAdjacentHTML("beforeend", `
                     <div class="k-reviewlist c-likelist">
+                    <input type="hidden" value="${result1[i].num}"  class="c-current-num c-review-num"/>
                     <div class="k-listleft col-1">
                         <div class="c-list-img">
                             ${img}
@@ -1342,7 +1361,6 @@ function cReviewMore(n){
                         <ul id="k-listbox">
                             <li id="k-listtext">
                                 <div class="k-listtext_box">
-                                <input type="hidden" value="${result1[i].num}"  class="c-like-num c-review-num"/>
                                     <span class="k-review-name">${result1[i].nickname}</span>
                                     <span class="k-review-stars">${stars}</span>
                                     <span class="k-review-starsnum">${result1[i].rating}</span>
@@ -1353,30 +1371,31 @@ function cReviewMore(n){
                                     <div class="c-modi-reviewbox">
                                         <div class="c-mvrate">
                                             <div class="c-rate">
-                                                <input type="radio" id="c-rating10${num + i}" name="c-rating${num + i}" value="10" ><label for="c-rating10${num + i}" title="10점"></label>
-                                                <input type="radio" id="c-rating9${num + i}" name="c-rating${num + i}" value="9"  ><label class="c-half" for="c-rating9${num + i}" title="9점" ></label>
-                                                <input type="radio" id="c-rating8${num + i}" name="c-rating${num + i}" value="8" ><label for="c-rating8${num + i}" title="8점" ></label>
-                                                <input type="radio" id="c-rating7${num + i}" name="c-rating${num + i}" value="7" ><label class="c-half" for="c-rating7${num + i}" title="7점"></label>
-                                                <input type="radio" id="c-rating6${num + i}" name="c-rating${num + i}" value="6" ><label for="c-rating6${num + i}" title="6점" ></label>
-                                                <input type="radio" id="c-rating5${num + i}" name="c-rating${num + i}" value="5" ><label class="c-half" for="c-rating5${num + i}" title="5점"></label>
-                                                <input type="radio" id="c-rating4${num + i}" name="c-rating${num + i}" value="4" ><label for="c-rating4${num + i}" title="4점"></label>
-                                                <input type="radio" id="c-rating3${num + i}" name="c-rating${num + i}" value="3" ><label class="c-half" for="c-rating3${num + i}" title="3점" ></label>
-                                                <input type="radio" id="c-rating2${num + i}" name="c-rating${num + i}" value="2" ><label for="c-rating2${num + i}" title="2점"></label>
-                                                <input type="radio" id="c-rating1${num + i}" name="c-rating${num + i}" value="1" ><label class="c-half" for="c-rating1${num + i}" title="1점" ></label>
+                                                <input type="radio" id="c-rating10${num + i}" name="c-rating${num + i}" value="10"  class="c-m-rating" ><label for="c-rating10${num + i}" title="10점"></label>
+                                                <input type="radio" id="c-rating9${num + i}" name="c-rating${num + i}" value="9"  class="c-m-rating"  ><label class="c-half" for="c-rating9${num + i}" title="9점" ></label>
+                                                <input type="radio" id="c-rating8${num + i}" name="c-rating${num + i}" value="8" class="c-m-rating"  ><label for="c-rating8${num + i}" title="8점" ></label>
+                                                <input type="radio" id="c-rating7${num + i}" name="c-rating${num + i}" value="7"  class="c-m-rating" ><label class="c-half" for="c-rating7${num + i}" title="7점"></label>
+                                                <input type="radio" id="c-rating6${num + i}" name="c-rating${num + i}" value="6" class="c-m-rating"  ><label for="c-rating6${num + i}" title="6점" ></label>
+                                                <input type="radio" id="c-rating5${num + i}" name="c-rating${num + i}" value="5" class="c-m-rating"  ><label class="c-half" for="c-rating5${num + i}" title="5점"></label>
+                                                <input type="radio" id="c-rating4${num + i}" name="c-rating${num + i}" value="4"  class="c-m-rating" ><label for="c-rating4${num + i}" title="4점"></label>
+                                                <input type="radio" id="c-rating3${num + i}" name="c-rating${num + i}" value="3" class="c-m-rating"  ><label class="c-half" for="c-rating3${num + i}" title="3점" ></label>
+                                                <input type="radio" id="c-rating2${num + i}" name="c-rating${num + i}" value="2" class="c-m-rating"  ><label for="c-rating2${num + i}" title="2점"></label>
+                                                <input type="radio" id="c-rating1${num + i}" name="c-rating${num + i}" value="1" class="c-m-rating"  ><label class="c-half" for="c-rating1${num + i}" title="1점" ></label>
                                             </div>
-                                            <span class="c-rating-number">0</span>
+                                            <span class="c-rating-number">${result1[i].rating}</span>
                                         </div>
                                         <textarea name="c-modi-review" class="c-modi-review" cols="30" rows="10">${result1[i].comments}</textarea>
                                         <div class="c-modi-btn">
-                                            <a href="javascript:cReviewBoxClose(${num + i});" class="c-modi-reset">취소</a>
-                                            <a href="javascript:cReviewModiSend(${num + i});" class="c-modi-complete">수정완료</a>
+                                        <a href="javascript:void(0);" class="c-modi-reset">취소</a>
+                                        <a href="javascript:void(0);" class="c-modi-complete">수정완료</a>
                                         </div>
                                     </div>
                                     <div class="k-utilbox">
-                                        <a class="k-like2 c-like-like ${active}" href="javascript:cLikeReviewLike(${num + i});"></a>       
-                                        <input type="hidden" class="review-like" value="${likeCnt}" />                                               
-                                        <span class="c-like-like-num">${result1[i].likes}</span>
-                                        <span class="k-declaration" onclick="cShowReviewUtil(${num + i})">
+                                        <span class="k-like2 c-current-like ${active}">
+                                            <input type="hidden" class="review-like" value="${likeCnt}" />                                                    
+                                        </span>  
+                                        <span class="c-current-like-num">${result1[i].likes}</span>
+                                        <span class="k-declaration">
                                         ${utilBox}
                                         </span>
                                     </div> 
@@ -1397,53 +1416,7 @@ function cReviewMore(n){
     }
     
 }
-function cShowReviewUtil(n){
-    const tooltip = document.getElementsByClassName("c-review-cur-tooltip")[n];
-    tooltip.classList.toggle("c-review-active");
-}
-function cReviewModi(n){
-    const modibox = document.getElementsByClassName('c-modi-reviewbox')[n];
-    const comment = document.getElementsByClassName('k-review-info')[n];
-    modibox.style.display = "block";
-    comment.style.display = "none";
-}
-function cReviewBoxClose(n){
-    const modibox = document.getElementsByClassName('c-modi-reviewbox')[n];
-    const comment = document.getElementsByClassName('k-review-info')[n];
-    modibox.style.display = "none";
-    comment.style.display = "block";
-}
-function cReviewDel(n){
-    const num = document.getElementsByClassName('c-review-num')[n].value;
-    const movieid = document.getElementById("movie-id").value;
-    const reviewbox = document.getElementsByClassName("k-reviewlist")[n];
-    const reviewTab = document.getElementById("reviewTab");
-    const reviewTab2 = document.getElementById("c-reviewlist-cnt");
-    const len = document.getElementById("reviewAllNum").length;
-    const btn = document.getElementsByClassName("k-list_btn");
-    if(confirm("정말 삭제하시겠습니까?")){
-        fetch("/ezenCine/ReviewDel", {
-            headers : {"Content-Type": "application/json"},
-            method : "post",
-            body : JSON.stringify({
-                reviews_num : num, movie_id : movieid
-            })
-        }).then((res) => res.json())
-        .then((result) => {
-            if(result == 1){
-                reviewbox.style.display = "none";
-                reviewTab.innerHTML = Number(reviewTab.innerText) - 1;
-                reviewTab2.innerHTML = Number(reviewTab2.innerText) - 1;
-                if(len < 7){
-                    btn[0].style.display = "none";
-                    btn[1].style.display = "none";
-                }
-            }else{
-            }
-        })
-    }
-    
-}
+
 
 function cMyPageReviewDel(n){
     const num = document.getElementsByClassName('c-mypage-review-modi-num')[n].value;
@@ -1679,19 +1652,7 @@ $(function(){
         }
     })
     */
-    // 아이디 저장 
-    $(".c-id-not-save").click(function(){
-        document.getElementsByClassName("c-id-not-save")[0].style.display = "none";
-        document.getElementsByClassName("c-id-save")[0].style.display = "inline-block";
-        let idSave = document.getElementById("c-id-save-val");
-        idSave.value = 1;
-    })
-    $(".c-id-save").click(function(){
-        document.getElementsByClassName("c-id-not-save")[0].style.display = "inline-block";
-        document.getElementsByClassName("c-id-save")[0].style.display = "none";
-        let idSave = document.getElementById("c-id-save-val");
-        idSave.value = 0;
-    })
+    
 
     // 배경 선택시 팝업 종료
     $(".c-shadow").click(function(){
@@ -1789,7 +1750,19 @@ $(function(){
     	document.getElementById("SMSAgree").value = "0";
     })
 })
-
+// 아이디 저장 
+function cIdSave(){
+    document.getElementsByClassName("c-id-not-save")[0].style.display = "none";
+    document.getElementsByClassName("c-id-save")[0].style.display = "inline-block";
+    let idSave = document.getElementById("c-id-save-val");
+    idSave.value = 1;
+}
+function cIdNotSave(){
+    document.getElementsByClassName("c-id-not-save")[0].style.display = "inline-block";
+    document.getElementsByClassName("c-id-save")[0].style.display = "none";
+    let idSave = document.getElementById("c-id-save-val");
+    idSave.value = 0;
+}
 function getEmail(){
     let email2 = document.getElementById("email2");
     const selectEmail = document.getElementById("selectEmail");
@@ -2780,10 +2753,14 @@ function cMyPageMore(n){
         .then((result) => {
             for(i = 0; i < result.length; i++){
                 const review_date = new Date(result[i].date);
-                const today_date = new Date() ;
+                const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+                const today_date = new Date(Date.now() - timezoneOffset);
                 const diffSec = today_date - review_date;
-                const diff = Math.ceil(diffSec / (1000 * 3600 * 24));
-                
+                const diff = Math.floor(diffSec / (1000 * 3600 * 24));
+                let date = `오늘`;
+                if(diff != 0){
+                    date = `${diff}일 전`;
+                }
                 insert.insertAdjacentHTML("beforeend",`
                     <div class="col-6 c-mypage-review-num">
                         <input type="hidden" value="${result[i].num}" class="c-mypage-review-modi-num" />
@@ -2796,57 +2773,58 @@ function cMyPageMore(n){
                             <p class="c-bottom">
                                 <span class="first">
                                     <img class="c-like-img" class="" src="images/h-button/like.png" alt="like">
-                                    <span>${diff}일 전</span>
+                                    <span>${date}</span>
                                 </span>
                                 <span class="second">
-                                    <a href="javascript:cReviewPopupOpen(${num + i});">수정</a>
-                                    <a href="javascript:cMyPageReviewDel(${num + i});">삭제</a>
+                                    <a href="javascript:void(0)" class="c-mypage-modi">수정</a>
+                                    <a href="javascript:void(0)" class="c-mypage-del">삭제</a>
                                 </span></p>
                         </div>
+                        <div class="c-mypage-modi-popup-shadow">
+                            <div class="c-mypage-modi-popup">
+                                <div class="c-mypage-modi-title">리뷰 수정하기 
+                                <a href="javascript:void(0)" class="c-mypage-popup-close"><img src="images/icon/inyoung/close.png" alt="close" class="c-mypage-popup-close" /></a>
+                                </div>
+                                <div class="c-mypage-popup-content">
+                                    <p>${result[i].title}</p>
+                                    <div class="c-mypage-popup-real-content">
+                                        
+                                            <img src="${result[i].poster_url}" alt="poster" />
+                                        
+                                        <div class="c-mypage-popup-right-content">
+                                            <div class="c-mypage-modi-content-top">
+                                                <div class="c-mypage-popup-userimg">
+                                                    <img src="${userImg}" alt="user" />
+                                                </div>
+                                                <div class="c-modi-mvrate">
+                                                    <div class="c-modi-rate">
+                                                        <input type="radio" id="c-rating10${num + i}" name="c-rating${num + i}" class="c-rating" value="10" ><label for="c-rating10${num + i}" title="10점"  ></label>
+                                                        <input type="radio" id="c-rating9${num + i}" name="c-rating${num + i}" class="c-rating" value="9"  ><label class="c-half" for="c-rating9${num + i}" title="9점" ></label>
+                                                        <input type="radio" id="c-rating8${num + i}" name="c-rating${num + i}" class="c-rating" value="8" ><label for="c-rating8${num + i}" title="8점" ></label>
+                                                        <input type="radio" id="c-rating7${num + i}" name="c-rating${num + i}" class="c-rating" value="7" ><label class="c-half" for="c-rating7${num + i}" title="7점"  ></label>
+                                                        <input type="radio" id="c-rating6${num + i}" name="c-rating${num + i}" class="c-rating" value="6" ><label for="c-rating6${num + i}" title="6점"  ></label>
+                                                        <input type="radio" id="c-rating5${num + i}" name="c-rating${num + i}" class="c-rating" value="5" ><label class="c-half" for="c-rating5${num + i}" title="5점"  ></label>
+                                                        <input type="radio" id="c-rating4${num + i}" name="c-rating${num + i}" class="c-rating" value="4" ><label for="c-rating4${num + i}" title="4점"  ></label>
+                                                        <input type="radio" id="c-rating3${num + i}" name="c-rating${num + i}" class="c-rating" value="3" ><label class="c-half" for="c-rating3${num + i}" title="3점"></label>
+                                                        <input type="radio" id="c-rating2${num + i}" name="c-rating${num + i}" class="c-rating" value="2" ><label for="c-rating2${num + i}" title="2점" ></label>
+                                                        <input type="radio" id="c-rating1${num + i}" name="c-rating${num + i}" class="c-rating" value="1" ><label class="c-half" for="c-rating1${num + i}" title="1점" ></label>
+                                
+                                                    </div>
+                                                </div>
+                                                <div class="c-mypage-popup-rating"><span class="c-mypage-popup-rate">${result[i].rating}</span> 점</div>
+                                            </div>
+                                            <textarea spellcheck="false" maxlength="220" class="c-mypage-textarea" id="" cols="30" rows="10">${result[i].comments}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="c-mypage-popup-btn">
+                                        <a href="javascript:void(0)" class="c-mypage-popup-close">취소</a>
+                                        <a href="javascript:void(0)" class="c-mypage-popup-review-send">수정</a>
+                                    </div>
+                                </div>
+                            </div>	
+                        </div>          
                     </div>
-                    <div class="c-mypage-modi-popup-shadow">
-					<div class="c-mypage-modi-popup">
-						<div class="c-mypage-modi-title">리뷰 수정하기 
-							<a href="javascript:cReviewPopupClose(${num + i});"><img src="images/icon/inyoung/close.png" alt="close" /></a>
-						</div>
-						<div class="c-mypage-popup-content">
-							<p>${result[i].title}</p>
-							<div class="c-mypage-popup-real-content">
-								
-									<img src="${result[i].poster_url}" alt="poster" />
-								
-								<div class="c-mypage-popup-right-content">
-									<div class="c-mypage-modi-content-top">
-										<div class="c-mypage-popup-userimg">
-											<img src="${userImg}" alt="user" />
-										</div>
-								    	<div class="c-modi-mvrate">
-											<div class="c-modi-rate">
-							    				<input type="radio" id="c-rating10${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="10" ><label for="c-rating10${num + i}" title="10점"  ></label>
-					                            <input type="radio" id="c-rating9${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="9"  ><label class="c-half" for="c-rating9${num + i}" title="9점" ></label>
-					                            <input type="radio" id="c-rating8${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="8" ><label for="c-rating8${num + i}" title="8점" ></label>
-					                            <input type="radio" id="c-rating7${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="7" ><label class="c-half" for="c-rating7${num + i}" title="7점"  ></label>
-					                            <input type="radio" id="c-rating6${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="6" ><label for="c-rating6${num + i}" title="6점"  ></label>
-					                            <input type="radio" id="c-rating5${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="5" ><label class="c-half" for="c-rating5${num + i}" title="5점"  ></label>
-					                            <input type="radio" id="c-rating4${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="4" ><label for="c-rating4${num + i}" title="4점"  ></label>
-					                            <input type="radio" id="c-rating3${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="3" ><label class="c-half" for="c-rating3${num + i}" title="3점"></label>
-					                            <input type="radio" id="c-rating2${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="2" ><label for="c-rating2${num + i}" title="2점" ></label>
-					                            <input type="radio" id="c-rating1${num + i}" name="c-rating${num + i}" class="c-rating${num + i}" value="1" ><label class="c-half" for="c-rating1${num + i}" title="1점" ></label>
-						
-										    </div>
-										</div>
-										<div class="c-mypage-popup-rating"><span class="c-mypage-popup-rate">${result[i].rating}</span> 점</div>
-									</div>
-									<textarea spellcheck="false" maxlength="220" class="c-mypage-textarea" id="" cols="30" rows="10">${result[i].comments}</textarea>
-								</div>
-							</div>
-							<div class="c-mypage-popup-btn">
-								<a href="javascript:cReviewPopupClose(${num + i});">취소</a>
-								<a href="javascript:cReviewPopupModiSend(${num + i});">수정</a>
-							</div>
-						</div>
-					</div>	
-				</div>          
+                    
                 `);
             }
             if(num == reviewAllnum - 1 || num == reviewAllnum - 2){
@@ -3231,7 +3209,8 @@ function cProfilePopupCancel(n){
         `);
         // 이미지 파일 사용자에게 보이기 및 팝업 이미지 바꾸기
         let userPopupImgShow = document.getElementById("c-profile-popup-user-img");
-        const imgUrl = "/ezenCine/ShowMemPhoto";
+        let userImgShow = document.getElementById("c-profile-user-img");
+        const imgUrl = userImgShow.src;
 	    userPopupImgShow.src = imgUrl;
     }else if(n == 1){
         const curuserpass = document.getElementById("curuserpass");
@@ -3588,6 +3567,4 @@ $(function(){
 function pleaseLogin(){
 	alert("로그인이 필요한 서비스입니다.");
 }
-
-
 
