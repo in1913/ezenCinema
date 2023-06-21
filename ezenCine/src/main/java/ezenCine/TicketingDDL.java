@@ -89,5 +89,59 @@ public class TicketingDDL {
 			return false;
 		}
 	}
+	
+	// 예매 전 자리상태 찾기
+	public boolean checkSeat(String movie_id, String date, String cinema_name, String time, String seat, String room){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "select seat_num from Ticketing where movie_id = ? and screen_date = ? and cinema_name = ? and screen_time = ?" ;
+		boolean result = false;
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, movie_id);
+			ps.setString(2, date);
+			ps.setString(3, cinema_name);
+			ps.setString(4, time);
+			System.out.println(ps);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+	            String bookedSeat = rs.getString("seat_num");
+	            if (isSeatBooked(bookedSeat, seat)) {
+	                result = true;
+	                break;
+	            }
+	        }
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	// 좌석 예약 여부 확인
+	private boolean isSeatBooked(String bookedSeat, String targetSeat) {
+	    String[] bookedSeats = bookedSeat.split(",");
+	    String[] targetSeats = targetSeat.split(",");
+	    for(int i = 0 ; i < bookedSeats.length ; i++) {
+	    	for(int j = 0 ; j < targetSeats.length ; j++) {
+	    		if(bookedSeats[i].equals(targetSeats[j])) {
+	    			return true;
+	    		}
+	    	}
+	    }
+	    
+	    return false; 
+	}
 }
 
