@@ -345,6 +345,20 @@ $(function(){
 	            success: function(result) {
 	               	if(result == 0){
 	               		alert("이미 예약된 좌석입니다.");
+	               		$.ajax({
+				            url: "movie/seatsCheckOk.jsp",
+				            type: "get",
+				            data : {
+								movie_id : mvVal,
+								cinema_name : cineVal,
+								date : dateVal,
+								time : timeVal
+							},
+				            success: function(html) {
+				                $("ul.seat_container").html(html);
+				            }
+				        });
+        
 	               	}else{
 						$.ajax({
 							url: "/ezenCine/Ticketing",
