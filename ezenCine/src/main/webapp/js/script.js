@@ -2721,15 +2721,17 @@ function cMyPageMore(n){
                     <div class="col-6 c-mypage-booking-num">
                         <a href="index.jsp?fname=movie/movieDetail&mov_id=${result[i].movie_id}">
                             <img src="${result[i].poster_url}" alt="${result[i].title}">
-                            <div class="c-content">
-                                <p class="c-title">${result[i].title}</p>
-                                <p>예매번호 <span>${result[i].ticket_num}</span></p>
-                                <p>상영관/관람좌석 <span>${result[i].room_num}관/ ${seats[i]}</span></p>
-                                <p>관람인원 <span>성인 ${seats_arr.length}명</span></p>
-                                <p>결제일시 <span>${ticket_year}.${ticket_month}.${ticket_day}(${dayToKor(result[i].ticket_day)}) ${ticket_hour}:${ticket_min}</span></p>
-                                <p>관람일시 <span>${screen_year}.${screen_month}.${screen_day}(${dayToKor(result[i].screen_day)}) ${result[i].screen_time}</span></p>
-                            </div>
                         </a>
+                        <div class="c-content">
+                            <p class="c-title">${result[i].title}</p>
+                            <p>예매번호 <span>${result[i].ticket_num}</span></p>
+                            <p>상영관/관람좌석 <span>${result[i].room_num}관/ ${seats[i]}</span></p>
+                            <p>관람인원 <span>성인 ${seats_arr.length}명</span></p>
+                            <p>결제일시 <span>${ticket_year}.${ticket_month}.${ticket_day}(${dayToKor(result[i].ticket_day)}) ${ticket_hour}:${ticket_min}</span></p>
+                            <p>관람일시 <span>${screen_year}.${screen_month}.${screen_day}(${dayToKor(result[i].screen_day)}) ${result[i].screen_time}</span></p>
+                            <p class="cancel_booking" onclick="bookingCancelation(${result[i].ticket_num})">예매취소</p>
+                        </div>
+                        
                     </div>
                 `);
             }
