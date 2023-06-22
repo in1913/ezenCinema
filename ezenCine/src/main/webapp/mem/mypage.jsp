@@ -166,7 +166,6 @@
 	                            <img src="<%=bd.getPoster_url() %>" alt="<%=bd.getTitle()%>">
 	                        </a>
                             <div class="c-content">
-                            	<p class="cancel_booking" onclick="bookingCancelation(<%=bd.getTicket_num() %>)">예매취소</p>
                                 <p class="c-title"><%=bd.getTitle() %></p>
                                 <p>예매번호 <span><%=bd.getTicket_num() %></span></p>
                                 <p>상영관/관람좌석 <span><%=bd.getRoom_num() %>관/
@@ -190,6 +189,7 @@
                                 <p>관람인원 <span>성인 <%=seats_arr.length %>명</span></p>
                                 <p>결제일시 <span><%=ticket_year %>.<%=ticket_month %>.<%=ticket_day %>(<%=ExtraFunc.dayToKor(bd.getTicket_day()) %>) <%=ticket_hour %>:<%=ticket_min %></span></p>
                                 <p>관람일시 <span><%=screen_year %>.<%=screen_month %>.<%=screen_day %>(<%=ExtraFunc.dayToKor(bd.getScreen_day()) %>) <%=bd.getScreen_time() %></span></p>
+                            	<p class="cancel_booking" onclick="bookingCancelation(<%=bd.getTicket_num() %>)">예매취소</p>
                             </div>
                             
                         </div>
