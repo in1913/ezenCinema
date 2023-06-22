@@ -143,5 +143,39 @@ public class TicketingDDL {
 	    
 	    return false; 
 	}
+	
+	public boolean bookingCancelation(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int flag = 0;
+		
+		try {
+			conn = new DBConnect().getConn();
+			String query = "DELETE FROM Ticketing where num = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			System.out.println(pstmt);
+			flag = pstmt.executeUpdate();
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			}catch(SQLException e) {
+				
+			}
+		}
+		if(flag > 0) {  
+			System.out.println("취소 성공");
+			return true;
+		}else {			
+			System.out.println("취소 실패");
+			return false;
+		}
+	}
 }
 
