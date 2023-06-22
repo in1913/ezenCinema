@@ -88,12 +88,19 @@ $(function(){
     
     // 시간 클릭
     $(document).on("click", ".h-b-time-btn", function(){
+		let selected_date = $(".date.b-on").find("input[type='radio']:checked").val();
     	let timeVal = $(this).find("input[type='radio']").val();
     	let timeValarr = timeVal.split(":");
     	let now = new Date();
     	let nowTime = now.getHours();
-    	
-    	if(timeValarr[0] < nowTime){
+    	let nowMon = now.getMonth()+1;
+		if(nowMon < 10){
+			nowMon = '0' + nowMon;
+		}
+		let dod = `${now.getFullYear()}-${nowMon}-${now.getDate()}`;
+		console.log("현재시간 " + nowTime);
+		console.log("상영시간 " + timeValarr[0]);
+    	if( dod == selected_date && parseInt(timeValarr[0]) <= parseInt(nowTime) ){
     		alert("예약 가능시간이 지난 영화입니다.");
     	
     	}else{
@@ -176,11 +183,15 @@ $(function(){
 	    $("#vipnum").val(0);
 	});
 	
-	$(".minus").click(function() {
+	$(document).on("click", ".minus", function(){
+	
+		let totalbook = $("#totalbook").html();
 	    let input = $(this).next();
 	    let value = parseInt(input.val());
 	    let selected_seats = $(".seat.selected");
-	    if(value <= selected_seats.length){
+	    console.log("총인원 " + totalbook);
+	    console.log("선택좌석 수 " + selected_seats.length);
+	    if(totalbook <= selected_seats.length){
 	    	alert("선택 좌석을 해제해주세요.");
 	    }else if (value > 0) {
 	        input.val(value - 1);
@@ -311,11 +322,17 @@ $(function(){
     	let timeVal = $(".h-b-time-btn").find("input[type='radio']:checked").val();
 		let roomVal = $(".h-b-time-btn.b-on").find("input[type='hidden'].room_number").val();
 		let cost = $(".result_cost").text();
+
+		let selected_seat = $(".seat.selected");
+		let totalbook = $("#totalbook").html();
+
 		if(seat_info == null || seat_info == ""){
 			alert("좌석을 선택해주세요");
+		}else if(totalbook != selected_seat.length){
+			alert("선택 인원수와 선택한 좌석 수가 맞지 않습니다.");
 		}else{
 			$.ajax({
-	            url: "/ezenCine/Ticketing",
+	            url: "/ezenCine/TicketingCheck",
 	            type: "post",
 	            data : {
 					movie_id : mvVal,
@@ -323,15 +340,34 @@ $(function(){
 					date : dateVal,
 					time : timeVal,
 					seat : seat_info,
-					room : roomVal,
-					cost : cost
+					room : roomVal
 				},
 	            success: function(result) {
 	               	if(result == 0){
-	               		alert("예매에 실패했습니다");
+	               		alert("이미 예약된 좌석입니다.");
 	               	}else{
-	               		alert("예매가 완료되었습니다.");
-	               		window.location.href = `index.jsp?fname=mem/mypage`;
+						$.ajax({
+							url: "/ezenCine/Ticketing",
+							type: "post",
+							data : {
+								movie_id : mvVal,
+								cinema_name : cineVal,
+								date : dateVal,
+								time : timeVal,
+								seat : seat_info,
+								room : roomVal,
+								cost : cost
+							},
+							success: function(rs) {
+								if(rs == 0){
+									alert("예매에 실패했습니다.")
+								}else{
+									alert("예매가 완료되었습니다.");
+									window.location.href = `index.jsp?fname=mem/mypage`;
+								}
+							}
+						})
+						
 	               	}
 	            }
 	        });
