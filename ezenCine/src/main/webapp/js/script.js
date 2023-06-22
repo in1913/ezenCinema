@@ -3568,3 +3568,25 @@ function pleaseLogin(){
 	alert("로그인이 필요한 서비스입니다.");
 }
 
+$(function(){
+    
+})
+function bookingCancelation(n){
+    if(confirm("예매를 취소하시겠습니까?")){
+        $.ajax({
+            url:"/ezenCine/BookingCancelation",
+            type:"POST",
+            data:{
+                num : n
+            },
+            success: function(result){
+                if(result == 0){
+                    alert("예매가 취소되었습니다.");
+                    location.reload();
+                }else{
+                    alert("예매 정보가 없습니다.");
+                }
+            }
+        })
+    }
+}
