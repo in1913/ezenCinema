@@ -192,14 +192,16 @@ document.addEventListener("click", function (e) {
             }).then((res) => res.json())
             .then((result) => {
                 if(result.result == 1){
-                    reviewbox.style.display = "none";
+                    reviewbox.remove();
                     reviewTab.innerHTML = result.cnt;
                     reviewTab2.innerHTML = result.cnt;
                     len.value = result.cnt;
+                    /*
                     if(len.value < 7){
                         btn[0].style.display = "none";
                         btn[1].style.display = "none";
                     }
+                    */
                 }else{
                     console.log("error");
                 }

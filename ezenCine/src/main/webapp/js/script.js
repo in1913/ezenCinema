@@ -1079,6 +1079,12 @@ function cReviewsSubmit(){
             document.getElementById("rating" + i).checked = false;
         }
         document.getElementsByClassName("rating-number")[0].innerHTML = 0;
+        console.log(allNum.value);
+        /*
+        if(allNum.value >= 6){
+            btn[0].style.display = "block";
+        }
+        */
     }
     
 }
