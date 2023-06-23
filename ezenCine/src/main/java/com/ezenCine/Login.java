@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import ezenCine.GetIp;
+import ezenCine.GetIpDDL;
+import ezenCine.GetIpDTO;
 import ezenCine.MemberDDL;
 
 
@@ -53,6 +56,22 @@ public class Login extends HttpServlet {
 				out.println("1");
 				session.setAttribute("userid", userid);
 				session.setAttribute("level", 1);
+				
+				GetIpDTO dto = new GetIpDTO();
+				dto.setUserid(userid);
+				dto.setIp(GetIp.getIp(req));
+				dto.setBrowser(GetIp.getBrowser(req));
+				dto.setOs(GetIp.getOs(req));
+				dto.setWeb_type(GetIp.getWebType(req));
+				boolean ipSuccess = GetIpDDL.insert(dto);
+				
+				if(ipSuccess) {
+					System.out.println("ip 인서트 성공");
+				}else {
+					System.out.println("ip 인서트 실패");
+				}
+				
+				
 			}else {
 				System.out.println("입력하신 정보와 일치하는 아이디 또는 비밀번호가 없습니다.");
 				out.println("0");

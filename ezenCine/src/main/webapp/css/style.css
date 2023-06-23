@@ -4648,7 +4648,8 @@ div.c-mypage-noInfo p{
 }
 .c-mypage-bottom .c-mypage-booking,
 .c-mypage-bottom .c-mypage-review,
-.c-mypage-bottom .c-mypage-see{
+.c-mypage-bottom .c-mypage-see,
+.c-mypage-bottom .c-mypage-store{
     background: #fff;
     border-radius: 20px;
     border-top-left-radius: 0;
@@ -4804,8 +4805,39 @@ div.c-mypage-review p.c-title{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.c-mypage-store .row{
+	padding-left: 5px;
+	padding-bottom: 51px;
+}
+.c-mypage-store a{
+	margin-top: 50px;
+	display: flex;
+}
+.c-mypage-store img{
+	width: 218px;
+	height: 198px;
+	margin-right: 10px;
+}
+.c-mypage-store .c-mypage-store-content{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.c-mypage-store p{
+	width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 19px;
+    font-weight: 400; 	
+}
+.c-mypage-store p:last-child{
+	font-size: 23px;
+	color: #3D56AE;
+	font-weight: 600;
+}
 /* 나중에 액티브 걸꺼임 */
-.c-mypage-booking,.c-mypage-see,.c-mypage-review{
+.c-mypage-booking,.c-mypage-see,.c-mypage-review, .c-mypage-store{
     display: none;
     position: relative;
 }

@@ -125,6 +125,7 @@
                     <li><a href="javascript:cMyPageBottom(0);" class="c-mypage-tab c-mypage-li-active">예매내역</a></li>
                     <li><a href="javascript:cMyPageBottom(1);" class="c-mypage-tab">내가 쓴 리뷰</a></li>
                     <li><a href="javascript:cMyPageBottom(2)" class="c-mypage-tab">보고싶어요</a></li>
+                    <li><a href="javascript:cMyPageBottom(3)" class="c-mypage-tab">구매내역</a></li>
                 </ul>
                 <!-- booking -->
                 <div class="c-mypage-booking c-mypage-content c-mypage-content-active">
@@ -363,6 +364,40 @@ System.out.println(i);
 %>                    
                                         
                                         
+                </div>           
+                
+                 <!-- store -->
+                <div class="c-mypage-store c-mypage-content">
+                    <div class="row" id="c-mypage-store-insert">
+                    <!--  
+                       	<div class="c-mypage-noInfo">
+						구매내역이 없습니다.
+						</div>
+						-->
+						
+						<div class="col-6">
+							<a href="#">
+								<img src="images/icon/inyoung/storebuy.png" alt="구매내역" />
+								<span class="c-mypage-store-content">
+									<p>갈릭 치즈 핫도그 콤보</p>
+									<p>갈릭 치즈 핫도그 + 탄산음료(R) 1 어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어</p>
+									<p>8,000원</p>
+								</span>
+							</a>	
+						</div>
+						<div class="col-6">
+							<a href="#">
+								<img src="images/icon/inyoung/storebuy.png" alt="구매내역" />
+								<span class="c-mypage-store-content">
+									<p>갈릭치즈 핫도그 콤보</p>
+									<p>갈릭치즈 핫도그 + 탄산음료(R) 1</p>
+									<p>8,000원</p>
+								</span>
+							</a>	
+						</div>    
+						    
+                    </div>
+					<a class="c-mypage-plus" id="c-mypage-plus-like-btn" href="javascript:cMyPageMore(3);">더보기 +</a>
                 </div>              
             </div>            
         </div>

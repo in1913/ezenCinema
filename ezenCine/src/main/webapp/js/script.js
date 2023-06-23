@@ -2078,6 +2078,7 @@ function regexIdCheck(){
 function regexPwCheck(){    
     let passwdRegex = /^(?=.*[a-z])(?=.*\d).{10,}$/;
     const userpass = document.getElementById("userpass").value;
+    const reuserpass = document.getElementById("reuserpass").value;
 
     const alert = document.getElementsByClassName("c-warning");
 
@@ -2088,9 +2089,26 @@ function regexPwCheck(){
     }else{
         alert[1].innerHTML = "";
     }
-
+    if(reuserpass != userpass){
+        alert[2].style.color = "red";
+        alert[2].innerHTML = "비밀번호가 같지 않습니다.";
+    }else{
+        alert[2].innerHTML = "";
+    }
 }
+function rePwCheck(){
+    const userpass = document.getElementById("userpass").value;
+    const reuserpass = document.getElementById("reuserpass").value;
+    
+    const alert = document.getElementsByClassName("c-warning");
 
+    if(reuserpass != userpass){
+        alert[2].style.color = "red";
+        alert[2].innerHTML = "비밀번호가 같지 않습니다.";
+    }else{
+        alert[2].innerHTML = "";
+    }
+}
 function regexTelCheck(){
     const telRegex = /^01([0|1|6|7|8|9/])([0-9]{7,8})$/;
     const tel = document.getElementById("tel").value;
@@ -2139,19 +2157,7 @@ function cgetDate(){
     document.getElementsByClassName("c-day")[0].innerHTML = strDay;
 
 }
-function rePwCheck(){
-    const userpass = document.getElementById("userpass").value;
-    const reuserpass = document.getElementById("reuserpass").value;
-    
-    const alert = document.getElementsByClassName("c-warning");
 
-    if(reuserpass != userpass){
-        alert[2].style.color = "red";
-        alert[2].innerHTML = "비밀번호가 같지 않습니다.";
-    }else{
-        alert[2].innerHTML = "";
-    }
-}
 function idDupli(){
     const userid = document.getElementById("userid").value;
     const alert = document.getElementsByClassName("c-warning");
@@ -2229,7 +2235,7 @@ function cSignUp(){
     const idRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
     const passwdRegex = /^(?=.*[a-z])(?=.*\d).{10,}$/;
     const telRegex = /^01([0|1|6|7|8|9/])([0-9]{7,8})$/;
-
+    let cnt = 0;
     if(userid == ""){
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
@@ -2313,11 +2319,17 @@ function cSignUp(){
         alert[8].innerHTML = "";
     }
 
+    if(reuserpass != userpass){
+        cnt += 1;
+        alert[2].style.color = "red";
+        alert[2].innerHTML = "비밀번호가 같지 않습니다.";
+    }else{
+        alert[2].innerHTML = "";
+    }
 	let birthdate = year + "-" + month + "-" + day;
     let email = email1 + "@" + email2;
     
     let list = [userid, idDupli, userpass, reuserpass, username, nickname, birthdate, tel, addr, detailaddr, email];
-    let cnt = 0;
     for(i = 0; i < list.length; i++){
         if(list[i] == ""){
             cnt += 1;

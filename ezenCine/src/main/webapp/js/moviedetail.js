@@ -1,3 +1,4 @@
+var initReview = "";
 document.addEventListener("click", function (e) {
     const userid = document.querySelector("#userid").value;
     const movieid = document.querySelector("#movie-id").value;
@@ -5,8 +6,10 @@ document.addEventListener("click", function (e) {
     if(e.target.classList.contains("c-show-modi")) {
         const comment = e.target.closest(".k-reviewlist").querySelector(".k-review-info");
         const modiBox = e.target.closest(".k-reviewlist").querySelector(".c-modi-reviewbox");
+        const modiReview = e.target.closest(".k-reviewlist").querySelector(".c-modi-review");
         comment.style.display = "none";
         modiBox.style.display = "block";
+        initReview = modiReview.value;
 
         const rating = e.target.closest(".k-reviewlist").querySelector(".k-review-starsnum");
         if(rating.innerText != 0){
@@ -36,6 +39,8 @@ document.addEventListener("click", function (e) {
     }else if(e.target.classList.contains("c-modi-reset")) {
         const comment = e.target.closest(".k-reviewlist").querySelector(".k-review-info");
         const modibox = e.target.closest(".k-reviewlist").querySelector(".c-modi-reviewbox");
+        let modiReview = e.target.closest(".k-reviewlist").querySelector(".c-modi-review");
+        modiReview.value = initReview;
         comment.style.display = "block";
         modibox.style.display = "none";
     }else if(e.target.classList.contains("c-modi-complete")) {
