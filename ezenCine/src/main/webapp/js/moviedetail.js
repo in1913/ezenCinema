@@ -180,8 +180,6 @@ document.addEventListener("click", function (e) {
         const reviewTab = document.querySelector("#reviewTab");
         const reviewTab2 = document.querySelector("#c-reviewlist-cnt");
         const len = document.getElementById("reviewAllNum");
-        const btn = document.getElementsByClassName("k-list_btn");
-
         if(confirm("정말 삭제하시겠습니까?")){
             fetch("/ezenCine/ReviewDel", {
                 headers : {"Content-Type": "application/json"},
@@ -196,14 +194,14 @@ document.addEventListener("click", function (e) {
                     reviewTab.innerHTML = result.cnt;
                     reviewTab2.innerHTML = result.cnt;
                     len.value = result.cnt;
-                    /*
+                    /* 
                     if(len.value < 7){
-                        btn[0].style.display = "none";
-                        btn[1].style.display = "none";
-                    }
-                    */
+                        btn[0].classList.remove("c-review-active");
+                        btn[1].classList.remove("c-review-active");
+                    } */
+                    
                 }else{
-                    console.log("error");
+
                 }
             })
         }
