@@ -16,6 +16,9 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import ezenCine.GetIp;
+import ezenCine.GetIpDDL;
+import ezenCine.GetIpDTO;
 import ezenCine.MemberDDL;
 import ezenCine.SnsOauth;
 
@@ -74,7 +77,24 @@ public class KakaoOauth extends HttpServlet {
 				if(userid != null) {
 					session.setAttribute("userid", userid);
 					session.setAttribute("level", 1);
+					
+					GetIpDTO dto = new GetIpDTO();
+					dto.setUserid(userid);
+					dto.setIp(GetIp.getIp(req));
+					dto.setBrowser(GetIp.getBrowser(req));
+					dto.setOs(GetIp.getOs(req));
+					dto.setWeb_type(GetIp.getWebType(req));
+					boolean ipSuccess = GetIpDDL.insert(dto);
+					
+					if(ipSuccess) {
+						System.out.println("ip 인서트 성공");
+					}else {
+						System.out.println("ip 인서트 실패");
+					}
+					
 					res.sendRedirect(OriginURL);
+					
+					
 				}else {
 					req.setAttribute("snsid", "kakao" + idStr);
 					req.setAttribute("emailFront", emailFront);

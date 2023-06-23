@@ -1,3 +1,4 @@
+var initReview = "";
 document.addEventListener("click", function(e){
     let reviewAllnum = document.getElementById("review-all-num");
     // 마이페이지 리뷰 삭제
@@ -30,6 +31,11 @@ document.addEventListener("click", function(e){
             .querySelector(".c-mypage-modi-popup-shadow");
         popup.style.display = "block";
 
+        const modiReview = e.target.closest(".c-mypage-review-num")
+        .querySelector(".c-mypage-textarea");
+
+        initReview = modiReview.value;
+
         const rating = e.target.closest(".c-mypage-review-num")
             .querySelector(".c-mypage-popup-rate");
         const radioRate = e.target.closest(".c-mypage-review-num")
@@ -40,6 +46,13 @@ document.addEventListener("click", function(e){
     }else if(e.target.classList.contains("c-mypage-popup-close")){
         const popup = e.target.closest(".c-mypage-review-num")
             .querySelector(".c-mypage-modi-popup-shadow");
+
+        const modiReview = e.target.closest(".c-mypage-review-num")
+        .querySelector(".c-mypage-textarea");
+        modiReview.value = initReview;
+
+        initReview = modiReview.value;
+        
         popup.style.display = "none";
 
     }else if(e.target.classList.contains("c-mypage-popup-review-send")){
