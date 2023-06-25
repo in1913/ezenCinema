@@ -3485,11 +3485,29 @@ $(function () {
         }
     });
 
+    //hover-box
+    $(".product li").mouseenter(function(){
+        $(this).find(".hover-box").stop().fadeIn(500);
+        $(this).find(".btn-box").stop().fadeIn(500);
+    });
+    $(".product li").mouseleave(function(){
+        $(this).find(".hover-box").stop().fadeOut(500);
+        $(this).find(".btn-box").stop().fadeOut(500);
+    });
+
+    //구매 취소, 삼품이용안내 show_arrow
+    $(".show-arrow.cancel").click(function(){
+        $(".sd_c_detail").stop().slideToggle();
+    });
+    $(".show-arrow.info").click(function(){
+        $(".sd_i_detail").stop().slideToggle();
+    });
 
 });
+   
 
 
-
+// 무비 리스트
 var movielist = [];
 var movielistData = [];
 var movielistHref = [];
