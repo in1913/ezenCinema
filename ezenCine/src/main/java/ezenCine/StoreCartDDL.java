@@ -46,7 +46,7 @@ public class StoreCartDDL {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = "select * from Store where num in (select itemnum from Store_cart where userid = ? and pay = 1)";
+		String sql = "select * from Store where num in (select itemnum from Store_cart where userid = ?)";
 		Vector <StoreDTO> data = new Vector <StoreDTO> ();
 		try {
 			conn = new DBConnect().getConn();
@@ -82,7 +82,7 @@ public class StoreCartDDL {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = "select * from Store where num in (select itemnum from Store_cart where userid = ? and itemnum = ? and pay = 1)";
+		String sql = "select * from Store where num in (select itemnum from Store_cart where userid = ? and itemnum = ?)";
 		StoreDTO dto = new StoreDTO();
 		try {
 			conn = new DBConnect().getConn();
@@ -117,7 +117,7 @@ public class StoreCartDDL {
 		ResultSet rs = null;
 		StoreCartDTO dto = new StoreCartDTO();
 		
-		String sql = "select * from Store_cart where userid = ? and itemnum = ? and pay = 1";
+		String sql = "select * from Store_cart where userid = ? and itemnum = ?";
 		
 		try {
 			conn = new DBConnect().getConn();
@@ -154,7 +154,7 @@ public class StoreCartDDL {
 		
 		int flag = 0;
 		
-		String sql = "delete from Store_cart where userid = ? and itemnum = ? and pay = 1";
+		String sql = "delete from Store_cart where userid = ? and itemnum = ?";
 		try {
 			conn = new DBConnect().getConn();
 			ps = conn.prepareStatement(sql);
@@ -186,7 +186,7 @@ public class StoreCartDDL {
 		
 		int flag = 0;
 		
-		String sql = "delete from Store_cart where userid = ? and itemnum = ? and pay = 1";
+		String sql = "delete from Store_cart where userid = ? and itemnum = ?";
 		try {
 			conn = new DBConnect().getConn();
 			ps = conn.prepareStatement(sql);
@@ -217,7 +217,7 @@ public class StoreCartDDL {
 		PreparedStatement ps = null;
 		int flag = 0;
 		
-		String sql = "update Store_cart set count = ? where userid = ? and itemnum = ? and pay = 1";
+		String sql = "update Store_cart set count = ? where userid = ? and itemnum = ?";
 		
 		try {
 			conn = new DBConnect().getConn();
@@ -248,7 +248,7 @@ public class StoreCartDDL {
 		PreparedStatement ps = null;
 		int flag = 0;
 		
-		String sql = "update Store_cart set pay = 2 where userid = ? and itemnum = ? and pay = 1";
+		String sql = "delete from Store_cart where userid = ? and itemnum = ?";
 		
 		try {
 			conn = new DBConnect().getConn();

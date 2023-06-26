@@ -151,27 +151,29 @@ $(document).on("click", ".countbtn.up", function(){
 	let cost = detail.find("#cost");
 	const dCost = detail.find("#dCost").val();
 	let rs = count.val();
+	const userid = detail.find("#userid").val();
 	if(rs < 9){		
 		rs++;
 		count.val(rs);
     	const cResult = rs * dCost;
 	    cost.html(makeComma(cResult));
-
-		$.ajax({
-			url: "/ezenCine/StoreCartUpdate",
-			type: "post",
-			data : {
-				itemnum : num,
-				count : count.val()
-			},
-			success: function(result) {
-				   if(result == 0){
-					   alert("장바구니 업데이트를 실패했습니다");
-				   }else{
-					   window.location.href = `index.jsp?fname=store/storeDetail&num=`+num;
-				   }
-			}
-		});
+		if(userid != null && userid != ""){
+			$.ajax({
+				url: "/ezenCine/StoreCartUpdate",
+				type: "post",
+				data : {
+					itemnum : num,
+					count : count.val()
+				},
+				success: function(result) {
+					   if(result == 0){
+						   alert("장바구니 업데이트를 실패했습니다");
+					   }else{
+						   window.location.href = `index.jsp?fname=store/storeDetail&num=`+num;
+					   }
+				}
+			});
+		}
 	}
 });
 //카운트 down
@@ -182,27 +184,29 @@ $(document).on("click", ".countbtn.down", function(){
 	let cost = detail.find("#cost");
 	const dCost = detail.find("#dCost").val();
 	let rs = count.val();
+	const userid = detail.find("#userid").val();
 	if(rs > 1){		
 		rs--;
 		count.val(rs);
     	const cResult = rs * dCost;
 	    cost.html(makeComma(cResult));
-
-		$.ajax({
-			url: "/ezenCine/StoreCartUpdate",
-			type: "post",
-			data : {
-				itemnum : num,
-				count : count.val()
-			},
-			success: function(result) {
-				   if(result == 0){
-					   alert("장바구니 업데이트를 실패했습니다");
-				   }else{
-					   window.location.href = `index.jsp?fname=store/storeDetail&num=`+num;
-				   }
-			}
-		});
+		if(userid != null && userid != ""){
+			$.ajax({
+				url: "/ezenCine/StoreCartUpdate",
+				type: "post",
+				data : {
+					itemnum : num,
+					count : count.val()
+				},
+				success: function(result) {
+					   if(result == 0){
+						   alert("장바구니 업데이트를 실패했습니다");
+					   }else{
+						   window.location.href = `index.jsp?fname=store/storeDetail&num=`+num;
+					   }
+				}
+			});
+		}
 	}
 });
 

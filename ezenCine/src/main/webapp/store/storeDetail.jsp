@@ -35,14 +35,34 @@
 						</div>
 						<div class="sd_count" id="item">
 							<label for="count">수량 / 금액</label>
+							<%
+								if(userid == null || userid == ""){
+							%>
+							<div class="count_box">
+								<input type="number" class="count" id="count" name="count" min="1" max="9" value="1" readonly>
+								<input type="hidden" name="num" id="num" value="<%= dt.getNum()%>">
+								<a class="countbtn up"></a>
+								<a class="countbtn down"></a>
+								<input type="hidden" name="userid" id="userid" value="<%= userid%>">
+							</div>
+							<h1><span class="cost" id="cost"><%=df.format(cost) %></span>원</h1>
+							<input type="hidden" id="dCost" name="dCost" value="<%=dt.getCost() %>">
+							<%
+								}else{
+								
+							%>
 							<div class="count_box">
 								<input type="number" class="count" id="count" name="count" min="1" max="9" value="<%=ct.getCount() %>" readonly>
 								<input type="hidden" name="num" id="num" value="<%= dt.getNum()%>">
 								<a class="countbtn up"></a>
 								<a class="countbtn down"></a>
+								<input type="hidden" name="userid" id="userid" value="<%= userid%>">
 							</div>
 							<h1><span class="cost" id="cost"><%=df.format(cost * ct.getCount()) %></span>원</h1>
 							<input type="hidden" id="dCost" name="dCost" value="<%=dt.getCost() %>">
+							<%
+								}								
+							%>
 							<div class="btn_box">
 							<%
 								if(userid == null || userid == ""){
