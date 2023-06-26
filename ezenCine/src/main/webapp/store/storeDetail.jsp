@@ -106,6 +106,25 @@
 					<p>본 상품은 구매일로부터 12개월까지 사용 가능합니다.</p>
 				</div>
 			</div>
+			<div class="sd_originbox">
+				<h1 class="sd_origin">원산지 정보<a href="javascript:void(0)" class="show-arrow origin"></a></h1>
+				<div class="sd_o_detail">
+					<!-- <p class="head">■ 원산지</p> -->
+					<p class="head">■ 팝콘</p>
+					<p>- 옥수수 : 미국산</p>
+
+					<p class="head">■ 나쵸</p>
+					<p>- 나쵸 : 미국산</p>
+
+					<p class="head">■ 핫도그</p>
+					<p>- 돼지고기 : 미국산</p>
+					<p>- 밀 : 미국산</p>
+
+					<p class="head">■ 츄러스, 프레첼</p>
+					<p>- 밀 : 미국산</p>
+					
+				</div>
+			</div>
 		</div>
     </section>
     <%@include file = "../include/advertise.jsp" %>

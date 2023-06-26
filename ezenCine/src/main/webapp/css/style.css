@@ -4970,7 +4970,7 @@ a.c-mypage-plus{
 .store_detail{
     margin-top: 180px;
 }
-.sd_title, .sd_cancel, .sd_info{
+.sd_title, .sd_cancel, .sd_info, .sd_origin{
     color: #ccc;
     border-bottom: 1px solid #ccc;
     padding: 10px;
@@ -5091,10 +5091,10 @@ a.c-mypage-plus{
     height: 40px;
 }
 
-.sd_cancel, .sd_info{
+.sd_cancel, .sd_info, .sd_origin{
     position: relative;
 }
-.sd_cancel .show-arrow, .sd_info .show-arrow{
+.sd_cancel .show-arrow, .sd_info .show-arrow, .sd_origin .show-arrow{
     background: url("../images/store/show_arrow.png") no-repeat;
     background-size: cover;
     display: inline-block;
@@ -5104,30 +5104,33 @@ a.c-mypage-plus{
     top: 50%;
     right: 10px;
 }
-.sd_infobox{
+.sd_originbox{
     margin-bottom: 76px;
 }
 
-.sd_c_detail, .sd_i_detail{
+.sd_c_detail, .sd_i_detail, .sd_o_detail{
     background-color: #F8F8F8;
     padding: 20px;
     border-bottom: 1px solid #ccc;
     display: none;
 }
-.sd_c_detail p, .sd_i_detail p{
+.sd_c_detail p, .sd_i_detail p, .sd_o_detail p{
     font-size: 15px;
     font-weight: 500;
     line-height: 23px;
     color: #666;
 }
-.sd_c_detail p.head, .sd_i_detail p.head{
+.sd_c_detail p.head, .sd_i_detail p.head, .sd_o_detail p.head{
     font-size: 16px;
     font-weight: 500;
     line-height: 20px;
     color: #333;
     margin: 20px 0;
 }
-.sd_c_detail p:first-child, .sd_i_detail p:first-child{
+.sd_o_detail p.head{
+    margin-bottom: 0;
+}
+.sd_c_detail p:first-child, .sd_i_detail p:first-child, .sd_o_detail p:first-child{
     margin-top: 0;
 }
 

@@ -3502,7 +3502,9 @@ $(function () {
     $(".show-arrow.info").click(function(){
         $(".sd_i_detail").stop().slideToggle();
     });
-
+    $(".show-arrow.origin").click(function(){
+        $(".sd_o_detail").stop().slideToggle();
+    });
 });
    
 
