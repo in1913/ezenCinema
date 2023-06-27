@@ -420,30 +420,28 @@ $(document).on("click", ".list_delete", function(){
 	let num = size;
 	num -= 1;
 
-	if(num > 0){
-		$.ajax({
-			url: "/ezenCine/StoreCartDelete",
-			type: "post",
-			data : {
-				itemnum : itemnum,
-			},
-			success: function(result) {
-				   if(result != 0){
-						if(num > 0){
-							if(check.is(":checked")){
-								check.prop('checked', false)
-								count.html(count.html() - 1);
-								total.val(total.val() - cost.val());
-								totalcost.html(makeComma(total.val()));
-							}
-							list.css({"display" : "none"});
-						}else{
-							window.location.href = `index.jsp?fname=store/store`;	
+	$.ajax({
+		url: "/ezenCine/StoreCartDelete",
+		type: "post",
+		data : {
+			itemnum : itemnum,
+		},
+		success: function(result) {
+				if(result != 0){
+					if(num > 0){
+						if(check.is(":checked")){
+							check.prop('checked', false)
+							count.html(count.html() - 1);
+							total.val(total.val() - cost.val());
+							totalcost.html(makeComma(total.val()));
 						}
-				   }
-			}
-		});
-	}
+						list.css({"display" : "none"});
+					}else{
+						window.location.href = `index.jsp?fname=store/store`;	
+					}
+				}
+		}
+	});
 });
 
 //결제하기
