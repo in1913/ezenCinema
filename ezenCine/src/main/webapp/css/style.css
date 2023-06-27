@@ -5024,7 +5024,7 @@ a.c-mypage-plus{
     height: 32px;
     top: 0;
 }
-.sd_count input.count{
+.sd_count input.hcount{
     width: 56px;
     height: 32px;
     border-radius: 0;
@@ -5352,7 +5352,7 @@ a.pay_btn{
     margin-top: 80.5px;
     margin-bottom: 94.5px;
 }
-.store_pay .count_box input.count{
+.store_pay .count_box input.ct{
     width: 56px;
     height: 32px;
     border-radius: 0;
@@ -5466,6 +5466,9 @@ a.pay_btn{
     position: absolute;
     top: 127px;
     right: 20px;
+}
+.none{
+    display:none;
 }
 @media (min-width: 768px) {
 	

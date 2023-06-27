@@ -46,6 +46,7 @@ public class StoreCart extends HttpServlet {
 			System.out.println("장바구니 업로드 성공");
 			out.println("1");
 		}else {
+			System.out.println("장바구니 업로드 실패");
 			out.println("0");
 		}
 		out.flush();

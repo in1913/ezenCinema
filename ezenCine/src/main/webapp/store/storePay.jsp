@@ -9,7 +9,6 @@
 	
     Vector<StoreDTO> cdt = StoreCartDDL.selectItemnum(userid);
 	DecimalFormat df = new DecimalFormat("###,###");
-	String items = "";
 %>
     <section class="visual">
         <img src="./images/banner/storebanner_1.png" alt="스토어 배너1: 현장에서 티켓 실물을 보여주면 모든 상품 10% 할인해드립니다!">
@@ -33,14 +32,14 @@
                 <div class="tbody">
                     <%
                     int total = 0; 
+                    int i = 0;
                    	for(StoreDTO dt : cdt){
                     int num = dt.getNum();
                     StoreDTO cdto = StoreCartDDL.selectCart(userid, num);
                     StoreCartDTO ct = StoreCartDDL.selectCartAll(userid, dt.getNum());
                     total += cdto.getCost()*ct.getCount();
-                    items += dt.getNum()+",";
                     %>
-                    <div class="row tr">
+                    <div class="row tr <%=i %>">
                         <div class="td col-2">
                             <input type="checkbox" class="check">
                         </div>
@@ -55,7 +54,7 @@
                         </div>
                         <div class="td col-2 text-center">
                             <div class="count_box">
-                                <input type="number" class="count" id="count" name="count" min="1" max="9" value="<%=ct.getCount() %>" readonly>
+                                <input type="number" class="ct" name="count" min="1" max="9" value="<%=ct.getCount() %>" readonly>
                                 <input type="hidden" class="itemnum" name="itemnum" value="<%=ct.getItemnum() %>">
                                 <a class="count up"></a>
                                 <a class="count down"></a>
@@ -63,26 +62,27 @@
                         </div>
                         <div class="td col-3 costbox">
                             <div class="cost text-center">
-                                <span id="cost"><%=df.format(cdto.getCost() * ct.getCount()) %></span>원
-                                <input type="hidden" class="dCost" name="dCost" value="<%=cdto.getCost() %>">
+                                <span class="costs"><%=df.format(cdto.getCost() * ct.getCount()) %></span>원
+                                <input type="hidden" class="dCost" name="dCost" value="<%=cdto.getCost() * ct.getCount() %>">
                             </div>
-                            <a href="javascript:void(0)" class="list_delete" id="list_delete"></a>
+                            <a href="javascript:void(0)" class="list_delete"></a>
                         </div>
                     </div>
                     <%
+                    i++;
                 	}
                     %>
                 </div>
             </div>
             <div class="cart_reply">
-                <a href="javascript:void(0)" class="cdel">선택상품 삭제(<%=cdt.size() %>)</a>
+                <a href="javascript:void(0)" class="cdel">선택상품 삭제(<span>0</span>)</a>
                 <div class="total_cost row">
                     <span>총 상품 금액</span>
-                    <span class="total"><span class="total_cost"><%=df.format(total) %></span>원</span>
-                    <input type="hidden" name="total_cost" id="total_cost" value="<%=total %>">
+                    <span class="total"><span class="total_cost">0</span>원</span>
+                    <input type="hidden" name="total_cost" id="total_cost" value="0">
                 </div>
                 <a href="javascript:void(0)" class="buy_btn" id="buy_btn"></a>
-                <input type="hidden" name="items" id="items" value="<%=items.substring(0, items.length() - 1) %>">
+                <input type="hidden" name="items" id="items" value="">
             </div>
         </div>
 

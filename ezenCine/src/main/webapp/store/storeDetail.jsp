@@ -33,14 +33,14 @@
 							<p><span>구매 후 취소 </span>구매 후 7일 이내 취소 가능</p>
 							<p><span>구매 수량 </span>1회 당 최대 9개까지 구매 가능</p>
 						</div>
-						<div class="sd_count" id="item">
+						<div class="sd_count item">
 							<label for="count">수량 / 금액</label>
 							<%
 								if(userid == null || userid == ""){
 							%>
 							<div class="count_box">
-								<input type="number" class="count" id="count" name="count" min="1" max="9" value="1" readonly>
-								<input type="hidden" name="num" id="num" value="<%= dt.getNum()%>">
+								<input type="number" class="hcount" id="count" name="count" min="1" max="9" value="1" readonly>
+								<input type="hidden" name="num" class="num" value="<%= dt.getNum()%>">
 								<a class="countbtn up"></a>
 								<a class="countbtn down"></a>
 								<input type="hidden" name="userid" id="userid" value="<%= userid%>">
@@ -49,11 +49,24 @@
 							<input type="hidden" id="dCost" name="dCost" value="<%=dt.getCost() %>">
 							<%
 								}else{
-								
+									if(ct.getCount() == 0){
 							%>
 							<div class="count_box">
-								<input type="number" class="count" id="count" name="count" min="1" max="9" value="<%=ct.getCount() %>" readonly>
-								<input type="hidden" name="num" id="num" value="<%= dt.getNum()%>">
+								<input type="number" class="hcount" id="count" name="count" min="1" max="9" value="1" readonly>
+								<input type="hidden" name="num" class="num" value="<%= dt.getNum()%>">
+								<a class="countbtn up"></a>
+								<a class="countbtn down"></a>
+								<input type="hidden" name="userid" id="userid" value="<%= userid%>">
+								<input type="hidden" name="exist" id="exist" value="no">
+							</div>
+							<h1><span class="cost" id="cost"><%=df.format(cost) %></span>원</h1>
+							<input type="hidden" id="dCost" name="dCost" value="<%=dt.getCost() %>">
+							<%
+									}else{
+							%>
+							<div class="count_box">
+								<input type="number" class="hcount" id="count" name="count" min="1" max="9" value="<%=ct.getCount() %>" readonly>
+								<input type="hidden" name="num" class="num" value="<%= dt.getNum()%>">
 								<a class="countbtn up"></a>
 								<a class="countbtn down"></a>
 								<input type="hidden" name="userid" id="userid" value="<%= userid%>">
@@ -61,6 +74,7 @@
 							<h1><span class="cost" id="cost"><%=df.format(cost * ct.getCount()) %></span>원</h1>
 							<input type="hidden" id="dCost" name="dCost" value="<%=dt.getCost() %>">
 							<%
+									}
 								}								
 							%>
 							<div class="btn_box">
@@ -79,14 +93,14 @@
 							<%
 									}else{
 							%>
-								<a href="javascript:void(0)" class="cart" id="cart"></a>
+								<a href="javascript:void(0)" class="cart getCart" id="cart"></a>
 								<a href="javascript:void(0)" class="buy" id="topay"></a>
 							<%
 									}
 								}else{
 									
 							%>
-								<a href="javascript:void(0)" class="cart" id="cart"></a>
+								<a href="javascript:void(0)" class="cart getCart" id="cart"></a>
 								<a href="javascript:void(0)" class="buy" id="topay"></a>
 							<%
 								}

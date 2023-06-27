@@ -131,7 +131,6 @@ public class StoreCartDDL {
 				dto.setUserid(rs.getString("userid"));
 				dto.setItemnum(rs.getInt("itemnum"));
 				dto.setCount(rs.getInt("count"));
-				dto.setPay(rs.getInt("pay"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

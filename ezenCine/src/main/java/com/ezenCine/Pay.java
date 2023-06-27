@@ -25,21 +25,25 @@ public class Pay extends HttpServlet {
 		HttpSession session = req.getSession();
 		String userid = (String) session.getAttribute("userid");
 		String items = req.getParameter("items");
-		int totalcost = Integer.parseInt(req.getParameter("totalcost"));
+		String costAll = req.getParameter("cost");
+		String countAll = req.getParameter("count");
 		String[] item = items.split(",");
-		System.out.println(items);
-		System.out.println(item[0]);
+		String[] cost = costAll.split(",");
+		String[] sCount = countAll.split(",");
 		
 		StorePayDDL pddl = new StorePayDDL();
 		StorePayDTO pdto = new StorePayDTO();
 		StoreCartDDL cddl = new StoreCartDDL();
 		
-		pdto.setUserid(userid);
-		pdto.setTotalcost(totalcost);
-		pdto.setItems(items);
+		boolean isSuccess = false;
 		
-		boolean isSuccess = pddl.pay(pdto);
 		for(int i = 0; i < item.length; i++) {
+			pdto.setUserid(userid);
+			pdto.setTotalcost(Integer.parseInt(cost[i]));
+			pdto.setItems(item[i]);
+			pdto.setCount(Integer.parseInt(sCount[i]));
+			
+			isSuccess = pddl.pay(pdto);
 			boolean isSuccess2 = cddl.pay(userid, Integer.parseInt(item[i]));			
 		}
 		

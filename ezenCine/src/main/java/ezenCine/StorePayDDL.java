@@ -11,13 +11,14 @@ public class StorePayDDL {
 		PreparedStatement ps = null;
 		int flag = 0;
 		
-		String sql = "insert into Store_pay (userid, totalcost, items) values (?, ?, ?)";
+		String sql = "insert into Store_pay (userid, totalcost, item, count) values (?, ?, ?, ?)";
 		try {
 			conn = new DBConnect().getConn();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getUserid());
 			ps.setInt(2, dto.getTotalcost());
 			ps.setString(3, dto.getItems());
+			ps.setInt(4, dto.getCount());
 			flag = ps.executeUpdate();
 			
 		}catch(Exception e) {

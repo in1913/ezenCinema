@@ -5,6 +5,7 @@ public class StorePayDTO {
 	private String userid;
 	private int totalcost;
 	private String items;
+	private int count;
 	private String pdate;
 	
 	public int getNum() {
@@ -30,6 +31,12 @@ public class StorePayDTO {
 	}
 	public void setItems(String items) {
 		this.items = items;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	public String getPdate() {
 		return pdate;
