@@ -5093,6 +5093,7 @@ a.c-mypage-plus{
 
 .sd_cancel, .sd_info, .sd_origin{
     position: relative;
+    cursor: pointer;
 }
 .sd_cancel .show-arrow, .sd_info .show-arrow, .sd_origin .show-arrow{
     background: url("../images/store/show_arrow.png") no-repeat;

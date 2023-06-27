@@ -114,7 +114,7 @@
 			}
 			%>
 			<div class="sd_cancelbox">
-				<h1 class="sd_cancel">구매 후 취소 <a href="javascript:void(0)" class="show-arrow cancel"></a></h1>
+				<h1 class="sd_cancel cancel">구매 후 취소 <a href="javascript:void(0)" class="show-arrow"></a></h1>
 				<div class="sd_c_detail">
 					<p class="head">■ 연장/취소/환불 안내</p>
 					
@@ -129,7 +129,7 @@
 				</div>
 			</div>
 			<div class="sd_infobox">
-				<h1 class="sd_info">상품이용안내 <a href="javascript:void(0)" class="show-arrow info"></a></h1>
+				<h1 class="sd_info info">상품이용안내 <a href="javascript:void(0)" class="show-arrow"></a></h1>
 				<div class="sd_i_detail">
 					<p class="head">■ 사용가능 지점</p>
 					
@@ -141,7 +141,7 @@
 				</div>
 			</div>
 			<div class="sd_originbox">
-				<h1 class="sd_origin">원산지 정보<a href="javascript:void(0)" class="show-arrow origin"></a></h1>
+				<h1 class="sd_origin origin">원산지 정보<a href="javascript:void(0)" class="show-arrow"></a></h1>
 				<div class="sd_o_detail">
 					<!-- <p class="head">■ 원산지</p> -->
 					<p class="head">■ 팝콘</p>

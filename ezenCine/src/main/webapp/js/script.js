@@ -3496,13 +3496,13 @@ $(function () {
     });
 
     //구매 취소, 삼품이용안내 show_arrow
-    $(".show-arrow.cancel").click(function(){
+    $(".sd_cancel.cancel").click(function(){
         $(".sd_c_detail").stop().slideToggle();
     });
-    $(".show-arrow.info").click(function(){
+    $(".sd_info.info").click(function(){
         $(".sd_i_detail").stop().slideToggle();
     });
-    $(".show-arrow.origin").click(function(){
+    $(".sd_origin.origin").click(function(){
         $(".sd_o_detail").stop().slideToggle();
     });
 });
