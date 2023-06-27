@@ -162,27 +162,31 @@ function cartAlready(){
 }
 
 $(document).on("click", ".countUp", function(){
-	let list = $(this).parents(".cart_list");
-	let count = list.find(".count");
-	let num = list.find(".itemnum").val();
-	const dCost = list.find(".dCost").val();
-	let cart = list.parents(".store_cart");
-	let total = cart.find("#list_total_cost");
-	let listTotal = cart.find("#list_total");
+	const list = $(this).parents(".cart_list");
+	const count = list.find(".count");
+	const num = list.find(".itemnum");
+	const dCost = list.find(".dCost");
+	const cart = list.parents(".store_cart");
+	const total = cart.find("#list_total_cost");
+	const listTotal = cart.find("#list_total");
+	
+	const item = $(".item."+num.val());
+	const price = item.find(".cost").val();
+	console.log(price);
+	
 	let tResult = parseInt(listTotal.val());
 	let rs = count.val();
 	if(rs < 9){		
 		rs++;
 		count.val(rs);
-    	const cResult = rs * dCost;
-		tResult += parseInt(dCost);
-		listTotal.val(tResult);
+    	let cResult = rs * parseInt(price);
+		tResult += parseInt(price);
 		
 		$.ajax({
 			url: "/ezenCine/StoreCartUpdate",
 			type: "post",
 			data : {
-				itemnum : num,
+				itemnum : num.val(),
 				count : count.val()
 			},
 			success: function(result) {
@@ -190,7 +194,9 @@ $(document).on("click", ".countUp", function(){
 					alert("장바구니 업데이트를 실패했습니다");
 				}else{
 						list.find(".total").html(makeComma(cResult));
+						dCost.val(cResult);
 						total.html(makeComma(tResult));
+						listTotal.val(tResult);
 	               	}
 	            }
 	        });
@@ -199,28 +205,30 @@ $(document).on("click", ".countUp", function(){
 });
 
 $(document).on("click", ".countDown", function(){
-	let list = $(this).parents(".cart_list");
-	let count = list.find(".count");
-	let num = list.find(".itemnum").val();
-	const dCost = list.find(".dCost").val();
-	let cart = list.parents(".store_cart");
-	let total = cart.find("#list_total_cost");
-	let listTotal = cart.find("#list_total");
+	const list = $(this).parents(".cart_list");
+	const count = list.find(".count");
+	const num = list.find(".itemnum");
+	const dCost = list.find(".dCost");
+	const cart = list.parents(".store_cart");
+	const total = cart.find("#list_total_cost");
+	const listTotal = cart.find("#list_total");
 	let tResult = parseInt(listTotal.val());
 	let rs = count.val();
+
+	const item = $(".item."+num.val());
+	const price = item.find(".cost").val();
 	
 	if(rs > 1){		
 		rs--;
 		count.val(rs);
-    	const cResult = rs * dCost;
-		tResult -= parseInt(dCost);
-		listTotal.val(tResult);
+    	let cResult = rs * parseInt(price);
+		tResult -= parseInt(price);
 		
 		$.ajax({
 			url: "/ezenCine/StoreCartUpdate",
 			type: "post",
 			data : {
-				itemnum : num,
+				itemnum : num.val(),
 				count : count.val()
 			},
 			success: function(result) {
@@ -228,7 +236,9 @@ $(document).on("click", ".countDown", function(){
 					alert("장바구니 업데이트를 실패했습니다");
 				}else{
 						list.find(".total").html(makeComma(cResult));
+						dCost.val(cResult);
 						total.html(makeComma(tResult));
+						listTotal.val(tResult);
 	               	}
 	            }
 	        });
@@ -345,6 +355,8 @@ $(document).on("click", ".count.up", function(){
 		rs++;
     	const cResult = parseInt(dCost.val()) + plus;
 		count.val(rs);
+		dCost.val(cResult);
+		dtotal.val(parseInt(dtotal.val()) + plus);
 		$.ajax({
 			url: "/ezenCine/StoreCartUpdate",
 			type: "post",
@@ -357,10 +369,8 @@ $(document).on("click", ".count.up", function(){
 					alert("장바구니 업데이트를 실패했습니다");
 				}else{
 					   cost.html(makeComma(cResult));
-					   dCost.val(cResult);
 					   if(check.is(":checked")){
-						ctotal.html(makeComma(parseInt(dtotal.val()) + plus));
-						dtotal.val(parseInt(dtotal.val()) + plus);
+						ctotal.html(makeComma(parseInt(dtotal.val())));
 					   }
 				   }
 			}
@@ -384,6 +394,8 @@ $(document).on("click", ".count.down", function(){
 		rs--;
     	const cResult = dCost.val() - minus;
 		count.val(rs);
+		dCost.val(cResult);
+		dtotal.val(dtotal.val() - minus);
 		$.ajax({
 			url: "/ezenCine/StoreCartUpdate",
 			type: "post",
@@ -396,10 +408,8 @@ $(document).on("click", ".count.down", function(){
 					alert("장바구니 업데이트를 실패했습니다");
 				}else{
 					   cost.html(makeComma(cResult));
-					   dCost.val(cResult);
 					   if(check.is(":checked")){
-							ctotal.html(makeComma(dtotal.val() - minus));
-							dtotal.val(dtotal.val() - minus);
+							ctotal.html(makeComma(dtotal.val()));
 					   }
 				   }
 			}
