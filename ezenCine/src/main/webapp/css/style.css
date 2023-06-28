@@ -6,8 +6,9 @@ header{
     z-index:999;
     width:1100px;
     margin:0 auto;
-    background-color: #fff;
-    border:1.8px solid #000;
+    background-color: rgba(255,255,255,0.8);
+   	box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+   	backdrop-filter: blur(12.5px);
     height:90px;
     border-radius: 70px;
     transition: top 500ms ease, border-radius 500ms ease;
@@ -15,7 +16,7 @@ header{
 header.fixed{
     top:0;
     border:none;
-    border-bottom: 1.8px solid #000;
+    /* border-bottom: 1.8px solid #000; */
     background-color: rgba(255,255,255,0.8);
     border-radius:0;
     width:100%;
@@ -33,7 +34,8 @@ header.fixed{
     left:0;
     right:0;
     background-color: rgba(255,255,255,0.8);
-    border-bottom:1.8px solid #000;
+    border-bottom:1px solid #ffffff;
+    filter:drop-shadow(0px 4px 10px rgba(0,0,0,0.15));
     backdrop-filter: blur(10px);
 }
 header>.container{
@@ -55,12 +57,6 @@ header>.container>.header-nav>.gnb>li{
     position:relative;
     height:60px;
 }
-header.fixed ul.lnb{
-    border:none;
-    border-radius: 0;
-    top:57px;
-    background-color: transparent;
-}
 ul.lnb{
     position:absolute;
     top:65px;
@@ -68,10 +64,19 @@ ul.lnb{
     display: none;
     width:max-content;
     padding:10px 20px;
-    border:1.8px solid #000;
     border-radius: 50px;
-    background-color: rgba(255,255,255,1);
+    background-color: rgba(255,255,255,0.8);
+   	box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+   	backdrop-filter: blur(12.5px);
     z-index: 1000;
+}
+header.fixed ul.lnb{
+    border:none;
+    border-radius: 0;
+    top:57px;
+    background-color: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
 }
 ul.lnb>li{
     display: inline-block;
@@ -133,7 +138,7 @@ header.fixed .header-util .header-search-box{
     outline:none;
 }
 header.fixed #header-search:focus{
-    border-bottom:1px solid #000;
+
 }
 #header-submit{
     border:none;
@@ -189,13 +194,13 @@ mark {
 a.c-blue{
 	color: #5c7ef7;
 }
-/*** header 끝 ***/
-/*** mainpage 시작 ***/
+/*** header �걹 ***/
+/*** mainpage �떆�옉 ***/
 .main_warning{
-	position: fixed;
-	top:300px;
-	left:30%;
-	z-index:99999;
+	position: absolute;
+    top: 140px;
+    left: 2%;
+	z-index:101;
 }
 .warning_close{
 	position:absolute;
@@ -204,7 +209,6 @@ a.c-blue{
 	cursor:pointer;
 }
 .warning_close>img{
-	width:24px;	
 	vertical-align: bottom;
 }
 .k-mainslider{
@@ -339,7 +343,7 @@ a.c-blue{
     font-size: 25px;
     margin-left: 7px;
 }
-/* 현재 인기 순위 */
+/* �쁽�옱 �씤湲� �닚�쐞 */
 .advanceorder{
     height: 735px;
     background-image: url('../images/advanceorder/advanceorderbg.png');
@@ -427,7 +431,7 @@ a.c-blue{
     padding-left: 15px;
     margin-right: 3px;
 }
-/* 현재 인기 순위 hover */
+/* �쁽�옱 �씤湲� �닚�쐞 hover */
 .ao-contacthv{
     position: absolute;
     width: 260px;
@@ -530,7 +534,7 @@ a.c-blue{
     transition: all 300ms;
 }
 
-/* 현재 상영중인 트레일러 */
+/* �쁽�옱 �긽�쁺以묒씤 �듃�젅�씪�윭 */
 .nowtrailer{
     width: 100%;
     height: 320px;
@@ -644,8 +648,8 @@ a.c-blue{
 	height:33px;
 	background:url('../images/ico/ico-direct_store.png') no-repeat center;
 }
-/*** mainpage 끝 ***/
-/*** 광고배너 ***/
+/*** mainpage �걹 ***/
+/*** 愿묎퀬諛곕꼫 ***/
 .banner_box{
 	width:100%;
 	position:relative;
@@ -663,8 +667,8 @@ a.c-blue{
 	height:24px;
 	background:url(../images/ico/ico-close-white.png) no-repeat center;
 }
-/*** 광고배너 끝 ***/
-/*** footer 시작 ***/
+/*** 愿묎퀬諛곕꼫 �걹 ***/
+/*** footer �떆�옉 ***/
 .pageup{
 	position : fixed;
 	bottom:7%;
@@ -742,7 +746,7 @@ footer{
     height:12px;
     border-left: 1px solid #929292;
 }
-/*** footer 끝 ***/
+/*** footer �걹 ***/
 
 /*** booking ***/
 section.booking{
@@ -1255,8 +1259,8 @@ ul.seat_container{
 }
 
 
-/*** booking 끝 ***/
-/*** movieList 시작 ***/
+/*** booking �걹 ***/
+/*** movieList �떆�옉 ***/
 section.movieList{
 	padding-bottom:70px;
 }
@@ -1358,12 +1362,12 @@ section.movieList>.container{
     border: none;
     width: 71px;
     height: 52px;
-    background: url(../images/h-button/버튼.png) no-repeat;
+    background: url(../images/h-button/踰꾪듉.png) no-repeat;
     background-size: cover;
     transition: 0.5s;
 }
 .h-movie-search-btn:hover{
-    background-image: url(../images/h-button/버튼hover.png);
+    background-image: url(../images/h-button/踰꾪듉hover.png);
     transition: 0.5s;
 }
 .h-movie{
@@ -1479,7 +1483,7 @@ ul.h-movie-movie li{
     display: block;
     width: 120px;
     height: 25px;
-    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=off.png) no-repeat;
+    background: url(../images/h-button/Property\ 1=�긽�꽭蹂닿린\,\ Property\ 2=off.png) no-repeat;
     background-size: cover;
     opacity: 1;
     position: absolute;
@@ -1494,7 +1498,7 @@ ul.h-movie-movie li{
 	transform:translate(-50%);
 }
 .h-movie-content .h-movie-info:hover{
-    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=om.png) no-repeat;
+    background: url(../images/h-button/Property\ 1=�긽�꽭蹂닿린\,\ Property\ 2=om.png) no-repeat;
     background-size: cover;
     transition: 0.5s;
 }
@@ -1502,7 +1506,7 @@ ul.h-movie-movie li{
     display: block;
     width: 120px;
     height: 25px;
-    background: url(../images/h-button/상세보기_예매.png) no-repeat;
+    background: url(../images/h-button/�긽�꽭蹂닿린_�삁留�.png) no-repeat;
     background-size: cover;
     position: absolute;
     top: 182px;
@@ -1511,7 +1515,7 @@ ul.h-movie-movie li{
     transition: 0.5s;
 }
 .h-movie-content .h-movie-booking:hover{
-    background: url(../images/h-button/상세보기_예매hover.png) no-repeat;
+    background: url(../images/h-button/�긽�꽭蹂닿린_�삁留쨑over.png) no-repeat;
     background-size: cover;
     transition: 0.5s;
 }
@@ -1534,11 +1538,11 @@ ul.h-movie-movie li{
     width: 20px;
     height: 20px;
     vertical-align: -5px;
-    background: url(../images/h-button/Property\ 1=별점\,\ Property\ 2=s\,\ Property\ 3=on.png) no-repeat;
+    background: url(../images/h-button/Property\ 1=蹂꾩젏\,\ Property\ 2=s\,\ Property\ 3=on.png) no-repeat;
     background-size: cover;
 }
-/*** movieList 끝 ***/
-/*** movieDetail 시작 ***/
+/*** movieList �걹 ***/
+/*** movieDetail �떆�옉 ***/
 .cloud{
     position: absolute;
     width:100%;
@@ -1824,7 +1828,7 @@ span.avg_rate{
     background: url('images/MOVIEDETAIL/hover.png');
 } */
 /****************top end*****************/
-/****************영화 정보 시작*****************/
+/****************�쁺�솕 �젙蹂� �떆�옉*****************/
 /* .k-mvdetail_bottom{
     height: 980px;
 } */
@@ -2696,7 +2700,7 @@ div.c-rate > input {
 
 
 /* c-rate */
-/*** movieDetail 끝 ***/
+/*** movieDetail �걹 ***/
 
 /********************* login *************************/
 .c-login{
@@ -2905,7 +2909,7 @@ ul.c-ul-signup-sns>li.c-sign-show:not(:first-child){
     text-align: center;
 }
 
-/******************* 약관동의 **********************/
+/******************* �빟愿��룞�쓽 **********************/
 
 .c-part1{
     width: 800px;
@@ -3046,7 +3050,7 @@ a.c-signup-agree-btn{
     padding: 0px 5px;
 }
 
-/* ************ 회원가입 *************** */
+/* ************ �쉶�썝媛��엯 *************** */
 .c-part2{
     width: 1100px;
     display: none;
@@ -3244,7 +3248,7 @@ img.c-active{
 	top: 17px;
 	display: none;
 }
-/******************** 가입완료 *********************/
+/******************** 媛��엯�셿猷� *********************/
 .c-part3{
     display: none;
 }
@@ -3974,14 +3978,14 @@ h6 {
 }
 /******************* mypage **************************/
 /*
-영문 폰트
+�쁺臾� �룿�듃
 font-family: 'Open Sans', sans-serif;
 
-한글 폰트
+�븳湲� �룿�듃
 font-family: 'SUITE Variable';
 font-weight: 300 900;
 
-layout.css에 저장되어있으니 그냥 선언해서 사용하면 됨
+layout.css�뿉 ���옣�릺�뼱�엳�쑝�땲 洹몃깷 �꽑�뼵�빐�꽌 �궗�슜�븯硫� �맖
 */
 .c-mypage-modi-popup-shadow{
 	background: rgba(0,0,0,.6);
@@ -4218,28 +4222,28 @@ span.eg{
 .h-nav-booking a .h-img{
     width: 40px;
     height: 40px;
-    background: url(../images/h-button/예매하기.png) no-repeat;
+    background: url(../images/h-button/�삁留ㅽ븯湲�.png) no-repeat;
     background-size: cover;
     margin: auto;
 }
 .h-nav-buy a .h-img{
     width: 40px;
     height: 40px;
-    background: url(../images/h-button/구매하기.png) no-repeat;
+    background: url(../images/h-button/援щℓ�븯湲�.png) no-repeat;
     background-size: cover;
     margin: auto;
 }
 .h-nav-timetable a .h-img{
     width: 40px;
     height: 40px;
-    background: url(../images/h-button/상영시간표.png) no-repeat;
+    background: url(../images/h-button/�긽�쁺�떆媛꾪몴.png) no-repeat;
     background-size: cover;
     margin: auto;
 }
 .h-nav-mypoint a .h-img{
     width: 40px;
     height: 40px;
-    background: url(../images/h-button/멤버십포인트.png) no-repeat;
+    background: url(../images/h-button/硫ㅻ쾭�떗�룷�씤�듃.png) no-repeat;
     background-size: cover;
     margin: auto;
 }
@@ -4836,7 +4840,7 @@ div.c-mypage-review p.c-title{
 	color: #3D56AE;
 	font-weight: 600;
 }
-/* 나중에 액티브 걸꺼임 */
+/* �굹以묒뿉 �븸�떚釉� 嫄멸볼�엫 */
 .c-mypage-booking,.c-mypage-see,.c-mypage-review, .c-mypage-store{
     display: none;
     position: relative;
@@ -4859,7 +4863,7 @@ a.c-mypage-plus{
     left: 50%;
     transform: translateX(-50%);
 }
-/*** 스토어 ***/
+/*** �뒪�넗�뼱 ***/
 
 .visual {
     width: 100%;
@@ -4967,7 +4971,106 @@ a.c-mypage-plus{
     color: #3D56AE;
     font-weight: 500;
 }
-
+/* 팀페이지 팝업 */
+.main_teampage{
+	position: absolute;
+	width: 518px;
+	height: 146px;
+	top: 325px;
+	left: 2%;
+	background: #ffffff;
+	z-index: 102;
+}
+.main_teampage>.content{
+	margin-top: 30px;
+}
+.main_teampage>.content>h3{
+	font-weight: 500;
+}
+.main_teampage>a>img{
+	margin-top: 20px;
+	margin-left: 39%;
+}
+.teampage_close{
+	position:absolute;
+	top: 15px;
+    right: 15px;
+	cursor: pointer;
+}
+/* 패치노트 */
+.patchnotes{
+    position: absolute;
+    top: 482px;
+    left: 2%;
+    width:518px;
+    height:424px;
+	z-index:100;
+}
+.patchtop{
+	background: #ffffff;
+	width:518px;
+    height:374px;
+}
+.patchtop>.title{
+	display:inline-block;
+	padding: 0;
+	padding-top: 10px;
+    padding-left: 15px;
+}
+.patchtop>.title>h5{
+	display: inline-block;
+	font-size: 20px;
+	font-weight: 500;
+}
+/* .patchtop>.title>span{
+	display: inline-block;
+	font-size: 14px;
+	margin-left: 5px;
+} */
+.patchtop>.content{
+	display:inline-block;
+	width: 518px;
+    height:374px;
+    padding: 5px 15px 15px 15px;
+    overflow-y:scroll ;
+}
+.patchtop>.content>h4{
+	font-size: 18px;
+}
+.patchtop>.content>h4>span{
+	font-size: 16px;
+    font-weight: 500;
+}
+.patchtop>.content>p{
+	padding-left: 20px;
+}
+.patchbottom{
+	width: 518px;
+    height: 50px;
+    border-top: 1px solid #ddd;
+}
+.patchbottom>.row{
+	width: 518px;
+    height: 50px;
+    margin: 0;
+}
+.patchbottom>.row>a{
+	background: #ffffff;
+	text-align: center;
+	padding-top: 14px;
+}
+.patchbottom>.row>a:first-child{
+	border-right: 1px solid #ddd;
+}
+.patchbottom>.row>a>img{
+	margin-left: 5px;
+}
+#patchclose{
+	position:absolute;
+	top: 15px;
+    right: 15px;
+	cursor: pointer;
+}
 @media (min-width: 768px) {
 	
 }

@@ -1,15 +1,15 @@
 $(function(){
     // header 내비게이션 작동
-    $(".gnb>li").mouseover(function(){
+    $(".gnb>li:not(:nth-child(5))").mouseover(function(){
         $(this).find(".lnb").stop().fadeIn(300);
         $("header.fixed>.subdp").stop().fadeIn(300);
-        $("header.fixed").css({"border-bottom":"1.8px solid #ddd"});
+        // $("header.fixed").css({"border-bottom":"1.8px solid #ddd"});
     });
     $(".gnb>li").mouseleave(function(){
         $(this).find(".lnb").stop().fadeOut(300);
         $("header.fixed>.subdp").stop().fadeOut(300);
         $("header>.subdp").stop().fadeOut(300);
-        $("header.fixed").css({"border-bottom":"1.8px solid #000"});
+        // $("header.fixed").css({"border-bottom":"1.8px solid #000"});
     });
 
     $(document).ready(function(){
@@ -119,7 +119,17 @@ $(function(){
     $('.warning_close').click(function(){
     	$('.main_warning').fadeOut(300);
     })
-
+	
+	// 패치노트 닫기
+	$('#patchclose').click(function(){
+		$('.patchnotes').fadeOut();
+	})
+	
+	// 팀페이지 닫기
+	$('.teampage_close').click(function(){
+		$('.main_teampage').fadeOut();
+	})
+	
     // movieList 시작
     $(".h-movie-all").mouseover(function(){
         $(this).find(".h-imgbox").find(".h-movie-content").stop().fadeIn(300);
@@ -361,7 +371,7 @@ $(".k-trailer_btn").click(function() {
   //감독 출연진 슬라이드
 $('.k-post-wrapper').slick({
     slidesToShow: 6,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     // autoplay: true,
     // autoplaySpeed: 2000,
     nextArrow:$('.next'),

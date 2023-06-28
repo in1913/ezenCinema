@@ -7,16 +7,28 @@
 		userid = (String) session.getAttribute("userid");	
 	}
 %> 
+<%@include file = "include/patchnotes.jsp" %>
 <!-- 메인 팝업 -->
 <div class="main_warning">
 	<img src="images/back/main_warning.png" alt="개인정보 주의 팝업" />
-	<div class="warning_close">닫기<img src="images/ico/ico-close.png" alt="주의팝업 닫기" /></div>
+	<div class="warning_close"><img src="images/back/close.png" alt="주의팝업 닫기" /></div>
 </div>
 <!-- 팝업 닫기 -->
+
+<!-- 팀페이지 팝업 -->
+<div class="main_teampage">
+	<div class="content text-center" ><h3>팀 EZEN Cinema의 프로필 페이지입니다.</h3></div>
+	<a href=""><img src="images/h-button/profileSite.png" alt="팀페이지 이동 버튼"></a>
+	<div class="teampage_close"><img src="images/back/close.png" alt="주의팝업 닫기" /></div>
+</div>
+<!-- 팝업 닫기 -->
+
+
 <div class="k-fade">
     <div class="k-close"><img src="images/moviedetail/popupclose.png" alt="popupclose"/></div>
 </div>
 <!-- 팝업 닫기 -->
+
 <!-- 팝업 영상 -->
 <div class="k-popup">
     <iframe
