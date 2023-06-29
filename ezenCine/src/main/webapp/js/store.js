@@ -315,10 +315,33 @@ $(document).on("click", ".countbtn.down", function(){
 		}
 	}
 });
-
+$(document).on("click", ".getCartDetail", function(){
+		const list = $(this).parents(".item");
+        const itemnum = list.find(".num").val();
+		const count = list.find(".hcount").val();
+		console.log(itemnum);
+		console.log(count);
+		
+			$.ajax({
+			    url: "/ezenCine/StoreCart",
+			    type: "post",
+			    data : {
+					itemnum : itemnum,
+					count : count
+				},
+			    success: function(result) {
+			       	if(result == 0){
+			       		alert("장바구니 등록을 실패했습니다");
+			       	}else{
+			       		alert("장바구니에 등록했습니다");						   
+						window.location.href = `index.jsp?fname=store/store`;
+			       	}
+			    }
+			});
+});
 $(document).on("click", "#topay", function(){
 		let list = $(this).parents(".store_detail");
-        let num = list.find("#num").val();
+        let num = list.find(".num").val();
 		let count = list.find("#count").val();
 
 		$.ajax({
