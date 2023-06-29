@@ -189,6 +189,40 @@ public class LikeDDL {
 		}
 	}
 	
+	public static boolean checkReviewLikeUser(String movie_id, int reviews_num, String userid){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int res = 0;
+		
+		String sql = "select count(*) as cnt from Likes where movie_id = ? and reviews_num = ? and userid = ?";
+		
+		try {
+			conn = new DBConnect().getConn();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, movie_id);
+			ps.setInt(2,  reviews_num);
+			ps.setString(3,  userid);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				res = rs.getInt("cnt");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(conn != null) conn.close();
+				if(ps != null) ps.close();
+				if(rs != null) rs.close();
+			}catch(SQLException e) {}
+		}
+		if(res > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public static Vector <LikeDTO> checkReviewLike(String movie_id, int reviews_num){
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -223,6 +257,8 @@ public class LikeDDL {
 		}
 		return data;
 	}
+	
+	
 	
 	public static Vector <LikeDTO> isReviewLike(String movie_id){
 		Connection conn = null;

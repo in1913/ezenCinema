@@ -204,43 +204,80 @@ $('#likeimage').click(function(){
         alert("로그인이 필요한 서비스입니다.");
     }else{
         if(isLike.value == 1){
-            fetch("/ezenCine/DeleteLike", {
-            headers: {"Content-Type" : "application/json"},
-            method: "post",
-            body : JSON.stringify({
-                movieid : movieid, reviews_num : -1
-                })
-            }).then((res) => res.json())
-            .then((result) => {
-                if(result.result == -1){
-
-                }else{
-                    movieLike.innerHTML = result.result;
-                    $("#likeimage").removeClass("on");
-                    isLike.value = 0;
-                }
-                
-            })
-        }else{
-            fetch("/ezenCine/UpdateLike", {
+            fetch("/ezenCine/CheckLike", {
                 headers: {"Content-Type" : "application/json"},
                 method: "post",
                 body : JSON.stringify({
-                    movieid : movieid, reviews_num : -1
-                })
+                    movieid : movieid
+                    })
             }).then((res) => res.json())
             .then((result) => {
-                if(result.result == -1){
-
+                // 좋아요를 누르지 않은 사용자.
+                if(result.result == 0){
+                    movieLike.innerHTML = result.likes;
+                    $("#likeimage").removeClass("on");
+                    isLike.value = 0;
+                // 좋아요를 누른 사용자.
                 }else{
-                    movieLike.innerHTML = result.result;
-                    $("#likeimage").addClass("on");
-                    isLike.value = 1;
+                    fetch("/ezenCine/DeleteLike", {
+                        headers: {"Content-Type" : "application/json"},
+                        method: "post",
+                        body : JSON.stringify({
+                            movieid : movieid, reviews_num : -1
+                            })
+                        }).then((res) => res.json())
+                        .then((result) => {
+                            if(result.result == -1){
+                            }else{
+                                movieLike.innerHTML = result.result;
+                                $("#likeimage").removeClass("on");
+                                isLike.value = 0;
+                            }
+                        })
                 }
             })
+            
+        // 좋아요를 하지 않은 사용자
+        }else{
+            // 사용자 좋아요를 눌렀는지 확인
+            fetch("/ezenCine/CheckLike", {
+                headers: {"Content-Type" : "application/json"},
+                method: "post",
+                body : JSON.stringify({
+                    movieid: movieid
+                    })
+                }).then((res) => res.json())
+                .then((result) => {
+                    // 좋아요 누른 사용자 맞음.
+                    if(result.result != 0){
+                        $("#likeimage").addClass("on");
+                        isLike.value = 1;
+                        movieLike.innerHTML = result.likes;
+                        alert("이미 좋아요를 누르셨습니다.");
+                    // 좋아요 누른 사용자 아님.
+                    }else if(result.result == 0){
+                        fetch("/ezenCine/UpdateLike", {
+                            headers: {"Content-Type" : "application/json"},
+                            method: "post",
+                            body : JSON.stringify({
+                                movieid : movieid, reviews_num : -1
+                            })
+                        }).then((res) => res.json())
+                        .then((result) => {
+                            if(result.result == -1){
+            
+                            }else{
+                                movieLike.innerHTML = result.result;
+                                $("#likeimage").addClass("on");
+                                isLike.value = 1;
+                            }
+                        })
+                    }
+                })
+            }
         }
     }    
-});
+);
 $('#notlikeimage').click(function(){
     const userid = document.getElementById("userid").value;
     const movieid = document.getElementById("movie-id").value;
@@ -888,9 +925,10 @@ function cReviewsSubmit(){
     const isCurrent = document.getElementById("k-score_1");
     const isNotCurrent = document.getElementById("k-score_2");
     let review = document.getElementById("k-textbox");
+    const regex = /^\s*$/;
     if(userid == "" || userid == "null" || userid == null){
         alert("로그인이 필요한 서비스입니다.");
-    }else if(review.value == ""){
+    }else if(review.value == "" || !regex.test(review.value)){
         alert("내용을 입력해주세요.");
     }else{
         const rating = document.getElementsByClassName("rating-number")[0].innerText;
