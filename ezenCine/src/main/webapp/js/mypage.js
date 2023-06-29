@@ -18,7 +18,7 @@ document.addEventListener("click", function(e){
             }).then((res) => res.json())
             .then((result) => {
                 if(result.result == 1){
-                    reviewbox.style.display = "none";
+                    reviewbox.remove();
                     reviewAllnum.value = Number(reviewAllnum.value) - 1;
                 }else{
                 }

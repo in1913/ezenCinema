@@ -214,43 +214,80 @@ $('#likeimage').click(function(){
         alert("로그인이 필요한 서비스입니다.");
     }else{
         if(isLike.value == 1){
-            fetch("/ezenCine/DeleteLike", {
-            headers: {"Content-Type" : "application/json"},
-            method: "post",
-            body : JSON.stringify({
-                movieid : movieid, reviews_num : -1
-                })
-            }).then((res) => res.json())
-            .then((result) => {
-                if(result.result == -1){
-
-                }else{
-                    movieLike.innerHTML = result.result;
-                    $("#likeimage").removeClass("on");
-                    isLike.value = 0;
-                }
-                
-            })
-        }else{
-            fetch("/ezenCine/UpdateLike", {
+            fetch("/ezenCine/CheckLike", {
                 headers: {"Content-Type" : "application/json"},
                 method: "post",
                 body : JSON.stringify({
-                    movieid : movieid, reviews_num : -1
-                })
+                    movieid : movieid
+                    })
             }).then((res) => res.json())
             .then((result) => {
-                if(result.result == -1){
-
+                // 좋아요를 누르지 않은 사용자.
+                if(result.result == 0){
+                    movieLike.innerHTML = result.likes;
+                    $("#likeimage").removeClass("on");
+                    isLike.value = 0;
+                // 좋아요를 누른 사용자.
                 }else{
-                    movieLike.innerHTML = result.result;
-                    $("#likeimage").addClass("on");
-                    isLike.value = 1;
+                    fetch("/ezenCine/DeleteLike", {
+                        headers: {"Content-Type" : "application/json"},
+                        method: "post",
+                        body : JSON.stringify({
+                            movieid : movieid, reviews_num : -1
+                            })
+                        }).then((res) => res.json())
+                        .then((result) => {
+                            if(result.result == -1){
+                            }else{
+                                movieLike.innerHTML = result.result;
+                                $("#likeimage").removeClass("on");
+                                isLike.value = 0;
+                            }
+                        })
                 }
             })
+            
+        // 좋아요를 하지 않은 사용자
+        }else{
+            // 사용자 좋아요를 눌렀는지 확인
+            fetch("/ezenCine/CheckLike", {
+                headers: {"Content-Type" : "application/json"},
+                method: "post",
+                body : JSON.stringify({
+                    movieid: movieid
+                    })
+                }).then((res) => res.json())
+                .then((result) => {
+                    // 좋아요 누른 사용자 맞음.
+                    if(result.result != 0){
+                        $("#likeimage").addClass("on");
+                        isLike.value = 1;
+                        movieLike.innerHTML = result.likes;
+                        alert("이미 좋아요를 누르셨습니다.");
+                    // 좋아요 누른 사용자 아님.
+                    }else if(result.result == 0){
+                        fetch("/ezenCine/UpdateLike", {
+                            headers: {"Content-Type" : "application/json"},
+                            method: "post",
+                            body : JSON.stringify({
+                                movieid : movieid, reviews_num : -1
+                            })
+                        }).then((res) => res.json())
+                        .then((result) => {
+                            if(result.result == -1){
+            
+                            }else{
+                                movieLike.innerHTML = result.result;
+                                $("#likeimage").addClass("on");
+                                isLike.value = 1;
+                            }
+                        })
+                    }
+                })
+            }
         }
     }    
-});
+);
 $('#notlikeimage').click(function(){
     const userid = document.getElementById("userid").value;
     const movieid = document.getElementById("movie-id").value;
@@ -267,7 +304,6 @@ $('#notlikeimage').click(function(){
                 })
             }).then((res) => res.json())
             .then((result) => {
-                console.log(result.result);
                 if(result.result == -1){
 
                 }else{
@@ -899,9 +935,10 @@ function cReviewsSubmit(){
     const isCurrent = document.getElementById("k-score_1");
     const isNotCurrent = document.getElementById("k-score_2");
     let review = document.getElementById("k-textbox");
+    const regex = /^\s*$/;
     if(userid == "" || userid == "null" || userid == null){
         alert("로그인이 필요한 서비스입니다.");
-    }else if(review.value == ""){
+    }else if(review.value == "" || !regex.test(review.value)){
         alert("내용을 입력해주세요.");
     }else{
         const rating = document.getElementsByClassName("rating-number")[0].innerText;
@@ -1089,6 +1126,10 @@ function cReviewsSubmit(){
             document.getElementById("rating" + i).checked = false;
         }
         document.getElementsByClassName("rating-number")[0].innerHTML = 0;
+        if(allNum.value >= 6){
+            btn[0].classList.add("c-review-active");
+        }
+        
     }
     
 }
@@ -1255,7 +1296,7 @@ function cReviewMore(n){
                 `)
                 }
             })
-            if(num == allNum - 1 || num == allNum - 2 || num == allNum - 3 || num == allNum - 4 || num == allNum - 5 || num == allNum - 6){
+            if(num == allNum || num == allNum - 1 || num == allNum - 2 || num == allNum - 3 || num == allNum - 4 || num == allNum - 5 || num == allNum - 6){
                 btn[0].classList.remove("c-review-active");
                 btn[1].classList.remove("c-review-active");
             }
@@ -1622,48 +1663,6 @@ function passOutFunc(){
 }
 
 $(function(){
-    /*
-    $(".c-login-userid").mouseleave(function(){
-        const userid = document.getElementById("userId").value;
-        // 값이 없으면
-        if(userid == ""){
-            $(".c-login-userid .move").css({
-                fontSize: "14px",
-                transition : "0.3s",
-                top: "25%",
-            });
-            $(".c-login-userid input").css({
-                border: "2px solid #ccc",
-                transition : "0.3s",
-            })
-            $(".c-login-userid input").blur();
-        // 값이 있으면
-        }else{
-            
-        }
-    })
-
-    $(".c-login-userpass").mouseleave(function(){
-        const userpass = document.getElementById("userPass").value;
-        // 값이 없으면
-        if(userpass == ""){
-            $(".c-login-userpass .move").css({
-                fontSize: "14px",
-                transition : "0.3s",
-                top: "20%",
-            });
-            $(".c-login-userpass input").css({
-                border: "2px solid #ccc",
-                transition : "0.3s",
-            })
-            $(".c-login-userpass input").blur();
-        // 값이 있으면
-        }else{
-        }
-    })
-    */
-    
-
     // 배경 선택시 팝업 종료
     $(".c-shadow").click(function(){
         const loginPopup = document.getElementsByClassName("c-login")[0];
@@ -2247,6 +2246,7 @@ function cSignUp(){
     const telRegex = /^01([0|1|6|7|8|9/])([0-9]{7,8})$/;
     let cnt = 0;
     if(userid == ""){
+        cnt += 1;
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
         alert[0].innerHTML = "아이디를 입력해주세요.";
@@ -2254,6 +2254,7 @@ function cSignUp(){
         alert[0].innerHTML = "";
     }
     if(!idRegex.test(userid)){
+        cnt += 1;
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
         alert[0].innerHTML = "형식에 맞춰 입력해주세요.";
@@ -2261,6 +2262,7 @@ function cSignUp(){
         alert[0].innerHTML = "";
     }    
     if(idDupli == ""){
+        cnt += 1;
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
         alert[0].innerHTML = "아이디 중복확인을 해주세요.";
@@ -2268,61 +2270,70 @@ function cSignUp(){
         alert[0].innerHTML = "";
     }
     if(userpass == ""){
+        cnt += 1;
         alert[1].style.color = "red";
         alert[1].innerHTML = "비밀번호를 입력해주세요.";
     }else{
         alert[1].innerHTML = "";
     }
     if(!passwdRegex.test(userpass)){
+        cnt += 1;
         alert[1].style.color = "red";
         alert[1].innerHTML = "형식에 맞춰 입력해주세요.";
     }else{
         alert[1].innerHTML = "";
     }
     if(reuserpass == ""){
+        cnt += 1;
         alert[2].style.color = "red";
         alert[2].innerHTML = "비밀번호를 확인해주세요.";
     }else{
         alert[2].innerHTML = "";
     }
     if(username == ""){
+        cnt += 1;
         alert[3].style.color = "red";
         alert[3].innerHTML = "이름을 입력해주세요.";
     }else{
         alert[3].innerHTML = "";
     }
     if(nickname == ""){
+        cnt += 1;
         alert[4].style.color = "red";
         alert[4].innerHTML = "닉네임을 입력해주세요.";
     }else{
         alert[4].innerHTML = "";
     }
     if(year == "" || month == "" || day == ""){
+        cnt += 1;
         alert[5].style.color = "red";
         alert[5].innerHTML = "생년월일을 입력해주세요.";
     }else{
         alert[5].innerHTML = "";
     }
     if(tel == ""){
+        cnt += 1;
         alert[6].style.color = "red";
         alert[6].innerHTML = "전화번호를 입력해주세요.";
     }else{
         alert[6].innerHTML = "";
     }
     if(!telRegex.test(tel)){
+        cnt += 1;
         alert[6].style.color = "red";
         alert[6].innerHTML = "형식에 맞춰 입력해주세요.";
-        return false;
     }else{
         alert[6].innerHTML = "";
     }
     if(postcode == "" || addr == "" || detailaddr == ""){
+        cnt += 1;
         alert[7].style.color = "red";
         alert[7].innerHTML = "주소를 입력해주세요.";
     }else{
         alert[7].innerHTML = "";
     }
-    if((email1 == "" && email2 == "") || (email1 == "" && email3 == "")){
+    if((email1 == "" || email2 == "")){
+        cnt += 1;
         alert[8].style.color = "red";
         alert[8].innerHTML = "이메일을 입력해주세요.";
     }else{
@@ -2339,13 +2350,6 @@ function cSignUp(){
 	let birthdate = year + "-" + month + "-" + day;
     let email = email1 + "@" + email2;
     
-    let list = [userid, idDupli, userpass, reuserpass, username, nickname, birthdate, tel, addr, detailaddr, email];
-    for(i = 0; i < list.length; i++){
-        if(list[i] == ""){
-            cnt += 1;
-        }
-    }
-
     if(cnt == 0){
     	fetch("/ezenCine/Signup", {
             headers : {"Content-Type" : "application/json"},
@@ -2357,7 +2361,6 @@ function cSignUp(){
             })
         }).then((res) => res.json())
         .then((res) => {
-        	console.log(res);
         	
         	if(res == 1){
         		$(".c-part2").css({
@@ -2415,8 +2418,9 @@ function cSignUpSns(){
 
     const idRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
     const telRegex = /^01([0|1|6|7|8|9/])([0-9]{7,8})$/;
-
+    let cnt = 0;
     if(userid == ""){
+        cnt += 1;
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
         alert[0].innerHTML = "아이디를 입력해주세요.";
@@ -2424,6 +2428,7 @@ function cSignUpSns(){
         alert[0].innerHTML = "";
     }
     if(!idRegex.test(userid)){
+        cnt += 1;
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
         alert[0].innerHTML = "형식에 맞춰 입력해주세요.";
@@ -2431,6 +2436,7 @@ function cSignUpSns(){
         alert[0].innerHTML = "";
     }    
     if(idDupli == ""){
+        cnt += 1;
         alert[0].style.color = "red";
         alert[0].style.fontWeight = "normal";
         alert[0].innerHTML = "아이디 중복확인을 해주세요.";
@@ -2438,43 +2444,49 @@ function cSignUpSns(){
         alert[0].innerHTML = "";
     }
     if(username == ""){
+        cnt += 1;
         alert[1].style.color = "red";
         alert[1].innerHTML = "이름을 입력해주세요.";
     }else{
         alert[1].innerHTML = "";
     }
     if(nickname == ""){
+        cnt += 1;
         alert[2].style.color = "red";
         alert[2].innerHTML = "닉네임을 입력해주세요.";
     }else{
         alert[2].innerHTML = "";
     }
     if(year == "" || month == "" || day == ""){
+        cnt += 1;
         alert[3].style.color = "red";
         alert[3].innerHTML = "생년월일을 입력해주세요.";
     }else{
         alert[3].innerHTML = "";
     }
     if(tel == ""){
+        cnt += 1;
         alert[4].style.color = "red";
         alert[4].innerHTML = "전화번호를 입력해주세요.";
     }else{
         alert[4].innerHTML = "";
     }
     if(!telRegex.test(tel)){
+        cnt += 1;
         alert[4].style.color = "red";
         alert[4].innerHTML = "형식에 맞춰 입력해주세요.";
-        return false;
     }else{
         alert[4].innerHTML = "";
     }
     if(postcode == "" || addr == "" || detailaddr == ""){
+        cnt += 1;
         alert[5].style.color = "red";
         alert[5].innerHTML = "주소를 입력해주세요.";
     }else{
         alert[5].innerHTML = "";
     }
     if(email1 == "" || email2 == ""){
+        cnt += 1;
         alert[6].style.color = "red";
         alert[6].innerHTML = "이메일을 입력해주세요.";
     }else{
@@ -2484,14 +2496,6 @@ function cSignUpSns(){
     let birthdate = year + "-" + month + "-" + day;
     let email = email1 + "@" + email2;
 
-    let list = [userid, idDupli, username, nickname, birthdate, tel, addr, detailaddr, email];
-    let cnt = 0;
-    for(i = 0; i < list.length; i++){
-        if(list[i] == ""){
-            cnt += 1;
-        }
-        
-    }
     if(cnt == 0){
         fetch("/ezenCine/SignupSns", {
             headers : {"Content-Type" : "application/json"},
@@ -2503,7 +2507,6 @@ function cSignUpSns(){
             })
         }).then((res) => res.json())
         .then((res) => {
-        	console.log(res);
 
             if(res == 1){
                 $(".c-part2-sns").css({
@@ -3452,7 +3455,6 @@ $(function () {
         $(this).addClass('on')
 
         let num = $(this).index()
-        console.log(num)
 
 
         if (num == 0) {

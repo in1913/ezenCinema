@@ -124,54 +124,101 @@ document.addEventListener("click", function (e) {
         if(userid == null || userid == "null" || userid == "") {
             alert("로그인이 필요한 서비스입니다.");
         }else {
+            /*  동시에 화면이 켜있는 상태에서 A화면에서 좋아요 눌러진 상태에서 다시 좋아요를 빼면 
+                B화면에서 좋아요를 뺄수가 없다. 왜냐하면 이미 좋아요 한 사용자를 삭제한 상태이기 때문이다.
+             */
             if (isLike.value == 1) {
-            fetch("/ezenCine/DeleteLike", {
-                headers: { "Content-Type": "application/json" },
-                method: "post",
-                body: JSON.stringify({
-                    movieid: movieid,
-                    reviews_num: reviews_num
-                })
-            })
-            .then(function (res) {
-                return res.json();
-            })
-            .then(function (result) {
-                if (result.result == -1) {
-                    // handle error
-                } else {
-                    insert.innerHTML = result.result;
-                    like.classList.remove("on");
-                    isLike.value = 0;
-                }
-            })
-            .catch(function (error) {
-              // handle error
-            });
-            } else {
-                fetch("/ezenCine/UpdateLike", {
-                    headers: { "Content-Type": "application/json" },
-                    method: "post",
-                    body: JSON.stringify({
+                fetch("/ezenCine/CheckLikeReview", {
+                    headers : {"Content-Type" : "application/json"},
+                    method : "post" ,
+                    body : JSON.stringify({
                         movieid: movieid,
                         reviews_num: reviews_num
                     })
-                })
-                .then(function (res) {
-                    return res.json();
-                })
-                .then(function (result) {
-                    if (result.result == -1) {
-                        // handle error
-                    } else {
-                        insert.innerHTML = result.result;
-                        like.classList.add("on");
-                        isLike.value = 1;
+                }).then((res) => res.json())
+                .then((result) => {
+                    // 좋아요를 누르지 않은 사용자
+                    if(result.result == 0){
+                        insert.innerHTML = result.likes;
+                        like.classList.remove("on");
+                        isLike.value = 0;
+                    }else{
+                        fetch("/ezenCine/DeleteLike", {
+                            headers: { "Content-Type": "application/json" },
+                            method: "post",
+                            body: JSON.stringify({
+                                movieid: movieid,
+                                reviews_num: reviews_num
+                            })
+                        })
+                        .then(function (res) {
+                            return res.json();
+                        })
+                        .then(function (result) {
+                            if (result.result == -1) {
+                                // handle error
+                            } else {
+                                insert.innerHTML = result.result;
+                                like.classList.remove("on");
+                                isLike.value = 0;
+                            }
+                        })
+                        .catch(function (error) {
+                          // handle error
+                        });
                     }
                 })
-                .catch(function (error) {
-                // handle error
-                });
+            
+            // 좋아요를 하지 않은 사용자
+            } else {
+                // 사용자가 좋아요를 눌렀는지 확인
+                fetch("/ezenCine/CheckLikeReview", {
+                    headers: {"Content-Type" : "application/json"},
+                    method : "post",
+                    body : JSON.stringify({
+                        movieid: movieid,
+                        reviews_num: reviews_num
+                    })
+                }).then((res) => res.json())
+                .then((result) => {
+                    // 좋아요를 누른 사용자 맞음.
+                    if(result.result != 0){
+                        insert.innerHTML = result.likes;
+                        like.classList.add("on");
+                        isLike.value = 1;
+                        alert("이미 좋아요를 누르셨습니다.");
+                        
+                    // 좋아요를 누른 사용자 아님.
+                    }else{
+                        fetch("/ezenCine/UpdateLike", {
+                            headers: { "Content-Type": "application/json" },
+                            method: "post",
+                            body: JSON.stringify({
+                                movieid: movieid,
+                                reviews_num: reviews_num
+                            })
+                        })
+                        .then(function (res) {
+                            return res.json();
+                        })
+                        .then(function (result) {
+                            if (result.result == -1) {
+                                // handle error
+                            } else {
+                                insert.innerHTML = result.result;
+                                like.classList.add("on");
+                                isLike.value = 1;
+                            }
+                        })
+                        .catch(function (error) {
+                        // handle error
+                        });
+                    }
+                })
+
+
+
+                
             }
         }
     }else if(e.target.classList.contains("c-comment-del")) {
@@ -180,8 +227,6 @@ document.addEventListener("click", function (e) {
         const reviewTab = document.querySelector("#reviewTab");
         const reviewTab2 = document.querySelector("#c-reviewlist-cnt");
         const len = document.getElementById("reviewAllNum");
-        const btn = document.getElementsByClassName("k-list_btn");
-
         if(confirm("정말 삭제하시겠습니까?")){
             fetch("/ezenCine/ReviewDel", {
                 headers : {"Content-Type": "application/json"},
@@ -192,16 +237,18 @@ document.addEventListener("click", function (e) {
             }).then((res) => res.json())
             .then((result) => {
                 if(result.result == 1){
-                    reviewbox.style.display = "none";
+                    reviewbox.remove();
                     reviewTab.innerHTML = result.cnt;
                     reviewTab2.innerHTML = result.cnt;
                     len.value = result.cnt;
+                    /* 
                     if(len.value < 7){
-                        btn[0].style.display = "none";
-                        btn[1].style.display = "none";
-                    }
+                        btn[0].classList.remove("c-review-active");
+                        btn[1].classList.remove("c-review-active");
+                    } */
+                    
                 }else{
-                    console.log("error");
+
                 }
             })
         }
