@@ -28,7 +28,6 @@ font-family: 'Open Sans', sans-serif;
 body,html{
 	width:100%;
 	min-width:1400px;
-	height:100%;
     margin: 0;
     padding: 0;
 }
@@ -41,8 +40,8 @@ body {
     color: #000;
     font-weight: 400;
     font-family: 'SUITE';
+    position:relative;
 }
-
 ul,
 ol {
     list-style: none;
