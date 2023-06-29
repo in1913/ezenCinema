@@ -1,26 +1,26 @@
-header{
-    position:fixed;
-    top:40px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:999;
-    max-width:1100px;
-    width:100%;
+#header{
+    position:sticky;
     margin:0 auto;
+    margin-top:-90px;
+    top:40px;
+    z-index:999;
+    width:1100px;
     background-color: #fff;
     border:1.8px solid #000;
     height:90px;
     border-radius: 70px;
-    transition: top 500ms ease, border-radius 500ms ease;
+    transition: top 500ms ease, border-radius 500ms ease, position 500ms ease;
 }
-header.fixed{
-    top:0;
+#header.fixed{
+	top:0;
+    left:0;
+    transform:translateX(0);
     border:none;
     border-bottom: 1.8px solid #000;
     background-color: rgba(255,255,255,0.8);
     border-radius:0;
     width:100%;
-    max-width:100%;
+    min-width:1100px;
     backdrop-filter: blur(10px);
 }
 #header .subdp,
