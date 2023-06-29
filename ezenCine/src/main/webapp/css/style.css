@@ -641,6 +641,9 @@ a.c-blue{
 .main-store .product .txt h4:after{
 	background: none;
 }
+.main-store .product li .btn-box .cart-detail{
+	top: 180px;
+}
 .direct_store{
 	position:absolute;
 	top:75px;
@@ -5062,6 +5065,9 @@ a.c-mypage-plus{
     width:518px;
     height:424px;
 	z-index:100;
+}
+.patchnotes .cumtom_scrollbar::-webkit-scrollbar-thumb {
+    background-color: #999;
 }
 .patchtop{
 	background: #ffffff;

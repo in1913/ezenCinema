@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="ezenCine.*, java.sql.*, java.util.*"%>
+    pageEncoding="UTF-8" import="ezenCine.*, java.sql.*, java.util.*, java.text.SimpleDateFormat, java.text.DecimalFormat"%>
 <%
 	String userid = "";
 	if(session.getAttribute("userid") == null){	
@@ -164,115 +164,169 @@
 	</div>
         <!--post slider-->
 </div>
+
+<%
+Vector<StoreDTO> cdt = StoreCartDDL.selectItemnum(userid);
+DecimalFormat df = new DecimalFormat("###,###");
+%>
 <div class="main-store">
 	<section class="store_contents">
         <div class="inner">
-            <h3>인기메뉴</h3>
+            <h3>스토어</h3>
 
             <ul class="tab">
                 <li class="on">콤보</li>
-                <li>팝콘/스낵</li>
+                <li>팝콘</li>
+                <li>스낵</li>
+                <li>핫도그</li>
                 <li>음료</li>
-                
             </ul>
 			<a href="index.jsp?fname=store/store" class="direct_store"></a>
             <ul class="product combo">
-                <li>
+            <%
+            Vector<StoreDTO> dto = StoreDDL.selectStoreMain("콤보");
+            i = 0;
+        	for(StoreDTO dt : dto){
+	            int num = dt.getNum();
+        		i++;
+            %>
+                <li class="item <%=dt.getNum()%>">
+                	<div class="hover-box"></div>
+                    <div class="btn-box">
+                        <a href="index.jsp?fname=store/storeDetail&num=<%=dt.getNum() %>" class="cart-detail"></a>
+                    </div>
                     <a href="javascript:void(0)">
-                        <img src="./images/product/solocombo.png" alt="솔로콤보">
+                        <img src="<%=dt.getPhoto_url() %>" alt="<%= dt.getTitle()%>">
                         <div class="txt">
-                            <h4>솔로 콤보</h4>
-                            <p>팝콘 (M) 1 + 탄산음료 (R) 1</p>
-                            <h3>7,000원</h3>
+                            <h4 class="stitle"><%= dt.getTitle() %></h4>
+                            <p class="sdetail"><%= dt.getDetail() %></p>
+                            <h3><span class="scost"><%= df.format(dt.getCost()) %></span>원</h3>
+                            <input type="hidden" name="scost" class="cost" value="<%=dt.getCost() %>">
+                            <input type="hidden" name="count" class="hcount" value="1">
+                            <input type="hidden" name="num" class="num" value="<%=dt.getNum() %>">
                         </div>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <img src="./images/product/couplecombo.png" alt="커플콤보">
-                        <div class="txt">
-                            <h4>커플 콤보</h4>
-                            <p>팝콘 (L) 1 + 탄산음료 (R) 2</p>
-                            <h3>11,000원</h3>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <img src="./images/product/dubcombo.png" alt="더블콤보">
-                        <div class="txt">
-                            <h4>더블 콤보</h4>
-                            <p>팝콘 (M) 2 + 탄산음료 (R) 1</p>
-                            <h3>13,000원</h3>
-                        </div>
-                    </a>
-                </li>
+			<%
+        	}
+			%>
             </ul>
 
+            <ul class="product popcorn">
+             <%
+            dto = StoreDDL.selectStoreMain("팝콘");
+        	for(StoreDTO dt : dto){
+	            int num = dt.getNum();
+        		i++;
+            %>
+                <li class="item <%=dt.getNum()%>">
+                	<div class="hover-box"></div>
+                    <div class="btn-box">
+                        <a href="index.jsp?fname=store/storeDetail&num=<%=dt.getNum() %>" class="cart-detail"></a>
+                    </div>
+                    <a href="javascript:void(0)">
+                        <img src="<%= dt.getPhoto_url() %>" alt="<%= dt.getTitle()%>">
+                        <div class="txt">
+                            <h4 class="stitle"><%= dt.getTitle()%></h4>
+                            <p class="sdetail"><%= dt.getDetail()%></p>
+                            <h3><span class="scost"><%= df.format(dt.getCost())%></span>원</h3>
+                            <input type="hidden" name="scost" class="cost" value="<%=dt.getCost() %>">
+                            <input type="hidden" name="count" class="hcount" value="1">
+                            <input type="hidden" name="num" class="num" value="<%=dt.getNum() %>">
+                        </div>
+                    </a>
+                </li>
+			<%
+        	}
+			%>
+            </ul>
+            
             <ul class="product snack">
-                <li>
+            <%
+            dto = StoreDDL.selectStoreMain("스낵");
+        	for(StoreDTO dt : dto){
+	            int num = dt.getNum();
+        		i++;
+            %>
+                <li class="item <%=dt.getNum()%>">
+                	<div class="hover-box"></div>
+                    <div class="btn-box">
+                        <a href="index.jsp?fname=store/storeDetail&num=<%=dt.getNum() %>" class="cart-detail"></a>
+                    </div>
                     <a href="javascript:void(0)">
-                        <img src="./images/product/snack_01.png" alt="솔로콤보">
+                        <img src="<%= dt.getPhoto_url() %>" alt="<%= dt.getTitle()%>">
                         <div class="txt">
-                            <h4>팝콘</h4>
-                            <p>팝콘 (M) 1 + 탄산음료 (R) 1</p>
-                            <h3>7,000원</h3>
+                            <h4 class="stitle"><%= dt.getTitle()%></h4>
+                            <p class="sdetail"><%= dt.getDetail()%></p>
+                            <h3><span class="scost"><%= df.format(dt.getCost())%></span>원</h3>
+                            <input type="hidden" name="scost" class="cost" value="<%=dt.getCost() %>">
+                            <input type="hidden" name="count" class="hcount" value="1">
+                            <input type="hidden" name="num" class="num" value="<%=dt.getNum() %>">
                         </div>
                     </a>
                 </li>
-                <li>
+			<%
+        	}
+			%>
+            </ul>
+            <ul class="product hotdog">
+            <%
+            dto = StoreDDL.selectStoreMain("핫도그");
+        	for(StoreDTO dt : dto){
+	            int num = dt.getNum();
+        		i++;
+            %>
+                <li class="item <%=dt.getNum()%>">
+                	<div class="hover-box"></div>
+                    <div class="btn-box">
+                        <a href="index.jsp?fname=store/storeDetail&num=<%=dt.getNum() %>" class="cart-detail"></a>
+                    </div>
                     <a href="javascript:void(0)">
-                        <img src="./images/product/snack_02.png" alt="커플콤보">
+                        <img src="<%= dt.getPhoto_url() %>" alt="<%= dt.getTitle()%>">
                         <div class="txt">
-                            <h4>팝콘</h4>
-                            <p>팝콘 (L) 1 + 탄산음료 (R) 2</p>
-                            <h3>11,000원</h3>
+                            <h4 class="stitle"><%= dt.getTitle()%></h4>
+                            <p class="sdetail"><%= dt.getDetail()%></p>
+                            <h3><span class="scost"><%= df.format(dt.getCost())%></span>원</h3>
+                            <input type="hidden" name="scost" class="cost" value="<%=dt.getCost() %>">
+                            <input type="hidden" name="count" class="hcount" value="1">
+                            <input type="hidden" name="num" class="num" value="<%=dt.getNum() %>">
                         </div>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <img src="./images/product/snack_03.png" alt="더블콤보">
-                        <div class="txt">
-                            <h4>팝콘</h4>
-                            <p>팝콘 (M) 2 + 탄산음료 (R) 1</p>
-                            <h3>13,000원</h3>
-                        </div>
-                    </a>
-                </li>
+			<%
+        	}
+			%>
             </ul>
             <ul class="product drink">
-                <li>
+                 <%
+            dto = StoreDDL.selectStoreMain("음료");
+        	for(StoreDTO dt : dto){
+	            int num = dt.getNum();
+        		i++;
+            %>
+                <li class="item <%=dt.getNum()%>">
+                	<div class="hover-box"></div>
+                    <div class="btn-box">
+                        
+                        <a href="index.jsp?fname=store/storeDetail&num=<%=dt.getNum() %>" class="cart-detail"></a>
+                    </div>
                     <a href="javascript:void(0)">
-                        <img src="./images/product/coke.png" alt="콜라">
+                        <img src="<%= dt.getPhoto_url() %>" alt="<%= dt.getTitle()%>">
                         <div class="txt">
-                            <h4>탄산음료</h4>
-                            <p>콜라(R)</p>
-                            <h3>2,600원</h3>
+                            <h4 class="stitle"><%= dt.getTitle()%></h4>
+                            <p class="sdetail"><%= dt.getDetail()%></p>
+                            <h3><span class="scost"><%= df.format(dt.getCost())%></span>원</h3>
+                            <input type="hidden" name="scost" class="cost" value="<%=dt.getCost() %>">
+                            <input type="hidden" name="count" class="hcount" value="1">
+                            <input type="hidden" name="num" class="num" value="<%=dt.getNum() %>">
                         </div>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <img src="./images/product/coke.png" alt="콜라">
-                        <div class="txt">
-                            <h4>탄산음료</h4>
-                            <p>콜라(R)</p>
-                            <h3>2,600원</h3>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <img src="./images/product/coke.png" alt="콜라">
-                        <div class="txt">
-                            <h4>탄산음료</h4>
-                            <p>콜라(R)</p>
-                            <h3>2,600원</h3>
-                        </div>
-                    </a>
-                </li>
+			<%
+        	}
+			%>
             </ul>
+
         </div>
     </section>
 </div>
