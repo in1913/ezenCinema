@@ -1364,12 +1364,12 @@ section.movieList>.container{
     border: none;
     width: 71px;
     height: 52px;
-    background: url(../images/h-button/踰꾪듉.png) no-repeat;
+    background: url(../images/h-button/버튼.png) no-repeat;
     background-size: cover;
     transition: 0.5s;
 }
 .h-movie-search-btn:hover{
-    background-image: url(../images/h-button/踰꾪듉hover.png);
+    background-image: url(../images/h-button/버튼hover.png);
     transition: 0.5s;
 }
 .h-movie{
@@ -1485,7 +1485,7 @@ ul.h-movie-movie li{
     display: block;
     width: 120px;
     height: 25px;
-    background: url(../images/h-button/Property\ 1=�긽�꽭蹂닿린\,\ Property\ 2=off.png) no-repeat;
+    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=off.png) no-repeat;
     background-size: cover;
     opacity: 1;
     position: absolute;
@@ -1500,7 +1500,7 @@ ul.h-movie-movie li{
 	transform:translate(-50%);
 }
 .h-movie-content .h-movie-info:hover{
-    background: url(../images/h-button/Property\ 1=�긽�꽭蹂닿린\,\ Property\ 2=om.png) no-repeat;
+    background: url(../images/h-button/Property\ 1=상세보기\,\ Property\ 2=om.png) no-repeat;
     background-size: cover;
     transition: 0.5s;
 }
@@ -1508,7 +1508,7 @@ ul.h-movie-movie li{
     display: block;
     width: 120px;
     height: 25px;
-    background: url(../images/h-button/�긽�꽭蹂닿린_�삁留�.png) no-repeat;
+    background: url(../images/h-button/상세보기_예매.png) no-repeat;
     background-size: cover;
     position: absolute;
     top: 182px;
@@ -1517,7 +1517,7 @@ ul.h-movie-movie li{
     transition: 0.5s;
 }
 .h-movie-content .h-movie-booking:hover{
-    background: url(../images/h-button/�긽�꽭蹂닿린_�삁留쨑over.png) no-repeat;
+    background: url(../images/h-button/상세보기_예매hover.png) no-repeat;
     background-size: cover;
     transition: 0.5s;
 }
@@ -1540,7 +1540,7 @@ ul.h-movie-movie li{
     width: 20px;
     height: 20px;
     vertical-align: -5px;
-    background: url(../images/h-button/Property\ 1=蹂꾩젏\,\ Property\ 2=s\,\ Property\ 3=on.png) no-repeat;
+    background: url(../images/h-button/Property\ 1=별점\,\ Property\ 2=s\,\ Property\ 3=on.png) no-repeat;
     background-size: cover;
 }
 /*** movieList �걹 ***/
