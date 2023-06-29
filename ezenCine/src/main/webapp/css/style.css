@@ -1,8 +1,8 @@
-header{
-    position:fixed;
+#header{
+    position:sticky;
+    margin:0 auto;
+    margin-top:-90px;
     top:40px;
-    left:50%;
-    transform:translateX(-50%);
     z-index:999;
     width:1100px;
     margin:0 auto;
@@ -11,16 +11,18 @@ header{
    	backdrop-filter: blur(12.5px);
     height:90px;
     border-radius: 70px;
-    transition: top 500ms ease, border-radius 500ms ease;
+    transition: top 500ms ease, border-radius 500ms ease, position 500ms ease;
 }
-header.fixed{
-    top:0;
+#header.fixed{
+	top:0;
+    left:0;
+    transform:translateX(0);
     border:none;
     /* border-bottom: 1.8px solid #000; */
     background-color: rgba(255,255,255,0.8);
     border-radius:0;
     width:100%;
-    max-width:100%;
+    min-width:1100px;
     backdrop-filter: blur(10px);
 }
 #header .subdp,
@@ -4881,6 +4883,7 @@ a.c-mypage-plus{
 	width:100%;
     max-width: 1100px;
     margin: 0 auto;
+    position: relative;
 }
 
 .store_contents h3 {
@@ -4916,18 +4919,61 @@ a.c-mypage-plus{
 .product {
     margin-top: 60px;
     display: flex;
+/*
     justify-content: space-between;
+*/
     flex-wrap: wrap;
 }
 
 .product li {
+    position: relative;
 	width: 353px;
     height: 429px;
     background: #F2f2f2;
     border-radius: 26px;
     margin-bottom: 20px;
+    margin-left: 6.5px;
+    margin-right: 6.5px;
 }
-
+.product li .hover-box{
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	background: #000;
+    border-radius: 26px;
+	z-index: 100;
+	opacity: 0.4;
+	display: none;
+}
+.product li .btn-box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 26px;
+	z-index: 101;
+    display: none;
+}
+.product li .btn-box .cart{
+    position: absolute;
+    background: url("../images/store/cart.png") no-repeat;
+    background-size: cover;
+    display: block;
+    width: 313px;
+    height: 62px;
+    top: 150px;
+    left: 20px;
+    cursor: pointer;
+}
+.product li .btn-box .cart-detail{
+    position: absolute;
+    background: url("../images/store/cart-detail.png") no-repeat;
+    background-size: cover;
+    display: block;
+    width: 313px;
+    height: 64px;
+    top: 220px;
+    left: 20px;
+}
 .product li a {
     display: block;
     width: 100%;
@@ -4945,12 +4991,12 @@ a.c-mypage-plus{
     color: #333;
 }
 
-.product .txt h4 {
+.product .txt .stitle {
     font-size: 20px;
     font-weight: 600;
     position: relative;
 }
-
+/* 
 .product .txt h4::after {
     content: '';
     width: 24px;
@@ -4960,8 +5006,8 @@ a.c-mypage-plus{
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-}
-.product .txt p {
+} */
+.product .txt .sdetail {
     font-size: 18px;
     margin: 8px 0 12px;
 }
@@ -4971,106 +5017,7 @@ a.c-mypage-plus{
     color: #3D56AE;
     font-weight: 500;
 }
-/* 팀페이지 팝업 */
-.main_teampage{
-	position: absolute;
-	width: 518px;
-	height: 146px;
-	top: 325px;
-	left: 2%;
-	background: #ffffff;
-	z-index: 102;
-}
-.main_teampage>.content{
-	margin-top: 30px;
-}
-.main_teampage>.content>h3{
-	font-weight: 500;
-}
-.main_teampage>a>img{
-	margin-top: 20px;
-	margin-left: 39%;
-}
-.teampage_close{
-	position:absolute;
-	top: 15px;
-    right: 15px;
-	cursor: pointer;
-}
-/* 패치노트 */
-.patchnotes{
-    position: absolute;
-    top: 482px;
-    left: 2%;
-    width:518px;
-    height:424px;
-	z-index:100;
-}
-.patchtop{
-	background: #ffffff;
-	width:518px;
-    height:374px;
-}
-.patchtop>.title{
-	display:inline-block;
-	padding: 0;
-	padding-top: 10px;
-    padding-left: 15px;
-}
-.patchtop>.title>h5{
-	display: inline-block;
-	font-size: 20px;
-	font-weight: 500;
-}
-/* .patchtop>.title>span{
-	display: inline-block;
-	font-size: 14px;
-	margin-left: 5px;
-} */
-.patchtop>.content{
-	display:inline-block;
-	width: 518px;
-    height:374px;
-    padding: 5px 15px 15px 15px;
-    overflow-y:scroll ;
-}
-.patchtop>.content>h4{
-	font-size: 18px;
-}
-.patchtop>.content>h4>span{
-	font-size: 16px;
-    font-weight: 500;
-}
-.patchtop>.content>p{
-	padding-left: 20px;
-}
-.patchbottom{
-	width: 518px;
-    height: 50px;
-    border-top: 1px solid #ddd;
-}
-.patchbottom>.row{
-	width: 518px;
-    height: 50px;
-    margin: 0;
-}
-.patchbottom>.row>a{
-	background: #ffffff;
-	text-align: center;
-	padding-top: 14px;
-}
-.patchbottom>.row>a:first-child{
-	border-right: 1px solid #ddd;
-}
-.patchbottom>.row>a>img{
-	margin-left: 5px;
-}
-#patchclose{
-	position:absolute;
-	top: 15px;
-    right: 15px;
-	cursor: pointer;
-}
+
 @media (min-width: 768px) {
 	
 }
