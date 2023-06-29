@@ -67,4 +67,13 @@ public class ExtraFunc {
 		}
 	}
 	
+	
+	public static String numToWon(int cost) {
+		String costStr = Integer.toString(cost);
+		int len = costStr.length();
+		String front = costStr.substring(0, len - 3);
+		String back = costStr.substring(len - 3);
+		String result = front + "," + back + "원";
+		return result;
+	}
 }

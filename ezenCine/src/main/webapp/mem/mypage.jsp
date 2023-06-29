@@ -7,9 +7,11 @@
 	Vector <BookingDTO> bkd = BookingDDL.selectInit(userid);
 	Vector <ReviewsDTO> rvd = ReviewsDDL.selectInit(userid);
 	Vector <MyPageLikeDTO> mpld = MyPageLikeDDL.selectLikeInit(userid);
+	Vector <MyPageStoreDTO> spd = MyPageStoreDDL.selectInit(userid);
 	int bookingAllNum = BookingDDL.BookingCnt(userid);
 	int reviewAllNum = ReviewsDDL.ReviewsCnt(userid);
 	int likeAllNum = MyPageLikeDDL.LikeCnt(userid);
+	int storeAllNum = MyPageStoreDDL.selectCnt(userid);
 	
 	SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 	Date currentTime = new Date();
@@ -374,27 +376,25 @@ System.out.println(i);
 						구매내역이 없습니다.
 						</div>
 						-->
-						
-						<div class="col-6">
-							<a href="#">
-								<img src="images/icon/inyoung/storebuy.png" alt="구매내역" />
+<%
+	for(MyPageStoreDTO sd: spd){
+%>						
+						<div class="col-6 c-mypage-store-num">
+							<a href="index.jsp?fname=store/storeDetail&num=<%=sd.getItem_num()%>">
+								<div class="c-mypage-store-img">
+									<img src="<%=sd.getPhoto_url() %>" alt="구매내역" />
+								</div>
 								<span class="c-mypage-store-content">
-									<p>갈릭 치즈 핫도그 콤보</p>
-									<p>갈릭 치즈 핫도그 + 탄산음료(R) 1 어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어어</p>
-									<p>8,000원</p>
+									<p><%=sd.getTitle() %></p>
+									<p><%=sd.getDetail() %></p>
+									<p>구매수량 : <%=sd.getCount() %></p>
+									<p><%=ExtraFunc.numToWon(sd.getTotalcost()) %></p>
 								</span>
 							</a>	
 						</div>
-						<div class="col-6">
-							<a href="#">
-								<img src="images/icon/inyoung/storebuy.png" alt="구매내역" />
-								<span class="c-mypage-store-content">
-									<p>갈릭치즈 핫도그 콤보</p>
-									<p>갈릭치즈 핫도그 + 탄산음료(R) 1</p>
-									<p>8,000원</p>
-								</span>
-							</a>	
-						</div>    
+<%
+	}
+%>						    
 						    
                     </div>
 					<a class="c-mypage-plus" id="c-mypage-plus-like-btn" href="javascript:cMyPageMore(3);">더보기 +</a>
@@ -438,5 +438,6 @@ System.out.println(i);
 <input type="hidden" name="booking-all-num" id="booking-all-num" value="<%=bookingAllNum %>" />
 <input type="hidden" name="review-all-num" id="review-all-num" value="<%=reviewAllNum %>" />
 <input type="hidden" name="like-all-num" id="like-all-num" value="<%=likeAllNum %>" />
+<input type="hidden" name="store-all-num" id="store-all-num" value="<%=storeAllNum %>" />
 <script src="js/mypage.js"></script>
   

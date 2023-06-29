@@ -20,6 +20,8 @@ import ezenCine.BookingDDL;
 import ezenCine.BookingDTO;
 import ezenCine.MyPageLikeDDL;
 import ezenCine.MyPageLikeDTO;
+import ezenCine.MyPageStoreDDL;
+import ezenCine.MyPageStoreDTO;
 import ezenCine.ReviewsDDL;
 import ezenCine.ReviewsDTO;
 
@@ -62,6 +64,11 @@ public class MyPageMore extends HttpServlet {
 			
 		}else if(moreNum == 2) {
 			Vector <MyPageLikeDTO> bkd = MyPageLikeDDL.selectLike(userid, num);
+			String gson = new Gson().toJson(bkd);
+			out.println(gson);
+			
+		}else if(moreNum == 3) {
+			Vector <MyPageStoreDTO> bkd = MyPageStoreDDL.selectLimit(userid, num);
 			String gson = new Gson().toJson(bkd);
 			out.println(gson);
 			

@@ -2707,6 +2707,15 @@ function cReviewPopupModiSend(n){
     })
 
 }
+function numToWon(num){
+    const costStr = num.toString();
+    const len = costStr.length;
+    const front = costStr.substring(0, len - 3);
+    const back = costStr.substring(len - 3);
+    const result = front + "," + back + "원";
+    return result;
+}
+
 function cMyPageMore(n){
     if(n == 0){
         const plusbtn = document.getElementById("c-mypage-plus-booking-btn");
@@ -2883,6 +2892,40 @@ function cMyPageMore(n){
                 `);
             }
             if(num == likeAllnum - 1 || num == likeAllnum - 2 || num == likeAllnum - 3 || num == likeAllnum - 4 || num == likeAllnum - 5 || num == likeAllnum - 6){
+                plusbtn.style.display = "none";
+            }
+        })
+    }else if(n == 3){
+        const plusbtn = document.getElementById("c-mypage-plus-like-btn");
+        const storeAllnum = document.getElementById("store-all-num").value;
+        const num = document.getElementsByClassName("c-mypage-store-num").length;
+        const insert = document.getElementById("c-mypage-store-insert");
+        fetch("/ezenCine/MyPageMore", {
+            headers : {"Content-Type" : "application/json"},
+            method : "post",
+            body : JSON.stringify({
+                myPageNum: n, num : num
+            })
+        }).then((res) => res.json())
+        .then((result) => {
+            for(i = 0; i < result.length; i++){
+                insert.insertAdjacentHTML("beforeend",`
+                <div class="col-6 c-mypage-store-num">
+                    <a href="index.jsp?fname=store/storeDetail&num=${result[i].item_num}">
+                    <div class="c-mypage-store-img">
+                        <img src="${result[i].photo_url}" alt="구매내역" />
+                    </div>                        
+                        <span class="c-mypage-store-content">
+                            <p>${result[i].title}</p>
+                            <p>${result[i].detail}</p>
+                            <p>구매수량 : ${result[i].count}</p>
+                            <p>${numToWon(result[i].totalcost)}</p>
+                        </span>
+                    </a>	
+                </div>
+                `);
+            }
+            if(num == storeAllnum - 1 || num == storeAllnum - 2){
                 plusbtn.style.display = "none";
             }
         })

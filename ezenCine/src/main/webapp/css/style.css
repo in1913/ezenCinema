@@ -4648,7 +4648,7 @@ div.c-mypage-noInfo p{
     background: #fff;
     color: #3D56AE;
 }
-.c-mypage-bottom img{
+.c-mypage-booking img,.c-mypage-review img,.c-mypage-see img{
     width: 144px;
     height: 202px;
 }
@@ -4819,10 +4819,21 @@ div.c-mypage-review p.c-title{
 	margin-top: 50px;
 	display: flex;
 }
-.c-mypage-store img{
+.c-mypage-store-img{
 	width: 218px;
 	height: 198px;
+	border-radius: 6px;
+	background: #f5f5f5;
+	overflow: hidden;
 	margin-right: 10px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+} 
+.c-mypage-store img{
+	max-width: 218px;
+	max-height: 198px;
+	object-fit: cover;
 }
 .c-mypage-store .c-mypage-store-content{
 	display: flex;
