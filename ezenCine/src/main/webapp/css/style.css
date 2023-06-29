@@ -5,7 +5,6 @@
     top:40px;
     z-index:999;
     width:1100px;
-    margin:0 auto;
     background-color: rgba(255,255,255,0.8);
    	box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
    	backdrop-filter: blur(12.5px);
@@ -200,7 +199,7 @@ a.c-blue{
 /*** mainpage �떆�옉 ***/
 .main_warning{
 	position: absolute;
-    top: 140px;
+    top: 270px;
     left: 2%;
 	z-index:101;
 }
@@ -5017,7 +5016,106 @@ a.c-mypage-plus{
     color: #3D56AE;
     font-weight: 500;
 }
-
+/* 팀페이지 팝업 */
+.main_teampage{
+	position: absolute;
+	width: 518px;
+	height: 146px;
+	top: 455px;
+	left: 2%;
+	background: #ffffff;
+	z-index: 102;
+}
+.main_teampage>.content{
+	margin-top: 30px;
+}
+.main_teampage>.content>h3{
+	font-weight: 500;
+}
+.main_teampage>a>img{
+	margin-top: 20px;
+	margin-left: 39%;
+}
+.teampage_close{
+	position:absolute;
+	top: 15px;
+    right: 15px;
+	cursor: pointer;
+}
+/* 패치노트 */
+.patchnotes{
+    position: absolute;
+    top: 610px;
+    left: 2%;
+    width:518px;
+    height:424px;
+	z-index:100;
+}
+.patchtop{
+	background: #ffffff;
+	width:518px;
+    height:374px;
+}
+.patchtop>.title{
+	display:inline-block;
+	padding: 0;
+	padding-top: 10px;
+    padding-left: 15px;
+}
+.patchtop>.title>h5{
+	display: inline-block;
+	font-size: 20px;
+	font-weight: 500;
+}
+/* .patchtop>.title>span{
+	display: inline-block;
+	font-size: 14px;
+	margin-left: 5px;
+} */
+.patchtop>.content{
+	display:inline-block;
+	width: 518px;
+    height:374px;
+    padding: 5px 15px 15px 15px;
+    overflow-y:scroll ;
+}
+.patchtop>.content>h4{
+	font-size: 18px;
+}
+.patchtop>.content>h4>span{
+	font-size: 16px;
+    font-weight: 500;
+}
+.patchtop>.content>p{
+	padding-left: 20px;
+}
+.patchbottom{
+	width: 518px;
+    height: 50px;
+    border-top: 1px solid #ddd;
+}
+.patchbottom>.row{
+	width: 518px;
+    height: 50px;
+    margin: 0;
+}
+.patchbottom>.row>a{
+	background: #ffffff;
+	text-align: center;
+	padding-top: 14px;
+}
+.patchbottom>.row>a:first-child{
+	border-right: 1px solid #ddd;
+}
+.patchbottom>.row>a>img{
+	margin-left: 5px;
+}
+#patchclose{
+	position:absolute;
+	top: 15px;
+    right: 15px;
+	cursor: pointer;
+}
 @media (min-width: 768px) {
 	
 }
