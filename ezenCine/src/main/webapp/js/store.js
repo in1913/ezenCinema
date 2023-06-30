@@ -56,6 +56,7 @@ $(document).on("click", ".getCart", function(){
 		const cost = list.find(".cost").val();
 		const cCost = $("#list_total_cost");
 		const total = $("#list_total");
+		const cart_list = $(".cart_list");
 		const cart_listbox = $(".cart_listbox");
 		const cart = $(".store_cart");
 		const val = list.find(".cartget");
@@ -116,6 +117,10 @@ $(document).on("click", ".getCart", function(){
 							`);
 						}else{
 							cart_listbox.append(box);
+							console.log(cart_list.size());
+							if(cart_list.size() > 2){
+								cart_listbox.addClass("cumtom_scrollbar");
+							}
 							cCost.html(makeComma(totalcost));
 							total.val(totalcost);
 						}
