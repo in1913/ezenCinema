@@ -117,7 +117,6 @@ $(document).on("click", ".getCart", function(){
 							`);
 						}else{
 							cart_listbox.append(box);
-							console.log(cart_list.size());
 							if(cart_list.size() > 2){
 								cart_listbox.addClass("cumtom_scrollbar");
 							}
@@ -138,6 +137,8 @@ $(document).on("click", ".delete", function(){
 		const cart = $(".store_cart");
 		const item = $(".item."+itemnum);
 		const val = item.find(".cartget");
+		const cart_list = $(".cart_list");
+		const cart_listbox = $(".cart_listbox");
 
 		let totalcost = parseInt(total.val());
 		totalcost -= parseInt(cost);
@@ -150,7 +151,10 @@ $(document).on("click", ".delete", function(){
 			},
 			success: function(result) {
 					if(result != 0){
-						list.css({"display" : "none"});
+						list.remove();
+						if(cart_list.size() < 5){
+							cart_listbox.removeClass("cumtom_scrollbar");
+						}
 						cCost.html(makeComma(totalcost));
 						total.val(totalcost);
 						if(total.val() == 0){
