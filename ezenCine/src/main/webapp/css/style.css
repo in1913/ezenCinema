@@ -2721,6 +2721,7 @@ div.c-rate > input {
     font-weight: 300;
     display: none;
     z-index: 9999999;
+    backdrop-filter: blur(12px);
 }
 #c-login-alert{
     margin-top: 5px;
