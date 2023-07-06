@@ -18,11 +18,11 @@
 
 ## 웹개발팀 소개
  
-|      서택상       |          최인영         |       허정현         |        김병기         |                                                                                                              
-| :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | 
+| 서택상 | 최인영 | 허정현 | 김병기 |                                                                                                              
+| :------: | :------: | :------: | :------: | 
 |   <img width="160px" src="https://avatars.githubusercontent.com/u/125331815?s=400&u=e23cb4ca40c2b0cea5795623d57de1145929262b&v=4" />    |                      <img width="160px" src="https://avatars.githubusercontent.com/u/36881702?v=4" />    |                   <img width="160px" src="https://avatars.githubusercontent.com/u/125331780?v=4"/>   |                   <img width="160px" src="https://avatars.githubusercontent.com/u/125331844?v=4"/>   |
 |   [@TaeksangSeo](https://github.com/JefferySeo)   |    [@InyoungChoi](https://github.com/ChaeyeonSeo)  | [@JunghyunHur](https://github.com/JunghyunHUR)  | [@ByeonggiKim](https://github.com/bk4533)  |
-| Database / Back-end / Front-end | Server / Back-end / Front-end |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Back-end / Front-end &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Front-end &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+| Database / Back-end / Front-end | Server / Back-end / Front-end | Back-end / Front-end | Front-end |
 
 <br>
 
