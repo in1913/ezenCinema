@@ -32,7 +32,7 @@
 | :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | 
 |   <img width="160px" src="https://avatars.githubusercontent.com/u/133757374?v=4" />    |                      <img width="160px" src="https://avatars.githubusercontent.com/u/133757349?v=4" />    |                   <img width="160px" src="https://avatars.githubusercontent.com/u/133757358?v=4"/>   |
 |   [@BohyeonKim](https://github.com/bohyeon0103)   |    [@SionAhn](https://github.com/sion0520)  | [@MinjuKim](https://github.com/minju011203)  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Design / Publishing  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Design / Publishing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Design / Publishing &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+|  Design / Publishing  |  Design / Publishing  |  Design / Publishing  |
 
 <br>
 
