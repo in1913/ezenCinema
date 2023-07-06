@@ -20,17 +20,15 @@
  
 | 서택상 | 최인영 | 허정현 | 김병기 |                                                                                                              
 | :------: | :------: | :------: | :------: | 
-| <img width="160px" src="https://avatars.githubusercontent.com/u/125331815?s=400&u=e23cb4ca40c2b0cea5795623d57de1145929262b&v=4" /> | <img width="160px" src="https://avatars.githubusercontent.com/u/36881702?v=4" /> | <img width="160px" src="https://avatars.githubusercontent.com/u/125331780?v=4"/> | <img width="160px" src="https://avatars.githubusercontent.com/u/125331844?v=4"/> |
+| <img width="200px" src="https://avatars.githubusercontent.com/u/125331815?s=400&u=e23cb4ca40c2b0cea5795623d57de1145929262b&v=4" /> | <img width="200px" src="https://avatars.githubusercontent.com/u/36881702?v=4" /> | <img width="200px" src="https://avatars.githubusercontent.com/u/125331780?v=4"/> | <img width="200px" src="https://avatars.githubusercontent.com/u/125331844?v=4"/> |
 |   [@TaeksangSeo](https://github.com/JefferySeo)   |    [@InyoungChoi](https://github.com/ChaeyeonSeo)  | [@JunghyunHur](https://github.com/JunghyunHUR)  | [@ByeonggiKim](https://github.com/bk4533)  |
 | PM / Database <br> Back-end / Front-end | Server <br> Back-end / Front-end | Back-end / Front-end | Front-end |
 
-<br>
-
 ## 디자인팀 소개
 
-|      김보현       |          안시온         |       김민주         |                                                                                                               
-| :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | 
-|   <img width="160px" src="https://avatars.githubusercontent.com/u/133757374?v=4" />    |                      <img width="160px" src="https://avatars.githubusercontent.com/u/133757349?v=4" />    |                   <img width="160px" src="https://avatars.githubusercontent.com/u/133757358?v=4"/>   |
+| 김보현 | 안시온 | 김민주 |                                                                                                               
+| :------: | :------: | :------: | 
+| <img width="200px" src="https://avatars.githubusercontent.com/u/133757374?v=4" /> | <img width="200px" src="https://avatars.githubusercontent.com/u/133757349?v=4" /> | <img width="200px" src="https://avatars.githubusercontent.com/u/133757358?v=4"/> |
 |   [@BohyeonKim](https://github.com/bohyeon0103)   |    [@SionAhn](https://github.com/sion0520)  | [@MinjuKim](https://github.com/minju011203)  |
 |  Design / Publishing  |  Design / Publishing  |  Design / Publishing  |
 
@@ -38,7 +36,7 @@
 
 ## 프로젝트 소개
 
-이젠시네마는 Team EzenCinema의 팀원들이 수강했던 이젠아카데미컴퓨터학원의 [EZEN] 을 따서 만든 영화관 웹사이트이며,<br>
+이젠시네마는 Team EzenCinema의 팀원들이 수강했던 이젠아카데미컴퓨터학원의 **EZEN** 을 따서 만든 영화관 웹사이트이며,<br>
 이젠아카데미컴퓨터학원 김포캠퍼스 최초의 개발자반과 웹디자인반의 합작 프로젝트입니다.
 
 <br>
@@ -130,7 +128,7 @@ $ cd ezenCinema
 
 <details>
   <summary>
-    <h4>show</h4>
+    <h4>Show Directory</h4>
   </summary>
   <div markdown="1">
     
