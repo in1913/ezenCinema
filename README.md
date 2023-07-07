@@ -67,8 +67,6 @@ $ cd ezenCinema
   <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white" />
 </div>             
 
-### Config
-![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)        
 
 ### Development
 <div align="left">
@@ -111,7 +109,7 @@ $ cd ezenCinema
 | :----: | :----: | :----: |
 | <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/bae1e21f-fb6d-4250-800d-5fb65e89fcb5"/> |  <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/fb36a148-dda8-40ef-be91-8fadabaf838c"/>  |  <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/6bd85ef8-5f43-45d1-bba3-2bc5a094ecec"/>  | 
 | 영화 예매 | 로그인 / 마이페이지 | 회원정보 찾기 |
-| <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/23d281e8-fd09-49a3-ac14-6a4ced22cd8a"/><img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/4597b8b8-7713-48f7-b069-bcec14a98482"/>  |  <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/b52a91e4-ec60-4667-8d70-0995cc2e09ce"/><img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/cd781556-139d-452e-a7c2-4b3d638b3d3c"/>  |  <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/3af4f8ee-8558-4e77-9bed-de2280dec0e5"/><img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/2757a499-f832-4aca-ab3a-534ca75a385f"/>  | 
+| <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/23d281e8-fd09-49a3-ac14-6a4ced22cd8a"/><img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/4597b8b8-7713-48f7-b069-bcec14a98482"/>  |  <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/b52a91e4-ec60-4667-8d70-0995cc2e09ce"/><img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/cd781556-139d-452e-a7c2-4b3d638b3d3c"/>  |  <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/3af4f8ee-8558-4e77-9bed-de2280dec0e5"/><img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/bf798cf8-2998-498e-8fe3-058bb4e815f5"/>  | 
 | 회원가입 | 스토어 | 상품 구매 |
 | <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/e83f8f2c-34e5-47a9-ae40-c31b04015fce"/> |  <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/d25d8f2d-a87f-4780-a50a-3e0b9d9daae6"/>  |  <img width="300" src="https://github.com/in1913/ezenCinema/assets/125331815/7c819e73-8926-4685-b3b6-60f4f74e3c93"/>  | 
 
