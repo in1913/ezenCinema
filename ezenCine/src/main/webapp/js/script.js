@@ -938,7 +938,7 @@ function cReviewsSubmit(){
     const regex = /^\s*$/;
     if(userid == "" || userid == "null" || userid == null){
         alert("로그인이 필요한 서비스입니다.");
-    }else if(review.value == "" || !regex.test(review.value)){
+    }else if(review.value == "" || regex.test(review.value)){
         alert("내용을 입력해주세요.");
     }else{
         const rating = document.getElementsByClassName("rating-number")[0].innerText;
