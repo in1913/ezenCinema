@@ -5121,12 +5121,14 @@ a.c-mypage-plus{
 	background: #ffffff;
 	text-align: center;
 	padding-top: 14px;
+	transition: 300ms;
 }
-.patchbottom>.row>a:first-child{
-	border-right: 1px solid #ddd;
+.patchbottom>.row>a:hover{
+	background:#ededed;
 }
 .patchbottom>.row>a>img{
 	margin-left: 5px;
+	vertical-align:text-top;
 }
 #patchclose{
 	position:absolute;
