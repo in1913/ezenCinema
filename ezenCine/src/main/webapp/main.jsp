@@ -18,7 +18,7 @@
 <!-- 팀페이지 팝업 -->
 <div class="main_teampage">
 	<div class="content text-center" ><h3>팀 EZEN Cinema의 프로필 페이지입니다.</h3></div>
-	<a href=""><img src="images/h-button/profileSite.png" alt="팀페이지 이동 버튼"></a>
+	<a href="index.jsp?fname=team/team"><img src="images/h-button/profileSite.png" alt="팀페이지 이동 버튼"></a>
 	<div class="teampage_close"><img src="images/back/close.png" alt="주의팝업 닫기" /></div>
 </div>
 <!-- 팝업 닫기 -->
