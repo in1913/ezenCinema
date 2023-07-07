@@ -45,7 +45,7 @@
 ### Requirements
 For building and running the application you need:
 
-- [Eclipse IDE](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2023-06/R/eclipse-inst-jre-win64.exe)
+- [Spring Tool Suite 3.9](https://spring.io/blog/2019/06/20/spring-tool-suite-3-9-9-released)
 - [apache tomcat9](https://tomcat.apache.org/download-90.cgi)
 
 ### Installation
@@ -62,7 +62,7 @@ $ cd ezenCinema
 
 ### Environment
 <div align="left">
-  <img src="https://img.shields.io/badge/Eclipse IDE-2C2255?style=for-the-badge&logo=EclipseIDE&logoColor=white" />
+  <img src="https://img.shields.io/badge/Spring Tool Suite-6DB33F?style=for-the-badge&logo=Spring&logoColor=white" />
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white" />
   <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white" />
 </div>             
