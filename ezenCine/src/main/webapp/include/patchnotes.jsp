@@ -7,6 +7,15 @@
 			<h5>패치노트</h5>
 		</div>
 		<div class="content cumtom_scrollbar">
+			<h4>[v1.1.1]<span> - 2023.07.07</span></h4>
+			<p>
+					- 메인페이지 기획안 다운로드 기능 추가<br>
+					- 팀 페이지 업데이트<br>
+					- 스토어 디테일페이지 장바구니 수정<br>
+					- 결제페이지 장바구니 수정<br>
+					- 스토어 스크롤바 수정
+			</p>
+			<br>
 			<h4>[v1.1.0]<span> - 2023.06.29</span></h4>
 			<p>
 					- 스토어 페이지 업데이트<br>
@@ -48,8 +57,7 @@
 	</div>
 	<div class="patchbottom">
 		<div class="row d-flex">
-			<a class="col-6" href="" >기획안 다운로드<img src="images/patch/download.png" alt="다운로드 버튼"></a>
-			<a class="col-6" href="" >이용가이드 다운로드<img src="images/patch/download.png" alt="다운로드 버튼"></a>
+			<a class="col-12" href="plan/ezencinema_plan.zip" >기획안 다운로드<img src="images/patch/download.png" alt="다운로드 버튼"></a>
 		</div>
 	</div>
 </div>
