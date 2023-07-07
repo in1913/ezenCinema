@@ -93,14 +93,14 @@
 							<%
 									}else{
 							%>
-								<a href="javascript:void(0)" class="cart getCart" id="cart"></a>
+								<a href="javascript:void(0)" class="cart getCartDetail" id="cart"></a>
 								<a href="javascript:void(0)" class="buy" id="topay"></a>
 							<%
 									}
 								}else{
 									
 							%>
-								<a href="javascript:void(0)" class="cart getCart" id="cart"></a>
+								<a href="javascript:void(0)" class="cart getCartDetail" id="cart"></a>
 								<a href="javascript:void(0)" class="buy" id="topay"></a>
 							<%
 								}

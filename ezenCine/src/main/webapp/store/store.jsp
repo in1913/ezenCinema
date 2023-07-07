@@ -39,7 +39,6 @@
 							if(userid == null || userid == ""){
 						%>
                         <span onclick="pleaseLogin()" class="cart"></span>
-                        <input>
 						<%
 							}else if(!cdt.isEmpty()){
 			            		StoreCartDTO ct = StoreCartDDL.selectCartAll(userid, num);
