@@ -22,7 +22,6 @@
                         <div class="th col-2">
                             <input type="checkbox" class="checkAll">
                             전체선택
-                            <span class="del">삭제</span>
                         </div>
                         <div class="th col-5">주문상폼</div>
                         <div class="th col-2">구매수량</div>
