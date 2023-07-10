@@ -2925,6 +2925,8 @@ function cMyPageMore(n){
                 </div>
                 `);
             }
+            console.log(num);
+            console.log(storeAllnum);
             if(num == storeAllnum - 1 || num == storeAllnum - 2){
                 plusbtn.style.display = "none";
             }
