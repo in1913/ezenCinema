@@ -95,6 +95,9 @@
                             <li><a href="javascript:void(0)">제휴/할인</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="https://github.com/in1913/ezenCinema" target="_blank">Github</a>
+                    </li>
                 </ul>
             </div>
             <div class="gong"></div>
