@@ -3002,7 +3002,6 @@ function cThreeMinTimer(){
 }
 
 
-var oauthCode = "";
 var compTime;
 function cFindPw(){
     const userid = document.getElementById("userid").value;
@@ -3025,9 +3024,8 @@ function cFindPw(){
             popup.style.display = "block";
             popup_alert.innerHTML = "입력된 정보와 일치하는 회원정보가 없습니다.";
         }else{
-            oauthCode = result.result;
             popup.style.display = "block";
-            popup_alert.innerHTML = "입력하신 이메일로 인증번호가 전송되었습니다. 시간 내에 인증확인을 해주세요.";
+            popup_alert.innerHTML = "인증되었습니다.<br>입력하신 이메일로 인증번호가 전송되었습니다. 시간 내에 인증확인을 해주세요.";
             $(".c-oauth-d-none").slideDown();
             cThreeMinTimer();
             compTime = setTimeout(function(){
@@ -3089,8 +3087,15 @@ function cOauthNum(){
     const oauthnum = document.getElementById("oauthnum");
     const warning = document.getElementsByClassName("c-warning")[0];
     const findSecondbtn = document.getElementsByClassName("c-find-second-btn")[0];
-
-    if(oauthnum.value == oauthCode){
+    fetch("/ezenCine/OauthCodeCheck", {
+        headers: {"Content-Type" : "application/json"},
+        method: "post",
+        body : JSON.stringify({
+            oauthCode : oauthnum.value
+        })
+    }).then((res) => res.json())
+    .then((res) => {
+        if(res.result != 0){
             clearInterval(playTime);
             clearTimeout(compTime);
             warning.innerHTML = "";
@@ -3102,9 +3107,10 @@ function cOauthNum(){
                 findSecondbtn.innerHTML = "비밀번호 변경";
                 $(".c-find-second-btn").removeAttr("href");
             });
-    }else{
-        warning.innerHTML = "인증번호를 다시 입력해주세요.";
-    }
+        }else{
+            warning.innerHTML = "인증번호를 다시 입력해주세요.";
+        }
+    })
 }
 function cUpdatePw(){
     const userid = document.getElementById("userid").value;

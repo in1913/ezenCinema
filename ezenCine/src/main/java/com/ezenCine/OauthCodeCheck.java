@@ -19,11 +19,8 @@ import ezenCine.OCIEmail;
 import ezenCine.RandomCode;
 
 
-@WebServlet("/FindPw")
-public class FindPw extends HttpServlet {
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	}
-
+@WebServlet("/OauthCodeCheck")
+public class OauthCodeCheck extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setCharacterEncoding("utf-8");
 		req.setCharacterEncoding("utf-8");
@@ -32,36 +29,30 @@ public class FindPw extends HttpServlet {
 		StringBuffer jb = new StringBuffer();
 		String line = null;
 		
+		HttpSession session = req.getSession();
+		String oauthCode = (String) session.getAttribute("oauthCode");
+		session.removeAttribute(oauthCode);
+		
+		PrintWriter out = res.getWriter();
+		
 		try {
 			BufferedReader br = req.getReader();
 			while((line = br.readLine()) != null)
 				jb.append(line);
 			
 			JsonObject jsonObj = (JsonObject) JsonParser.parseString(jb.toString());
-			String userid = jsonObj.get("userid").getAsString();	
-			String sendemail = jsonObj.get("sendemail").getAsString();
+			String userOauth = jsonObj.get("oauthCode").getAsString();
 			
-			boolean isMem = MemberDDL.isMem(userid,sendemail);
-			
-			PrintWriter out = res.getWriter();
-			if(isMem) {
-				String oauthCode = RandomCode.getRandomCode(6);
-				OCIEmail.sendOCIEmail(sendemail, oauthCode);
-				System.out.println("입력하신 이메일로 인증번호가 전송되었습니다. 시간 내에 인증확인을 해주세요.");
-				System.out.println("{\"result\" : \"" + oauthCode + "\"}");
-				HttpSession session = req.getSession();
-				session.setAttribute("oauthCode", oauthCode);
-				session.setMaxInactiveInterval(60 * 3);
+			if(userOauth.equals(oauthCode)) {
 				out.println("{\"result\" : \"1\"}");
 				
 			}else {
-				System.out.println("입력된 정보와 일치하는 회원정보가 없습니다.");
 				out.println("{\"result\" : \"0\"}");
 			}
-		
-			out.flush();
-			out.close();
 			
+			
+			
+						
 		}catch(Exception e) {}
 	}
 

@@ -192,18 +192,19 @@ public class MemberDDL {
 		return result;
 	}
 	
-	public static boolean isMem(String userid) {
+	public static boolean isMem(String userid, String email) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		boolean result = false;
 		
-		String sql = "select id from Member where id = ?";
+		String sql = "select id from Member where id = ? and email = ?";
 		
 		try {
 			conn = new DBConnect().getConn();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1,  userid);
+			ps.setString(2,  email);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				result = true;

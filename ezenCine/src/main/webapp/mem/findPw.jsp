@@ -5,7 +5,7 @@
     <div class="c-findpwInfo">
         <div class="c-input-userid">
             <div class="first">
-                아이디
+                회원 아이디
             </div>
             <div class="second">
                 <input spellcheck="false" type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요." oninput="cFindPwCheck();">
@@ -13,10 +13,10 @@
         </div>
         <div class="c-input-useremail">
             <div class="first">
-                이메일
+                회원 이메일
             </div>
             <div class="second">
-                <input spellcheck="false" type="text" name="useremail" id="useremail" placeholder="인증번호를 받을 이메일 주소를 입력해주세요." oninput="cFindPwCheck();">
+                <input spellcheck="false" type="text" name="useremail" id="useremail" placeholder="회원정보에 입력된 이메일 주소를 입력해주세요." oninput="cFindPwCheck();">
             </div>
         </div>
         <div class="c-oauth-d-none">
